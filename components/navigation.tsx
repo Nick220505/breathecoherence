@@ -284,10 +284,7 @@ export function Navigation() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src="/placeholder-avatar.png"
-                    alt={session?.user?.name || "User"}
-                  />
+                  <AvatarImage alt={session?.user?.name || "User"} />
                   <AvatarFallback>
                     {session?.user?.name?.[0] || "U"}
                   </AvatarFallback>
