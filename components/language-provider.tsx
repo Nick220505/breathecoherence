@@ -488,6 +488,26 @@ export const translations: Translations = {
     en: "Glycerin",
     es: "Glicerina",
   },
+  "admin.error": {
+    en: "Error",
+    es: "Error",
+  },
+  "admin.error.delete": {
+    en: "Failed to delete product",
+    es: "Error al eliminar el producto",
+  },
+  "admin.success": {
+    en: "Success",
+    es: "Éxito",
+  },
+  "admin.success.delete": {
+    en: "Product deleted successfully",
+    es: "Producto eliminado exitosamente",
+  },
+  "admin.success.create": {
+    en: "Product created successfully",
+    es: "Producto creado exitosamente",
+  },
 };
 
 interface LanguageContextType {

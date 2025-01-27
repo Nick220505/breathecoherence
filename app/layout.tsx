@@ -3,6 +3,7 @@ import { LanguageProvider } from "@/components/language-provider";
 import { Navigation } from "@/components/navigation";
 import { PayPalProvider } from "@/components/paypal-provider";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
@@ -78,6 +79,7 @@ export default function RootLayout({
                     <Navigation />
                     <main className="relative pt-16">{children}</main>
                   </div>
+                  <Toaster />
                 </PayPalProvider>
               </CartProvider>
             </LanguageProvider>

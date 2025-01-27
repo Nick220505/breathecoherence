@@ -1,6 +1,8 @@
 "use server";
 
+import { prisma } from "@/lib/prisma";
 import { ProductFormData } from "@/types/product";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const productSchema = z.object({
@@ -26,6 +28,19 @@ interface FormState {
   success?: boolean;
 }
 
+export async function getProducts() {
+  try {
+    return await prisma.product.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+}
+
 export async function createProduct(data: ProductFormData): Promise<FormState> {
   const validatedFields = productSchema.safeParse(data);
 
@@ -38,9 +53,18 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
   }
 
   try {
-    // Here you would typically save to your database
-    // For now, we'll just simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await prisma.product.create({
+      data: {
+        name: data.name,
+        description: data.description,
+        type: data.type,
+        price: parseFloat(data.price),
+        stock: parseInt(data.stock),
+        imageUrl: data.imageUrl,
+      },
+    });
+
+    revalidatePath("/admin/dashboard");
 
     return {
       errors: {},
@@ -48,6 +72,7 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
       success: true,
     };
   } catch (error) {
+    console.error("Error creating product:", error);
     return {
       errors: {},
       message:
@@ -72,9 +97,19 @@ export async function updateProduct(
   }
 
   try {
-    // Here you would typically update your database
-    // For now, we'll just simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await prisma.product.update({
+      where: { id },
+      data: {
+        name: data.name,
+        description: data.description,
+        type: data.type,
+        price: parseFloat(data.price),
+        stock: parseInt(data.stock),
+        imageUrl: data.imageUrl,
+      },
+    });
+
+    revalidatePath("/admin/dashboard");
 
     return {
       errors: {},
@@ -82,10 +117,35 @@ export async function updateProduct(
       success: true,
     };
   } catch (error) {
+    console.error("Error updating product:", error);
     return {
       errors: {},
       message:
         error instanceof Error ? error.message : "Failed to update product",
+      success: false,
+    };
+  }
+}
+
+export async function deleteProduct(id: string): Promise<FormState> {
+  try {
+    await prisma.product.delete({
+      where: { id },
+    });
+
+    revalidatePath("/admin/dashboard");
+
+    return {
+      errors: {},
+      message: "Product deleted successfully",
+      success: true,
+    };
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    return {
+      errors: {},
+      message:
+        error instanceof Error ? error.message : "Failed to delete product",
       success: false,
     };
   }

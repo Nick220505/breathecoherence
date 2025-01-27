@@ -16,6 +16,7 @@ interface EditProductDialogProps {
   onOpenChange: (open: boolean) => void;
   isLoading: boolean;
   product: Product | null;
+  onProductUpdated: (message: string) => void;
 }
 
 export function EditProductDialog({
@@ -23,8 +24,14 @@ export function EditProductDialog({
   onOpenChange,
   isLoading,
   product,
+  onProductUpdated,
 }: EditProductDialogProps) {
   const { t } = useTranslation();
+
+  const handleSuccess = async (message: string) => {
+    onOpenChange(false);
+    onProductUpdated(message);
+  };
 
   if (!product) return null;
 
@@ -34,21 +41,22 @@ export function EditProductDialog({
         <DialogHeader>
           <DialogTitle>{t("admin.edit_product")}</DialogTitle>
           <DialogDescription className="sr-only">
-            Product form for editing {product.name}
+            Form to edit an existing product
           </DialogDescription>
         </DialogHeader>
         <ProductForm
           initialData={{
+            id: product.id,
             name: product.name,
             description: product.description,
             type: product.type,
             price: product.price.toString(),
             stock: product.stock.toString(),
             imageUrl: product.imageUrl || "",
-            id: product.id,
           }}
           isLoading={isLoading}
           submitLabel={t("admin.edit")}
+          onSuccess={handleSuccess}
         />
       </DialogContent>
     </Dialog>

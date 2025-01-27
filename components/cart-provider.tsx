@@ -9,7 +9,7 @@ interface Product {
   price: number;
   type: string;
   stock: number;
-  imageUrl?: string;
+  imageUrl?: string | null | undefined;
 }
 
 interface CartItem extends Product {

@@ -1,12 +1,12 @@
 "use client";
 
-import { productFormAction } from "@/app/actions/form";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProductFormData } from "@/types/product";
 import { AlertCircle } from "lucide-react";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { productFormAction } from "../actions/form";
 import { FormFields } from "./form/form-fields";
 import { ImageUpload } from "./form/image-upload";
 import { FormState } from "./form/types";
@@ -15,6 +15,7 @@ interface ProductFormProps {
   initialData?: ProductFormData & { id?: string };
   isLoading: boolean;
   submitLabel: string;
+  onSuccess?: (message: string) => void;
 }
 
 const initialState: FormState = {
@@ -33,10 +34,19 @@ export function ProductForm({
   },
   isLoading,
   submitLabel,
+  onSuccess,
 }: ProductFormProps) {
   const [formData, setFormData] = useState<ProductFormData>(initialData);
   const { t } = useTranslation();
   const [state, formAction] = useActionState(productFormAction, initialState);
+  const successShown = useRef(false);
+
+  useEffect(() => {
+    if (state.success && onSuccess && !successShown.current) {
+      successShown.current = true;
+      onSuccess(state.message);
+    }
+  }, [state.success, state.message, onSuccess]);
 
   const handleFieldChange = (field: keyof ProductFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -55,22 +65,22 @@ export function ProductForm({
       />
 
       <ImageUpload
-        initialImageUrl={formData.imageUrl}
+        initialImageUrl={formData.imageUrl || undefined}
         productType={formData.type}
         onImageUrlChange={(url) => handleFieldChange("imageUrl", url)}
       />
 
-      {state.message && (
-        <p
-          className={`text-sm flex items-center gap-1 ${
-            state.success ? "text-green-500" : "text-red-500"
-          }`}
-          role="alert"
-        >
-          <AlertCircle className="h-4 w-4" />
-          {state.message}
-        </p>
-      )}
+      {!state.success &&
+        state.message &&
+        Object.keys(state.errors).length > 0 && (
+          <p
+            className="text-sm flex items-center gap-1 text-red-500"
+            role="alert"
+          >
+            <AlertCircle className="h-4 w-4" />
+            {state.message}
+          </p>
+        )}
 
       <Button
         type="submit"

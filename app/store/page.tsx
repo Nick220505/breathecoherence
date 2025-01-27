@@ -1,7 +1,7 @@
 "use client";
 
-import { StoreContent } from "@/components/store/store-content";
 import { Suspense } from "react";
+import { StoreContent } from "./components/store-content";
 
 export default function StorePage() {
   return (
