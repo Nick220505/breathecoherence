@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { ProductFormData } from "@/types/product";
 import { revalidatePath } from "next/cache";
+import { notFound } from "next/navigation";
 import { z } from "zod";
 
 const productSchema = z.object({
@@ -30,25 +31,39 @@ export interface FormState {
 
 export async function getProducts() {
   try {
-    return await prisma.product.findMany({
+    const products = await prisma.product.findMany({
       orderBy: {
         createdAt: "desc",
       },
     });
+
+    if (!products) {
+      throw new Error("Failed to fetch products");
+    }
+
+    return products;
   } catch (error) {
-    console.error("Error fetching products:", error);
-    return [];
+    throw new Error(
+      error instanceof Error ? error.message : "Failed to fetch products",
+    );
   }
 }
 
 export async function getProductById(id: string) {
   try {
-    return await prisma.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: { id },
     });
+
+    if (!product) {
+      notFound();
+    }
+
+    return product;
   } catch (error) {
-    console.error("Error fetching product:", error);
-    return null;
+    throw new Error(
+      error instanceof Error ? error.message : "Failed to fetch product",
+    );
   }
 }
 
