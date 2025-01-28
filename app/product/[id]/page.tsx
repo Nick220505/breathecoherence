@@ -1,5 +1,6 @@
 "use client";
 
+import { getProductById } from "@/actions/product";
 import { useCart } from "@/components/cart-provider";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
@@ -26,9 +27,7 @@ export default function ProductPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`/api/products/${params.id}`);
-        if (!response.ok) throw new Error("Failed to load product");
-        const data = await response.json();
+        const data = await getProductById(params.id as string);
         setProduct(data);
       } catch (error) {
         console.error("Error fetching product:", error);
