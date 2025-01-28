@@ -166,7 +166,7 @@ export async function deleteProduct(id: string): Promise<FormState> {
 }
 
 export async function productFormAction(
-  prevState: FormState,
+  _prevState: FormState,
   formData: FormData,
 ): Promise<FormState> {
   const rawFormData = {
