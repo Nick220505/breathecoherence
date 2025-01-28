@@ -1,5 +1,6 @@
 "use client";
 
+import { FormState } from "@/actions/product";
 import { useTranslation } from "@/components/language-provider";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,7 +20,6 @@ import {
   Package2,
   Tags,
 } from "lucide-react";
-import { FormState } from "./types";
 
 interface FormFieldsProps {
   formData: ProductFormData;

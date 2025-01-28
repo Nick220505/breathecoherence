@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteProduct, getProducts } from "@/actions/product";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +8,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Product } from "@/types/product";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { deleteProduct, getProducts } from "../actions/product";
 import { AddProductDialog } from "./add-product-dialog";
 import { DeleteDialog } from "./delete-dialog";
 import { EditProductDialog } from "./edit-product-dialog";

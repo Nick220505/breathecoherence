@@ -1,15 +1,14 @@
 "use client";
 
+import { FormState, productFormAction } from "@/actions/product";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProductFormData } from "@/types/product";
 import { AlertCircle } from "lucide-react";
 import { useActionState, useEffect, useRef, useState } from "react";
-import { productFormAction } from "../actions/form";
 import { FormFields } from "./form/form-fields";
 import { ImageUpload } from "./form/image-upload";
-import { FormState } from "./form/types";
 
 interface ProductFormProps {
   initialData?: ProductFormData & { id?: string };
