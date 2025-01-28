@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { ProductFormData } from "@/types/product";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 
@@ -29,43 +29,57 @@ export interface FormState {
   success?: boolean;
 }
 
-export async function getProducts() {
-  try {
-    const products = await prisma.product.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+export const getProducts = unstable_cache(
+  async () => {
+    try {
+      const products = await prisma.product.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
 
-    if (!products) {
-      throw new Error("Failed to fetch products");
+      if (!products) {
+        throw new Error("Failed to fetch products");
+      }
+
+      return products;
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Failed to fetch products",
+      );
     }
+  },
+  ["products"],
+  {
+    revalidate: 3600,
+    tags: ["products"],
+  },
+);
 
-    return products;
-  } catch (error) {
-    throw new Error(
-      error instanceof Error ? error.message : "Failed to fetch products",
-    );
-  }
-}
+export const getProductById = unstable_cache(
+  async (id: string) => {
+    try {
+      const product = await prisma.product.findUnique({
+        where: { id },
+      });
 
-export async function getProductById(id: string) {
-  try {
-    const product = await prisma.product.findUnique({
-      where: { id },
-    });
+      if (!product) {
+        notFound();
+      }
 
-    if (!product) {
-      notFound();
+      return product;
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Failed to fetch product",
+      );
     }
-
-    return product;
-  } catch (error) {
-    throw new Error(
-      error instanceof Error ? error.message : "Failed to fetch product",
-    );
-  }
-}
+  },
+  ["product"],
+  {
+    revalidate: 3600,
+    tags: ["products", "single-product"],
+  },
+);
 
 export async function createProduct(data: ProductFormData): Promise<FormState> {
   const validatedFields = productSchema.safeParse(data);
@@ -90,6 +104,7 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
       },
     });
 
+    revalidateTag("products");
     revalidatePath("/admin/dashboard");
     revalidatePath("/store");
 
@@ -99,7 +114,6 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
       success: true,
     };
   } catch (error) {
-    console.error("Error creating product:", error);
     return {
       errors: {},
       message:
@@ -136,6 +150,8 @@ export async function updateProduct(
       },
     });
 
+    revalidateTag("products");
+    revalidateTag("single-product");
     revalidatePath("/admin/dashboard");
     revalidatePath("/store");
 
@@ -145,7 +161,6 @@ export async function updateProduct(
       success: true,
     };
   } catch (error) {
-    console.error("Error updating product:", error);
     return {
       errors: {},
       message:
@@ -170,7 +185,6 @@ export async function deleteProduct(id: string): Promise<FormState> {
       success: true,
     };
   } catch (error) {
-    console.error("Error deleting product:", error);
     return {
       errors: {},
       message:

@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   description: "Manage your products and inventory",
 };
 
+// This page will be statically rendered at build time
+// and revalidated every hour (or when products are modified)
+export const revalidate = 3600;
+
 export default async function AdminDashboard() {
   const products = await getProducts();
 
