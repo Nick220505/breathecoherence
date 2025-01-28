@@ -65,7 +65,7 @@ export function Navigation() {
       </Link>
 
       {session?.user.role === "ADMIN" && (
-        <Link href="/admin/dashboard">
+        <Link href="/dashboard">
           <Button variant="ghost">{t("nav.dashboard")}</Button>
         </Link>
       )}
