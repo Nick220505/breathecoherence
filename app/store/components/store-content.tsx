@@ -5,9 +5,9 @@ import { ChatBot } from "@/components/chat-bot";
 import { Product } from "@/types/product";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CustomBlendCard } from "./custom-blend-card";
-import { ProductCard } from "./product-card";
-import { ProductSkeleton } from "./product-skeleton";
+import { CustomBlendCard } from "./product/custom-blend-card";
+import { ProductCard } from "./product/product-card";
+import { ProductSkeleton } from "./product/product-skeleton";
 import { StoreHeader } from "./store-header";
 
 export function StoreContent() {
