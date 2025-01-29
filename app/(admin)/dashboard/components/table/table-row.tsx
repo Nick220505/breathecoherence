@@ -25,32 +25,24 @@ export function ProductTableRow({
 }: ProductTableRowProps) {
   const { t } = useTranslation();
 
+  const imageUrl =
+    product.imageUrl ||
+    (product.type === "Sacred Geometry"
+      ? `/products/sacred-geometry.svg#${product.id}`
+      : "/products/flower-essence.svg");
+
   return (
     <TableRow>
       <TableCell>
-        {product.imageUrl ? (
-          <Image
-            src={product.imageUrl}
-            alt={product.name}
-            width={64}
-            height={64}
-            className="w-16 h-16 object-cover rounded-lg"
-            sizes="64px"
-          />
-        ) : (
-          <Image
-            src={
-              product.type === "Sacred Geometry"
-                ? `/products/sacred-geometry.svg#${product.id}`
-                : "/products/flower-essence.svg"
-            }
-            alt={product.name}
-            width={64}
-            height={64}
-            className="w-16 h-16 object-cover rounded-lg"
-            sizes="64px"
-          />
-        )}
+        <Image
+          src={imageUrl}
+          alt={product.name}
+          width={64}
+          height={64}
+          className="w-16 h-16 object-cover rounded-lg"
+          sizes="64px"
+          priority={false}
+        />
       </TableCell>
       <TableCell>{product.name}</TableCell>
       <TableCell>{product.type}</TableCell>

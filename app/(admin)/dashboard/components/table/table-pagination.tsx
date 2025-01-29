@@ -16,6 +16,29 @@ interface TablePaginationProps {
   onPageChange: (page: number) => void;
 }
 
+function PaginationButton({
+  onClick,
+  disabled,
+  children,
+}: {
+  onClick: (e: React.MouseEvent) => void;
+  disabled: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <PaginationItem>
+      <PaginationLink
+        href="#"
+        onClick={onClick}
+        aria-disabled={disabled}
+        className={disabled ? "pointer-events-none opacity-50" : ""}
+      >
+        {children}
+      </PaginationLink>
+    </PaginationItem>
+  );
+}
+
 export function TablePagination({
   currentPage,
   totalPages,
@@ -24,6 +47,13 @@ export function TablePagination({
   const { t } = useTranslation();
 
   if (totalPages <= 1) return null;
+
+  const handlePageChange = (pageNumber: number) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    onPageChange(pageNumber);
+  };
+
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <Pagination>
@@ -35,31 +65,22 @@ export function TablePagination({
             className={
               currentPage === 1 ? "pointer-events-none opacity-50" : ""
             }
-            onClick={(e) => {
-              e.preventDefault();
-              onPageChange(Math.max(1, currentPage - 1));
-            }}
+            onClick={handlePageChange(Math.max(1, currentPage - 1))}
           >
             {t("pagination.previous")}
           </PaginationPrevious>
         </PaginationItem>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-          (pageNumber) => (
-            <PaginationItem key={pageNumber}>
-              <PaginationLink
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPageChange(pageNumber);
-                }}
-                isActive={currentPage === pageNumber}
-                aria-label={`${t("pagination.page")} ${pageNumber}`}
-              >
-                {pageNumber}
-              </PaginationLink>
-            </PaginationItem>
-          ),
-        )}
+
+        {pageNumbers.map((pageNumber) => (
+          <PaginationButton
+            key={pageNumber}
+            onClick={handlePageChange(pageNumber)}
+            disabled={currentPage === pageNumber}
+          >
+            {pageNumber}
+          </PaginationButton>
+        ))}
+
         <PaginationItem>
           <PaginationNext
             href="#"
@@ -67,10 +88,7 @@ export function TablePagination({
             className={
               currentPage === totalPages ? "pointer-events-none opacity-50" : ""
             }
-            onClick={(e) => {
-              e.preventDefault();
-              onPageChange(Math.min(totalPages, currentPage + 1));
-            }}
+            onClick={handlePageChange(Math.min(totalPages, currentPage + 1))}
           >
             {t("pagination.next")}
           </PaginationNext>

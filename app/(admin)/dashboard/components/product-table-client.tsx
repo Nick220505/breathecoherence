@@ -6,6 +6,7 @@ import { Table, TableBody } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { Product } from "@/types/product";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DeleteDialog } from "./delete-dialog";
 import { EditProductDialog } from "./edit-product-dialog";
@@ -39,6 +40,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
   const { toast } = useToast();
+  const router = useRouter();
 
   const filteredProducts = products.filter((product) => {
     const nameMatch = product.name
@@ -103,7 +105,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
           description: result.message,
           variant: "default",
         });
-        window.location.reload();
+        router.refresh();
       } else {
         toast({
           title: t("admin.error"),
@@ -131,7 +133,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
       description: message,
       variant: "default",
     });
-    window.location.reload();
+    router.refresh();
   };
 
   return (

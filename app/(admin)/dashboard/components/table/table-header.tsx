@@ -22,6 +22,76 @@ interface TableHeaderProps {
   onSort: (key: keyof Product) => void;
 }
 
+function FilterDropdown({
+  label,
+  filter,
+  filterPlaceholder,
+  onFilterChange,
+  onSort,
+  sortKey,
+  sortLabel,
+}: {
+  label: string;
+  filter: string;
+  filterPlaceholder: string;
+  onFilterChange: (value: string) => void;
+  onSort: (key: keyof Product) => void;
+  sortKey: keyof Product;
+  sortLabel: string;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      {label}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <ChevronDown className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          <div className="p-2">
+            <Input
+              placeholder={filterPlaceholder}
+              value={filter}
+              onChange={(e) => onFilterChange(e.target.value)}
+              className="h-8"
+            />
+          </div>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => onSort(sortKey)}>
+            <ArrowUpDown className="mr-2 h-3.5 w-3.5" />
+            {sortLabel}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+}
+
+function SortableHeader({
+  label,
+  onSort,
+  sortKey,
+}: {
+  label: string;
+  onSort: (key: keyof Product) => void;
+  sortKey: keyof Product;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      {label}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onSort(sortKey)}
+        className="h-8 w-8 p-0"
+      >
+        <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    </div>
+  );
+}
+
 export function ProductTableHeader({
   nameFilter,
   typeFilter,
@@ -36,84 +106,40 @@ export function ProductTableHeader({
       <TableRow>
         <TableHead>{t("admin.image")}</TableHead>
         <TableHead>
-          <div className="flex items-center gap-2">
-            {t("admin.name")}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                  <ChevronDown className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
-                <div className="p-2">
-                  <Input
-                    placeholder={t("admin.search_by_name")}
-                    value={nameFilter}
-                    onChange={(e) => onNameFilterChange(e.target.value)}
-                    className="h-8"
-                  />
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => onSort("name")}>
-                  <ArrowUpDown className="mr-2 h-3.5 w-3.5" />
-                  {t("admin.sort_by_name")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <FilterDropdown
+            label={t("admin.name")}
+            filter={nameFilter}
+            filterPlaceholder={t("admin.search_by_name")}
+            onFilterChange={onNameFilterChange}
+            onSort={onSort}
+            sortKey="name"
+            sortLabel={t("admin.sort_by_name")}
+          />
         </TableHead>
         <TableHead>
-          <div className="flex items-center gap-2">
-            {t("admin.type")}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                  <ChevronDown className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
-                <div className="p-2">
-                  <Input
-                    placeholder={t("admin.filter_by_type")}
-                    value={typeFilter}
-                    onChange={(e) => onTypeFilterChange(e.target.value)}
-                    className="h-8"
-                  />
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => onSort("type")}>
-                  <ArrowUpDown className="mr-2 h-3.5 w-3.5" />
-                  {t("admin.sort_by_type")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <FilterDropdown
+            label={t("admin.type")}
+            filter={typeFilter}
+            filterPlaceholder={t("admin.filter_by_type")}
+            onFilterChange={onTypeFilterChange}
+            onSort={onSort}
+            sortKey="type"
+            sortLabel={t("admin.sort_by_type")}
+          />
         </TableHead>
         <TableHead>
-          <div className="flex items-center gap-2">
-            {t("admin.price")}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onSort("price")}
-              className="h-8 w-8 p-0"
-            >
-              <ArrowUpDown className="h-4 w-4" />
-            </Button>
-          </div>
+          <SortableHeader
+            label={t("admin.price")}
+            onSort={onSort}
+            sortKey="price"
+          />
         </TableHead>
         <TableHead>
-          <div className="flex items-center gap-2">
-            {t("admin.stock")}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onSort("stock")}
-              className="h-8 w-8 p-0"
-            >
-              <ArrowUpDown className="h-4 w-4" />
-            </Button>
-          </div>
+          <SortableHeader
+            label={t("admin.stock")}
+            onSort={onSort}
+            sortKey="stock"
+          />
         </TableHead>
         <TableHead>{t("admin.actions")}</TableHead>
       </TableRow>

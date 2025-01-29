@@ -2,11 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 import { ProductFormData } from "@/types/product";
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 
 const productSchema = z.object({
+  id: z.string().optional(),
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   type: z.enum(["Flower Essence", "Sacred Geometry"], {
@@ -28,6 +29,12 @@ export interface FormState {
   message: string;
   success?: boolean;
 }
+
+const CACHE_TAGS = {
+  products: "products",
+  singleProduct: "single-product",
+  store: "store",
+} as const;
 
 export const getProducts = unstable_cache(
   async () => {
@@ -52,7 +59,7 @@ export const getProducts = unstable_cache(
   ["products"],
   {
     revalidate: 3600,
-    tags: ["products"],
+    tags: [CACHE_TAGS.products],
   },
 );
 
@@ -77,7 +84,7 @@ export const getProductById = unstable_cache(
   ["product"],
   {
     revalidate: 3600,
-    tags: ["products", "single-product"],
+    tags: [CACHE_TAGS.products, CACHE_TAGS.singleProduct],
   },
 );
 
@@ -104,9 +111,8 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
       },
     });
 
-    revalidateTag("products");
-    revalidatePath("/admin/dashboard");
-    revalidatePath("/store");
+    revalidateTag(CACHE_TAGS.products);
+    revalidateTag(CACHE_TAGS.store);
 
     return {
       errors: {},
@@ -127,7 +133,7 @@ export async function updateProduct(
   id: string,
   data: ProductFormData,
 ): Promise<FormState> {
-  const validatedFields = productSchema.safeParse(data);
+  const validatedFields = productSchema.safeParse({ ...data, id });
 
   if (!validatedFields.success) {
     return {
@@ -150,10 +156,9 @@ export async function updateProduct(
       },
     });
 
-    revalidateTag("products");
-    revalidateTag("single-product");
-    revalidatePath("/admin/dashboard");
-    revalidatePath("/store");
+    revalidateTag(CACHE_TAGS.products);
+    revalidateTag(CACHE_TAGS.singleProduct);
+    revalidateTag(CACHE_TAGS.store);
 
     return {
       errors: {},
@@ -171,13 +176,35 @@ export async function updateProduct(
 }
 
 export async function deleteProduct(id: string): Promise<FormState> {
+  if (!id) {
+    return {
+      errors: {},
+      message: "Product ID is required",
+      success: false,
+    };
+  }
+
   try {
+    const product = await prisma.product.findUnique({
+      where: { id },
+      select: { id: true, name: true },
+    });
+
+    if (!product) {
+      return {
+        errors: {},
+        message: "Product not found",
+        success: false,
+      };
+    }
+
     await prisma.product.delete({
       where: { id },
     });
 
-    revalidatePath("/admin/dashboard");
-    revalidatePath("/store");
+    revalidateTag(CACHE_TAGS.products);
+    revalidateTag(CACHE_TAGS.singleProduct);
+    revalidateTag(CACHE_TAGS.store);
 
     return {
       errors: {},
@@ -198,19 +225,29 @@ export async function productFormAction(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  const rawFormData = {
-    name: formData.get("name") as string,
-    description: formData.get("description") as string,
-    type: formData.get("type") as string,
-    price: formData.get("price") as string,
-    stock: formData.get("stock") as string,
-    imageUrl: formData.get("imageUrl") as string,
-  };
+  const validatedFields = productSchema.safeParse({
+    id: formData.get("id") || undefined,
+    name: formData.get("name"),
+    description: formData.get("description"),
+    type: formData.get("type"),
+    price: formData.get("price"),
+    stock: formData.get("stock"),
+    imageUrl: formData.get("imageUrl"),
+  });
 
-  const productId = formData.get("id") as string;
-
-  if (productId) {
-    return updateProduct(productId, rawFormData);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Please fill in all required fields and ensure they are valid",
+      success: false,
+    };
   }
-  return createProduct(rawFormData);
+
+  const { id, ...productData } = validatedFields.data;
+
+  if (id) {
+    return updateProduct(id, productData);
+  }
+
+  return createProduct(productData);
 }
