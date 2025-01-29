@@ -5,7 +5,7 @@ import { useTranslation } from "@/components/language-provider";
 import { Table, TableBody } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
-import { Product } from "@/types/product";
+import { type Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DeleteDialog } from "./delete-dialog";
