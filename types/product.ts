@@ -9,13 +9,3 @@ export interface Product {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export interface ProductFormData {
-  id?: string;
-  name: string;
-  description: string;
-  type: string;
-  price: string;
-  stock: string;
-  imageUrl?: string | null;
-}

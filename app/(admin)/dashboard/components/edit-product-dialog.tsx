@@ -49,7 +49,7 @@ export function EditProductDialog({
             id: product.id,
             name: product.name,
             description: product.description,
-            type: product.type,
+            type: product.type as "Flower Essence" | "Sacred Geometry",
             price: product.price.toString(),
             stock: product.stock.toString(),
             imageUrl: product.imageUrl || "",

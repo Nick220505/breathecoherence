@@ -1,7 +1,6 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { ProductFormData } from "@/types/product";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 import { z } from "zod";
@@ -24,11 +23,12 @@ const productSchema = z.object({
   imageUrl: z.string().optional(),
 });
 
-export interface FormState {
+export type ProductFormData = z.infer<typeof productSchema>;
+export type FormState = {
   errors: Record<string, string[]>;
   message: string;
   success?: boolean;
-}
+};
 
 const CACHE_TAGS = {
   products: "products",
@@ -225,15 +225,9 @@ export async function productFormAction(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  const validatedFields = productSchema.safeParse({
-    id: formData.get("id") || undefined,
-    name: formData.get("name"),
-    description: formData.get("description"),
-    type: formData.get("type"),
-    price: formData.get("price"),
-    stock: formData.get("stock"),
-    imageUrl: formData.get("imageUrl"),
-  });
+  const validatedFields = productSchema.safeParse(
+    Object.fromEntries(formData.entries()),
+  );
 
   if (!validatedFields.success) {
     return {

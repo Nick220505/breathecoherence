@@ -1,17 +1,20 @@
 "use client";
 
-import { FormState, productFormAction } from "@/actions/product";
+import {
+  FormState,
+  type ProductFormData,
+  productFormAction,
+} from "@/actions/product";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ProductFormData } from "@/types/product";
 import { AlertCircle } from "lucide-react";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { FormFields } from "./form/form-fields";
 import { ImageUpload } from "./form/image-upload";
 
 interface ProductFormProps {
-  initialData?: ProductFormData & { id?: string };
+  initialData?: ProductFormData;
   isLoading: boolean;
   submitLabel: string;
   onSuccess?: (message: string) => void;
@@ -26,7 +29,7 @@ export function ProductForm({
   initialData = {
     name: "",
     description: "",
-    type: "",
+    type: "" as "Flower Essence" | "Sacred Geometry",
     price: "",
     stock: "",
     imageUrl: "",
