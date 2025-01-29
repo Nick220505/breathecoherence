@@ -25,10 +25,7 @@ export function AddProductButton() {
         isOpen={isAddProductOpen}
         onOpenChange={setIsAddProductOpen}
         isLoading={false}
-        onProductAdded={() => {
-          // Product table will handle its own refresh
-          setIsAddProductOpen(false);
-        }}
+        onProductAdded={() => setIsAddProductOpen(false)}
       />
     </>
   );
