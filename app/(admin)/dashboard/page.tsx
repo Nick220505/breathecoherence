@@ -1,6 +1,6 @@
 import { getProducts } from "@/actions/product";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { type Product } from "@/lib/schemas/product";
+import { Product } from "@prisma/client";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { AddProductButton } from "./components/add-product-button";
