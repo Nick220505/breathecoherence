@@ -7,8 +7,8 @@ export const productSchema = z.object({
   type: z.enum(["Flower Essence", "Sacred Geometry"], {
     required_error: "Type is required",
   }),
-  price: z.number().min(0, "Price must be greater than or equal to 0"),
-  stock: z.number().int().min(0, "Stock must be a non-negative number"),
+  price: z.coerce.number().min(0, "Price must be greater than or equal to 0"),
+  stock: z.coerce.number().int().min(0, "Stock must be a non-negative number"),
   imageUrl: z.string().optional(),
 });
 

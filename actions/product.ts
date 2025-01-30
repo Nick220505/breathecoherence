@@ -72,14 +72,7 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
 
   try {
     await prisma.product.create({
-      data: {
-        name: data.name,
-        description: data.description,
-        type: data.type,
-        price: data.price,
-        stock: data.stock,
-        imageUrl: data.imageUrl,
-      },
+      data: validatedFields.data,
     });
 
     revalidateTag("products");
@@ -117,14 +110,7 @@ export async function updateProduct(
   try {
     await prisma.product.update({
       where: { id },
-      data: {
-        name: data.name,
-        description: data.description,
-        type: data.type,
-        price: data.price,
-        stock: data.stock,
-        imageUrl: data.imageUrl,
-      },
+      data: validatedFields.data,
     });
 
     revalidateTag("products");
@@ -197,13 +183,7 @@ export async function productFormAction(
   formData: FormData,
 ): Promise<FormState> {
   const rawData = Object.fromEntries(formData.entries());
-  const data = {
-    ...rawData,
-    price: Number(rawData.price),
-    stock: Number(rawData.stock),
-  };
-
-  const validatedFields = productSchema.safeParse(data);
+  const validatedFields = productSchema.safeParse(rawData);
 
   if (!validatedFields.success) {
     return {
