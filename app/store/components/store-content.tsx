@@ -2,7 +2,7 @@
 
 import { getProducts } from "@/actions/product";
 import { ChatBot } from "@/components/chat-bot";
-import { type Product } from "@/lib/schemas/product";
+import { type Product } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CustomBlendCard } from "./product/custom-blend-card";
