@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Product } from "@/types/product";
+import { type Product } from "@/lib/schemas/product";
 import { Edit, Trash2 } from "lucide-react";
 import Image from "next/image";
 
