@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Product } from "@/types/product";
+import { type Product, toFormData } from "@/lib/schemas/product";
 import { ProductForm } from "./product-form";
 
 interface EditProductDialogProps {
@@ -45,15 +45,7 @@ export function EditProductDialog({
           </DialogDescription>
         </DialogHeader>
         <ProductForm
-          initialData={{
-            id: product.id,
-            name: product.name,
-            description: product.description,
-            type: product.type as "Flower Essence" | "Sacred Geometry",
-            price: product.price.toString(),
-            stock: product.stock.toString(),
-            imageUrl: product.imageUrl || "",
-          }}
+          initialData={toFormData(product)}
           isLoading={isLoading}
           submitLabel={t("admin.edit")}
           onSuccess={handleSuccess}

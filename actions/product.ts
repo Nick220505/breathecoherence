@@ -1,34 +1,13 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import {
+  productSchema,
+  type FormState,
+  type ProductFormData,
+} from "@/lib/schemas/product";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
-import { z } from "zod";
-
-const productSchema = z.object({
-  id: z.string().optional(),
-  name: z.string().min(1, "Name is required"),
-  description: z.string().min(1, "Description is required"),
-  type: z.enum(["Flower Essence", "Sacred Geometry"], {
-    required_error: "Type is required",
-  }),
-  price: z
-    .string()
-    .min(1, "Price is required")
-    .regex(/^\d+(\.\d{1,2})?$/, "Invalid price format"),
-  stock: z
-    .string()
-    .min(1, "Stock is required")
-    .regex(/^\d+$/, "Stock must be a whole number"),
-  imageUrl: z.string().optional(),
-});
-
-export type ProductFormData = z.infer<typeof productSchema>;
-export type FormState = {
-  errors: Record<string, string[]>;
-  message: string;
-  success?: boolean;
-};
 
 const CACHE_TAGS = {
   products: "products",
