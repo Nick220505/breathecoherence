@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Product } from "@/types/product";
+import { type Product } from "@/lib/schemas/product";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       try {
         const data = await getProductById(params.id as string);
-        setProduct(data);
+        setProduct(data as Product);
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
