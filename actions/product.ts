@@ -75,8 +75,8 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
         name: data.name,
         description: data.description,
         type: data.type,
-        price: parseFloat(data.price),
-        stock: parseInt(data.stock),
+        price: data.price,
+        stock: data.stock,
         imageUrl: data.imageUrl,
       },
     });
@@ -120,8 +120,8 @@ export async function updateProduct(
         name: data.name,
         description: data.description,
         type: data.type,
-        price: parseFloat(data.price),
-        stock: parseInt(data.stock),
+        price: data.price,
+        stock: data.stock,
         imageUrl: data.imageUrl,
       },
     });
@@ -195,9 +195,14 @@ export async function productFormAction(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  const validatedFields = productSchema.safeParse(
-    Object.fromEntries(formData.entries()),
-  );
+  const rawData = Object.fromEntries(formData.entries());
+  const data = {
+    ...rawData,
+    price: Number(rawData.price),
+    stock: Number(rawData.stock),
+  };
+
+  const validatedFields = productSchema.safeParse(data);
 
   if (!validatedFields.success) {
     return {

@@ -5,6 +5,7 @@ import { useTranslation } from "@/components/language-provider";
 import { Table, TableBody } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { ProductFormData, productSchema } from "@/lib/schemas/product";
 import { Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -35,7 +36,9 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
   const [typeFilter, setTypeFilter] = useState("");
   const [isEditProductOpen, setIsEditProductOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingProduct, setEditingProduct] = useState<ProductFormData | null>(
+    null,
+  );
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
@@ -154,7 +157,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
                   key={product.id}
                   product={product}
                   onEdit={(product) => {
-                    setEditingProduct(product);
+                    setEditingProduct(productSchema.parse(product));
                     setIsEditProductOpen(true);
                   }}
                   onDelete={handleDelete}

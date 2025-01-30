@@ -8,15 +8,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { toFormData } from "@/lib/schemas/product";
-import { Product } from "@prisma/client";
+import { ProductFormData } from "@/lib/schemas/product";
 import { ProductForm } from "./product-form";
 
 interface EditProductDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   isLoading: boolean;
-  product: Product | null;
+  product: ProductFormData | null;
   onProductUpdated: (message: string) => void;
 }
 
@@ -46,7 +45,7 @@ export function EditProductDialog({
           </DialogDescription>
         </DialogHeader>
         <ProductForm
-          initialData={toFormData(product)}
+          initialData={product}
           isLoading={isLoading}
           submitLabel={t("admin.edit")}
           onSuccess={handleSuccess}
