@@ -28,7 +28,7 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       try {
         const data = await getProductById(params.id as string);
-        setProduct(data as Product);
+        setProduct(data);
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {

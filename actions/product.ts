@@ -3,11 +3,12 @@
 import { prisma } from "@/lib/prisma";
 import { productSchema, type ProductFormData } from "@/lib/schemas/product";
 import { FormState } from "@/lib/types/form";
+import { Product } from "@prisma/client";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 
 export const getProducts = unstable_cache(
-  async () => {
+  async (): Promise<Product[]> => {
     try {
       const products = await prisma.product.findMany({
         orderBy: {
@@ -34,7 +35,7 @@ export const getProducts = unstable_cache(
 );
 
 export const getProductById = unstable_cache(
-  async (id: string) => {
+  async (id: string): Promise<Product> => {
     try {
       const product = await prisma.product.findUnique({
         where: { id },

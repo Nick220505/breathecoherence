@@ -22,7 +22,7 @@ export function StoreContent() {
       setIsLoading(true);
       try {
         const data = await getProducts();
-        setProducts(data as Product[]);
+        setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {

@@ -1,6 +1,5 @@
 import { getProducts } from "@/actions/product";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Product } from "@prisma/client";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { AddProductButton } from "./components/add-product-button";
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function AdminDashboard() {
-  const products = (await getProducts()) as Product[];
+  const products = await getProducts();
 
   return (
     <main className="container mx-auto px-4 py-8">
