@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { type Product } from "@/lib/schemas/product";
+import { type Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 

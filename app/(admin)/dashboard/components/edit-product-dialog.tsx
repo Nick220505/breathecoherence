@@ -8,7 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { type Product, toFormData } from "@/lib/schemas/product";
+import { toFormData } from "@/lib/schemas/product";
+import { Product } from "@prisma/client";
 import { ProductForm } from "./product-form";
 
 interface EditProductDialogProps {

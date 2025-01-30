@@ -1,11 +1,8 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import {
-  productSchema,
-  type FormState,
-  type ProductFormData,
-} from "@/lib/schemas/product";
+import { productSchema, type ProductFormData } from "@/lib/schemas/product";
+import { FormState } from "@/lib/types/form";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 

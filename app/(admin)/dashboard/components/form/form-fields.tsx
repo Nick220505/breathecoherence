@@ -10,7 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { type FormState, type ProductFormData } from "@/lib/schemas/product";
+import { type ProductFormData } from "@/lib/schemas/product";
+import { FormState } from "@/lib/types/form";
 import {
   AlertCircle,
   Box,
