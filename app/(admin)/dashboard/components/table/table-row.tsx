@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { type Product } from "@/lib/schemas/product";
+import { Product } from "@prisma/client";
 import { Edit, Trash2 } from "lucide-react";
 import Image from "next/image";
 
