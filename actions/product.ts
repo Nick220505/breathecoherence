@@ -6,12 +6,6 @@ import { FormState } from "@/lib/types/form";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 
-const CACHE_TAGS = {
-  products: "products",
-  singleProduct: "single-product",
-  store: "store",
-} as const;
-
 export const getProducts = unstable_cache(
   async () => {
     try {
@@ -35,7 +29,7 @@ export const getProducts = unstable_cache(
   ["products"],
   {
     revalidate: 3600,
-    tags: [CACHE_TAGS.products],
+    tags: ["products"],
   },
 );
 
@@ -60,7 +54,7 @@ export const getProductById = unstable_cache(
   ["product"],
   {
     revalidate: 3600,
-    tags: [CACHE_TAGS.products, CACHE_TAGS.singleProduct],
+    tags: ["products", "single-product"],
   },
 );
 
@@ -87,8 +81,8 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
       },
     });
 
-    revalidateTag(CACHE_TAGS.products);
-    revalidateTag(CACHE_TAGS.store);
+    revalidateTag("products");
+    revalidateTag("store");
 
     return {
       errors: {},
@@ -132,9 +126,9 @@ export async function updateProduct(
       },
     });
 
-    revalidateTag(CACHE_TAGS.products);
-    revalidateTag(CACHE_TAGS.singleProduct);
-    revalidateTag(CACHE_TAGS.store);
+    revalidateTag("products");
+    revalidateTag("single-product");
+    revalidateTag("store");
 
     return {
       errors: {},
@@ -178,9 +172,9 @@ export async function deleteProduct(id: string): Promise<FormState> {
       where: { id },
     });
 
-    revalidateTag(CACHE_TAGS.products);
-    revalidateTag(CACHE_TAGS.singleProduct);
-    revalidateTag(CACHE_TAGS.store);
+    revalidateTag("products");
+    revalidateTag("single-product");
+    revalidateTag("store");
 
     return {
       errors: {},
