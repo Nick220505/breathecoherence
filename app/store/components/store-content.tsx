@@ -2,7 +2,7 @@
 
 import { getProducts } from "@/actions/product";
 import { ChatBot } from "@/components/chat-bot";
-import { Product } from "@/types/product";
+import { type Product } from "@/lib/schemas/product";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CustomBlendCard } from "./product/custom-blend-card";
@@ -22,7 +22,7 @@ export function StoreContent() {
       setIsLoading(true);
       try {
         const data = await getProducts();
-        setProducts(data);
+        setProducts(data as Product[]);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
