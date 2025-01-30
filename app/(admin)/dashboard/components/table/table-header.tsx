@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { type Product } from "@/lib/schemas/product";
+import { Product } from "@prisma/client";
 import { ArrowUpDown, ChevronDown } from "lucide-react";
 
 interface TableHeaderProps {
