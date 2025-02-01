@@ -54,7 +54,6 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
     await prisma.product.create({ data });
 
     revalidateTag("products");
-    revalidateTag("store");
 
     return {
       errors: {},
@@ -80,7 +79,6 @@ export async function updateProduct(
 
     revalidateTag("products");
     revalidateTag("product");
-    revalidateTag("store");
 
     return {
       errors: {},
@@ -121,7 +119,6 @@ export async function deleteProduct(id: string): Promise<FormState> {
 
     revalidateTag("products");
     revalidateTag("product");
-    revalidateTag("store");
 
     return {
       errors: {},
