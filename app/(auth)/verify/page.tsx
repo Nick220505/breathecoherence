@@ -28,29 +28,19 @@ export default function VerifyPage() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const inputRefs = [
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-  ];
+  const refs = useRef<Array<HTMLInputElement | null>>([]);
 
   const handleInput = async (index: number, value: string) => {
-    // Only allow numbers
     if (!/^\d*$/.test(value)) return;
 
     const newCode = [...verificationCode];
     newCode[index] = value;
     setVerificationCode(newCode);
 
-    // Auto focus next input
     if (value && index < 5) {
-      inputRefs[index + 1].current?.focus();
+      refs.current[index + 1]?.focus();
     }
 
-    // If this is the last digit and all digits are filled, submit
     if (index === 5 && value && newCode.every((digit) => digit)) {
       await handleVerification(newCode.join(""));
     }
@@ -60,12 +50,11 @@ export default function VerifyPage() {
     index: number,
     e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
-    // Handle backspace
     if (e.key === "Backspace" && !verificationCode[index] && index > 0) {
       const newCode = [...verificationCode];
       newCode[index - 1] = "";
       setVerificationCode(newCode);
-      inputRefs[index - 1].current?.focus();
+      refs.current[index - 1]?.focus();
     }
   };
 
@@ -80,13 +69,11 @@ export default function VerifyPage() {
     });
     setVerificationCode(newCode);
 
-    // If we have a complete code after pasting, submit it
     if (pastedData.length === 6) {
       handleVerification(pastedData);
     } else {
-      // Focus the next empty input
       const focusIndex = Math.min(pastedData.length, 5);
-      inputRefs[focusIndex].current?.focus();
+      refs.current[focusIndex]?.focus();
     }
   };
 
@@ -117,22 +104,19 @@ export default function VerifyPage() {
         throw new Error(data.error || "Verification failed");
       }
 
-      // Redirect to login page on success
       router.push("/login?verified=true");
     } catch (error) {
       setError(error instanceof Error ? error.message : "Verification failed");
-      // Clear the code on error
       setVerificationCode(["", "", "", "", "", ""]);
-      inputRefs[0].current?.focus();
+      refs.current[0]?.focus();
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Focus first input on mount
   useEffect(() => {
-    inputRefs[0].current?.focus();
-  }, []);
+    refs.current[0]?.focus();
+  }, [refs]);
 
   if (!email) {
     return (
@@ -169,7 +153,9 @@ export default function VerifyPage() {
               {verificationCode.map((digit, index) => (
                 <Input
                   key={index}
-                  ref={inputRefs[index]}
+                  ref={(el) => {
+                    refs.current[index] = el;
+                  }}
                   type="text"
                   inputMode="numeric"
                   maxLength={1}
