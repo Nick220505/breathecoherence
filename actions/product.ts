@@ -184,9 +184,5 @@ export async function productFormAction(
 
   const { id, ...productData } = data;
 
-  if (id) {
-    return updateProduct(id, productData);
-  }
-
-  return createProduct(productData);
+  return id ? updateProduct(id, productData) : createProduct(productData);
 }
