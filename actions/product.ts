@@ -46,7 +46,7 @@ export const getProductById = unstable_cache(
     }
   },
   ["product"],
-  { revalidate: 3600, tags: ["products", "single-product"] },
+  { revalidate: 3600, tags: ["products", "product"] },
 );
 
 export async function createProduct(data: ProductFormData): Promise<FormState> {
@@ -79,7 +79,7 @@ export async function updateProduct(
     await prisma.product.update({ where: { id }, data });
 
     revalidateTag("products");
-    revalidateTag("single-product");
+    revalidateTag("product");
     revalidateTag("store");
 
     return {
@@ -120,7 +120,7 @@ export async function deleteProduct(id: string): Promise<FormState> {
     await prisma.product.delete({ where: { id } });
 
     revalidateTag("products");
-    revalidateTag("single-product");
+    revalidateTag("product");
     revalidateTag("store");
 
     return {
