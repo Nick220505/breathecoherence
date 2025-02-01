@@ -27,7 +27,7 @@ export function ProductForm({
   initialData = {
     name: "",
     description: "",
-    type: "" as "Flower Essence" | "Sacred Geometry",
+    type: "Flower Essence",
     price: 0,
     stock: 0,
     imageUrl: "",
