@@ -37,7 +37,7 @@ export default function VerifyPage() {
     useRef<HTMLInputElement>(null),
   ];
 
-  const handleInput = (index: number, value: string) => {
+  const handleInput = async (index: number, value: string) => {
     // Only allow numbers
     if (!/^\d*$/.test(value)) return;
 
@@ -49,6 +49,11 @@ export default function VerifyPage() {
     if (value && index < 5) {
       inputRefs[index + 1].current?.focus();
     }
+
+    // If this is the last digit and all digits are filled, submit
+    if (index === 5 && value && newCode.every((digit) => digit)) {
+      await handleVerification(newCode.join(""));
+    }
   };
 
   const handleKeyDown = (
@@ -57,6 +62,9 @@ export default function VerifyPage() {
   ) => {
     // Handle backspace
     if (e.key === "Backspace" && !verificationCode[index] && index > 0) {
+      const newCode = [...verificationCode];
+      newCode[index - 1] = "";
+      setVerificationCode(newCode);
       inputRefs[index - 1].current?.focus();
     }
   };
@@ -72,21 +80,19 @@ export default function VerifyPage() {
     });
     setVerificationCode(newCode);
 
-    // Focus last input if full code pasted, otherwise focus next empty input
-    const focusIndex = Math.min(pastedData.length, 5);
-    inputRefs[focusIndex].current?.focus();
+    // If we have a complete code after pasting, submit it
+    if (pastedData.length === 6) {
+      handleVerification(pastedData);
+    } else {
+      // Focus the next empty input
+      const focusIndex = Math.min(pastedData.length, 5);
+      inputRefs[focusIndex].current?.focus();
+    }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleVerification = async (code: string) => {
     if (!email) {
       setError("Email is missing");
-      return;
-    }
-
-    const code = verificationCode.join("");
-    if (code.length !== 6) {
-      setError("Please enter all digits");
       return;
     }
 
@@ -115,6 +121,9 @@ export default function VerifyPage() {
       router.push("/login?verified=true");
     } catch (error) {
       setError(error instanceof Error ? error.message : "Verification failed");
+      // Clear the code on error
+      setVerificationCode(["", "", "", "", "", ""]);
+      inputRefs[0].current?.focus();
     } finally {
       setIsLoading(false);
     }
@@ -123,7 +132,7 @@ export default function VerifyPage() {
   // Focus first input on mount
   useEffect(() => {
     inputRefs[0].current?.focus();
-  });
+  }, []);
 
   if (!email) {
     return (
@@ -150,10 +159,12 @@ export default function VerifyPage() {
       <Card className="w-[400px]">
         <CardHeader>
           <CardTitle>Verify your email</CardTitle>
-          <CardDescription>Enter the code sent to {email}</CardDescription>
+          <CardDescription>
+            Enter the code sent to <span className="font-bold">{email}</span>
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-4">
             <div className="flex gap-2 justify-center">
               {verificationCode.map((digit, index) => (
                 <Input
@@ -166,7 +177,6 @@ export default function VerifyPage() {
                   onChange={(e) => handleInput(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   onPaste={handlePaste}
-                  required
                   disabled={isLoading}
                   className="w-12 h-12 text-center text-2xl p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
@@ -175,10 +185,7 @@ export default function VerifyPage() {
             {error && (
               <p className="text-sm text-red-500 text-center">{error}</p>
             )}
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Verifying..." : "Verify Email"}
-            </Button>
-          </form>
+          </div>
         </CardContent>
       </Card>
     </div>
