@@ -56,22 +56,22 @@ export default function ProductPage() {
 
   if (isLoading) {
     return (
-      <main className="container mx-auto px-4 py-8 flex justify-center items-center min-h-[50vh]">
+      <div className="container mx-auto px-4 py-8 flex justify-center items-center min-h-[50vh]">
         <div className="rotate-slow w-20 h-20 border-4 border-primary rounded-full border-t-transparent" />
-      </main>
+      </div>
     );
   }
 
   if (!product) {
     return (
-      <main className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
         <p className="text-center text-lg">Product not found</p>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Product Image */}
         <div className="lg:sticky lg:top-8">
@@ -139,6 +139,6 @@ export default function ProductPage() {
           </Button>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

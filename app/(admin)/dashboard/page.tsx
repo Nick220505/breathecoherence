@@ -15,7 +15,7 @@ export const revalidate = 3600;
 
 export default async function AdminDashboard() {
   return (
-    <main className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle>Admin Dashboard</CardTitle>
@@ -27,6 +27,6 @@ export default async function AdminDashboard() {
           </Suspense>
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 }

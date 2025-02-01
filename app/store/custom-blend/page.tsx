@@ -99,7 +99,7 @@ export default function CustomBlendPage() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Product Image */}
         <div className="lg:sticky lg:top-8">
@@ -221,6 +221,6 @@ export default function CustomBlendPage() {
           </Button>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

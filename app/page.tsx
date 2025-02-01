@@ -9,7 +9,7 @@ export default function Home() {
   const { t } = useTranslation();
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
         <div className="container mx-auto px-4 text-center">
@@ -105,6 +105,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

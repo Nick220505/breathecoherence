@@ -9,7 +9,7 @@ export default async function VerifyPage(props: {
   const searchParams = await props.searchParams;
 
   return (
-    <main>
+    <div>
       <Suspense
         fallback={
           <div className="flex justify-center items-center min-h-screen">
@@ -19,6 +19,6 @@ export default async function VerifyPage(props: {
       >
         <VerificationForm email={searchParams?.email || null} />
       </Suspense>
-    </main>
+    </div>
   );
 }
