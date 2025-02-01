@@ -21,7 +21,7 @@ export default async function Page(props: {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-8">
       <StoreHeader category={category} type={type} />
 
       <Suspense
@@ -35,6 +35,6 @@ export default async function Page(props: {
       </Suspense>
 
       <ChatBot />
-    </div>
+    </main>
   );
 }
