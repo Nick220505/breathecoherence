@@ -26,10 +26,7 @@ export const getProducts = unstable_cache(
     }
   },
   ["products"],
-  {
-    revalidate: 3600,
-    tags: ["products"],
-  },
+  { revalidate: 3600, tags: ["products"] },
 );
 
 export const getProductById = unstable_cache(
@@ -49,10 +46,7 @@ export const getProductById = unstable_cache(
     }
   },
   ["product"],
-  {
-    revalidate: 3600,
-    tags: ["products", "single-product"],
-  },
+  { revalidate: 3600, tags: ["products", "single-product"] },
 );
 
 export async function createProduct(data: ProductFormData): Promise<FormState> {
