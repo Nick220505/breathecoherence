@@ -27,8 +27,7 @@ export default function ProductPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const data = await getProductById(params.id as string);
-        setProduct(data);
+        setProduct(await getProductById(params.id as string));
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {

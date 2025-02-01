@@ -100,19 +100,19 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
 
     try {
       setIsDeleting(true);
-      const result = await deleteProduct(productToDelete.id);
+      const { success, message } = await deleteProduct(productToDelete.id);
 
-      if (result.success) {
+      if (success) {
         toast({
           title: t("admin.success"),
-          description: result.message,
+          description: message,
           variant: "default",
         });
         router.refresh();
       } else {
         toast({
           title: t("admin.error"),
-          description: result.message,
+          description: message,
           variant: "destructive",
         });
       }

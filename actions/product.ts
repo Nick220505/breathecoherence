@@ -55,18 +55,7 @@ export const getProductById = unstable_cache(
   },
 );
 
-export async function createProduct(
-  formData: ProductFormData,
-): Promise<FormState> {
-  const { success, data, error } = productSchema.safeParse(formData);
-  if (!success) {
-    return {
-      errors: error.flatten().fieldErrors,
-      message: "Please fix the errors below",
-      success: false,
-    };
-  }
-
+export async function createProduct(data: ProductFormData): Promise<FormState> {
   try {
     await prisma.product.create({ data });
 
@@ -90,17 +79,8 @@ export async function createProduct(
 
 export async function updateProduct(
   id: string,
-  formData: ProductFormData,
+  data: ProductFormData,
 ): Promise<FormState> {
-  const { success, data, error } = productSchema.safeParse({ ...formData, id });
-  if (!success) {
-    return {
-      errors: error.flatten().fieldErrors,
-      message: "Please fix the errors below",
-      success: false,
-    };
-  }
-
   try {
     await prisma.product.update({ where: { id }, data });
 

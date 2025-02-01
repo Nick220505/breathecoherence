@@ -14,8 +14,6 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function AdminDashboard() {
-  const products = await getProducts();
-
   return (
     <main className="container mx-auto px-4 py-8">
       <Card>
@@ -25,7 +23,7 @@ export default async function AdminDashboard() {
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TableSkeleton />}>
-            <ProductTableClient products={products} />
+            <ProductTableClient products={await getProducts()} />
           </Suspense>
         </CardContent>
       </Card>

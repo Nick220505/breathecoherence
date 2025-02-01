@@ -21,8 +21,7 @@ export function StoreContent() {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
-        const data = await getProducts();
-        setProducts(data);
+        setProducts(await getProducts());
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
