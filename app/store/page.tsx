@@ -1,6 +1,8 @@
 import { getProducts } from "@/actions/product";
+import { ChatBot } from "@/components/chat-bot";
 import { Suspense } from "react";
 import { StoreContent } from "./components/store-content";
+import { StoreHeader } from "./components/store-header";
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -20,6 +22,8 @@ export default async function Page(props: {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <StoreHeader category={category} type={type} />
+
       <Suspense
         fallback={
           <div className="flex justify-center items-center min-h-[50vh]">
@@ -27,12 +31,10 @@ export default async function Page(props: {
           </div>
         }
       >
-        <StoreContent
-          products={filteredProducts}
-          category={category}
-          type={type}
-        />
+        <StoreContent products={filteredProducts} category={category} />
       </Suspense>
+
+      <ChatBot />
     </div>
   );
 }
