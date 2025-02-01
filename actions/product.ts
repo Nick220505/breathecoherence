@@ -113,10 +113,7 @@ export async function deleteProduct(id: string): Promise<FormState> {
   }
 
   try {
-    const product = await prisma.product.findUnique({
-      where: { id },
-      select: { id: true, name: true },
-    });
+    const product = await prisma.product.findUnique({ where: { id } });
 
     if (!product) {
       return {
