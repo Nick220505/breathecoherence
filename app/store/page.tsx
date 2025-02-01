@@ -1,9 +1,23 @@
-"use client";
-
+import { getProducts } from "@/actions/product";
 import { Suspense } from "react";
 import { StoreContent } from "./components/store-content";
 
-export default function StorePage() {
+export default async function Page(props: {
+  searchParams?: Promise<{
+    category?: string;
+    type?: string;
+  }>;
+}) {
+  const searchParams = await props.searchParams;
+  const category = searchParams?.category || "";
+  const type = searchParams?.type || "";
+  const products = await getProducts();
+
+  const filteredProducts = products.filter((product) => {
+    if (category && product.type !== category) return false;
+    return true;
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Suspense
@@ -13,7 +27,11 @@ export default function StorePage() {
           </div>
         }
       >
-        <StoreContent />
+        <StoreContent
+          products={filteredProducts}
+          category={category}
+          type={type}
+        />
       </Suspense>
     </div>
   );
