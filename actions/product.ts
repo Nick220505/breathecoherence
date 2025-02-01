@@ -11,9 +11,7 @@ export const getProducts = unstable_cache(
   async (): Promise<Product[]> => {
     try {
       const products = await prisma.product.findMany({
-        orderBy: {
-          createdAt: "desc",
-        },
+        orderBy: { createdAt: "desc" },
       });
 
       if (!products) {
@@ -37,9 +35,7 @@ export const getProducts = unstable_cache(
 export const getProductById = unstable_cache(
   async (id: string): Promise<Product> => {
     try {
-      const product = await prisma.product.findUnique({
-        where: { id },
-      });
+      const product = await prisma.product.findUnique({ where: { id } });
 
       if (!product) {
         notFound();
@@ -59,21 +55,20 @@ export const getProductById = unstable_cache(
   },
 );
 
-export async function createProduct(data: ProductFormData): Promise<FormState> {
-  const validatedFields = productSchema.safeParse(data);
-
-  if (!validatedFields.success) {
+export async function createProduct(
+  formData: ProductFormData,
+): Promise<FormState> {
+  const { success, data, error } = productSchema.safeParse(formData);
+  if (!success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: error.flatten().fieldErrors,
       message: "Please fix the errors below",
       success: false,
     };
   }
 
   try {
-    await prisma.product.create({
-      data: validatedFields.data,
-    });
+    await prisma.product.create({ data });
 
     revalidateTag("products");
     revalidateTag("store");
@@ -95,23 +90,19 @@ export async function createProduct(data: ProductFormData): Promise<FormState> {
 
 export async function updateProduct(
   id: string,
-  data: ProductFormData,
+  formData: ProductFormData,
 ): Promise<FormState> {
-  const validatedFields = productSchema.safeParse({ ...data, id });
-
-  if (!validatedFields.success) {
+  const { success, data, error } = productSchema.safeParse({ ...formData, id });
+  if (!success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: error.flatten().fieldErrors,
       message: "Please fix the errors below",
       success: false,
     };
   }
 
   try {
-    await prisma.product.update({
-      where: { id },
-      data: validatedFields.data,
-    });
+    await prisma.product.update({ where: { id }, data });
 
     revalidateTag("products");
     revalidateTag("single-product");
@@ -155,9 +146,7 @@ export async function deleteProduct(id: string): Promise<FormState> {
       };
     }
 
-    await prisma.product.delete({
-      where: { id },
-    });
+    await prisma.product.delete({ where: { id } });
 
     revalidateTag("products");
     revalidateTag("single-product");
@@ -183,17 +172,17 @@ export async function productFormAction(
   formData: FormData,
 ): Promise<FormState> {
   const rawData = Object.fromEntries(formData.entries());
-  const validatedFields = productSchema.safeParse(rawData);
+  const { success, data, error } = productSchema.safeParse(rawData);
 
-  if (!validatedFields.success) {
+  if (!success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: error.flatten().fieldErrors,
       message: "Please fill in all required fields and ensure they are valid",
       success: false,
     };
   }
 
-  const { id, ...productData } = validatedFields.data;
+  const { id, ...productData } = data;
 
   if (id) {
     return updateProduct(id, productData);
