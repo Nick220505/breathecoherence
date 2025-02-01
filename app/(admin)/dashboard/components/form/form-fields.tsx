@@ -5,7 +5,9 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -100,8 +102,11 @@ export function FormFields({ formData, state, onChange }: FormFieldsProps) {
             <SelectValue placeholder="Select product type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Flower Essence">Flower Essence</SelectItem>
-            <SelectItem value="Sacred Geometry">Sacred Geometry</SelectItem>
+            <SelectGroup>
+              <SelectLabel>Product Types</SelectLabel>
+              <SelectItem value="Flower Essence">Flower Essence</SelectItem>
+              <SelectItem value="Sacred Geometry">Sacred Geometry</SelectItem>
+            </SelectGroup>
           </SelectContent>
         </Select>
         {state.errors?.type && (
