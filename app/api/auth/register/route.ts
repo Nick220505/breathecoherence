@@ -1,5 +1,7 @@
+import { sendVerificationEmail } from "@/lib/email";
 import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
+import crypto from "crypto";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -28,6 +30,10 @@ export async function POST(req: Request) {
       );
     }
 
+    // Generate verification code
+    const verifyToken = crypto.randomInt(100000, 999999).toString();
+    const verifyTokenExpiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+
     // Hash password
     const hashedPassword = await hash(password, 12);
 
@@ -37,6 +43,9 @@ export async function POST(req: Request) {
         name,
         email,
         password: hashedPassword,
+        verifyToken,
+        verifyTokenExpiry,
+        emailVerified: false,
       },
       select: {
         id: true,
@@ -46,10 +55,13 @@ export async function POST(req: Request) {
       },
     });
 
+    // Send verification email
+    await sendVerificationEmail(email, verifyToken);
+
     return NextResponse.json(
       {
         user,
-        message: "User created successfully",
+        message: "Verification code sent to your email",
       },
       { status: 201 },
     );

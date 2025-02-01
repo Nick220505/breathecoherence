@@ -224,10 +224,10 @@ export function Navigation() {
               ) : (
                 <>
                   <DropdownMenuItem>
-                    <Link href="/auth/login">{t("cta.signin")}</Link>
+                    <Link href="/login">{t("cta.signin")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/auth/register">Register</Link>
+                    <Link href="/register">Register</Link>
                   </DropdownMenuItem>
                 </>
               )}

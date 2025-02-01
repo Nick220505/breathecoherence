@@ -93,7 +93,7 @@ export default function Home() {
                 {t("cta.shop")}
               </Button>
             </Link>
-            <Link href="/auth/login">
+            <Link href="/login">
               <Button
                 variant="outline"
                 size="lg"

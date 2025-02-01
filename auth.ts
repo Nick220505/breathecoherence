@@ -27,8 +27,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     maxAge: 172800,
   },
   pages: {
-    signIn: "/auth/login",
-    signOut: "/auth/login",
+    signIn: "/login",
+    signOut: "/login",
   },
   providers: [
     CredentialsProvider({

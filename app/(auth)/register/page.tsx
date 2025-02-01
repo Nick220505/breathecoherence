@@ -73,11 +73,10 @@ export default function RegisterPage() {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || "Something went wrong");
+          throw new Error(data.error || "Registration failed");
         }
 
-        // Redirect to login page on success
-        router.push("/auth/login");
+        router.push(`/verify?email=${encodeURIComponent(formData.email)}`);
       } catch (error) {
         setErrors({
           submit:
@@ -113,6 +112,7 @@ export default function RegisterPage() {
                 id="name"
                 name="name"
                 type="text"
+                placeholder="Enter your name"
                 value={formData.name}
                 onChange={handleChange}
                 className={errors.name ? "border-red-500" : ""}
@@ -128,6 +128,7 @@ export default function RegisterPage() {
                 id="email"
                 name="email"
                 type="email"
+                placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
                 className={errors.email ? "border-red-500" : ""}
@@ -143,6 +144,7 @@ export default function RegisterPage() {
                 id="password"
                 name="password"
                 type="password"
+                placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
                 className={errors.password ? "border-red-500" : ""}
@@ -160,6 +162,7 @@ export default function RegisterPage() {
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
+                placeholder="Confirm your password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 className={errors.confirmPassword ? "border-red-500" : ""}
@@ -180,7 +183,7 @@ export default function RegisterPage() {
             <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
               <span>{t("auth.register.haveAccount")}</span>{" "}
               <Link
-                href="/auth/login"
+                href="/login"
                 className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 {t("auth.register.login")}
