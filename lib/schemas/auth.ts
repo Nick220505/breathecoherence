@@ -17,5 +17,11 @@ export const registerSchema = z
     path: ["confirmPassword"],
   });
 
+export const verifySchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  code: z.string().length(6, "Verification code must be 6 digits"),
+});
+
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
+export type VerifyFormData = z.infer<typeof verifySchema>;

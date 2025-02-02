@@ -2,7 +2,7 @@
 
 import { sendVerificationEmail } from "@/lib/email";
 import { prisma } from "@/lib/prisma";
-import { registerSchema } from "@/lib/schemas/auth";
+import { registerSchema, verifySchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 import { hash } from "bcryptjs";
 import crypto from "crypto";
@@ -69,6 +69,66 @@ export async function registerAction(
     return {
       errors: {},
       message: "Something went wrong during registration.",
+      success: false,
+    };
+  }
+}
+
+export async function verifyAction(
+  _prevState: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const rawData = Object.fromEntries(formData.entries());
+  const { success, data, error } = verifySchema.safeParse(rawData);
+
+  if (!success) {
+    return {
+      errors: error.flatten().fieldErrors,
+      message: "Please fill in all required fields and ensure they are valid",
+      success: false,
+    };
+  }
+
+  try {
+    const { email, code } = data;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+        verifyToken: code,
+        verifyTokenExpiry: {
+          gt: new Date(),
+        },
+      },
+    });
+
+    if (!user) {
+      return {
+        errors: { code: ["Invalid or expired verification code"] },
+        message: "Invalid or expired verification code",
+        success: false,
+      };
+    }
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        emailVerified: true,
+        verifyToken: null,
+        verifyTokenExpiry: null,
+      },
+    });
+
+    return {
+      errors: {},
+      message: "Email verified successfully",
+      success: true,
+    };
+  } catch (error) {
+    console.error("Verification error:", error);
+    return {
+      errors: {},
+      message: "Something went wrong during verification",
       success: false,
     };
   }
