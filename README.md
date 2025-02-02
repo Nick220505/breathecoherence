@@ -13,6 +13,12 @@ A modern e-commerce platform built with Next.js 15, featuring a sleek design sys
 - **Internationalization**: Google Translate API support
 - **Theme Support**: Dark/Light mode with next-themes
 - **Form Handling**: React Hook Form with Zod validation
+- **Payment Processing**:
+  - Stripe integration for card payments
+  - PayPal integration for alternative payment methods
+- **Email Service**: Resend for transactional emails
+- **Database Hosting**: Neon.tech for PostgreSQL
+- **Security**: Environment variable protection and SSL enabled connections
 
 ## 🚀 Getting Started
 
@@ -52,6 +58,13 @@ CLOUDINARY_API_SECRET=your_secret
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
 GEMINI_API_KEY=your_key
 GOOGLE_TRANSLATE_API_KEY=your_key
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_paypal_client_id
+PAYPAL_SECRET=your_paypal_secret
+RESEND_API_KEY=your_resend_api_key
+EMAIL_FROM=your_sender_email
+COMPANY_NAME=your_company_name
 ```
 
 4. Initialize the database:
@@ -92,6 +105,8 @@ The application will be available at [http://localhost:3000](http://localhost:30
 - **Media**: Cloudinary integration
 - **AI Features**: Google Gemini AI
 - **Type Safety**: TypeScript
+- **Payment Processing**: Stripe, PayPal
+- **Email Service**: Resend
 
 ## 📚 Project Structure
 
@@ -112,6 +127,8 @@ geometry-ecommerce/
 - API key protection
 - Database connection pooling
 - SSL enabled database connections
+- Secure payment processing with Stripe and PayPal
+- Email verification system
 
 ## 🤝 Contributing
 
