@@ -15,12 +15,11 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<LoginFormData>({
@@ -31,12 +30,12 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = form;
 
   const onSubmit = async ({ email, password }: LoginFormData) => {
     try {
-      setError("");
       startTransition(async () => {
         const result = await signIn("credentials", {
           email,
@@ -45,14 +44,14 @@ export default function LoginPage() {
         });
 
         if (result?.error) {
-          setError("Invalid email or password");
+          setError("root", { message: "Invalid email or password" });
           return;
         }
 
         router.push("/");
       });
     } catch {
-      setError("An error occurred during login");
+      setError("root", { message: "An error occurred during login" });
     }
   };
 
@@ -101,10 +100,10 @@ export default function LoginPage() {
                 </p>
               )}
             </div>
-            {error && (
+            {errors.root && (
               <p className="text-sm text-red-500 text-center flex items-center justify-center gap-1">
                 <AlertCircle className="h-4 w-4" />
-                {error}
+                {errors.root.message}
               </p>
             )}
             <Button type="submit" className="w-full" disabled={isLoading}>
