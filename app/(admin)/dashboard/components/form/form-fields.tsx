@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { type ProductFormData } from "@/lib/schemas/product";
-import { FormState } from "@/lib/types/form";
 import {
   AlertCircle,
   Box,
@@ -22,18 +21,19 @@ import {
   Package2,
   Tags,
 } from "lucide-react";
+import { UseFormReturn } from "react-hook-form";
 
 interface FormFieldsProps {
-  formData: ProductFormData;
-  state: FormState;
-  onChange: (
-    field: "name" | "description" | "type" | "price" | "stock",
-    value: string,
-  ) => void;
+  form: UseFormReturn<ProductFormData>;
 }
 
-export function FormFields({ formData, state, onChange }: FormFieldsProps) {
+export function FormFields({ form }: FormFieldsProps) {
   const { t } = useTranslation();
+  const {
+    register,
+    formState: { errors },
+    setValue,
+  } = form;
 
   return (
     <>
@@ -47,16 +47,14 @@ export function FormFields({ formData, state, onChange }: FormFieldsProps) {
         </label>
         <Input
           id="name"
-          name="name"
-          value={formData.name}
-          onChange={(e) => onChange("name", e.target.value)}
+          {...register("name")}
           className="focus-visible:ring-primary"
           placeholder="Enter product name"
         />
-        {state.errors?.name && (
+        {errors.name && (
           <p className="text-sm text-red-500 flex items-center gap-1">
             <AlertCircle className="h-4 w-4" />
-            {state.errors.name[0]}
+            {errors.name.message}
           </p>
         )}
       </div>
@@ -71,16 +69,14 @@ export function FormFields({ formData, state, onChange }: FormFieldsProps) {
         </label>
         <Textarea
           id="description"
-          name="description"
-          value={formData.description}
-          onChange={(e) => onChange("description", e.target.value)}
+          {...register("description")}
           className="focus-visible:ring-primary min-h-[100px]"
           placeholder="Enter product description"
         />
-        {state.errors?.description && (
+        {errors.description && (
           <p className="text-sm text-red-500 flex items-center gap-1">
             <AlertCircle className="h-4 w-4" />
-            {state.errors.description[0]}
+            {errors.description.message}
           </p>
         )}
       </div>
@@ -94,9 +90,10 @@ export function FormFields({ formData, state, onChange }: FormFieldsProps) {
           {t("admin.type")}
         </label>
         <Select
-          value={formData.type}
-          name="type"
-          onValueChange={(value) => onChange("type", value)}
+          onValueChange={(value) =>
+            setValue("type", value as ProductFormData["type"])
+          }
+          defaultValue={form.getValues("type")}
         >
           <SelectTrigger className="focus-visible:ring-primary">
             <SelectValue placeholder="Select product type" />
@@ -109,10 +106,10 @@ export function FormFields({ formData, state, onChange }: FormFieldsProps) {
             </SelectGroup>
           </SelectContent>
         </Select>
-        {state.errors?.type && (
+        {errors.type && (
           <p className="text-sm text-red-500 flex items-center gap-1">
             <AlertCircle className="h-4 w-4" />
-            {state.errors.type[0]}
+            {errors.type.message}
           </p>
         )}
       </div>
@@ -128,18 +125,16 @@ export function FormFields({ formData, state, onChange }: FormFieldsProps) {
           </label>
           <Input
             id="price"
-            name="price"
             type="number"
             step="0.01"
-            value={formData.price}
-            onChange={(e) => onChange("price", e.target.value)}
+            {...register("price")}
             className="focus-visible:ring-primary"
             placeholder="0.00"
           />
-          {state.errors?.price && (
+          {errors.price && (
             <p className="text-sm text-red-500 flex items-center gap-1">
               <AlertCircle className="h-4 w-4" />
-              {state.errors.price[0]}
+              {errors.price.message}
             </p>
           )}
         </div>
@@ -154,17 +149,15 @@ export function FormFields({ formData, state, onChange }: FormFieldsProps) {
           </label>
           <Input
             id="stock"
-            name="stock"
             type="number"
-            value={formData.stock}
-            onChange={(e) => onChange("stock", e.target.value)}
+            {...register("stock")}
             className="focus-visible:ring-primary"
             placeholder="0"
           />
-          {state.errors?.stock && (
+          {errors.stock && (
             <p className="text-sm text-red-500 flex items-center gap-1">
               <AlertCircle className="h-4 w-4" />
-              {state.errors.stock[0]}
+              {errors.stock.message}
             </p>
           )}
         </div>

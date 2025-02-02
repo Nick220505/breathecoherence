@@ -4,10 +4,12 @@ import { productFormAction } from "@/actions/product";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ProductFormData } from "@/lib/schemas/product";
+import { ProductFormData, productSchema } from "@/lib/schemas/product";
 import { FormState } from "@/lib/types/form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle } from "lucide-react";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import { FormFields } from "./form/form-fields";
 import { ImageUpload } from "./form/image-upload";
 
@@ -36,10 +38,14 @@ export function ProductForm({
   submitLabel,
   onSuccess,
 }: ProductFormProps) {
-  const [formData, setFormData] = useState<ProductFormData>(initialData);
   const { t } = useTranslation();
   const [state, formAction] = useActionState(productFormAction, initialState);
   const successShown = useRef(false);
+
+  const form = useForm<ProductFormData>({
+    resolver: zodResolver(productSchema),
+    defaultValues: initialData,
+  });
 
   useEffect(() => {
     if (state.success && onSuccess && !successShown.current) {
@@ -48,26 +54,30 @@ export function ProductForm({
     }
   }, [state.success, state.message, onSuccess]);
 
-  const handleFieldChange = (field: keyof ProductFormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const onSubmit = async (data: ProductFormData) => {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+    startTransition(() => formAction(formData));
   };
 
   return (
-    <form action={formAction} className="space-y-6">
-      {initialData.id && (
-        <Input type="hidden" name="id" value={initialData.id} />
-      )}
+    <form
+      action={formAction}
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="space-y-6"
+    >
+      {initialData.id && <Input type="hidden" {...form.register("id")} />}
 
-      <FormFields
-        formData={formData}
-        state={state}
-        onChange={handleFieldChange}
-      />
+      <FormFields form={form} />
 
       <ImageUpload
-        initialImageUrl={formData.imageUrl || undefined}
-        productType={formData.type}
-        onImageUrlChange={(url) => handleFieldChange("imageUrl", url)}
+        initialImageUrl={form.getValues("imageUrl") || undefined}
+        productType={form.getValues("type")}
+        onImageUrlChange={(url) => form.setValue("imageUrl", url)}
       />
 
       {!state.success &&
