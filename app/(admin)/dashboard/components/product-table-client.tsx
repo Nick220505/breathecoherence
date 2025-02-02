@@ -176,7 +176,6 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
           setIsEditProductOpen(open);
           if (!open) setEditingProduct(null);
         }}
-        isLoading={false}
         product={editingProduct}
         onProductUpdated={handleProductUpdated}
       />

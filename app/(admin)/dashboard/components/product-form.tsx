@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { ProductFormData, productSchema } from "@/lib/schemas/product";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { startTransition, useActionState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { FormFields } from "./form/form-fields";
@@ -15,7 +15,6 @@ import { ImageUpload } from "./form/image-upload";
 
 interface ProductFormProps {
   initialData?: ProductFormData;
-  isLoading: boolean;
   submitLabel: string;
   onSuccess?: (message: string) => void;
 }
@@ -34,7 +33,6 @@ export function ProductForm({
     stock: 0,
     imageUrl: "",
   },
-  isLoading,
   submitLabel,
   onSuccess,
 }: ProductFormProps) {
@@ -63,6 +61,8 @@ export function ProductForm({
     });
     startTransition(() => formAction(formData));
   };
+
+  const isSubmitting = form.formState.isSubmitting;
 
   return (
     <form
@@ -95,13 +95,16 @@ export function ProductForm({
       <Button
         type="submit"
         className="w-full bg-primary hover:bg-primary/90"
-        disabled={isLoading}
+        disabled={isSubmitting}
       >
-        {isLoading
-          ? initialData?.name
-            ? t("admin.editing")
-            : t("admin.adding")
-          : submitLabel}
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            {initialData?.name ? t("admin.editing") : t("admin.adding")}
+          </>
+        ) : (
+          submitLabel
+        )}
       </Button>
     </form>
   );

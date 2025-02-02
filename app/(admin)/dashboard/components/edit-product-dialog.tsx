@@ -14,7 +14,6 @@ import { ProductForm } from "./product-form";
 interface EditProductDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  isLoading: boolean;
   product: ProductFormData | null;
   onProductUpdated: (message: string) => void;
 }
@@ -22,7 +21,6 @@ interface EditProductDialogProps {
 export function EditProductDialog({
   isOpen,
   onOpenChange,
-  isLoading,
   product,
   onProductUpdated,
 }: EditProductDialogProps) {
@@ -46,7 +44,6 @@ export function EditProductDialog({
         </DialogHeader>
         <ProductForm
           initialData={product}
-          isLoading={isLoading}
           submitLabel={t("admin.edit")}
           onSuccess={handleSuccess}
         />

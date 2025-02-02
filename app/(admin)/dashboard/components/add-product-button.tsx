@@ -2,6 +2,7 @@
 
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { AddProductDialog } from "./add-product-dialog";
@@ -9,6 +10,16 @@ import { AddProductDialog } from "./add-product-dialog";
 export function AddProductButton() {
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
   const { t } = useTranslation();
+  const { toast } = useToast();
+
+  const handleProductAdded = (message: string) => {
+    setIsAddProductOpen(false);
+    toast({
+      title: t("admin.success"),
+      description: message,
+      variant: "default",
+    });
+  };
 
   return (
     <>
@@ -24,8 +35,7 @@ export function AddProductButton() {
       <AddProductDialog
         isOpen={isAddProductOpen}
         onOpenChange={setIsAddProductOpen}
-        isLoading={false}
-        onProductAdded={() => setIsAddProductOpen(false)}
+        onProductAdded={handleProductAdded}
       />
     </>
   );
