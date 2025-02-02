@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteProduct } from "@/actions/product";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,24 +11,55 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import { useTableStore } from "@/lib/stores/use-table-store";
 
-interface DeleteDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  isLoading?: boolean;
-}
-
-export function DeleteDialog({
-  isOpen,
-  onClose,
-  onConfirm,
-  isLoading = false,
-}: DeleteDialogProps) {
+export function DeleteDialog() {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const {
+    isDeleteDialogOpen,
+    productToDelete,
+    isDeleting,
+    setIsDeleting,
+    resetDeleteState,
+  } = useTableStore();
+
+  const handleConfirmDelete = async () => {
+    if (!productToDelete) return;
+
+    try {
+      setIsDeleting(true);
+      const { success, message } = await deleteProduct(productToDelete.id);
+
+      if (success) {
+        toast({
+          title: t("admin.success"),
+          description: message,
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: t("admin.error"),
+          description: message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      toast({
+        title: t("admin.error"),
+        description: t("admin.error.delete"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
+      resetDeleteState();
+    }
+  };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isDeleteDialogOpen} onOpenChange={resetDeleteState}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("admin.delete_confirm_title")}</DialogTitle>
@@ -36,13 +68,17 @@ export function DeleteDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex space-x-2 justify-end">
-          <Button variant="outline" onClick={onClose} disabled={isLoading}>
+          <Button
+            variant="outline"
+            onClick={resetDeleteState}
+            disabled={isDeleting}
+          >
             {t("admin.cancel")}
           </Button>
           <Button
             variant="destructive"
-            onClick={onConfirm}
-            disabled={isLoading}
+            onClick={handleConfirmDelete}
+            disabled={isDeleting}
           >
             {t("admin.confirm_delete")}
           </Button>

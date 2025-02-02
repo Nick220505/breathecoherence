@@ -5,13 +5,17 @@ import { Button } from "@/components/ui/button";
 import { useTableStore } from "@/lib/stores/use-table-store";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+const ITEMS_PER_PAGE = 10;
+
 interface TablePaginationProps {
-  totalPages: number;
+  totalItems: number;
 }
 
-export function TablePagination({ totalPages }: TablePaginationProps) {
+export function TablePagination({ totalItems }: TablePaginationProps) {
   const { t } = useTranslation();
   const { currentPage, setCurrentPage } = useTableStore();
+
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   if (totalPages <= 1) return null;
 
