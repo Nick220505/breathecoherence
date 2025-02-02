@@ -112,12 +112,20 @@ The application will be available at [http://localhost:3000](http://localhost:30
 
 ```
 geometry-ecommerce/
-├── app/                # Next.js 15 app directory
-├── components/         # Reusable UI components
-├── lib/               # Utility functions and configurations
-├── prisma/            # Database schema and migrations
-├── public/            # Static assets
-└── styles/            # Global styles and Tailwind config
+├── actions/              # Server actions for data mutations
+├── app/                  # Next.js 15 app directory
+│   ├── (admin)/         # Admin dashboard routes
+│   ├── (auth)/          # Authentication routes
+│   ├── product/         # Product pages
+│   └── store/           # Store pages
+├── lib/                 # Utility functions and configurations
+│   └── schemas/         # Zod validation schemas
+├── prisma/              # Database schema and migrations
+│   └── migrations/      # Database migration files
+├── public/              # Static assets
+│   ├── images/          # Image assets
+│   └── products/        # Product-related assets
+└── styles/              # Global styles and Tailwind config
 ```
 
 ## 🔐 Security
