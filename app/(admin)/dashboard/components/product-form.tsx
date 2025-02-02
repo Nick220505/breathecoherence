@@ -15,7 +15,6 @@ import { ImageUpload } from "./form/image-upload";
 
 interface ProductFormProps {
   initialData?: ProductFormData;
-  submitLabel: string;
   onSuccess?: (message: string) => void;
 }
 
@@ -33,7 +32,6 @@ export function ProductForm({
     stock: 0,
     imageUrl: "",
   },
-  submitLabel,
   onSuccess,
 }: ProductFormProps) {
   const { t } = useTranslation();
@@ -103,8 +101,10 @@ export function ProductForm({
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             {initialData?.name ? t("admin.editing") : t("admin.adding")}
           </>
+        ) : initialData?.name ? (
+          t("admin.edit")
         ) : (
-          submitLabel
+          t("admin.add")
         )}
       </Button>
     </form>

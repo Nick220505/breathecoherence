@@ -37,7 +37,7 @@ export function AddProductDialog({
             Form to add a new product
           </DialogDescription>
         </DialogHeader>
-        <ProductForm submitLabel={t("admin.add")} onSuccess={handleSuccess} />
+        <ProductForm onSuccess={handleSuccess} />
       </DialogContent>
     </Dialog>
   );

@@ -42,11 +42,7 @@ export function EditProductDialog({
             Form to edit an existing product
           </DialogDescription>
         </DialogHeader>
-        <ProductForm
-          initialData={product}
-          submitLabel={t("admin.edit")}
-          onSuccess={handleSuccess}
-        />
+        <ProductForm initialData={product} onSuccess={handleSuccess} />
       </DialogContent>
     </Dialog>
   );
