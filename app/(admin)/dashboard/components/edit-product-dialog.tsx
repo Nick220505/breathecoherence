@@ -8,33 +8,28 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ProductFormData } from "@/lib/schemas/product";
+import { useProductStore } from "@/lib/stores/use-product-store";
 import { ProductForm } from "./product-form";
 
-interface EditProductDialogProps {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  product: ProductFormData | null;
-  onProductUpdated: (message: string) => void;
-}
-
-export function EditProductDialog({
-  isOpen,
-  onOpenChange,
-  product,
-  onProductUpdated,
-}: EditProductDialogProps) {
+export function EditProductDialog() {
   const { t } = useTranslation();
+  const {
+    isEditDialogOpen,
+    setEditDialogOpen,
+    editingProduct,
+    setEditingProduct,
+  } = useProductStore();
 
-  const handleSuccess = async (message: string) => {
-    onOpenChange(false);
-    onProductUpdated(message);
-  };
-
-  if (!product) return null;
+  if (!editingProduct) return null;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog
+      open={isEditDialogOpen}
+      onOpenChange={(open) => {
+        setEditDialogOpen(open);
+        if (!open) setEditingProduct(null);
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("admin.edit_product")}</DialogTitle>
@@ -42,7 +37,7 @@ export function EditProductDialog({
             Form to edit an existing product
           </DialogDescription>
         </DialogHeader>
-        <ProductForm initialData={product} onSuccess={handleSuccess} />
+        <ProductForm initialData={editingProduct} />
       </DialogContent>
     </Dialog>
   );

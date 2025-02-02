@@ -5,7 +5,8 @@ import { useTranslation } from "@/components/language-provider";
 import { Table, TableBody } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
-import { ProductFormData, productSchema } from "@/lib/schemas/product";
+import { productSchema } from "@/lib/schemas/product";
+import { useProductStore } from "@/lib/stores/use-product-store";
 import { Product } from "@prisma/client";
 import { useState } from "react";
 import { DeleteDialog } from "./delete-dialog";
@@ -33,15 +34,12 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
   });
   const [nameFilter, setNameFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
-  const [isEditProductOpen, setIsEditProductOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<ProductFormData | null>(
-    null,
-  );
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { setEditDialogOpen, setEditingProduct } = useProductStore();
 
   const filteredProducts = products.filter((product) => {
     const nameMatch = product.name
@@ -127,14 +125,6 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
     }
   };
 
-  const handleProductUpdated = async (message: string) => {
-    toast({
-      title: t("admin.success"),
-      description: message,
-      variant: "default",
-    });
-  };
-
   return (
     <>
       <TooltipProvider>
@@ -154,7 +144,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
                   product={product}
                   onEdit={(product) => {
                     setEditingProduct(productSchema.parse(product));
-                    setIsEditProductOpen(true);
+                    setEditDialogOpen(true);
                   }}
                   onDelete={handleDelete}
                 />
@@ -170,15 +160,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
         </div>
       </TooltipProvider>
 
-      <EditProductDialog
-        isOpen={isEditProductOpen}
-        onOpenChange={(open) => {
-          setIsEditProductOpen(open);
-          if (!open) setEditingProduct(null);
-        }}
-        product={editingProduct}
-        onProductUpdated={handleProductUpdated}
-      />
+      <EditProductDialog />
 
       <DeleteDialog
         isOpen={isDeleteDialogOpen}

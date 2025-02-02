@@ -8,28 +8,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useProductStore } from "@/lib/stores/use-product-store";
 import { ProductForm } from "./product-form";
 
-interface AddProductDialogProps {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  onProductAdded: (message: string) => void;
-}
-
-export function AddProductDialog({
-  isOpen,
-  onOpenChange,
-  onProductAdded,
-}: AddProductDialogProps) {
+export function AddProductDialog() {
   const { t } = useTranslation();
-
-  const handleSuccess = async (message: string) => {
-    onOpenChange(false);
-    onProductAdded(message);
-  };
+  const { isAddDialogOpen, setAddDialogOpen } = useProductStore();
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isAddDialogOpen} onOpenChange={setAddDialogOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("admin.add_product")}</DialogTitle>
@@ -37,7 +24,7 @@ export function AddProductDialog({
             Form to add a new product
           </DialogDescription>
         </DialogHeader>
-        <ProductForm onSuccess={handleSuccess} />
+        <ProductForm />
       </DialogContent>
     </Dialog>
   );

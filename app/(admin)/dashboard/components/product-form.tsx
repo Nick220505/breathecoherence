@@ -4,7 +4,9 @@ import { productFormAction } from "@/actions/product";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { ProductFormData, productSchema } from "@/lib/schemas/product";
+import { useProductStore } from "@/lib/stores/use-product-store";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, Loader2 } from "lucide-react";
@@ -15,7 +17,6 @@ import { ImageUpload } from "./form/image-upload";
 
 interface ProductFormProps {
   initialData?: ProductFormData;
-  onSuccess?: (message: string) => void;
 }
 
 const initialState: FormState = {
@@ -32,9 +33,11 @@ export function ProductForm({
     stock: 0,
     imageUrl: "",
   },
-  onSuccess,
 }: ProductFormProps) {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
+    useProductStore();
   const [state, formAction] = useActionState(productFormAction, initialState);
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
@@ -45,11 +48,30 @@ export function ProductForm({
   });
 
   useEffect(() => {
-    if (state.success && onSuccess && !successShown.current) {
+    if (state.success && !successShown.current) {
       successShown.current = true;
-      onSuccess(state.message);
+      toast({
+        title: t("admin.success"),
+        description: state.message,
+        variant: "default",
+      });
+      if (initialData?.id) {
+        setEditDialogOpen(false);
+        setEditingProduct(null);
+      } else {
+        setAddDialogOpen(false);
+      }
     }
-  }, [state.success, state.message, onSuccess]);
+  }, [
+    state.success,
+    state.message,
+    t,
+    toast,
+    initialData?.id,
+    setAddDialogOpen,
+    setEditDialogOpen,
+    setEditingProduct,
+  ]);
 
   const onSubmit = async (data: ProductFormData) => {
     const formData = new FormData();
