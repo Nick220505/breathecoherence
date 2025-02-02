@@ -460,6 +460,30 @@ export const translations: Translations = {
     en: "Product created successfully",
     es: "Producto creado exitosamente",
   },
+  "admin.filter_by_name": {
+    en: "Filter by name",
+    es: "Filtrar por nombre",
+  },
+  "admin.all": {
+    en: "All",
+    es: "Todos",
+  },
+  "admin.flower_essence": {
+    en: "Flower Essence",
+    es: "Esencia Floral",
+  },
+  "admin.sacred_geometry": {
+    en: "Sacred Geometry",
+    es: "Geometría Sagrada",
+  },
+  "admin.of": {
+    en: "of",
+    es: "de",
+  },
+  "admin.page": {
+    en: "Page",
+    es: "Página",
+  },
 };
 
 interface LanguageContextType {

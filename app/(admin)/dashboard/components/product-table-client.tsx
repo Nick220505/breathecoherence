@@ -5,10 +5,8 @@ import { useTranslation } from "@/components/language-provider";
 import { Table, TableBody } from "@/components/ui/table";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
-import { productSchema } from "@/lib/schemas/product";
-import { useProductStore } from "@/lib/stores/use-product-store";
+import { useTableStore } from "@/lib/stores/use-table-store";
 import { Product } from "@prisma/client";
-import { useState } from "react";
 import { DeleteDialog } from "./delete-dialog";
 import { EditProductDialog } from "./edit-product-dialog";
 import { ProductTableHeader } from "./table/table-header";
@@ -19,34 +17,29 @@ interface ProductTableClientProps {
   products: Product[];
 }
 
-type SortConfig = {
-  key: keyof Product | null;
-  direction: "asc" | "desc";
-};
-
 const ITEMS_PER_PAGE = 10;
 
 export function ProductTableClient({ products }: ProductTableClientProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortConfig, setSortConfig] = useState<SortConfig>({
-    key: null,
-    direction: "asc",
-  });
-  const [nameFilter, setNameFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
-  const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
   const { toast } = useToast();
-  const { setEditDialogOpen, setEditingProduct } = useProductStore();
+  const {
+    nameFilter,
+    typeFilter,
+    sortConfig,
+    currentPage,
+    isDeleteDialogOpen,
+    productToDelete,
+    isDeleting,
+    setIsDeleting,
+    resetDeleteState,
+  } = useTableStore();
 
   const filteredProducts = products.filter((product) => {
     const nameMatch = product.name
       .toLowerCase()
       .includes(nameFilter.toLowerCase());
     const typeMatch =
-      !typeFilter ||
+      typeFilter === "all" ||
       product.type.toLowerCase().includes(typeFilter.toLowerCase());
     return nameMatch && typeMatch;
   });
@@ -78,19 +71,6 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
     startIndex + ITEMS_PER_PAGE,
   );
 
-  const handleSort = (key: keyof Product) => {
-    setSortConfig((current) => ({
-      key,
-      direction:
-        current.key === key && current.direction === "asc" ? "desc" : "asc",
-    }));
-  };
-
-  const handleDelete = (product: Product) => {
-    setProductToDelete(product);
-    setIsDeleteDialogOpen(true);
-  };
-
   const handleConfirmDelete = async () => {
     if (!productToDelete) return;
 
@@ -120,8 +100,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
       });
     } finally {
       setIsDeleting(false);
-      setIsDeleteDialogOpen(false);
-      setProductToDelete(null);
+      resetDeleteState();
     }
   };
 
@@ -130,32 +109,16 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
       <TooltipProvider>
         <div className="space-y-4">
           <Table>
-            <ProductTableHeader
-              nameFilter={nameFilter}
-              typeFilter={typeFilter}
-              onNameFilterChange={setNameFilter}
-              onTypeFilterChange={setTypeFilter}
-              onSort={handleSort}
-            />
+            <ProductTableHeader />
             <TableBody>
               {paginatedProducts.map((product) => (
-                <ProductTableRow
-                  key={product.id}
-                  product={product}
-                  onEdit={(product) => {
-                    setEditingProduct(productSchema.parse(product));
-                    setEditDialogOpen(true);
-                  }}
-                  onDelete={handleDelete}
-                />
+                <ProductTableRow key={product.id} product={product} />
               ))}
             </TableBody>
           </Table>
 
           <TablePagination
-            currentPage={currentPage}
             totalPages={Math.ceil(sortedProducts.length / ITEMS_PER_PAGE)}
-            onPageChange={setCurrentPage}
           />
         </div>
       </TooltipProvider>
@@ -164,10 +127,7 @@ export function ProductTableClient({ products }: ProductTableClientProps) {
 
       <DeleteDialog
         isOpen={isDeleteDialogOpen}
-        onClose={() => {
-          setIsDeleteDialogOpen(false);
-          setProductToDelete(null);
-        }}
+        onClose={resetDeleteState}
         onConfirm={handleConfirmDelete}
         isLoading={isDeleting}
       />

@@ -8,28 +8,37 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { productSchema } from "@/lib/schemas/product";
+import { useProductStore } from "@/lib/stores/use-product-store";
+import { useTableStore } from "@/lib/stores/use-table-store";
 import { Product } from "@prisma/client";
 import { Edit, Trash2 } from "lucide-react";
 import Image from "next/image";
 
 interface ProductTableRowProps {
   product: Product;
-  onEdit: (product: Product) => void;
-  onDelete: (product: Product) => void;
 }
 
-export function ProductTableRow({
-  product,
-  onEdit,
-  onDelete,
-}: ProductTableRowProps) {
+export function ProductTableRow({ product }: ProductTableRowProps) {
   const { t } = useTranslation();
+  const { setEditDialogOpen, setEditingProduct } = useProductStore();
+  const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
   const imageUrl =
     product.imageUrl ||
     (product.type === "Sacred Geometry"
       ? `/products/sacred-geometry.svg#${product.id}`
       : "/products/flower-essence.svg");
+
+  const handleEdit = () => {
+    setEditingProduct(productSchema.parse(product));
+    setEditDialogOpen(true);
+  };
+
+  const handleDelete = () => {
+    setProductToDelete(product);
+    setIsDeleteDialogOpen(true);
+  };
 
   return (
     <TableRow>
@@ -53,7 +62,7 @@ export function ProductTableRow({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                onClick={() => onEdit(product)}
+                onClick={handleEdit}
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8"
@@ -69,7 +78,7 @@ export function ProductTableRow({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                onClick={() => onDelete(product)}
+                onClick={handleDelete}
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
