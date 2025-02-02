@@ -156,7 +156,7 @@ export default function CustomBlendPage() {
                       placeholder={t("store.essence.select_option")}
                     />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="max-h-[200px] overflow-y-auto">
                     <SelectItem value="brandy">
                       {t("store.essence.base.brandy")}
                     </SelectItem>
@@ -190,7 +190,7 @@ export default function CustomBlendPage() {
                           }
                         />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-h-[200px] overflow-y-auto">
                         {FLOWER_ESSENCES.map((essence) => (
                           <SelectItem
                             key={essence}
