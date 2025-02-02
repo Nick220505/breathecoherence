@@ -14,10 +14,10 @@ import { Input } from "@/components/ui/input";
 import { RegisterFormData, registerSchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { startTransition, useActionState, useEffect } from "react";
+import { useActionState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 const initialState: FormState = {
@@ -29,6 +29,7 @@ export default function RegisterPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const [state, formAction] = useActionState(registerAction, initialState);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -66,6 +67,8 @@ export default function RegisterPage() {
     });
   };
 
+  const isLoading = isSubmitting || isPending;
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <Card className="w-[400px]">
@@ -82,7 +85,7 @@ export default function RegisterPage() {
                 type="text"
                 placeholder="Enter your name"
                 {...register("name")}
-                disabled={isSubmitting}
+                disabled={isLoading}
               />
               {errors.name && (
                 <p className="text-sm text-red-500 flex items-center gap-1">
@@ -98,7 +101,7 @@ export default function RegisterPage() {
                 type="email"
                 placeholder="Enter your email"
                 {...register("email")}
-                disabled={isSubmitting}
+                disabled={isLoading}
               />
               {errors.email && (
                 <p className="text-sm text-red-500 flex items-center gap-1">
@@ -114,7 +117,7 @@ export default function RegisterPage() {
                 type="password"
                 placeholder="Enter your password"
                 {...register("password")}
-                disabled={isSubmitting}
+                disabled={isLoading}
               />
               {errors.password && (
                 <p className="text-sm text-red-500 flex items-center gap-1">
@@ -132,7 +135,7 @@ export default function RegisterPage() {
                 type="password"
                 placeholder="Confirm your password"
                 {...register("confirmPassword")}
-                disabled={isSubmitting}
+                disabled={isLoading}
               />
               {errors.confirmPassword && (
                 <p className="text-sm text-red-500 flex items-center gap-1">
@@ -147,8 +150,15 @@ export default function RegisterPage() {
                 {state.message}
               </p>
             )}
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Loading..." : t("auth.register.submit")}
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating account...
+                </>
+              ) : (
+                t("auth.register.submit")
+              )}
             </Button>
             <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
               <span>{t("auth.register.haveAccount")}</span>{" "}

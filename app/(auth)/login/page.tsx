@@ -11,17 +11,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoginFormData, loginSchema } from "@/lib/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -31,33 +31,32 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = form;
 
   const onSubmit = async ({ email, password }: LoginFormData) => {
     try {
-      setIsLoading(true);
       setError("");
+      startTransition(async () => {
+        const result = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
 
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
+        if (result?.error) {
+          setError("Invalid email or password");
+          return;
+        }
+
+        router.push("/");
       });
-
-      if (result?.error) {
-        setError("Invalid email or password");
-        return;
-      }
-
-      router.push("/");
-      router.refresh();
     } catch {
       setError("An error occurred during login");
-    } finally {
-      setIsLoading(false);
     }
   };
+
+  const isLoading = isSubmitting || isPending;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -109,7 +108,14 @@ export default function LoginPage() {
               </p>
             )}
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Loading..." : "Login"}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
             <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
               <span>Don&apos;t have an account? </span>
