@@ -10,90 +10,58 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { RegisterFormData, registerSchema } from "@/lib/schemas/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
   const { t } = useTranslation();
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
+  const form = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
-    if (!formData.name.trim()) {
-      newErrors.name = t("validation.nameRequired");
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
 
-    if (!formData.email.trim()) {
-      newErrors.email = t("validation.emailRequired");
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = t("validation.invalidEmail");
-    }
+  const onSubmit = async ({ name, email, password }: RegisterFormData) => {
+    try {
+      setIsLoading(true);
+      setError("");
 
-    if (!formData.password) {
-      newErrors.password = t("validation.passwordRequired");
-    } else if (formData.password.length < 6) {
-      newErrors.password = t("validation.passwordLength");
-    }
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = t("validation.passwordsMatch");
-    }
+      const responseData = await response.json();
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateForm()) {
-      try {
-        setIsLoading(true);
-        const response = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || "Registration failed");
-        }
-
-        router.push(`/verify?email=${encodeURIComponent(formData.email)}`);
-      } catch (error) {
-        setErrors({
-          submit:
-            error instanceof Error ? error.message : "Registration failed",
-        });
-      } finally {
-        setIsLoading(false);
+      if (!response.ok) {
+        throw new Error(responseData.error || "Registration failed");
       }
-    }
-  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      router.push(`/verify?email=${encodeURIComponent(email)}`);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Registration failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -105,53 +73,53 @@ export default function RegisterPage() {
           <CardDescription>{t("auth.register.description")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="name">{t("auth.register.name")}</label>
               <Input
                 id="name"
-                name="name"
                 type="text"
                 placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
-                className={errors.name ? "border-red-500" : ""}
+                {...register("name")}
                 disabled={isLoading}
               />
               {errors.name && (
-                <p className="text-sm text-red-500">{errors.name}</p>
+                <p className="text-sm text-red-500 flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.name.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
               <label htmlFor="email">{t("auth.register.email")}</label>
               <Input
                 id="email"
-                name="email"
                 type="email"
                 placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                className={errors.email ? "border-red-500" : ""}
+                {...register("email")}
                 disabled={isLoading}
               />
               {errors.email && (
-                <p className="text-sm text-red-500">{errors.email}</p>
+                <p className="text-sm text-red-500 flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.email.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
               <label htmlFor="password">{t("auth.register.password")}</label>
               <Input
                 id="password"
-                name="password"
                 type="password"
                 placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                className={errors.password ? "border-red-500" : ""}
+                {...register("password")}
                 disabled={isLoading}
               />
               {errors.password && (
-                <p className="text-sm text-red-500">{errors.password}</p>
+                <p className="text-sm text-red-500 flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.password.message}
+                </p>
               )}
             </div>
             <div className="space-y-2">
@@ -160,21 +128,22 @@ export default function RegisterPage() {
               </label>
               <Input
                 id="confirmPassword"
-                name="confirmPassword"
                 type="password"
                 placeholder="Confirm your password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className={errors.confirmPassword ? "border-red-500" : ""}
+                {...register("confirmPassword")}
                 disabled={isLoading}
               />
               {errors.confirmPassword && (
-                <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+                <p className="text-sm text-red-500 flex items-center gap-1">
+                  <AlertCircle className="h-4 w-4" />
+                  {errors.confirmPassword.message}
+                </p>
               )}
             </div>
-            {errors.submit && (
-              <p className="text-sm text-red-500 text-center">
-                {errors.submit}
+            {error && (
+              <p className="text-sm text-red-500 text-center flex items-center justify-center gap-1">
+                <AlertCircle className="h-4 w-4" />
+                {error}
               </p>
             )}
             <Button type="submit" className="w-full" disabled={isLoading}>
