@@ -75,6 +75,16 @@ export async function updateProduct(
   data: ProductFormData,
 ): Promise<FormState> {
   try {
+    const existingProduct = await prisma.product.findUnique({ where: { id } });
+
+    if (!existingProduct) {
+      return {
+        errors: {},
+        message: "Product not found",
+        success: false,
+      };
+    }
+
     await prisma.product.update({ where: { id }, data });
 
     revalidateTag("products");
