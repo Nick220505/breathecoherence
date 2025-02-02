@@ -14,7 +14,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useTableStore } from "@/lib/stores/use-table-store";
 
-export function DeleteDialog() {
+export function DeleteProductDialog() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const {

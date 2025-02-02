@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { AddProductButton } from "./components/add-product-button";
-import { ProductTableClient } from "./components/product-table-client";
+import { ProductTable } from "./components/product-table";
 import { TableSkeleton } from "./components/table/table-skeleton";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default async function AdminDashboard() {
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TableSkeleton />}>
-            <ProductTableClient products={await getProducts()} />
+            <ProductTable products={await getProducts()} />
           </Suspense>
         </CardContent>
       </Card>
