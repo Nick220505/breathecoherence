@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useTableStore } from "@/lib/stores/use-table-store";
+import { Loader2 } from "lucide-react";
 
 export function DeleteProductDialog() {
   const { t } = useTranslation();
@@ -80,7 +81,14 @@ export function DeleteProductDialog() {
             onClick={handleConfirmDelete}
             disabled={isDeleting}
           >
-            {t("admin.confirm_delete")}
+            {isDeleting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("admin.deleting")}
+              </>
+            ) : (
+              t("admin.confirm_delete")
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

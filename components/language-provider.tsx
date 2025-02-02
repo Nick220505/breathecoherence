@@ -328,6 +328,10 @@ export const translations: Translations = {
     en: "Delete",
     es: "Eliminar",
   },
+  "admin.deleting": {
+    en: "Deleting...",
+    es: "Eliminando...",
+  },
   "store.loading": {
     en: "Loading...",
     es: "Cargando...",
