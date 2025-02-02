@@ -8,7 +8,7 @@ import { ProductFormData, productSchema } from "@/lib/schemas/product";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, Loader2 } from "lucide-react";
-import { startTransition, useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { FormFields } from "./form/form-fields";
 import { ImageUpload } from "./form/image-upload";
@@ -38,6 +38,7 @@ export function ProductForm({
 }: ProductFormProps) {
   const { t } = useTranslation();
   const [state, formAction] = useActionState(productFormAction, initialState);
+  const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
   const form = useForm<ProductFormData>({
@@ -62,7 +63,7 @@ export function ProductForm({
     startTransition(() => formAction(formData));
   };
 
-  const isSubmitting = form.formState.isSubmitting;
+  const isLoading = form.formState.isSubmitting || isPending;
 
   return (
     <form
@@ -95,9 +96,9 @@ export function ProductForm({
       <Button
         type="submit"
         className="w-full bg-primary hover:bg-primary/90"
-        disabled={isSubmitting}
+        disabled={isLoading}
       >
-        {isSubmitting ? (
+        {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             {initialData?.name ? t("admin.editing") : t("admin.adding")}
