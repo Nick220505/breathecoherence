@@ -3,6 +3,7 @@
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -13,6 +14,16 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
         <div className="container mx-auto px-4 text-center">
+          <div className="flex justify-center mb-8">
+            <Image
+              src="/images/BC-logo-transp-120.png"
+              alt="Breathe Coherence"
+              width={120}
+              height={120}
+              className="dark:invert w-[200px] h-[200px]"
+              priority
+            />
+          </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
             {t("hero.title")}
           </h1>

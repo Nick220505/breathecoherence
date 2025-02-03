@@ -1,4 +1,5 @@
 import { CartProvider } from "@/components/cart-provider";
+import { Footer } from "@/components/footer";
 import { LanguageProvider } from "@/components/language-provider";
 import { Navigation } from "@/components/navigation";
 import { PayPalProvider } from "@/components/paypal-provider";
@@ -12,7 +13,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Geometry & Essences - Sacred Geometry and Flower Essences Shop",
+  title: "Breathe Coherence - Sacred Geometry and Flower Essences Shop",
   description:
     "Discover our collection of sacred geometry objects and healing flower essences.",
 };
@@ -35,7 +36,7 @@ export default function RootLayout({
             <LanguageProvider>
               <CartProvider>
                 <PayPalProvider>
-                  <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+                  <div className="relative min-h-screen flex flex-col bg-background text-foreground">
                     {/* Geometric Background Pattern */}
                     <div className="fixed inset-0 -z-10 dark:opacity-20 opacity-10">
                       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
@@ -77,9 +78,12 @@ export default function RootLayout({
                     </div>
 
                     <Navigation />
-                    <main className="relative pt-16">{children}</main>
+                    <main className="flex-1 pt-16">{children}</main>
+                    <Footer />
                   </div>
-                  <Toaster />
+                  <div className="fixed bottom-4 right-4 z-50">
+                    <Toaster />
+                  </div>
                 </PayPalProvider>
               </CartProvider>
             </LanguageProvider>

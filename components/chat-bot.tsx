@@ -106,7 +106,7 @@ export function ChatBot() {
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 rounded-full w-14 h-14 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+        className="fixed bottom-4 right-4 z-50 rounded-full w-14 h-14 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
       >
         <MessageCircle className="w-6 h-6" />
       </Button>
@@ -114,7 +114,7 @@ export function ChatBot() {
   }
 
   return (
-    <Card className="fixed bottom-4 right-4 w-[calc(100%-2rem)] sm:w-[350px] md:w-96 h-[500px] sm:h-[600px] shadow-xl flex flex-col bg-background/80 backdrop-blur-sm border border-purple-500/20 animate-in slide-in-from-right duration-300">
+    <Card className="fixed bottom-4 right-4 z-50 w-[calc(100%-2rem)] sm:w-[350px] md:w-96 h-[500px] sm:h-[600px] shadow-xl flex flex-col bg-background/80 backdrop-blur-sm border border-purple-500/20 animate-in slide-in-from-right duration-300">
       <div className="p-3 sm:p-4 border-b flex justify-between items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-lg">
         <h2 className="font-semibold text-sm sm:text-base">
           {language === "es" ? "Asistente de Compras" : "Shopping Assistant"}

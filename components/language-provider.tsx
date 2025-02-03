@@ -413,36 +413,60 @@ export const translations: Translations = {
     es: "Recuerda que la dosis recomendada es 4 gotas de 4 a 6 veces al día durante 3 semanas.",
   },
   "store.essence.whatsapp_help": {
-    en: "You can make your own blend following the above instructions or get advice from us on the WhatsApp icon.",
-    es: "Puedes hacer tu propia mezcla siguiendo las indicaciones anteriores o asesórate con nosotros en el icono de WhatsApp.",
+    en: "Need help selecting essences? Contact us via WhatsApp for personalized guidance.",
+    es: "¿Necesitas ayuda seleccionando esencias? Contáctanos por WhatsApp para una guía personalizada.",
   },
   "store.essence.learn_more": {
-    en: "Learn more about our essences",
-    es: "Conoce más de nuestras esencias",
+    en: "Learn More About Flower Essences",
+    es: "Aprende Más Sobre las Esencias Florales",
   },
   "store.essence.select_base": {
-    en: "Choose a base",
-    es: "Elige una base",
+    en: "Select Base",
+    es: "Seleccionar Base",
   },
   "store.essence.select_option": {
-    en: "Choose an option",
-    es: "Elige una opción",
+    en: "Select an option",
+    es: "Selecciona una opción",
   },
   "store.essence.skip_option": {
-    en: "Choose your essence or skip",
-    es: "Elije tu esencia o salta",
+    en: "Optional - Skip",
+    es: "Opcional - Omitir",
   },
   "store.essence.essence_number": {
     en: "Essence",
     es: "Esencia",
   },
   "store.essence.base.brandy": {
-    en: "Brandy",
-    es: "Brandy",
+    en: "Brandy Base",
+    es: "Base de Brandy",
   },
   "store.essence.base.water": {
-    en: "Water",
-    es: "Agua",
+    en: "Water Base",
+    es: "Base de Agua",
+  },
+  "store.essence.understanding.title": {
+    en: "Understanding Flower Essences",
+    es: "Entendiendo las Esencias Florales",
+  },
+  "store.essence.understanding.intro": {
+    en: "Flower essences are natural preparations extracted from specific flowers in their natural habitat, carefully crafted to maintain their purity and energy. These essences are known for their ability to harmonize and balance our energetic body, acting as vibration and liquid consciousness.",
+    es: "Las esencias florales son preparaciones naturales extraídas de flores específicas en su hábitat natural, cuidadosamente elaboradas para mantener su pureza y energía. Estas esencias son conocidas por su capacidad para armonizar y equilibrar nuestro cuerpo energético, actuando como vibración y conciencia líquida.",
+  },
+  "store.essence.understanding.interaction": {
+    en: "When we use flower essences, we are interacting with the vital energy of flowers. Each flower possesses a unique vibration that is transmuted into the flower essence, and upon entering our system, these vibrations can help release emotional and energetic blockages, promoting a state of well-being and balance.",
+    es: "Cuando usamos esencias florales, estamos interactuando con la energía vital de las flores. Cada flor posee una vibración única que se transmuta en la esencia floral, y al entrar en nuestro sistema, estas vibraciones pueden ayudar a liberar bloqueos emocionales y energéticos, promoviendo un estado de bienestar y equilibrio.",
+  },
+  "store.essence.understanding.process": {
+    en: "Flower essences work in a subtle but profound way, facilitating connection with our emotions and fostering greater understanding and inner clarity. When using them, the harmonization of the body's energy centers is promoted, which can result in an overall improvement in emotional and mental state.",
+    es: "Las esencias florales trabajan de manera sutil pero profunda, facilitando la conexión con nuestras emociones y fomentando una mayor comprensión y claridad interior. Al usarlas, se promueve la armonización de los centros energéticos del cuerpo, lo que puede resultar en una mejora general del estado emocional y mental.",
+  },
+  "store.essence.understanding.benefits": {
+    en: "The use of flower essences is a natural and conscious way to work with our internal energies, allowing the flower's vibration to interweave with our own frequency, and guiding us towards a state of greater peace and balance.",
+    es: "El uso de esencias florales es una forma natural y consciente de trabajar con nuestras energías internas, permitiendo que la vibración de la flor se entrelace con nuestra propia frecuencia, y guiándonos hacia un estado de mayor paz y equilibrio.",
+  },
+  "store.essence.explore": {
+    en: "Explore Our Flower Essences",
+    es: "Explora Nuestras Esencias Florales",
   },
   "admin.error": {
     en: "Error",
@@ -487,6 +511,10 @@ export const translations: Translations = {
   "admin.page": {
     en: "Page",
     es: "Página",
+  },
+  "footer.rights": {
+    en: "All rights reserved.",
+    es: "Todos los derechos reservados.",
   },
 };
 

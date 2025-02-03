@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 // List of all available flower essences
@@ -139,9 +140,11 @@ export default function CustomBlendPage() {
               <p>{t("store.essence.whatsapp_help")}</p>
             </div>
 
-            <Button variant="outline" className="w-full">
-              {t("store.essence.learn_more")}
-            </Button>
+            <Link href="/store/flower-essences">
+              <Button variant="outline" className="w-full">
+                {t("store.essence.learn_more")}
+              </Button>
+            </Link>
 
             <div className="space-y-6">
               {/* Base Selection */}

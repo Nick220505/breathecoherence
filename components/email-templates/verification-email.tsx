@@ -14,6 +14,24 @@ export const VerificationEmail = ({
       margin: "0 auto",
     }}
   >
+    <div
+      style={{
+        textAlign: "center",
+        marginBottom: "24px",
+      }}
+    >
+      <img
+        src="https://res.cloudinary.com/dx8jpo3ua/image/upload/BC%20logo"
+        alt={companyName}
+        width={120}
+        height={120}
+        style={{
+          display: "inline-block",
+          maxWidth: "100%",
+          height: "auto",
+        }}
+      />
+    </div>
     <h1
       style={{
         color: "#333",

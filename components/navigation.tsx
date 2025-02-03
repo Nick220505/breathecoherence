@@ -76,8 +76,15 @@ export function Navigation() {
     <nav className="fixed top-0 left-0 right-0 border-b bg-background/80 backdrop-blur-sm z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <Link href="/" className="text-xl font-bold animate-gradient">
-            Geometry & Essences
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/BC-logo-180x60.png"
+              alt="Breathe Coherence"
+              width={120}
+              height={40}
+              className="dark:invert"
+              priority
+            />
           </Link>
           <div className="hidden md:flex space-x-4">
             <NavigationItems />
