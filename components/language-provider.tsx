@@ -97,7 +97,7 @@ export const translations: Translations = {
     es: "Geometría 3D",
   },
   "store.category.essence": {
-    en: "Flower Essence",
+    en: "Flower Essences",
     es: "Esencia Floral",
   },
   "hero.title": {
@@ -543,6 +543,30 @@ export const translations: Translations = {
   "store.try_adjusting": {
     en: "Try adjusting your search or filters",
     es: "Intenta ajustar tu búsqueda o filtros",
+  },
+  "store.product_not_found": {
+    en: "Product not found",
+    es: "Producto no encontrado",
+  },
+  "store.back_to_store": {
+    en: "Back to Store",
+    es: "Volver a la Tienda",
+  },
+  "store.adding_to_cart": {
+    en: "Adding to Cart...",
+    es: "Añadiendo al Carrito...",
+  },
+  "store.subtitle": {
+    en: "Discover our curated collection of sacred geometric forms and healing flower essences, designed to enhance your spiritual and emotional well-being.",
+    es: "Descubre nuestra colección curada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
+  },
+  "store.category.sacred geometry.description": {
+    en: "Explore our collection of sacred geometric forms, each piece carefully crafted to embody universal patterns of creation.",
+    es: "Explora nuestra colección de formas geométricas sagradas, cada pieza cuidadosamente elaborada para encarnar patrones universales de la creación.",
+  },
+  "store.category.flower essence.description": {
+    en: "Discover our selection of flower essences, each blend carefully crafted to support emotional balance and spiritual growth.",
+    es: "Descubre nuestra selección de esencias florales, cada mezcla cuidadosamente elaborada para apoyar el equilibrio emocional y el crecimiento espiritual.",
   },
 };
 
