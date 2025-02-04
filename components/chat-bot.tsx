@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/components/cart-provider";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -13,6 +14,11 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   id: string;
+  products?: Array<{
+    id: string;
+    name: string;
+    price: number;
+  }>;
 }
 
 const chatBotVariants = {
@@ -67,6 +73,7 @@ export function ChatBot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { language } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { addToCart } = useCart();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -96,6 +103,42 @@ export function ChatBot() {
     scrollToBottom();
   }, [messages]);
 
+  const extractProductRecs = (message: string) => {
+    const productRecs: Array<{ id: string; name: string; price: number }> = [];
+    const regex = /\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
+    let match;
+
+    while ((match = regex.exec(message)) !== null) {
+      try {
+        const product = JSON.parse(match[1]);
+        productRecs.push(product);
+      } catch (e) {
+        console.error("Failed to parse product recommendation:", e);
+      }
+    }
+
+    const cleanMessage = message.replace(
+      /\[PRODUCT_REC\].*?\[\/PRODUCT_REC\]/g,
+      "",
+    );
+    return { cleanMessage, productRecs };
+  };
+
+  const handleAddToCart = async (product: {
+    id: string;
+    name: string;
+    price: number;
+  }) => {
+    await addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      type: "Flower Essence",
+      stock: 999,
+      description: "",
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -122,7 +165,6 @@ export function ChatBot() {
         }
       }
 
-      // Use the new chat API endpoint
       const chatResponse = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -147,12 +189,15 @@ export function ChatBot() {
         }
       }
 
+      const { cleanMessage, productRecs } = extractProductRecs(finalResponse);
+
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: finalResponse,
+          content: cleanMessage,
           id: Date.now().toString(),
+          products: productRecs,
         },
       ]);
     } catch (error) {
@@ -238,33 +283,52 @@ export function ChatBot() {
             </motion.div>
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
-              <AnimatePresence initial={false}>
-                {messages.map((message) => (
-                  <motion.div
-                    key={message.id}
-                    variants={messageVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className={`flex ${
+              {messages.map((message) => (
+                <motion.div
+                  key={message.id}
+                  variants={messageVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className={`flex flex-col ${
+                    message.role === "assistant" ? "items-start" : "items-end"
+                  } mb-4`}
+                >
+                  <div
+                    className={`rounded-lg p-3 max-w-[80%] ${
                       message.role === "assistant"
-                        ? "justify-start"
-                        : "justify-end"
+                        ? "bg-secondary text-secondary-foreground"
+                        : "bg-primary text-primary-foreground"
                     }`}
                   >
-                    <div
-                      className={`max-w-[85%] p-3 rounded-2xl text-sm ${
-                        message.role === "assistant"
-                          ? "bg-gray-100 dark:bg-gray-800/50 shadow-sm"
-                          : "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md"
-                      }`}
-                    >
-                      <ReactMarkdown className="whitespace-pre-wrap prose dark:prose-invert max-w-none prose-sm">
-                        {message.content}
-                      </ReactMarkdown>
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                    {message.products && message.products.length > 0 && (
+                      <div className="mt-4 space-y-2">
+                        <p className="font-semibold">Recommended Products:</p>
+                        {message.products.map((product) => (
+                          <div
+                            key={product.id}
+                            className="flex items-center justify-between bg-background/10 p-2 rounded"
+                          >
+                            <div>
+                              <p className="font-medium">{product.name}</p>
+                              <p className="text-sm">
+                                ${product.price.toFixed(2)}
+                              </p>
+                            </div>
+                            <Button
+                              onClick={() => handleAddToCart(product)}
+                              variant="secondary"
+                              size="sm"
+                            >
+                              Add to Cart
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
               {isLoading && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}

@@ -14,11 +14,20 @@ export async function getChatResponse(
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
+    // Enhance the system prompt to request structured responses
+    const enhancedPrompt = `${systemPrompt}
+
+When recommending products, please use the following JSON structure within your response:
+[PRODUCT_REC]{"id": "product-id", "name": "Product Name", "price": price}[/PRODUCT_REC]
+
+For example:
+I recommend the Dodecahedron for spiritual growth [PRODUCT_REC]{"id": "dodecahedron", "name": "Dodecahedron (Aether Element)", "price": 19.99}[/PRODUCT_REC]`;
+
     // Start a new chat
     const chat = model.startChat();
 
-    // Send the system prompt first
-    await chat.sendMessage(systemPrompt);
+    // Send the enhanced system prompt first
+    await chat.sendMessage(enhancedPrompt);
 
     // Send the chat history
     for (const msg of chatHistory) {
