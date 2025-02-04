@@ -24,10 +24,10 @@ export default function Home() {
               priority
             />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 px-4 leading-normal py-2">
             {t("hero.title")}
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto px-4">
             {t("hero.subtitle")}
           </p>
           <Link href="/store">
@@ -44,10 +44,10 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-16 bg-white dark:bg-black">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 dark:text-white">
+          <h2 className="text-3xl font-bold text-center mb-12 dark:text-white px-4">
             {t("features.title")}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
             <Card className="dark:border-gray-800">
               <CardContent className="p-6 text-center">
                 <div className="mb-4 text-4xl">🔮</div>
