@@ -516,6 +516,34 @@ export const translations: Translations = {
     en: "All rights reserved.",
     es: "Todos los derechos reservados.",
   },
+  "store.custom_blend.title": {
+    en: "Create Your Custom Blend",
+    es: "Crea Tu Mezcla Personalizada",
+  },
+  "store.custom_blend.subtitle": {
+    en: "Personalized Flower Essence",
+    es: "Esencia Floral Personalizada",
+  },
+  "store.custom_blend.description": {
+    en: "Design your own unique blend of flower essences tailored to your specific needs. Select from our curated collection to create a personalized remedy that resonates with your journey.",
+    es: "Diseña tu propia mezcla única de esencias florales adaptada a tus necesidades específicas. Selecciona de nuestra colección para crear un remedio personalizado que resuene con tu camino.",
+  },
+  "store.custom_blend.price": {
+    en: "$24.99",
+    es: "$24.99",
+  },
+  "store.custom_blend.cta": {
+    en: "Create Your Blend",
+    es: "Crear Tu Mezcla",
+  },
+  "store.no_products": {
+    en: "No products found",
+    es: "No se encontraron productos",
+  },
+  "store.try_adjusting": {
+    en: "Try adjusting your search or filters",
+    es: "Intenta ajustar tu búsqueda o filtros",
+  },
 };
 
 interface LanguageContextType {

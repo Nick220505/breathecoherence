@@ -21,18 +21,22 @@ export default async function Page(props: {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <StoreHeader category={category} type={type} />
+    <div className="min-h-screen bg-gradient-to-b from-background via-background/80 to-background">
+      <div className="container mx-auto px-4 py-12">
+        <div className="space-y-12">
+          <StoreHeader category={category} type={type} />
 
-      <Suspense
-        fallback={
-          <div className="flex justify-center items-center min-h-[50vh]">
-            <div className="rotate-slow w-20 h-20 border-4 border-primary rounded-full border-t-transparent" />
-          </div>
-        }
-      >
-        <StoreContent products={filteredProducts} category={category} />
-      </Suspense>
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center min-h-[50vh]">
+                <div className="w-20 h-20 rounded-full border-4 border-purple-500/30 border-t-purple-600 animate-spin" />
+              </div>
+            }
+          >
+            <StoreContent products={filteredProducts} category={category} />
+          </Suspense>
+        </div>
+      </div>
 
       <ChatBot />
     </div>
