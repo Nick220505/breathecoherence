@@ -1,4 +1,5 @@
 import { CartProvider } from "@/components/cart-provider";
+import { ChatBot } from "@/components/chat-bot";
 import { Footer } from "@/components/footer";
 import { LanguageProvider } from "@/components/language-provider";
 import { Navigation } from "@/components/navigation";
@@ -84,6 +85,7 @@ export default function RootLayout({
                   <div className="fixed bottom-4 right-4 z-50">
                     <Toaster />
                   </div>
+                  <ChatBot />
                 </PayPalProvider>
               </CartProvider>
             </LanguageProvider>

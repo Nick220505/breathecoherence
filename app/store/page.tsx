@@ -1,5 +1,4 @@
 import { getProducts } from "@/actions/product";
-import { ChatBot } from "@/components/chat-bot";
 import { Suspense } from "react";
 import { StoreContent } from "./components/store-content";
 import { StoreHeader } from "./components/store-header";
@@ -37,8 +36,6 @@ export default async function Page(props: {
           </Suspense>
         </div>
       </div>
-
-      <ChatBot />
     </div>
   );
 }
