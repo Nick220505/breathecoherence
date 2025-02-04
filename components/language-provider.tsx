@@ -241,12 +241,36 @@ export const translations: Translations = {
     es: "Esencias Florales",
   },
   "store.category.sacred geometry": {
+    en: "Sacred Geometry",
+    es: "Geometría Sagrada",
+  },
+  "store.category.sacred geometry.title": {
     en: "Sacred Geometry Items",
-    es: "Items de Geometría Sagrada",
+    es: "Artículos de Geometría Sagrada",
+  },
+  "store.category.sacred geometry.badge": {
+    en: "Sacred Geometry Collection",
+    es: "Colección de Geometría Sagrada",
+  },
+  "store.category.sacred geometry.description": {
+    en: "Explore our collection of sacred geometric forms, each piece carefully crafted to embody universal patterns of creation.",
+    es: "Explora nuestra colección de formas geométricas sagradas, cada pieza cuidadosamente elaborada para encarnar patrones universales de la creación.",
   },
   "store.category.flower essence": {
-    en: "Flower Essences",
-    es: "Esencias Florales",
+    en: "Flower Essence",
+    es: "Esencia Floral",
+  },
+  "store.category.flower essence.title": {
+    en: "Flower Essence Collection",
+    es: "Colección de Esencias Florales",
+  },
+  "store.category.flower essence.badge": {
+    en: "Natural Healing",
+    es: "Sanación Natural",
+  },
+  "store.category.flower essence.description": {
+    en: "Discover our selection of flower essences, each blend carefully crafted to support emotional balance and spiritual growth.",
+    es: "Descubre nuestra selección de esencias florales, cada mezcla cuidadosamente elaborada para apoyar el equilibrio emocional y el crecimiento espiritual.",
   },
   "store.filtering_by": {
     en: "Filtering by",
@@ -575,14 +599,6 @@ export const translations: Translations = {
   "store.subtitle": {
     en: "Discover our curated collection of sacred geometric forms and healing flower essences, designed to enhance your spiritual and emotional well-being.",
     es: "Descubre nuestra colección curada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
-  },
-  "store.category.sacred geometry.description": {
-    en: "Explore our collection of sacred geometric forms, each piece carefully crafted to embody universal patterns of creation.",
-    es: "Explora nuestra colección de formas geométricas sagradas, cada pieza cuidadosamente elaborada para encarnar patrones universales de la creación.",
-  },
-  "store.category.flower essence.description": {
-    en: "Discover our selection of flower essences, each blend carefully crafted to support emotional balance and spiritual growth.",
-    es: "Descubre nuestra selección de esencias florales, cada mezcla cuidadosamente elaborada para apoyar el equilibrio emocional y el crecimiento espiritual.",
   },
   "checkout.title": {
     en: "Secure Checkout",
