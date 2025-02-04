@@ -4,7 +4,6 @@ import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { getChatResponse } from "@/lib/gemini";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, MessageCircle, Minimize2, Send, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -13,7 +12,7 @@ import ReactMarkdown from "react-markdown";
 interface Message {
   role: "user" | "assistant";
   content: string;
-  id: string; // Add unique ID for animations
+  id: string;
 }
 
 const chatBotVariants = {
@@ -88,7 +87,6 @@ export function ChatBot() {
         },
       ]);
     }
-    // Focus input when chat opens
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 300);
     }
@@ -124,14 +122,24 @@ export function ChatBot() {
         }
       }
 
-      const chatResponse = await getChatResponse(processedMessage, messages);
+      // Use the new chat API endpoint
+      const chatResponse = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: processedMessage,
+          chatHistory: messages.map(({ role, content }) => ({ role, content })),
+        }),
+      });
 
-      let finalResponse = chatResponse;
+      const data = await chatResponse.json();
+      let finalResponse = data.response;
+
       if (language === "es") {
         const response = await fetch("/api/translate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: chatResponse, targetLanguage: "es" }),
+          body: JSON.stringify({ text: finalResponse, targetLanguage: "es" }),
         });
         const data = await response.json();
         if (data.translatedText) {
