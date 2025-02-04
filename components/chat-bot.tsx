@@ -1,12 +1,13 @@
 "use client";
 
-import { useCart } from "@/components/cart-provider";
 import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { type Product } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, MessageCircle, Minimize2, Send, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -14,11 +15,7 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   id: string;
-  products?: Array<{
-    id: string;
-    name: string;
-    price: number;
-  }>;
+  products?: Partial<Product>[];
 }
 
 const chatBotVariants = {
@@ -66,6 +63,7 @@ const pulseAnimation = {
 };
 
 export function ChatBot() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -73,7 +71,6 @@ export function ChatBot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { language } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
-  const { addToCart } = useCart();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -104,7 +101,7 @@ export function ChatBot() {
   }, [messages]);
 
   const extractProductRecs = (message: string) => {
-    const productRecs: Array<{ id: string; name: string; price: number }> = [];
+    const productRecs: Partial<Product>[] = [];
     const regex = /\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
     let match;
 
@@ -122,21 +119,6 @@ export function ChatBot() {
       "",
     );
     return { cleanMessage, productRecs };
-  };
-
-  const handleAddToCart = async (product: {
-    id: string;
-    name: string;
-    price: number;
-  }) => {
-    await addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      type: "Flower Essence",
-      stock: 999,
-      description: "",
-    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -312,15 +294,17 @@ export function ChatBot() {
                             <div>
                               <p className="font-medium">{product.name}</p>
                               <p className="text-sm">
-                                ${product.price.toFixed(2)}
+                                ${product.price?.toFixed(2) ?? "0.00"}
                               </p>
                             </div>
                             <Button
-                              onClick={() => handleAddToCart(product)}
+                              onClick={() =>
+                                router.push(`/product/${product.id}`)
+                              }
                               variant="secondary"
                               size="sm"
                             >
-                              Add to Cart
+                              View Details
                             </Button>
                           </div>
                         ))}
