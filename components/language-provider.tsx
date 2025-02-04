@@ -28,25 +28,41 @@ export const translations: Translations = {
     en: "Cart",
     es: "Carrito",
   },
+  "store.cart.title": {
+    en: "Shopping Cart",
+    es: "Carrito de Compras",
+  },
+  "store.cart.description": {
+    en: "Review your items and proceed to checkout",
+    es: "Revisa tus artículos y procede al pago",
+  },
   "store.cart.empty": {
     en: "Your cart is empty",
     es: "Tu carrito está vacío",
+  },
+  "store.cart.browse": {
+    en: "Browse Products",
+    es: "Explorar Productos",
   },
   "store.cart.total": {
     en: "Total",
     es: "Total",
   },
   "store.cart.checkout": {
-    en: "Checkout",
-    es: "Pagar",
+    en: "Proceed to Checkout",
+    es: "Proceder al Pago",
   },
   "store.cart.remove": {
     en: "Remove",
     es: "Eliminar",
   },
-  "store.cart.description": {
-    en: "Review your items and proceed to checkout",
-    es: "Revisa tus artículos y procede al pago",
+  "store.cart.adding": {
+    en: "Adding to cart...",
+    es: "Añadiendo al carrito...",
+  },
+  "store.cart.added": {
+    en: "Added to cart",
+    es: "Añadido al carrito",
   },
   "store.add_to_cart": {
     en: "Add to Cart",
@@ -567,6 +583,78 @@ export const translations: Translations = {
   "store.category.flower essence.description": {
     en: "Discover our selection of flower essences, each blend carefully crafted to support emotional balance and spiritual growth.",
     es: "Descubre nuestra selección de esencias florales, cada mezcla cuidadosamente elaborada para apoyar el equilibrio emocional y el crecimiento espiritual.",
+  },
+  "checkout.title": {
+    en: "Secure Checkout",
+    es: "Pago Seguro",
+  },
+  "checkout.billing_info": {
+    en: "Billing Information",
+    es: "Información de Facturación",
+  },
+  "checkout.shipping_info": {
+    en: "Shipping Information",
+    es: "Información de Envío",
+  },
+  "checkout.order_summary": {
+    en: "Order Summary",
+    es: "Resumen del Pedido",
+  },
+  "checkout.payment_method": {
+    en: "Payment Method",
+    es: "Método de Pago",
+  },
+  "checkout.subtotal": {
+    en: "Subtotal",
+    es: "Subtotal",
+  },
+  "checkout.shipping": {
+    en: "Shipping",
+    es: "Envío",
+  },
+  "checkout.total": {
+    en: "Total",
+    es: "Total",
+  },
+  "checkout.different_shipping": {
+    en: "Ship to a different address?",
+    es: "¿Enviar a una dirección diferente?",
+  },
+  "checkout.order_notes": {
+    en: "Order Notes (optional)",
+    es: "Notas del Pedido (opcional)",
+  },
+  "checkout.terms": {
+    en: "I have read and agree to the terms and conditions",
+    es: "He leído y acepto los términos y condiciones",
+  },
+  "checkout.empty_cart": {
+    en: "Your cart is empty",
+    es: "Tu carrito está vacío",
+  },
+  "checkout.empty_cart_message": {
+    en: "Add some items to your cart to proceed with checkout",
+    es: "Añade algunos artículos a tu carrito para proceder con el pago",
+  },
+  "checkout.continue_shopping": {
+    en: "Continue Shopping",
+    es: "Continuar Comprando",
+  },
+  "checkout.secure_payment": {
+    en: "Secure Payment",
+    es: "Pago Seguro",
+  },
+  "checkout.card_payment": {
+    en: "Credit/Debit Card",
+    es: "Tarjeta de Crédito/Débito",
+  },
+  "checkout.paypal": {
+    en: "PayPal",
+    es: "PayPal",
+  },
+  "checkout.loading_paypal": {
+    en: "Loading PayPal...",
+    es: "Cargando PayPal...",
   },
 };
 

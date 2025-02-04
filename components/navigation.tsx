@@ -22,7 +22,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { AnimatePresence, motion } from "framer-motion";
-import { LogOut, Menu, ShoppingCart, User } from "lucide-react";
+import { LogOut, Menu, ShoppingCart, User, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,9 +40,14 @@ const itemVariants = {
 };
 
 const cartItemVariants = {
-  hidden: { opacity: 0, x: 20, scale: 0.95 },
-  visible: { opacity: 1, x: 0, scale: 1 },
+  initial: { opacity: 0, x: 20, scale: 0.95 },
+  animate: { opacity: 1, x: 0, scale: 1 },
   exit: { opacity: 0, x: 20, scale: 0.95 },
+};
+
+const cartTotalVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
 };
 
 export function Navigation() {
@@ -174,118 +179,152 @@ export function Navigation() {
                 <SheetTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
                   {t("store.cart.title")}
                 </SheetTitle>
-                <SheetDescription>
+                <SheetDescription className="text-muted-foreground">
                   {t("store.cart.description")}
                 </SheetDescription>
               </SheetHeader>
-              <div className="mt-8">
-                <AnimatePresence mode="popLayout">
-                  {cart.length === 0 ? (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-center text-muted-foreground"
-                    >
-                      {t("store.cart.empty")}
-                    </motion.p>
-                  ) : (
-                    <motion.div className="space-y-4">
-                      {cart.map((item) => (
+              <div className="mt-8 flex flex-col h-[calc(100vh-8rem)]">
+                <div className="flex-1 overflow-y-auto pr-2">
+                  <AnimatePresence mode="popLayout">
+                    {cart.length === 0 ? (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="flex flex-col items-center justify-center h-full text-center space-y-4"
+                      >
                         <motion.div
-                          key={item.id}
-                          variants={cartItemVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="exit"
-                          layout
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", bounce: 0.5 }}
                         >
-                          <Card className="p-4 hover:shadow-lg transition-shadow duration-300">
-                            <div className="flex items-center gap-4">
-                              <div className="relative w-16 h-16 overflow-hidden rounded-lg">
-                                <Image
-                                  src={
-                                    item.imageUrl ||
-                                    (item.type === "Sacred Geometry"
-                                      ? `/products/sacred-geometry.svg#${item.id}`
-                                      : "/products/flower-essence.svg")
-                                  }
-                                  alt={item.name}
-                                  fill
-                                  className="object-cover transition-transform duration-300 hover:scale-110"
-                                  priority
-                                />
-                              </div>
-                              <div className="flex-1">
-                                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                                  <div>
-                                    <p className="font-medium">{item.name}</p>
-                                    <p className="text-sm text-muted-foreground">
-                                      ${item.price.toFixed(2)}
-                                    </p>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() =>
-                                        updateQuantity(
-                                          item.id,
-                                          item.quantity - 1,
-                                        )
-                                      }
-                                      className="hover:bg-primary/10"
-                                    >
-                                      -
-                                    </Button>
-                                    <span className="w-8 text-center">
-                                      {item.quantity}
-                                    </span>
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() =>
-                                        updateQuantity(
-                                          item.id,
-                                          item.quantity + 1,
-                                        )
-                                      }
-                                      className="hover:bg-primary/10"
-                                    >
-                                      +
-                                    </Button>
-                                    <Button
-                                      variant="destructive"
-                                      size="sm"
-                                      onClick={() => removeFromCart(item.id)}
-                                      className="hover:bg-red-600/90"
-                                    >
-                                      {t("store.cart.remove")}
-                                    </Button>
+                          <ShoppingCart className="h-12 w-12 text-muted-foreground/50" />
+                        </motion.div>
+                        <p className="text-lg text-muted-foreground">
+                          {t("store.cart.empty")}
+                        </p>
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            setIsCartOpen(false);
+                            router.push("/store");
+                          }}
+                          className="mt-4"
+                        >
+                          {t("store.cart.browse")}
+                        </Button>
+                      </motion.div>
+                    ) : (
+                      <motion.div layout className="space-y-4">
+                        {cart.map((item) => (
+                          <motion.div
+                            key={item.id}
+                            variants={cartItemVariants}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            layout
+                          >
+                            <Card className="p-4 hover:shadow-lg transition-shadow duration-300 bg-card/50">
+                              <div className="flex gap-4">
+                                <div className="relative w-20 h-20 overflow-hidden rounded-lg shrink-0">
+                                  <Image
+                                    src={
+                                      item.imageUrl ||
+                                      (item.type === "Sacred Geometry"
+                                        ? `/products/sacred-geometry.svg#${item.id}`
+                                        : "/products/flower-essence.svg")
+                                    }
+                                    alt={item.name}
+                                    fill
+                                    className="object-cover transition-transform duration-300 hover:scale-110"
+                                    priority
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex flex-col h-full">
+                                    <div className="flex-1">
+                                      <h3 className="font-medium leading-none truncate">
+                                        {item.name}
+                                      </h3>
+                                      <p className="text-sm text-muted-foreground mt-1">
+                                        ${item.price.toFixed(2)}
+                                      </p>
+                                    </div>
+                                    <div className="flex items-center justify-between mt-2">
+                                      <div className="flex items-center gap-1">
+                                        <Button
+                                          variant="outline"
+                                          size="icon"
+                                          className="h-8 w-8"
+                                          onClick={() =>
+                                            updateQuantity(
+                                              item.id,
+                                              item.quantity - 1,
+                                            )
+                                          }
+                                        >
+                                          -
+                                        </Button>
+                                        <span className="w-8 text-center">
+                                          {item.quantity}
+                                        </span>
+                                        <Button
+                                          variant="outline"
+                                          size="icon"
+                                          className="h-8 w-8"
+                                          onClick={() =>
+                                            updateQuantity(
+                                              item.id,
+                                              item.quantity + 1,
+                                            )
+                                          }
+                                        >
+                                          +
+                                        </Button>
+                                      </div>
+                                      <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
+                                        onClick={() => removeFromCart(item.id)}
+                                      >
+                                        <X className="h-4 w-4" />
+                                      </Button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </Card>
-                        </motion.div>
-                      ))}
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="pt-4 border-t"
-                      >
-                        <p className="font-medium text-lg">
-                          {t("store.cart.total")}: ${getTotalPrice().toFixed(2)}
-                        </p>
-                        <Button
-                          onClick={handleCheckout}
-                          className="w-full mt-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
-                        >
-                          {t("store.cart.checkout")}
-                        </Button>
+                            </Card>
+                          </motion.div>
+                        ))}
                       </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {cart.length > 0 && (
+                  <motion.div
+                    variants={cartTotalVariants}
+                    initial="initial"
+                    animate="animate"
+                    className="pt-4 mt-4 border-t space-y-4"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">
+                        {t("store.cart.total")}
+                      </span>
+                      <span className="font-bold text-lg">
+                        ${getTotalPrice().toFixed(2)}
+                      </span>
+                    </div>
+                    <Button
+                      onClick={handleCheckout}
+                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
+                    >
+                      {t("store.cart.checkout")}
+                    </Button>
+                  </motion.div>
+                )}
               </div>
             </SheetContent>
           </Sheet>

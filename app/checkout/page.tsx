@@ -1,8 +1,10 @@
 "use client";
 
 import { useCart } from "@/components/cart-provider";
+import { useTranslation } from "@/components/language-provider";
 import { StripePaymentForm } from "@/components/stripe-payment-form";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,12 +16,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import Link from "next/link";
+import { motion } from "framer-motion";
+import { CreditCard, Lock, ShoppingBag, Wallet2 } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -68,9 +73,14 @@ function PayPalPaymentButton({
   watch: () => CheckoutFormData;
 }) {
   const [{ isPending }] = usePayPalScriptReducer();
+  const { t } = useTranslation();
 
   if (isPending) {
-    return <div>Loading PayPal...</div>;
+    return (
+      <div className="min-h-[200px] flex items-center justify-center text-muted-foreground">
+        {t("checkout.loading_paypal")}
+      </div>
+    );
   }
 
   return (
@@ -123,6 +133,7 @@ function PayPalPaymentButton({
 }
 
 export default function CheckoutPage() {
+  const { t } = useTranslation();
   const { total, cart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [differentShippingAddress, setDifferentShippingAddress] =
@@ -172,325 +183,364 @@ export default function CheckoutPage() {
   // Don't show checkout if cart is empty
   if (!cart || cart.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-3xl font-bold mb-4">Your cart is empty</h1>
-        <p className="text-gray-600 mb-8">
-          Add some items to your cart to checkout
-        </p>
-        <Button onClick={() => (window.location.href = "/store")}>
-          Continue Shopping
-        </Button>
+      <div className="container mx-auto px-4 py-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-md mx-auto space-y-6"
+        >
+          <ShoppingBag className="mx-auto h-12 w-12 text-muted-foreground/50" />
+          <h1 className="text-3xl font-bold">{t("checkout.empty_cart")}</h1>
+          <p className="text-muted-foreground">
+            {t("checkout.empty_cart_message")}
+          </p>
+          <Button
+            onClick={() => (window.location.href = "/store")}
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+          >
+            {t("checkout.continue_shopping")}
+          </Button>
+        </motion.div>
       </div>
     );
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-6xl mx-auto"
+      >
+        <div className="flex items-center gap-2 mb-8">
+          <Lock className="h-5 w-5 text-green-500" />
+          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+            {t("checkout.title")}
+          </h1>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Billing & Shipping Information */}
-        <div className="lg:col-span-2 space-y-8">
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Billing Information</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="firstName">First Name *</Label>
-                  <Input
-                    id="firstName"
-                    {...register("firstName")}
-                    className={errors.firstName ? "border-red-500" : ""}
-                  />
-                  {errors.firstName && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.firstName.message}
-                    </p>
-                  )}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Billing & Shipping Information */}
+          <div className="lg:col-span-2 space-y-8">
+            <Card className="p-6 shadow-lg bg-card/50 backdrop-blur-lg">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="space-y-4">
+                  <h2 className="text-xl font-semibold flex items-center gap-2">
+                    {t("checkout.billing_info")}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="firstName">First Name *</Label>
+                      <Input
+                        id="firstName"
+                        {...register("firstName")}
+                        className={errors.firstName ? "border-red-500" : ""}
+                      />
+                      {errors.firstName && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.firstName.message}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <Label htmlFor="lastName">Last Name *</Label>
+                      <Input
+                        id="lastName"
+                        {...register("lastName")}
+                        className={errors.lastName ? "border-red-500" : ""}
+                      />
+                      {errors.lastName && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.lastName.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      {...register("email")}
+                      className={errors.email ? "border-red-500" : ""}
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="phone">Phone *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      {...register("phone")}
+                      className={errors.phone ? "border-red-500" : ""}
+                    />
+                    {errors.phone && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.phone.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="address">Address *</Label>
+                    <Input
+                      id="address"
+                      {...register("address")}
+                      className={errors.address ? "border-red-500" : ""}
+                    />
+                    {errors.address && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.address.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="country">Country *</Label>
+                      <Select
+                        onValueChange={(value) => setValue("country", value)}
+                      >
+                        <SelectTrigger
+                          className={errors.country ? "border-red-500" : ""}
+                        >
+                          <SelectValue placeholder="Select country" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="CO">Colombia</SelectItem>
+                          {/* Add more countries as needed */}
+                        </SelectContent>
+                      </Select>
+                      {errors.country && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.country.message}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <Label htmlFor="state">State/Department *</Label>
+                      <Select
+                        onValueChange={(value) => setValue("state", value)}
+                      >
+                        <SelectTrigger
+                          className={errors.state ? "border-red-500" : ""}
+                        >
+                          <SelectValue placeholder="Select state" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="BOG">Bogotá</SelectItem>
+                          {/* Add more states as needed */}
+                        </SelectContent>
+                      </Select>
+                      {errors.state && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.state.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="city">City *</Label>
+                      <Input
+                        id="city"
+                        {...register("city")}
+                        className={errors.city ? "border-red-500" : ""}
+                      />
+                      {errors.city && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.city.message}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <Label htmlFor="postalCode">Postal Code *</Label>
+                      <Input
+                        id="postalCode"
+                        {...register("postalCode")}
+                        className={errors.postalCode ? "border-red-500" : ""}
+                      />
+                      {errors.postalCode && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.postalCode.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="lastName">Last Name *</Label>
-                  <Input
-                    id="lastName"
-                    {...register("lastName")}
-                    className={errors.lastName ? "border-red-500" : ""}
-                  />
-                  {errors.lastName && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.lastName.message}
-                    </p>
-                  )}
-                </div>
-              </div>
 
-              <div>
-                <Label htmlFor="email">Email *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  {...register("email")}
-                  className={errors.email ? "border-red-500" : ""}
-                />
-                {errors.email && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
+                <Separator />
 
-              <div>
-                <Label htmlFor="phone">Phone *</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  {...register("phone")}
-                  className={errors.phone ? "border-red-500" : ""}
-                />
-                {errors.phone && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {errors.phone.message}
-                  </p>
-                )}
-              </div>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="differentShipping"
+                      checked={differentShippingAddress}
+                      onCheckedChange={(checked) =>
+                        setDifferentShippingAddress(checked as boolean)
+                      }
+                    />
+                    <Label htmlFor="differentShipping">
+                      {t("checkout.different_shipping")}
+                    </Label>
+                  </div>
 
-              <div>
-                <Label htmlFor="address">Address *</Label>
-                <Input
-                  id="address"
-                  {...register("address")}
-                  className={errors.address ? "border-red-500" : ""}
-                />
-                {errors.address && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {errors.address.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="country">Country *</Label>
-                  <Select onValueChange={(value) => setValue("country", value)}>
-                    <SelectTrigger
-                      className={errors.country ? "border-red-500" : ""}
+                  {differentShippingAddress && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="space-y-4"
                     >
-                      <SelectValue placeholder="Select country" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="CO">Colombia</SelectItem>
-                      {/* Add more countries as needed */}
-                    </SelectContent>
-                  </Select>
-                  {errors.country && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.country.message}
-                    </p>
+                      <h2 className="text-xl font-semibold">
+                        {t("checkout.shipping_info")}
+                      </h2>
+                      {/* Add shipping address fields with their own validation */}
+                    </motion.div>
                   )}
                 </div>
-                <div>
-                  <Label htmlFor="state">State/Department *</Label>
-                  <Select onValueChange={(value) => setValue("state", value)}>
-                    <SelectTrigger
-                      className={errors.state ? "border-red-500" : ""}
-                    >
-                      <SelectValue placeholder="Select state" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="BOG">Bogotá</SelectItem>
-                      {/* Add more states as needed */}
-                    </SelectContent>
-                  </Select>
-                  {errors.state && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.state.message}
-                    </p>
-                  )}
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="city">City *</Label>
-                  <Input
-                    id="city"
-                    {...register("city")}
-                    className={errors.city ? "border-red-500" : ""}
+                <Separator />
+
+                <div className="space-y-4">
+                  <Label htmlFor="orderNotes">
+                    {t("checkout.order_notes")}
+                  </Label>
+                  <Textarea
+                    id="orderNotes"
+                    {...register("orderNotes")}
+                    className="min-h-[100px]"
                   />
-                  {errors.city && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.city.message}
-                    </p>
-                  )}
                 </div>
-                <div>
-                  <Label htmlFor="postalCode">Postal Code *</Label>
-                  <Input
-                    id="postalCode"
-                    {...register("postalCode")}
-                    className={errors.postalCode ? "border-red-500" : ""}
-                  />
-                  {errors.postalCode && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.postalCode.message}
-                    </p>
-                  )}
+              </form>
+            </Card>
+
+            <Card className="p-6 shadow-lg bg-card/50 backdrop-blur-lg">
+              <h2 className="text-xl font-semibold mb-4">
+                {t("checkout.payment_method")}
+              </h2>
+              <RadioGroup
+                value={paymentMethod}
+                onValueChange={setPaymentMethod}
+                className="space-y-4"
+              >
+                <div className="flex items-center space-x-3 p-4 rounded-lg border hover:bg-accent transition-colors">
+                  <RadioGroupItem value="card" id="card" />
+                  <Label htmlFor="card" className="flex items-center gap-2">
+                    <CreditCard className="h-4 w-4" />
+                    {t("checkout.card_payment")}
+                  </Label>
                 </div>
-              </div>
+                <div className="flex items-center space-x-3 p-4 rounded-lg border hover:bg-accent transition-colors">
+                  <RadioGroupItem value="paypal" id="paypal" />
+                  <Label htmlFor="paypal" className="flex items-center gap-2">
+                    <Wallet2 className="h-4 w-4" />
+                    {t("checkout.paypal")}
+                  </Label>
+                </div>
+              </RadioGroup>
 
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="differentShipping"
-                  checked={differentShippingAddress}
-                  onCheckedChange={(checked: boolean) =>
-                    setDifferentShippingAddress(checked)
-                  }
-                />
-                <label
-                  htmlFor="differentShipping"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Ship to a different address?
-                </label>
-              </div>
-
-              {differentShippingAddress && (
-                <div className="space-y-4 mt-4 p-4 border rounded-lg">
-                  <h3 className="font-medium">Shipping Address</h3>
-                  {/* Add shipping address fields with their own validation */}
+              {paymentMethod === "card" && clientSecret && (
+                <div className="mt-6">
+                  <Elements stripe={stripePromise} options={{ clientSecret }}>
+                    <StripePaymentForm />
+                  </Elements>
                 </div>
               )}
 
-              <div>
-                <Label htmlFor="orderNotes">Order Notes (optional)</Label>
-                <Textarea
-                  id="orderNotes"
-                  {...register("orderNotes")}
-                  placeholder="Notes about your order, e.g. special notes for delivery"
-                  className="h-24"
-                />
-              </div>
+              {paymentMethod === "paypal" && (
+                <div className="mt-6">
+                  <PayPalPaymentButton finalTotal={finalTotal} watch={watch} />
+                </div>
+              )}
+            </Card>
+          </div>
 
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <Card className="p-6 shadow-lg bg-card/50 backdrop-blur-lg sticky top-24">
+              <h2 className="text-xl font-semibold mb-4">
+                {t("checkout.order_summary")}
+              </h2>
               <div className="space-y-4">
-                <div className="flex items-center space-x-2">
+                {cart.map((item) => (
+                  <div key={item.id} className="flex gap-4">
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0">
+                      <Image
+                        src={
+                          item.imageUrl ||
+                          (item.type === "Sacred Geometry"
+                            ? `/products/sacred-geometry.svg#${item.id}`
+                            : "/products/flower-essence.svg")
+                        }
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium leading-none truncate">
+                        {item.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        x{item.quantity}
+                      </p>
+                      <p className="text-sm font-medium mt-1">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+
+                <Separator />
+
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      {t("checkout.subtotal")}
+                    </span>
+                    <span>${subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      {t("checkout.shipping")}
+                    </span>
+                    <span>${SHIPPING_COST.toFixed(2)}</span>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between text-lg font-bold">
+                    <span>{t("checkout.total")}</span>
+                    <span>${finalTotal.toFixed(2)}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2 mt-6">
                   <Checkbox
                     id="terms"
                     {...register("acceptedTerms")}
                     className={errors.acceptedTerms ? "border-red-500" : ""}
                   />
-                  <label htmlFor="terms" className="text-sm leading-none">
-                    I have read and agree to the{" "}
-                    <Link
-                      href="/terms"
-                      className="text-primary hover:underline"
-                    >
-                      terms and conditions
-                    </Link>
-                    *
-                  </label>
+                  <Label htmlFor="terms" className="text-sm">
+                    {t("checkout.terms")}
+                  </Label>
                 </div>
                 {errors.acceptedTerms && (
                   <p className="text-sm text-red-500">
                     {errors.acceptedTerms.message}
                   </p>
                 )}
-
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={paymentMethod === "paypal"}
-                >
-                  {paymentMethod === "card"
-                    ? "Pay Now"
-                    : "Select Payment Method"}
-                </Button>
               </div>
-            </form>
+            </Card>
           </div>
         </div>
-
-        {/* Order Summary */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
-            <h2 className="text-xl font-semibold mb-4">Your Order</h2>
-
-            <div className="space-y-4">
-              <div className="border-b pb-4">
-                <div className="flex justify-between text-sm font-medium">
-                  <span>Product</span>
-                  <span>Subtotal</span>
-                </div>
-              </div>
-
-              {cart.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex justify-between items-center py-2"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm">{item.name}</span>
-                    <span className="text-sm text-gray-500">
-                      × {item.quantity}
-                    </span>
-                  </div>
-                  <span className="text-sm">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </span>
-                </div>
-              ))}
-
-              <div className="border-t pt-4 space-y-2">
-                <div className="flex justify-between">
-                  <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Shipping</span>
-                  <span>${SHIPPING_COST.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between font-bold text-lg">
-                  <span>Total</span>
-                  <span>${finalTotal.toFixed(2)}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 space-y-4">
-              <h3 className="font-semibold">Payment Method</h3>
-              <RadioGroup
-                defaultValue="card"
-                onValueChange={(value: string) => setPaymentMethod(value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="card" id="card" />
-                  <Label htmlFor="card">Credit Card</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="paypal" id="paypal" />
-                  <Label htmlFor="paypal">PayPal</Label>
-                </div>
-              </RadioGroup>
-
-              {paymentMethod === "paypal" && (
-                <PayPalPaymentButton finalTotal={finalTotal} watch={watch} />
-              )}
-
-              {paymentMethod === "card" && clientSecret && (
-                <Elements
-                  stripe={stripePromise}
-                  options={{
-                    clientSecret,
-                    appearance: {
-                      theme: "stripe",
-                    },
-                  }}
-                >
-                  <StripePaymentForm />
-                </Elements>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
