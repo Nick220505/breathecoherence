@@ -37,7 +37,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
                 ⬡
               </span>
             ) : (
-              <span className="text-2xl md:text-3xl float inline-block">
+              <span className="text-2xl md:text-3xl inline-block text-pink-500 dark:text-pink-400">
                 🌸
               </span>
             )}

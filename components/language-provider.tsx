@@ -569,8 +569,8 @@ export const translations: Translations = {
     es: "Diseña tu propia mezcla única de esencias florales adaptada a tus necesidades específicas. Selecciona de nuestra colección para crear un remedio personalizado que resuene con tu camino.",
   },
   "store.custom_blend.price": {
-    en: "$24.99",
-    es: "$24.99",
+    en: "$19.99",
+    es: "$19.99",
   },
   "store.custom_blend.cta": {
     en: "Create Your Blend",
