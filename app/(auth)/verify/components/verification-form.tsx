@@ -14,6 +14,7 @@ import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -166,8 +167,16 @@ export function VerificationForm({ email }: VerificationFormProps) {
               href="/"
               className="flex items-center justify-center mb-8 gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
             >
-              <img src="/logo.svg" alt="Logo" className="h-8 w-8" />
-              <span className="text-xl font-semibold">Sacred Geometry</span>
+              <div className="relative h-16 w-48">
+                <Image
+                  src="/images/BC-logo-transp-120.png"
+                  alt="Breathe Coherence"
+                  fill
+                  sizes="(max-width: 192px) 100vw, 192px"
+                  className="object-contain dark:invert transition-all duration-300"
+                  priority
+                />
+              </div>
             </Link>
           </motion.div>
 
@@ -212,8 +221,16 @@ export function VerificationForm({ email }: VerificationFormProps) {
             href="/"
             className="flex items-center justify-center mb-8 gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
           >
-            <img src="/logo.svg" alt="Logo" className="h-8 w-8" />
-            <span className="text-xl font-semibold">Sacred Geometry</span>
+            <div className="relative h-16 w-48">
+              <Image
+                src="/images/BC-logo-transp-120.png"
+                alt="Breathe Coherence"
+                fill
+                sizes="(max-width: 192px) 100vw, 192px"
+                className="object-contain dark:invert transition-all duration-300"
+                priority
+              />
+            </div>
           </Link>
         </motion.div>
 
