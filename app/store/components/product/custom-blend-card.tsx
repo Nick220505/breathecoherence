@@ -21,7 +21,9 @@ export function CustomBlendCard() {
       <Card className="group overflow-hidden cursor-pointer bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-purple-500/10 backdrop-blur-sm border-purple-500/20 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
         <CardHeader className="p-6 border-b border-purple-500/10">
           <CardTitle className="flex items-center gap-3 text-lg md:text-xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
-            <span className="text-2xl md:text-3xl animate-pulse">✨</span>
+            <span className="text-2xl md:text-3xl inline-block text-pink-500 dark:text-pink-400 transition-transform duration-300 group-hover:scale-110">
+              🌿
+            </span>
             {t("store.custom_blend.title")}
           </CardTitle>
           <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
