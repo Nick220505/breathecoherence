@@ -109,6 +109,7 @@ async function main() {
         price: 19.99,
         type: "Flower Essence",
         stock: 100,
+        imageUrl: "products/flower-essences/kezlngyat0litxsdirxj",
       },
     }),
     prisma.product.upsert({
@@ -121,6 +122,7 @@ async function main() {
         price: 19.99,
         type: "Flower Essence",
         stock: 100,
+        imageUrl: "products/flower-essences/jeqlvmpspcccvgksblsrv",
       },
     }),
   ]);
