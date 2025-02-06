@@ -1,4 +1,4 @@
-# Geometry E-commerce
+# Breathe Coherence
 
 A modern e-commerce platform built with Next.js 15, featuring a sleek design system and powerful backend integration.
 
@@ -35,8 +35,8 @@ A modern e-commerce platform built with Next.js 15, featuring a sleek design sys
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/geometry-ecommerce.git
-cd geometry-ecommerce
+git clone https://github.com/Nick220505/breathecoherence.git
+cd breathecoherence
 ```
 
 2. Install dependencies:
@@ -111,7 +111,7 @@ The application will be available at [http://localhost:3000](http://localhost:30
 ## 📚 Project Structure
 
 ```
-geometry-ecommerce/
+breathecoherence/
 ├── actions/              # Server actions for data mutations
 ├── app/                  # Next.js 15 app directory
 │   ├── (admin)/         # Admin dashboard routes
