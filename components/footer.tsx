@@ -1,11 +1,11 @@
 "use client";
 
-import { useTranslation } from "@/components/language-provider";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 
 export function Footer() {
-  const { t } = useTranslation();
+  const t = useTranslations("Footer");
   const currentYear = new Date().getFullYear();
 
   return (
@@ -24,7 +24,7 @@ export function Footer() {
               />
             </Link>
             <span className="text-sm text-muted-foreground">
-              © {currentYear} Breathe Coherence. {t("footer.rights")}
+              © {currentYear} Breathe Coherence. {t("rights")}
             </span>
           </div>
 

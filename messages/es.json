@@ -1,0 +1,358 @@
+{
+  "HomePage": {
+    "hero": {
+      "title": "Geometría Sagrada & Esencias Sanadoras",
+      "subtitle": "Descubre la perfecta armonía entre las formas geométricas sagradas y el poder sanador de las esencias florales.",
+      "cta": "Explora Nuestra Colección"
+    },
+    "features": {
+      "title": "Por Qué Elegirnos",
+      "geometry": {
+        "title": "Geometría Sagrada",
+        "description": "Formas geométricas artesanales que encarnan patrones universales de la creación."
+      },
+      "essences": {
+        "title": "Esencias Florales",
+        "description": "Esencias naturales puras que promueven el bienestar emocional y espiritual."
+      },
+      "harmony": {
+        "title": "Armonía Holística",
+        "description": "La mezcla perfecta de forma y esencia para un alineamiento espiritual completo."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar tu Viaje?",
+      "description": "Únete a nosotros en la exploración de la intersección entre la geometría sagrada y la sanación natural.",
+      "shop": "Comprar Ahora",
+      "signin": "Iniciar Sesión"
+    }
+  },
+  "Footer": {
+    "rights": "Todos los derechos reservados.",
+    "nav": {
+      "sacred_geometry": "Geometría Sagrada",
+      "flower_essences": "Esencias Florales"
+    }
+  },
+  "RegisterPage": {
+    "title": "Registrarse",
+    "description": "Crea una nueva cuenta para empezar a comprar",
+    "name": "Nombre Completo",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "submit": "Crear Cuenta",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "login": "Inicia sesión aquí",
+    "creating": "Creando cuenta...",
+    "placeholder": {
+      "name": "Ingresa tu nombre completo",
+      "email": "Ingresa tu correo electrónico",
+      "password": "Ingresa tu contraseña",
+      "confirmPassword": "Ingresa tu contraseña nuevamente"
+    }
+  },
+  "LoginPage": {
+    "title": "Bienvenido de Nuevo",
+    "description": "Ingresa tus credenciales para acceder a tu cuenta",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "submit": "Iniciar Sesión",
+    "loading": "Iniciando sesión...",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Regístrate aquí",
+    "error": {
+      "invalid": "Correo electrónico o contraseña inválidos",
+      "generic": "Ocurrió un error durante el inicio de sesión"
+    },
+    "placeholder": {
+      "email": "Ingresa tu correo electrónico",
+      "password": "Ingresa tu contraseña"
+    }
+  },
+  "VerificationForm": {
+    "title": "Verifica tu correo electrónico",
+    "description": "Ingresa el código enviado a",
+    "error": {
+      "title": "Error",
+      "description": "Enlace de verificación inválido. Por favor, intenta registrarte nuevamente.",
+      "codeFormat": "El código debe contener solo números"
+    },
+    "submit": "Verificar Correo",
+    "loading": "Verificando...",
+    "backToRegister": "Volver al Registro",
+    "goToRegister": "Ir al Registro"
+  },
+  "Navigation": {
+    "nav": {
+      "sacred_geometry": "Geometría Sagrada",
+      "flower_essences": "Esencias Florales",
+      "dashboard": "Panel de Control",
+      "signout": "Cerrar Sesión",
+      "register": "Registrarse",
+      "login": "Iniciar Sesión"
+    },
+    "store": {
+      "cart": {
+        "title": "Carrito de Compras",
+        "description": "Revisa tus artículos y procede al pago",
+        "empty": "Tu carrito está vacío",
+        "browse": "Explorar Productos",
+        "total": "Total",
+        "checkout": "Proceder al Pago"
+      }
+    }
+  },
+  "ThemeToggle": {
+    "label": "Cambiar tema",
+    "themes": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    }
+  },
+  "LanguageToggle": {
+    "toggle_language": "Cambiar idioma"
+  },
+  "StoreHeader": {
+    "title": "Nuestros Productos",
+    "subtitle": "Descubre nuestra colección seleccionada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
+    "category": {
+      "sacred geometry": {
+        "title": "Colección de Geometría Sagrada",
+        "description": "Explora nuestra colección de formas geométricas sagradas artesanales, cada una diseñada para mejorar el flujo de energía y el alineamiento espiritual.",
+        "badge": "Geometría Sagrada"
+      },
+      "flower essence": {
+        "title": "Colección de Esencias Florales",
+        "description": "Descubre nuestra gama de esencias florales naturales, cuidadosamente seleccionadas para apoyar el equilibrio emocional y el crecimiento espiritual.",
+        "badge": "Esencias Florales"
+      }
+    }
+  },
+  "StoreContent": {
+    "no_products": "No se encontraron productos",
+    "try_adjusting": "Intenta ajustar tus filtros o vuelve más tarde para ver nuevos artículos."
+  },
+  "CustomBlendCard": {
+    "title": "Crea Tu Mezcla Personalizada",
+    "subtitle": "Esencia Floral Personalizada",
+    "description": "Diseña tu propia mezcla única de esencias florales adaptada a tus necesidades específicas. Selecciona de nuestra colección curada para crear un remedio personalizado que resuene con tu camino.",
+    "price": "$19.99",
+    "cta": "Crear Tu Mezcla"
+  },
+  "ProductCard": {
+    "view_details": "Ver Detalles"
+  },
+  "AddProductButton": {
+    "add_product": "Agregar Producto"
+  },
+  "DeleteProductDialog": {
+    "success": "Éxito",
+    "error": "Error",
+    "error_delete": "Ocurrió un error al eliminar el producto",
+    "delete_confirm_title": "Eliminar Producto",
+    "delete_confirm_description": "¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando...",
+    "confirm_delete": "Eliminar"
+  },
+  "AddProductDialog": {
+    "add_product": "Agregar Producto",
+    "form_description": "Formulario para agregar un nuevo producto"
+  },
+  "EditProductDialog": {
+    "edit_product": "Editar Producto",
+    "form_description": "Formulario para editar un producto existente"
+  },
+  "ProductForm": {
+    "success": "Éxito",
+    "editing": "Guardando cambios...",
+    "adding": "Agregando producto...",
+    "edit": "Guardar Cambios",
+    "add": "Agregar Producto"
+  },
+  "ProductTableHeader": {
+    "image": "Imagen",
+    "name": "Nombre",
+    "type": "Tipo",
+    "price": "Precio",
+    "stock": "Stock",
+    "actions": "Acciones",
+    "filter_by_name": "Filtrar por nombre",
+    "filter_by_type": "Filtrar por tipo",
+    "sort_by_name": "Ordenar por nombre",
+    "sort_by_type": "Ordenar por tipo",
+    "all": "Todos",
+    "flower_essence": "Esencia Floral",
+    "sacred_geometry": "Geometría Sagrada"
+  },
+  "TablePagination": {
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "ProductTableRow": {
+    "edit_tooltip": "Editar producto",
+    "delete_tooltip": "Eliminar producto"
+  },
+  "TableSkeleton": {
+    "image": "Imagen",
+    "name": "Nombre",
+    "type": "Tipo",
+    "price": "Precio",
+    "stock": "Stock",
+    "actions": "Acciones"
+  },
+  "FormFields": {
+    "product_name": "Nombre del Producto",
+    "description": "Descripción",
+    "type": "Tipo",
+    "price": "Precio",
+    "stock": "Stock",
+    "placeholder": {
+      "name": "Ingresa el nombre del producto",
+      "description": "Ingresa la descripción del producto",
+      "type": "Selecciona el tipo de producto",
+      "price": "0.00",
+      "stock": "0"
+    },
+    "product_types": {
+      "label": "Tipos de Productos",
+      "flower_essence": "Esencia Floral",
+      "sacred_geometry": "Geometría Sagrada"
+    }
+  },
+  "ImageUpload": {
+    "label": "Imagen del Producto",
+    "placeholder": {
+      "choose_file": "Elegir Archivo",
+      "no_file": "Ningún archivo seleccionado"
+    },
+    "alt": {
+      "product": "Producto",
+      "default": "Imagen Predeterminada del Producto"
+    },
+    "loading": "Subiendo imagen..."
+  },
+  "CustomBlendPage": {
+    "back_to_store": "Volver a la Tienda",
+    "image_alt": "Crea Tu Propia Mezcla de Flores de Bach",
+    "subtitle": "Esencia Floral Personalizada",
+    "title": "Crea Tu Mezcla Personalizada",
+    "price": "$19.99",
+    "description": "Diseña tu propia mezcla única de esencias florales adaptada a tus necesidades específicas. Selecciona de nuestra colección curada para crear un remedio personalizado que resuene con tu camino.",
+    "whatsapp_help": "¿Necesitas ayuda para elegir tus esencias? Contáctanos por WhatsApp para una guía personalizada.",
+    "learn_more": "Aprende Más Sobre las Esencias Florales",
+    "base": {
+      "label": "Seleccionar Base",
+      "brandy": "Base de Brandy (Tradicional)",
+      "water": "Base de Agua (Sin Alcohol)"
+    },
+    "essence": {
+      "label": "Esencia {number}"
+    },
+    "select_option": "Selecciona una opción",
+    "skip_option": "Omitir (opcional)",
+    "adding_to_cart": "Agregando al carrito...",
+    "add_to_cart": "Agregar al Carrito",
+    "cart": {
+      "name": "Mezcla Personalizada de Flores de Bach ({essences})",
+      "description": "Base: {base}, Esencias: {essences}"
+    }
+  },
+  "ProductPage": {
+    "back_to_store": "Volver a la Tienda",
+    "product_not_found": "Producto no encontrado",
+    "base": {
+      "label": "Seleccionar Base",
+      "brandy": "Base de Brandy (Tradicional)",
+      "water": "Base de Agua (Sin Alcohol)"
+    },
+    "select_option": "Selecciona una opción",
+    "adding_to_cart": "Agregando al carrito...",
+    "add_to_cart": "Agregar al Carrito",
+    "cart": {
+      "name": "{name} ({base})",
+      "description": "Base: {base}, {description}"
+    }
+  },
+  "FlowerEssencesPage": {
+    "title": "Entendiendo las Esencias Florales",
+    "introduction": "Las esencias florales son preparaciones naturales extraídas de flores específicas en su hábitat natural, cuidadosamente elaboradas para mantener su pureza y energía. Estas esencias son conocidas por su capacidad para armonizar y equilibrar nuestro cuerpo energético, actuando como vibración y conciencia líquida.",
+    "energy": {
+      "title": "Energía y Vibración",
+      "description": "Cuando usamos esencias florales, estamos interactuando con la energía vital de las flores. Cada flor posee una vibración única que se transmuta en la esencia floral, y al entrar en nuestro sistema, estas vibraciones pueden ayudar a liberar bloqueos emocionales y energéticos, promoviendo un estado de bienestar y equilibrio."
+    },
+    "healing": {
+      "title": "Proceso de Sanación",
+      "description": "Las esencias florales trabajan de manera sutil pero profunda, facilitando la conexión con nuestras emociones y fomentando una mayor comprensión y claridad interior. Al usarlas, se promueve la armonización de los centros energéticos del cuerpo, lo que puede resultar en una mejora general del estado emocional y mental."
+    },
+    "benefits": "El uso de esencias florales es una forma natural y consciente de trabajar con nuestras energías internas, permitiendo que la vibración de la flor se entrelace con nuestra propia frecuencia, y guiándonos hacia un estado de mayor paz y equilibrio.",
+    "cta": "Explora Nuestras Esencias Florales"
+  },
+  "CheckoutPage": {
+    "title": "Pago Seguro",
+    "empty_cart": "Tu carrito está vacío",
+    "empty_cart_message": "Agrega algunos artículos a tu carrito antes de proceder al pago.",
+    "continue_shopping": "Continuar Comprando",
+    "loading_paypal": "Cargando PayPal...",
+    "billing_info": "Información de Facturación",
+    "shipping_info": "Información de Envío",
+    "different_shipping": "¿Enviar a una dirección diferente?",
+    "order_notes": "Notas del Pedido",
+    "payment_method": "Método de Pago",
+    "card_payment": "Tarjeta de Crédito/Débito",
+    "paypal": "PayPal",
+    "order_summary": "Resumen del Pedido",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "total": "Total",
+    "terms": "Acepto los términos y condiciones",
+    "first_name": "Nombre *",
+    "last_name": "Apellido *",
+    "email": "Correo Electrónico *",
+    "phone": "Teléfono *",
+    "address": "Dirección *",
+    "country": "País *",
+    "state": "Departamento *",
+    "city": "Ciudad *",
+    "postal_code": "Código Postal *",
+    "placeholder": {
+      "first_name": "Ingresa tu nombre",
+      "last_name": "Ingresa tu apellido",
+      "email": "Ingresa tu correo electrónico",
+      "phone": "Ingresa tu número de teléfono",
+      "address": "Ingresa tu dirección",
+      "country": "Selecciona tu país",
+      "state": "Selecciona tu departamento",
+      "city": "Ingresa tu ciudad",
+      "postal_code": "Ingresa tu código postal",
+      "order_notes": "Notas sobre tu pedido, ej. notas especiales para la entrega"
+    },
+    "countries": {
+      "colombia": "Colombia"
+    },
+    "states": {
+      "bogota": "Bogotá"
+    }
+  },
+  "StripePaymentForm": {
+    "pay_now": "Pagar Ahora",
+    "processing": "Procesando...",
+    "error": {
+      "unknown": "Ocurrió un error desconocido",
+      "unexpected": "Ocurrió un error inesperado"
+    }
+  },
+  "ChatBot": {
+    "title": "Asistente de Compras",
+    "welcome": "¡Bienvenido a nuestro Asistente de Compras! 👋\n\nPuedo ayudarte con:\n\n1. Productos de Geometría Sagrada\n• Información sobre nuestros Sólidos Platónicos\n• Sus asociaciones elementales\n• Propiedades metafísicas\n• Precios y disponibilidad\n\n2. Remedios Florales de Bach\n• Información sobre cada esencia\n• Beneficios emocionales\n• Recomendaciones personalizadas\n\n¿En qué puedo ayudarte hoy?",
+    "error": "Lo siento, hubo un error al procesar tu mensaje. Por favor, intenta de nuevo.",
+    "typing": "Escribiendo...",
+    "input_placeholder": "Escribe tu mensaje...",
+    "recommended_products": "Productos Recomendados:",
+    "view_details": "Ver Detalles",
+    "minimize": "Minimizar chat",
+    "close": "Cerrar chat"
+  }
+}

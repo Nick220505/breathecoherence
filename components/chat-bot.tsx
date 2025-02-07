@@ -1,12 +1,12 @@
 "use client";
 
-import { useTranslation } from "@/components/language-provider";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { type Product } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, MessageCircle, Minimize2, Send, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -63,13 +63,13 @@ const pulseAnimation = {
 };
 
 export function ChatBot() {
+  const t = useTranslations("ChatBot");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { language } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
@@ -78,15 +78,10 @@ export function ChatBot() {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const welcomeMessage =
-        language === "es"
-          ? "¡Bienvenido a nuestro Asistente de Compras! 👋\n\nPuedo ayudarte con:\n\n1. Productos de Geometría Sagrada\n• Información sobre nuestros Sólidos Platónicos\n• Sus asociaciones elementales\n• Propiedades metafísicas\n• Precios y disponibilidad\n\n2. Remedios Florales de Bach\n• Información sobre cada esencia\n• Beneficios emocionales\n• Recomendaciones personalizadas\n\n¿En qué puedo ayudarte hoy?"
-          : "Welcome to Our Shopping Assistant! 👋\n\nI can help you with:\n\n1. Sacred Geometry Products\n• Information about our Platonic Solids\n• Their elemental associations\n• Metaphysical properties\n• Pricing and availability\n\n2. Bach Flower Remedies\n• Information about each essence\n• Emotional benefits\n• Personalized recommendations\n\nHow can I assist you today?";
-
       setMessages([
         {
           role: "assistant",
-          content: welcomeMessage,
+          content: t("welcome"),
           id: Date.now().toString(),
         },
       ]);
@@ -94,7 +89,7 @@ export function ChatBot() {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 300);
     }
-  }, [isOpen, language, messages.length]);
+  }, [isOpen, messages.length, t]);
 
   useEffect(() => {
     scrollToBottom();
@@ -123,7 +118,7 @@ export function ChatBot() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isTyping) return;
 
     const userMessage = input;
     setInput("");
@@ -131,22 +126,10 @@ export function ChatBot() {
       ...prev,
       { role: "user", content: userMessage, id: Date.now().toString() },
     ]);
-    setIsLoading(true);
+    setIsTyping(true);
 
     try {
-      let processedMessage = userMessage;
-      if (language === "es") {
-        const response = await fetch("/api/translate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: userMessage, targetLanguage: "en" }),
-        });
-        const data = await response.json();
-        if (data.translatedText) {
-          processedMessage = data.translatedText;
-        }
-      }
-
+      const processedMessage = userMessage;
       const chatResponse = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -157,20 +140,7 @@ export function ChatBot() {
       });
 
       const data = await chatResponse.json();
-      let finalResponse = data.response;
-
-      if (language === "es") {
-        const response = await fetch("/api/translate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: finalResponse, targetLanguage: "es" }),
-        });
-        const data = await response.json();
-        if (data.translatedText) {
-          finalResponse = data.translatedText;
-        }
-      }
-
+      const finalResponse = data.response;
       const { cleanMessage, productRecs } = extractProductRecs(finalResponse);
 
       setMessages((prev) => [
@@ -184,16 +154,12 @@ export function ChatBot() {
       ]);
     } catch (error) {
       console.error("Error in chat:", error);
-      const errorMessage =
-        language === "es"
-          ? "Lo siento, hubo un error al procesar tu mensaje. Por favor, intenta de nuevo."
-          : "Sorry, there was an error processing your message. Please try again.";
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: errorMessage, id: Date.now().toString() },
+        { role: "assistant", content: t("error"), id: Date.now().toString() },
       ]);
     } finally {
-      setIsLoading(false);
+      setIsTyping(false);
     }
   };
 
@@ -235,11 +201,7 @@ export function ChatBot() {
             >
               <div className="flex items-center gap-2">
                 <Bot className="w-5 h-5" />
-                <h2 className="font-semibold">
-                  {language === "es"
-                    ? "Asistente de Compras"
-                    : "Shopping Assistant"}
-                </h2>
+                <h2 className="font-semibold">{t("title")}</h2>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -247,6 +209,7 @@ export function ChatBot() {
                   size="icon"
                   className="h-8 w-8 hover:bg-white/20 transition-colors duration-200"
                   onClick={() => setIsOpen(false)}
+                  title={t("minimize")}
                 >
                   <Minimize2 className="w-4 h-4" />
                 </Button>
@@ -258,6 +221,7 @@ export function ChatBot() {
                     setIsOpen(false);
                     setMessages([]);
                   }}
+                  title={t("close")}
                 >
                   <X className="w-4 h-4" />
                 </Button>
@@ -285,7 +249,9 @@ export function ChatBot() {
                     <ReactMarkdown>{message.content}</ReactMarkdown>
                     {message.products && message.products.length > 0 && (
                       <div className="mt-4 space-y-2">
-                        <p className="font-semibold">Recommended Products:</p>
+                        <p className="font-semibold">
+                          {t("recommended_products")}
+                        </p>
                         {message.products.map((product) => (
                           <div
                             key={product.id}
@@ -304,7 +270,7 @@ export function ChatBot() {
                               variant="secondary"
                               size="sm"
                             >
-                              View Details
+                              {t("view_details")}
                             </Button>
                           </div>
                         ))}
@@ -313,7 +279,7 @@ export function ChatBot() {
                   </div>
                 </motion.div>
               ))}
-              {isLoading && (
+              {isTyping && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -347,7 +313,7 @@ export function ChatBot() {
                         />
                       </div>
                       <span className="text-sm text-muted-foreground">
-                        {language === "es" ? "Escribiendo..." : "Typing..."}
+                        {t("typing")}
                       </span>
                     </div>
                   </div>
@@ -367,17 +333,13 @@ export function ChatBot() {
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder={
-                    language === "es"
-                      ? "Escribe tu mensaje..."
-                      : "Type your message..."
-                  }
-                  disabled={isLoading}
+                  placeholder={t("input_placeholder")}
+                  disabled={isTyping}
                   className="border-purple-500/20 focus:border-purple-500 text-sm rounded-xl bg-background/50"
                 />
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isTyping}
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300 rounded-xl px-4 shadow-lg hover:shadow-purple-500/20"
                 >
                   <Send className="w-4 h-4" />

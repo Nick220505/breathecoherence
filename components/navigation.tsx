@@ -1,7 +1,6 @@
 "use client";
 
 import { useCart } from "@/components/cart-provider";
-import { useTranslation } from "@/components/language-provider";
 import { LanguageToggle } from "@/components/language-toggle";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,12 +20,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Link, useRouter } from "@/i18n/routing";
 import { AnimatePresence, motion } from "framer-motion";
 import { LogOut, Menu, ShoppingCart, User, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const navVariants = {
@@ -52,7 +51,7 @@ const cartTotalVariants = {
 
 export function Navigation() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const t = useTranslations("Navigation");
   const {
     cart,
     isCartOpen,
@@ -389,7 +388,7 @@ export function Navigation() {
                         className="flex items-center gap-2 w-full"
                       >
                         <User className="h-4 w-4" />
-                        {t("cta.signin")}
+                        {t("nav.login")}
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
@@ -398,7 +397,7 @@ export function Navigation() {
                         className="flex items-center gap-2 w-full"
                       >
                         <User className="h-4 w-4" />
-                        Register
+                        {t("nav.register")}
                       </Link>
                     </DropdownMenuItem>
                   </>

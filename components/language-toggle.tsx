@@ -7,50 +7,71 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { usePathname, useRouter } from "@/i18n/routing";
 import { Check, Globe } from "lucide-react";
-import { useTranslation } from "./language-provider";
+import { useLocale, useTranslations } from "next-intl";
 
 type SupportedLanguage = "en" | "es";
 
-const languages: Record<SupportedLanguage, { name: string; flag: string }> = {
+const languages = {
   en: {
     name: "English",
     flag: "🇺🇸",
+    label: "Switch to English",
   },
   es: {
     name: "Español",
     flag: "🇪🇸",
+    label: "Cambiar a Español",
   },
-};
+} as const satisfies Record<
+  SupportedLanguage,
+  {
+    name: string;
+    flag: string;
+    label: string;
+  }
+>;
 
 export function LanguageToggle() {
-  const { language, setLanguage } = useTranslation();
+  const t = useTranslations("LanguageToggle");
+  const router = useRouter();
+  const pathname = usePathname();
+  const currentLocale = useLocale() as SupportedLanguage;
+
+  const handleLanguageChange = (newLanguage: SupportedLanguage) => {
+    router.replace(pathname, { locale: newLanguage });
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" aria-label={t("toggle_language")}>
           <Globe className="h-[1.2rem] w-[1.2rem]" />
-          <span className="sr-only">Toggle language</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
         {(
-          Object.entries(languages) as [
-            SupportedLanguage,
-            { name: string; flag: string },
-          ][]
-        ).map(([code, { name, flag }]) => (
+          Object.entries(languages) as Array<
+            [SupportedLanguage, (typeof languages)[SupportedLanguage]]
+          >
+        ).map(([code, { name, flag, label }]) => (
           <DropdownMenuItem
             key={code}
-            onClick={() => setLanguage(code as SupportedLanguage)}
-            className="flex items-center justify-between cursor-pointer"
+            onClick={() => handleLanguageChange(code)}
+            className="flex items-center justify-between cursor-pointer hover:bg-accent/50 focus:bg-accent"
+            aria-label={label}
+            aria-current={currentLocale === code ? "true" : undefined}
           >
             <div className="flex items-center gap-2">
-              <span className="text-base">{flag}</span>
+              <span className="text-base" aria-hidden="true">
+                {flag}
+              </span>
               <span>{name}</span>
             </div>
-            {language === code && <Check className="h-4 w-4" />}
+            {currentLocale === code && (
+              <Check className="h-4 w-4" aria-hidden="true" />
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

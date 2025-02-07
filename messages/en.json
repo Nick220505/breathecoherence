@@ -1,0 +1,358 @@
+{
+  "HomePage": {
+    "hero": {
+      "title": "Sacred Geometry & Healing Essences",
+      "subtitle": "Discover the perfect harmony between sacred geometric forms and the healing power of flower essences.",
+      "cta": "Explore Our Collection"
+    },
+    "features": {
+      "title": "Why Choose Us",
+      "geometry": {
+        "title": "Sacred Geometry",
+        "description": "Handcrafted geometric forms that embody universal patterns of creation."
+      },
+      "essences": {
+        "title": "Flower Essences",
+        "description": "Pure, natural essences that promote emotional and spiritual well-being."
+      },
+      "harmony": {
+        "title": "Holistic Harmony",
+        "description": "The perfect blend of form and essence for complete spiritual alignment."
+      }
+    },
+    "cta": {
+      "title": "Ready to Begin Your Journey?",
+      "description": "Join us in exploring the intersection of sacred geometry and natural healing.",
+      "shop": "Shop Now",
+      "signin": "Sign In"
+    }
+  },
+  "Footer": {
+    "rights": "All rights reserved.",
+    "nav": {
+      "sacred_geometry": "Sacred Geometry",
+      "flower_essences": "Flower Essences"
+    }
+  },
+  "RegisterPage": {
+    "title": "Register",
+    "description": "Create a new account to start shopping",
+    "name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Create Account",
+    "haveAccount": "Already have an account?",
+    "login": "Login here",
+    "creating": "Creating account...",
+    "placeholder": {
+      "name": "Enter your full name",
+      "email": "Enter your email address",
+      "password": "Enter your password",
+      "confirmPassword": "Enter your password again"
+    }
+  },
+  "LoginPage": {
+    "title": "Welcome Back",
+    "description": "Enter your credentials to access your account",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Login",
+    "loading": "Logging in...",
+    "noAccount": "Don't have an account?",
+    "register": "Register here",
+    "error": {
+      "invalid": "Invalid email or password",
+      "generic": "An error occurred during login"
+    },
+    "placeholder": {
+      "email": "Enter your email address",
+      "password": "Enter your password"
+    }
+  },
+  "VerificationForm": {
+    "title": "Verify your email",
+    "description": "Enter the code sent to",
+    "error": {
+      "title": "Error",
+      "description": "Invalid verification link. Please try registering again.",
+      "codeFormat": "Code must contain only numbers"
+    },
+    "submit": "Verify Email",
+    "loading": "Verifying...",
+    "backToRegister": "Back to Register",
+    "goToRegister": "Go to Register"
+  },
+  "Navigation": {
+    "nav": {
+      "sacred_geometry": "Sacred Geometry",
+      "flower_essences": "Flower Essences",
+      "dashboard": "Dashboard",
+      "signout": "Sign Out",
+      "register": "Register",
+      "login": "Login"
+    },
+    "store": {
+      "cart": {
+        "title": "Shopping Cart",
+        "description": "Review your items and proceed to checkout",
+        "empty": "Your cart is empty",
+        "browse": "Browse Products",
+        "total": "Total",
+        "checkout": "Proceed to Checkout"
+      }
+    }
+  },
+  "ThemeToggle": {
+    "label": "Toggle theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "LanguageToggle": {
+    "toggle_language": "Toggle language"
+  },
+  "StoreHeader": {
+    "title": "Our Products",
+    "subtitle": "Discover our curated collection of sacred geometric forms and healing flower essences, designed to enhance your spiritual and emotional well-being.",
+    "category": {
+      "sacred geometry": {
+        "title": "Sacred Geometry Collection",
+        "description": "Explore our collection of handcrafted sacred geometric forms, each designed to enhance energy flow and spiritual alignment.",
+        "badge": "Sacred Geometry"
+      },
+      "flower essence": {
+        "title": "Flower Essences Collection",
+        "description": "Discover our range of natural flower essences, carefully selected to support emotional balance and spiritual growth.",
+        "badge": "Flower Essences"
+      }
+    }
+  },
+  "StoreContent": {
+    "no_products": "No products found",
+    "try_adjusting": "Try adjusting your filters or check back later for new items."
+  },
+  "CustomBlendCard": {
+    "title": "Create Your Custom Blend",
+    "subtitle": "Personalized Flower Essence",
+    "description": "Design your own unique blend of flower essences tailored to your specific needs. Select from our curated collection to create a personalized remedy that resonates with your journey.",
+    "price": "$19.99",
+    "cta": "Create Your Blend"
+  },
+  "ProductCard": {
+    "view_details": "View Details"
+  },
+  "AddProductButton": {
+    "add_product": "Add Product"
+  },
+  "DeleteProductDialog": {
+    "success": "Success",
+    "error": "Error",
+    "error_delete": "An error occurred while deleting the product",
+    "delete_confirm_title": "Delete Product",
+    "delete_confirm_description": "Are you sure you want to delete this product? This action cannot be undone.",
+    "cancel": "Cancel",
+    "deleting": "Deleting...",
+    "confirm_delete": "Delete"
+  },
+  "AddProductDialog": {
+    "add_product": "Add Product",
+    "form_description": "Form to add a new product"
+  },
+  "EditProductDialog": {
+    "edit_product": "Edit Product",
+    "form_description": "Form to edit an existing product"
+  },
+  "ProductForm": {
+    "success": "Success",
+    "editing": "Saving changes...",
+    "adding": "Adding product...",
+    "edit": "Save Changes",
+    "add": "Add Product"
+  },
+  "ProductTableHeader": {
+    "image": "Image",
+    "name": "Name",
+    "type": "Type",
+    "price": "Price",
+    "stock": "Stock",
+    "actions": "Actions",
+    "filter_by_name": "Filter by name",
+    "filter_by_type": "Filter by type",
+    "sort_by_name": "Sort by name",
+    "sort_by_type": "Sort by type",
+    "all": "All",
+    "flower_essence": "Flower Essence",
+    "sacred_geometry": "Sacred Geometry"
+  },
+  "TablePagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "ProductTableRow": {
+    "edit_tooltip": "Edit product",
+    "delete_tooltip": "Delete product"
+  },
+  "TableSkeleton": {
+    "image": "Image",
+    "name": "Name",
+    "type": "Type",
+    "price": "Price",
+    "stock": "Stock",
+    "actions": "Actions"
+  },
+  "FormFields": {
+    "product_name": "Product Name",
+    "description": "Description",
+    "type": "Type",
+    "price": "Price",
+    "stock": "Stock",
+    "placeholder": {
+      "name": "Enter product name",
+      "description": "Enter product description",
+      "type": "Select product type",
+      "price": "0.00",
+      "stock": "0"
+    },
+    "product_types": {
+      "label": "Product Types",
+      "flower_essence": "Flower Essence",
+      "sacred_geometry": "Sacred Geometry"
+    }
+  },
+  "ImageUpload": {
+    "label": "Product Image",
+    "placeholder": {
+      "choose_file": "Choose File",
+      "no_file": "No file chosen"
+    },
+    "alt": {
+      "product": "Product",
+      "default": "Default Product Image"
+    },
+    "loading": "Uploading image..."
+  },
+  "CustomBlendPage": {
+    "back_to_store": "Back to Store",
+    "image_alt": "Create Your Own Bach Remedy Blend",
+    "subtitle": "Personalized Flower Essence",
+    "title": "Create Your Custom Blend",
+    "price": "$19.99",
+    "description": "Design your own unique blend of flower essences tailored to your specific needs. Select from our curated collection to create a personalized remedy that resonates with your journey.",
+    "whatsapp_help": "Need help choosing your essences? Contact us via WhatsApp for personalized guidance.",
+    "learn_more": "Learn More About Flower Essences",
+    "base": {
+      "label": "Select Base",
+      "brandy": "Brandy Base (Traditional)",
+      "water": "Water Base (Alcohol-Free)"
+    },
+    "essence": {
+      "label": "Essence {number}"
+    },
+    "select_option": "Select an option",
+    "skip_option": "Skip (optional)",
+    "adding_to_cart": "Adding to cart...",
+    "add_to_cart": "Add to Cart",
+    "cart": {
+      "name": "Custom Bach Remedy Blend ({essences})",
+      "description": "Base: {base}, Essences: {essences}"
+    }
+  },
+  "ProductPage": {
+    "back_to_store": "Back to Store",
+    "product_not_found": "Product not found",
+    "base": {
+      "label": "Select Base",
+      "brandy": "Brandy Base (Traditional)",
+      "water": "Water Base (Alcohol-Free)"
+    },
+    "select_option": "Select an option",
+    "adding_to_cart": "Adding to cart...",
+    "add_to_cart": "Add to Cart",
+    "cart": {
+      "name": "{name} ({base})",
+      "description": "Base: {base}, {description}"
+    }
+  },
+  "FlowerEssencesPage": {
+    "title": "Understanding Flower Essences",
+    "introduction": "Flower essences are natural preparations extracted from specific flowers in their natural habitat, carefully crafted to maintain their purity and energy. These essences are known for their ability to harmonize and balance our energetic body, acting as vibration and liquid consciousness.",
+    "energy": {
+      "title": "Energy & Vibration",
+      "description": "When we use flower essences, we are interacting with the vital energy of flowers. Each flower possesses a unique vibration that is transmuted into the flower essence, and upon entering our system, these vibrations can help release emotional and energetic blockages, promoting a state of well-being and balance."
+    },
+    "healing": {
+      "title": "Healing Process",
+      "description": "Flower essences work in a subtle but profound way, facilitating connection with our emotions and fostering greater understanding and inner clarity. When using them, the harmonization of the body's energy centers is promoted, which can result in an overall improvement in emotional and mental state."
+    },
+    "benefits": "The use of flower essences is a natural and conscious way to work with our internal energies, allowing the flower's vibration to interweave with our own frequency, and guiding us towards a state of greater peace and balance.",
+    "cta": "Explore Our Flower Essences"
+  },
+  "CheckoutPage": {
+    "title": "Secure Checkout",
+    "empty_cart": "Your cart is empty",
+    "empty_cart_message": "Add some items to your cart before proceeding to checkout.",
+    "continue_shopping": "Continue Shopping",
+    "loading_paypal": "Loading PayPal...",
+    "billing_info": "Billing Information",
+    "shipping_info": "Shipping Information",
+    "different_shipping": "Ship to a different address?",
+    "order_notes": "Order Notes",
+    "payment_method": "Payment Method",
+    "card_payment": "Credit/Debit Card",
+    "paypal": "PayPal",
+    "order_summary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "terms": "I agree to the terms and conditions",
+    "first_name": "First Name *",
+    "last_name": "Last Name *",
+    "email": "Email *",
+    "phone": "Phone *",
+    "address": "Address *",
+    "country": "Country *",
+    "state": "State/Department *",
+    "city": "City *",
+    "postal_code": "Postal Code *",
+    "placeholder": {
+      "first_name": "Enter your first name",
+      "last_name": "Enter your last name",
+      "email": "Enter your email address",
+      "phone": "Enter your phone number",
+      "address": "Enter your address",
+      "country": "Select your country",
+      "state": "Select your state",
+      "city": "Enter your city",
+      "postal_code": "Enter your postal code",
+      "order_notes": "Notes about your order, e.g. special notes for delivery"
+    },
+    "countries": {
+      "colombia": "Colombia"
+    },
+    "states": {
+      "bogota": "Bogotá"
+    }
+  },
+  "StripePaymentForm": {
+    "pay_now": "Pay Now",
+    "processing": "Processing...",
+    "error": {
+      "unknown": "An unknown error occurred",
+      "unexpected": "An unexpected error occurred"
+    }
+  },
+  "ChatBot": {
+    "title": "Shopping Assistant",
+    "welcome": "Welcome to Our Shopping Assistant! 👋\n\nI can help you with:\n\n1. Sacred Geometry Products\n• Information about our Platonic Solids\n• Their elemental associations\n• Metaphysical properties\n• Pricing and availability\n\n2. Bach Flower Remedies\n• Information about each essence\n• Emotional benefits\n• Personalized recommendations\n\nHow can I assist you today?",
+    "error": "Sorry, there was an error processing your message. Please try again.",
+    "typing": "Typing...",
+    "input_placeholder": "Type your message...",
+    "recommended_products": "Recommended Products:",
+    "view_details": "View Details",
+    "minimize": "Minimize chat",
+    "close": "Close chat"
+  }
+}

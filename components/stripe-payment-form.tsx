@@ -6,9 +6,11 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function StripePaymentForm() {
+  const t = useTranslations("StripePaymentForm");
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -33,13 +35,13 @@ export function StripePaymentForm() {
       });
 
       if (submitError) {
-        setError(submitError.message ?? "An unknown error occurred");
+        setError(submitError.message ?? t("error.unknown"));
         setIsLoading(false);
       }
       // If no error, the page will redirect to return_url
     } catch (e) {
       console.error("Error:", e);
-      setError("An unexpected error occurred");
+      setError(t("error.unexpected"));
       setIsLoading(false);
     }
   };
@@ -49,7 +51,7 @@ export function StripePaymentForm() {
       <PaymentElement />
       {error && <p className="text-sm text-red-500">{error}</p>}
       <Button type="submit" disabled={!stripe || isLoading} className="w-full">
-        {isLoading ? "Processing..." : "Pay Now"}
+        {isLoading ? t("processing") : t("pay_now")}
       </Button>
     </form>
   );
