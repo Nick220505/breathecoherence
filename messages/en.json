@@ -290,6 +290,9 @@
     "benefits": "The use of flower essences is a natural and conscious way to work with our internal energies, allowing the flower's vibration to interweave with our own frequency, and guiding us towards a state of greater peace and balance.",
     "cta": "Explore Our Flower Essences"
   },
+  "AdminDashboard": {
+    "title": "Admin Dashboard"
+  },
   "CheckoutPage": {
     "title": "Secure Checkout",
     "empty_cart": "Your cart is empty",

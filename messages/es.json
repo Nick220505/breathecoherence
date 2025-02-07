@@ -114,6 +114,9 @@
   "LanguageToggle": {
     "toggle_language": "Cambiar idioma"
   },
+  "AdminDashboard": {
+    "title": "Panel de Administración"
+  },
   "StoreHeader": {
     "title": "Nuestros Productos",
     "subtitle": "Descubre nuestra colección seleccionada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
