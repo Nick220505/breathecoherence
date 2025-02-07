@@ -1,19 +1,7 @@
-interface TranslationResponse {
-  data: {
-    translations: Array<{
-      translatedText: string;
-    }>;
-  };
-}
+import { Product } from "@prisma/client";
 
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  type?: string;
-  price: number;
-  stock: number;
-  imageUrl?: string;
+interface TranslationResponse {
+  data: { translations: { translatedText: string }[] };
 }
 
 export async function translateText(
@@ -30,9 +18,7 @@ export async function translateText(
       `https://translation.googleapis.com/language/translate/v2?key=${process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY}`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           q: text,
           target: targetLanguage,
@@ -45,8 +31,8 @@ export async function translateText(
       throw new Error("Translation failed");
     }
 
-    const data = (await response.json()) as TranslationResponse;
-    return data.data.translations[0].translatedText;
+    const { data } = (await response.json()) as TranslationResponse;
+    return data.translations[0].translatedText;
   } catch (error) {
     console.error("Translation error:", error);
     return text;
