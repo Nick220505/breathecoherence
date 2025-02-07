@@ -1,5 +1,3 @@
-import { translations } from "@/components/language-provider";
-
 interface TranslationResponse {
   data: {
     translations: Array<{
@@ -21,21 +19,7 @@ interface Product {
 export async function translateText(
   text: string,
   targetLanguage: string = "es",
-  forceGoogleTranslate: boolean = false,
 ): Promise<string> {
-  // If forceGoogleTranslate is true, skip static translations
-  if (!forceGoogleTranslate) {
-    // First check if we have a static translation
-    const translationKey = Object.keys(translations).find(
-      (key) => translations[key].en === text || translations[key].es === text,
-    );
-
-    if (translationKey) {
-      return translations[translationKey][targetLanguage as "en" | "es"];
-    }
-  }
-
-  // Use Google Translate API
   try {
     if (!process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY) {
       console.warn("Missing NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY");
@@ -78,22 +62,15 @@ export async function translateProduct(
   const translatedProduct = { ...product };
 
   try {
-    // Always use Google Translate for product names, descriptions, and types
-    translatedProduct.name = await translateText(
-      product.name,
-      targetLanguage,
-      true,
-    );
+    translatedProduct.name = await translateText(product.name, targetLanguage);
     translatedProduct.description = await translateText(
       product.description,
       targetLanguage,
-      true,
     );
     if (product.type) {
       translatedProduct.type = await translateText(
         product.type,
         targetLanguage,
-        true,
       );
     }
   } catch (error) {
