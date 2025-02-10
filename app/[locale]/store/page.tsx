@@ -6,11 +6,13 @@ import { StoreHeader } from "./components/store-header";
 export default async function Page(props: {
   searchParams?: Promise<{
     category?: string;
+    categoria?: string;
     type?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
-  const category = searchParams?.category || "";
+  // Handle both English and Spanish category parameters
+  const category = searchParams?.category || searchParams?.categoria || "";
   const type = searchParams?.type || "";
   const products = await getProducts();
 

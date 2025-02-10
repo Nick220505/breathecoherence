@@ -88,18 +88,18 @@
       "sacred_geometry": "Sacred Geometry",
       "flower_essences": "Flower Essences",
       "dashboard": "Dashboard",
-      "signout": "Sign Out",
+      "login": "Login",
       "register": "Register",
-      "login": "Login"
+      "signout": "Sign Out"
     },
     "store": {
       "cart": {
-        "title": "Shopping Cart",
-        "description": "Review your items and proceed to checkout",
+        "title": "Your Cart",
+        "description": "Review the items in your cart",
         "empty": "Your cart is empty",
         "browse": "Browse Products",
         "total": "Total",
-        "checkout": "Proceed to Checkout"
+        "checkout": "Checkout"
       }
     }
   },

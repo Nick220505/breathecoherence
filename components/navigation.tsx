@@ -24,7 +24,7 @@ import { Link, useRouter } from "@/i18n/routing";
 import { AnimatePresence, motion } from "framer-motion";
 import { LogOut, Menu, ShoppingCart, User, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -52,6 +52,7 @@ const cartTotalVariants = {
 export function Navigation() {
   const router = useRouter();
   const t = useTranslations("Navigation");
+  const locale = useLocale();
   const {
     cart,
     isCartOpen,
@@ -72,7 +73,14 @@ export function Navigation() {
   const NavigationItems = () => (
     <div className="flex space-x-4">
       <motion.div variants={itemVariants}>
-        <Link href="/store?category=Sacred Geometry">
+        <Link
+          href={{
+            pathname: "/store",
+            query: {
+              [locale === "es" ? "categoria" : "category"]: "Sacred Geometry",
+            },
+          }}
+        >
           <Button
             variant="ghost"
             className="flex items-center gap-2 hover:bg-primary/10 transition-colors duration-300"
@@ -90,7 +98,14 @@ export function Navigation() {
       </motion.div>
 
       <motion.div variants={itemVariants}>
-        <Link href="/store?category=Flower Essence">
+        <Link
+          href={{
+            pathname: "/store",
+            query: {
+              [locale === "es" ? "categoria" : "category"]: "Flower Essence",
+            },
+          }}
+        >
           <Button
             variant="ghost"
             className="flex items-center gap-2 hover:bg-primary/10 transition-colors duration-300"
@@ -384,7 +399,7 @@ export function Navigation() {
                   <>
                     <DropdownMenuItem>
                       <Link
-                        href="/login"
+                        href={{ pathname: "/login" }}
                         className="flex items-center gap-2 w-full"
                       >
                         <User className="h-4 w-4" />
@@ -393,7 +408,7 @@ export function Navigation() {
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Link
-                        href="/register"
+                        href={{ pathname: "/register" }}
                         className="flex items-center gap-2 w-full"
                       >
                         <User className="h-4 w-4" />

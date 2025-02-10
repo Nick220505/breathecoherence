@@ -88,18 +88,18 @@
       "sacred_geometry": "Geometría Sagrada",
       "flower_essences": "Esencias Florales",
       "dashboard": "Panel de Control",
-      "signout": "Cerrar Sesión",
+      "login": "Iniciar Sesión",
       "register": "Registrarse",
-      "login": "Iniciar Sesión"
+      "signout": "Cerrar Sesión"
     },
     "store": {
       "cart": {
-        "title": "Carrito de Compras",
-        "description": "Revisa tus artículos y procede al pago",
+        "title": "Tu Carrito",
+        "description": "Revisa los productos en tu carrito",
         "empty": "Tu carrito está vacío",
         "browse": "Explorar Productos",
         "total": "Total",
-        "checkout": "Proceder al Pago"
+        "checkout": "Pagar"
       }
     }
   },

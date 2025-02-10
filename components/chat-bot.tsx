@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Link } from "@/i18n/routing";
 import { type Product } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, MessageCircle, Minimize2, Send, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -64,7 +65,6 @@ const pulseAnimation = {
 
 export function ChatBot() {
   const t = useTranslations("ChatBot");
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -255,23 +255,38 @@ export function ChatBot() {
                         {message.products.map((product) => (
                           <div
                             key={product.id}
-                            className="flex items-center justify-between bg-background/10 p-2 rounded"
+                            className="flex items-center justify-between p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
                           >
-                            <div>
-                              <p className="font-medium">{product.name}</p>
-                              <p className="text-sm">
-                                ${product.price?.toFixed(2) ?? "0.00"}
-                              </p>
+                            <div className="flex items-center space-x-2">
+                              <Image
+                                src={
+                                  product.imageUrl ||
+                                  "/images/default-product.jpg"
+                                }
+                                alt={product.name || ""}
+                                width={40}
+                                height={40}
+                                className="rounded-md"
+                              />
+                              <div>
+                                <p className="font-medium">{product.name}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  $
+                                  {typeof product.price === "number"
+                                    ? product.price.toFixed(2)
+                                    : "0.00"}
+                                </p>
+                              </div>
                             </div>
-                            <Button
-                              onClick={() =>
-                                router.push(`/product/${product.id}`)
-                              }
-                              variant="secondary"
-                              size="sm"
+                            <Link
+                              href={{
+                                pathname: "/product/[id]",
+                                params: { id: product.id || "" },
+                              }}
+                              className="text-sm text-primary hover:underline"
                             >
                               {t("view_details")}
-                            </Button>
+                            </Link>
                           </div>
                         ))}
                       </div>
