@@ -40,7 +40,17 @@ export function LanguageToggle() {
   const currentLocale = useLocale() as SupportedLanguage;
 
   const handleLanguageChange = (newLanguage: SupportedLanguage) => {
-    router.replace(pathname, { locale: newLanguage });
+    if (pathname.startsWith("/product/")) {
+      const id = pathname.split("/").pop() || "";
+      router.replace(
+        { pathname: "/product/[id]", params: { id } },
+        { locale: newLanguage },
+      );
+    } else {
+      router.replace(pathname as Exclude<typeof pathname, "/product/[id]">, {
+        locale: newLanguage,
+      });
+    }
   };
 
   return (

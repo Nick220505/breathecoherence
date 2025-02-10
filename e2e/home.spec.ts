@@ -1,12 +1,13 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Home Page", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
   test("should display main components and navigate to store", async ({
     page,
   }) => {
-    // Start from the homepage
-    await page.goto("/");
-
     // Check if the main hero logo is visible (using more specific selector)
     const mainLogo = page.locator(
       'main img[alt="Breathe Coherence"].w-\\[200px\\]',
@@ -64,8 +65,6 @@ test.describe("Home Page", () => {
   });
 
   test("should have proper dark mode support", async ({ page }) => {
-    await page.goto("/");
-
     // Verify dark mode classes on elements
     const logo = page.locator('main img[alt="Breathe Coherence"]');
     await expect(logo).toHaveClass(/dark:invert/);
@@ -77,8 +76,6 @@ test.describe("Home Page", () => {
   test("should have proper animations and interactive elements", async ({
     page,
   }) => {
-    await page.goto("/");
-
     // Check for Framer Motion animation containers
     const animatedContainer = page.locator("div.space-y-6.max-w-4xl");
     await expect(animatedContainer).toBeVisible();
@@ -103,5 +100,73 @@ test.describe("Home Page", () => {
       .first();
     await expect(ctaButton).toHaveClass(/hover:scale-105/);
     await expect(ctaButton).toHaveClass(/transition-transform/);
+  });
+
+  test("should navigate to Sacred Geometry products in English", async ({
+    page,
+  }) => {
+    await page.click('text="Sacred Geometry"');
+    await expect(page).toHaveURL(/.*\/store\?category=Sacred\+Geometry/);
+  });
+
+  test("should navigate to Sacred Geometry products in Spanish", async ({
+    page,
+  }) => {
+    // Switch to Spanish
+    await page.click('[aria-label="Toggle language"]');
+    await page.click('text="Español"');
+
+    await page.click('text="Geometría Sagrada"');
+    await expect(page).toHaveURL(/.*\/tienda\?categoria=Sacred\+Geometry/);
+  });
+
+  test("should navigate to Flower Essences in English", async ({ page }) => {
+    await page.click('text="Flower Essences"');
+    await expect(page).toHaveURL(/.*\/store\?category=Flower\+Essence/);
+  });
+
+  test("should navigate to Flower Essences in Spanish", async ({ page }) => {
+    // Switch to Spanish
+    await page.click('[aria-label="Toggle language"]');
+    await page.click('text="Español"');
+
+    await page.click('text="Esencias Florales"');
+    await expect(page).toHaveURL(/.*\/tienda\?categoria=Flower\+Essence/);
+  });
+
+  test("should show correct navigation items", async ({ page }) => {
+    await expect(page.locator('text="Sacred Geometry"')).toBeVisible();
+    await expect(page.locator('text="Flower Essences"')).toBeVisible();
+  });
+
+  test("should show correct navigation items in Spanish", async ({ page }) => {
+    // Switch to Spanish
+    await page.click('[aria-label="Toggle language"]');
+    await page.click('text="Español"');
+
+    await expect(page.locator('text="Geometría Sagrada"')).toBeVisible();
+    await expect(page.locator('text="Esencias Florales"')).toBeVisible();
+  });
+
+  test("should handle language switching and maintain category", async ({
+    page,
+  }) => {
+    // Start with English Sacred Geometry
+    await page.click('text="Sacred Geometry"');
+    await expect(page).toHaveURL(/.*\/store\?category=Sacred\+Geometry/);
+
+    // Switch to Spanish
+    await page.click('[aria-label="Toggle language"]');
+    await page.click('text="Español"');
+
+    // URL should update to Spanish format
+    await expect(page).toHaveURL(/.*\/tienda\?categoria=Sacred\+Geometry/);
+
+    // Switch back to English
+    await page.click('[aria-label="Toggle language"]');
+    await page.click('text="English"');
+
+    // URL should return to English format
+    await expect(page).toHaveURL(/.*\/store\?category=Sacred\+Geometry/);
   });
 });

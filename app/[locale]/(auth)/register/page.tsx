@@ -63,7 +63,10 @@ export default function RegisterPage() {
   useEffect(() => {
     if (state.success) {
       const email = form.getValues("email");
-      router.push(`/verify?email=${encodeURIComponent(email)}`);
+      router.push({
+        pathname: "/verify",
+        query: { email: encodeURIComponent(email) },
+      });
     }
   }, [state.success, router, form]);
 

@@ -30,13 +30,19 @@ export function Footer() {
 
           <div className="flex items-center gap-6">
             <Link
-              href="/store?category=Sacred Geometry"
+              href={{
+                pathname: "/store",
+                query: { category: "Sacred Geometry" },
+              }}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {t("nav.sacred_geometry")}
             </Link>
             <Link
-              href="/store?category=Flower Essence"
+              href={{
+                pathname: "/store",
+                query: { category: "Flower Essence" },
+              }}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {t("nav.flower_essences")}

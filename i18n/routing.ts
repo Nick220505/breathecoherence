@@ -30,15 +30,15 @@ export const routing = defineRouting({
       en: "/register",
       es: "/registrarse",
     },
+    "/verify": {
+      en: "/verify",
+      es: "/verificar",
+    },
     "/checkout": {
       en: "/checkout",
       es: "/pagar",
     },
     "/dashboard": "/dashboard",
-    "/verify": {
-      en: "/verify",
-      es: "/verificar",
-    },
   },
 });
 

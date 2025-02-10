@@ -23,7 +23,12 @@ export function ProductCard({ product, index }: ProductCardProps) {
   const t = useTranslations("ProductCard");
 
   return (
-    <Link href={`/product/${product.id}`}>
+    <Link
+      href={{
+        pathname: "/product/[id]",
+        params: { id: product.id },
+      }}
+    >
       <Card
         className="group overflow-hidden cursor-pointer bg-white/5 dark:bg-white/5 backdrop-blur-sm border-purple-500/10 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
         style={{

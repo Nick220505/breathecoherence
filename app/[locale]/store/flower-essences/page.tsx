@@ -53,7 +53,12 @@ export default function FlowerEssencesPage() {
           {/* CTA Section */}
           <div className="flex flex-col items-center space-y-6 pt-8">
             <div className="h-px w-full max-w-xs bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
-            <Link href="/store?category=Flower Essence">
+            <Link
+              href={{
+                pathname: "/store",
+                query: { category: "Flower Essence" },
+              }}
+            >
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg px-8 py-6 text-lg h-auto"

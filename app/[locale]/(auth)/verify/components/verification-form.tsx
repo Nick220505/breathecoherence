@@ -83,7 +83,10 @@ export function VerificationForm({ email }: VerificationFormProps) {
 
   useEffect(() => {
     if (state.success) {
-      router.push("/login?verified=true");
+      router.push({
+        pathname: "/login",
+        query: { verified: "true" },
+      });
     }
   }, [state.success, router]);
 
