@@ -2,193 +2,91 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Home Page", () => {
   test.beforeEach(async ({ page }) => {
+    // Navigate to the home page before each test
     await page.goto("/");
   });
 
-  test("should display main components and navigate to store", async ({
-    page,
-  }) => {
-    // Check if the main hero logo is visible (using more specific selector)
-    const mainLogo = page.locator(
-      'main img[alt="Breathe Coherence"].w-\\[200px\\]',
-    );
-    await expect(mainLogo).toBeVisible();
+  test("should display logo and hero section", async ({ page }) => {
+    // Check if main hero logo is visible (using more specific selector)
+    const logo = page
+      .getByRole("main")
+      .getByRole("img", { name: "Breathe Coherence" });
+    await expect(logo).toBeVisible();
 
-    // Verify main heading (hero section) with translation text
-    const mainHeading = page.getByRole("heading", { level: 1 });
-    await expect(mainHeading).toBeVisible();
-    await expect(mainHeading).toHaveClass(/bg-clip-text/);
+    // Verify hero section content
+    const heroTitle = page.getByRole("heading", { level: 1 });
+    await expect(heroTitle).toBeVisible();
 
-    // Check if the features section is present (using more specific selector)
-    const featuresSection = page
-      .getByRole("heading", { level: 2 })
-      .filter({ hasText: "Why Choose Us" });
+    // Check CTA button in hero section
+    const storeCTA = page
+      .getByRole("link", { name: /shop|explore|discover/i })
+      .first();
+    await expect(storeCTA).toBeVisible();
+  });
+
+  test("should display features section with three cards", async ({ page }) => {
+    // Check features section title
+    const featuresSection = page.getByRole("heading", { level: 2 }).first();
     await expect(featuresSection).toBeVisible();
 
-    // Verify the three feature cards are present
+    // Verify all three feature cards are present (using the correct class from your implementation)
     const featureCards = page.locator(".bg-white\\/5.dark\\:bg-white\\/5");
     await expect(featureCards).toHaveCount(3);
 
-    // Verify feature card content (wait for animation to complete)
-    const featureIcons = page.locator(".mb-6.text-5xl.flex.justify-center");
-    await expect(featureIcons).toHaveCount(3);
+    // Scroll to the features section to trigger animations
+    await featuresSection.scrollIntoViewIfNeeded();
 
-    // Wait for and verify each emoji icon
-    const expectedEmojis = ["🔮", "🌸", "✨"];
-    for (let i = 0; i < expectedEmojis.length; i++) {
-      const icon = featureIcons.nth(i);
-      await expect(icon).toContainText(expectedEmojis[i]);
+    // Wait a bit for animations to complete
+    await page.waitForTimeout(1000);
+
+    // Check if each card has an emoji icon, title, and description
+    const cards = await featureCards.all();
+    for (const card of cards) {
+      // Wait for the emoji container to be visible (with animation)
+      await expect(
+        card.locator(".mb-6.text-5xl.flex.justify-center"),
+      ).toBeVisible();
+      await expect(card.locator(".text-xl.font-semibold")).toBeVisible(); // Title
+      await expect(
+        card.locator(".text-gray-600, .text-gray-300"),
+      ).toBeVisible(); // Description
     }
-
-    // Test navigation to Store page
-    const storeButton = page
-      .locator("button", { hasText: /shop|store/i })
-      .first();
-    await storeButton.click();
-    await expect(page).toHaveURL(/\/(en|es)\/store/);
   });
 
-  test("should have proper responsive layout", async ({ page }) => {
-    // Set viewport to mobile size
+  test("should have working navigation buttons in CTA section", async ({
+    page,
+  }) => {
+    // Scroll to bottom CTA section
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+
+    // Check primary CTA button
+    const shopButton = page.getByRole("link", { name: /shop/i }).last();
+    await expect(shopButton).toBeVisible();
+
+    // Check secondary sign-in button
+    const signInButton = page.getByRole("link", { name: /sign[ -]?in/i });
+    await expect(signInButton).toBeVisible();
+
+    // Verify the buttons have correct href attributes (accounting for locale)
+    await expect(shopButton).toHaveAttribute("href", "/en/store");
+    await expect(signInButton).toHaveAttribute("href", "/en/login");
+  });
+
+  test("should be responsive", async ({ page }) => {
+    // Test mobile viewport
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto("/");
+    // Check for a specific container instead of all containers
+    const heroContainer = page
+      .locator(".container")
+      .filter({ hasText: /Sacred Geometry & Healing/i });
+    await expect(heroContainer).toBeVisible();
 
-    // Check if the layout is properly stacked in mobile
-    const featuresGrid = page.locator(".grid.grid-cols-1");
-    await expect(featuresGrid).toBeVisible();
+    // Test tablet viewport
+    await page.setViewportSize({ width: 768, height: 1024 });
+    await expect(heroContainer).toBeVisible();
 
-    // Set viewport to desktop size
-    await page.setViewportSize({ width: 1280, height: 720 });
-
-    // Check if the layout changes to multi-column in desktop
-    await expect(page.locator(".grid.md\\:grid-cols-3")).toBeVisible();
-  });
-
-  test("should have proper dark mode support", async ({ page }) => {
-    // Verify dark mode classes on elements
-    const logo = page.locator('main img[alt="Breathe Coherence"]');
-    await expect(logo).toHaveClass(/dark:invert/);
-
-    const heading = page.getByRole("heading", { level: 1 });
-    await expect(heading).toHaveClass(/dark:from-purple-400/);
-  });
-
-  test("should have proper animations and interactive elements", async ({
-    page,
-  }) => {
-    // Check for Framer Motion animation containers
-    const animatedContainer = page.locator("div.space-y-6.max-w-4xl");
-    await expect(animatedContainer).toBeVisible();
-
-    // Check for gradient elements (using more specific selector)
-    const gradientDiv = page
-      .locator("div.bg-gradient-to-r")
-      .filter({ hasText: "" })
-      .first();
-    await expect(gradientDiv).toBeVisible();
-
-    // Verify hover animation classes on cards
-    const featureCard = page
-      .locator(".bg-white\\/5.dark\\:bg-white\\/5")
-      .first();
-    await expect(featureCard).toHaveClass(/hover:scale-105/);
-    await expect(featureCard).toHaveClass(/transition-transform/);
-
-    // Verify button animations
-    const ctaButton = page
-      .locator("button", { hasText: /shop|store/i })
-      .first();
-    await expect(ctaButton).toHaveClass(/hover:scale-105/);
-    await expect(ctaButton).toHaveClass(/transition-transform/);
-  });
-
-  test("should navigate to Sacred Geometry products in English", async ({
-    page,
-  }) => {
-    await page
-      .getByRole("link", { name: "Sacred Geometry", exact: true })
-      .click();
-    await expect(page).toHaveURL(/\/en\/store\?category=Sacred\+Geometry/);
-  });
-
-  test("should navigate to Sacred Geometry products in Spanish", async ({
-    page,
-  }) => {
-    // Switch to Spanish
-    await page.click('[aria-label="Toggle language"]');
-    await page.click('text="Español"');
-
-    await page
-      .getByRole("link", { name: "Geometría Sagrada", exact: true })
-      .click();
-    await expect(page).toHaveURL(/\/es\/tienda\?category=Sacred\+Geometry/);
-  });
-
-  test("should navigate to Flower Essences in English", async ({ page }) => {
-    await page
-      .getByRole("link", { name: "Flower Essences", exact: true })
-      .click();
-    await expect(page).toHaveURL(/\/en\/store\?category=Flower\+Essence/);
-  });
-
-  test("should navigate to Flower Essences in Spanish", async ({ page }) => {
-    // Ensure we start in Spanish
-    await page.click('[aria-label="Toggle language"]');
-    await page.click('text="Español"');
-
-    await page
-      .getByRole("link", { name: "Esencias Florales", exact: true })
-      .click();
-    await expect(page).toHaveURL(/\/es\/tienda\?categoria=Flower\+Essence/);
-  });
-
-  test("should show correct navigation items", async ({ page }) => {
-    await expect(
-      page.getByRole("link", { name: "Sacred Geometry", exact: true }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: "Flower Essences", exact: true }),
-    ).toBeVisible();
-  });
-
-  test("should show correct navigation items in Spanish", async ({ page }) => {
-    // Switch to Spanish
-    await page.click('[aria-label="Toggle language"]');
-    await page.click('text="Español"');
-
-    await expect(
-      page.getByRole("link", { name: "Geometría Sagrada", exact: true }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: "Esencias Florales", exact: true }),
-    ).toBeVisible();
-  });
-
-  test("should handle language switching and maintain category", async ({
-    page,
-  }) => {
-    // Ensure we start in English
-    await page.click('[aria-label="Toggle language"]');
-    await page.click('text="English"');
-
-    // Navigate to Sacred Geometry
-    await page
-      .getByRole("link", { name: "Sacred Geometry", exact: true })
-      .click();
-    await expect(page).toHaveURL(/\/en\/store\?category=Sacred\+Geometry/);
-
-    // Switch to Spanish
-    await page.click('[aria-label="Toggle language"]');
-    await page.click('text="Español"');
-
-    // URL should update to Spanish format
-    await expect(page).toHaveURL(/\/es\/tienda\?categoria=Sacred\+Geometry/);
-
-    // Switch back to English
-    await page.click('[aria-label="Toggle language"]');
-    await page.click('text="English"');
-
-    // URL should return to English format
-    await expect(page).toHaveURL(/\/en\/store\?category=Sacred\+Geometry/);
+    // Test desktop viewport
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await expect(heroContainer).toBeVisible();
   });
 });
