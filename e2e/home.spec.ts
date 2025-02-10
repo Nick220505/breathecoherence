@@ -132,14 +132,14 @@ test.describe("Home Page", () => {
   });
 
   test("should navigate to Flower Essences in Spanish", async ({ page }) => {
-    // Switch to Spanish
+    // Ensure we start in Spanish
     await page.click('[aria-label="Toggle language"]');
     await page.click('text="Español"');
 
     await page
       .getByRole("link", { name: "Esencias Florales", exact: true })
       .click();
-    await expect(page).toHaveURL(/\/es\/tienda\?category=Flower\+Essence/);
+    await expect(page).toHaveURL(/\/es\/tienda\?categoria=Flower\+Essence/);
   });
 
   test("should show correct navigation items", async ({ page }) => {
@@ -167,7 +167,11 @@ test.describe("Home Page", () => {
   test("should handle language switching and maintain category", async ({
     page,
   }) => {
-    // Start with English Sacred Geometry
+    // Ensure we start in English
+    await page.click('[aria-label="Toggle language"]');
+    await page.click('text="English"');
+
+    // Navigate to Sacred Geometry
     await page
       .getByRole("link", { name: "Sacred Geometry", exact: true })
       .click();

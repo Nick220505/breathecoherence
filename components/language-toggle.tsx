@@ -47,9 +47,37 @@ export function LanguageToggle() {
         { locale: newLanguage },
       );
     } else {
-      router.replace(pathname as Exclude<typeof pathname, "/product/[id]">, {
-        locale: newLanguage,
+      // Get the current URL's search params
+      const url = new URL(window.location.href);
+      const searchParams = url.searchParams;
+
+      // Handle category parameter translation
+      const category =
+        searchParams.get("category") || searchParams.get("categoria");
+      const newSearchParams = new URLSearchParams();
+
+      if (category) {
+        // Use the appropriate parameter name based on language
+        const categoryParam = newLanguage === "en" ? "category" : "categoria";
+        newSearchParams.set(categoryParam, category);
+      }
+
+      // Copy any other search parameters
+      searchParams.forEach((value, key) => {
+        if (key !== "category" && key !== "categoria") {
+          newSearchParams.set(key, value);
+        }
       });
+
+      const newPathname = pathname as Exclude<typeof pathname, "/product/[id]">;
+
+      router.replace(
+        {
+          pathname: newPathname,
+          query: Object.fromEntries(newSearchParams),
+        },
+        { locale: newLanguage },
+      );
     }
   };
 
