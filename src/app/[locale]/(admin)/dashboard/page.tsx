@@ -1,5 +1,5 @@
-import { getProducts } from "@/actions/product";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getProducts } from "@/lib/cache/product";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
