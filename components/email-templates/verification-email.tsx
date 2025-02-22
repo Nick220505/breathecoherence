@@ -20,6 +20,7 @@ export const VerificationEmail = ({
         marginBottom: "24px",
       }}
     >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://res.cloudinary.com/dx8jpo3ua/image/upload/BC%20logo"
         alt={companyName}
