@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/cache/product";
+import { getCachedProducts } from "@/lib/cache/products";
 import { Suspense } from "react";
 import { StoreContent } from "./components/store-content";
 import { StoreHeader } from "./components/store-header";
@@ -14,7 +14,7 @@ export default async function Page(props: {
   // Handle both English and Spanish category parameters
   const category = searchParams?.category || searchParams?.categoria || "";
   const type = searchParams?.type || "";
-  const products = await getProducts();
+  const products = await getCachedProducts();
 
   const filteredProducts = products.filter((product) => {
     if (category && product.type !== category) return false;
