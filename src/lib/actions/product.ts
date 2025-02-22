@@ -1,6 +1,6 @@
 "use server";
 
-import { createProduct, deleteProduct, updateProduct } from "@/db/products";
+import { createProduct, deleteProduct, updateProduct } from "@/lib/db/products";
 import { productSchema } from "@/lib/schemas/product";
 import { ActionState } from "@/lib/types/action";
 import { FormState } from "@/lib/types/form";
@@ -26,7 +26,7 @@ export async function productFormAction(
     const { id, ...productData } = data;
 
     if (id) {
-      const product = await updateProduct(id, productData);
+      const data = await updateProduct(id, productData);
       revalidateTag("products");
       revalidateTag("product");
 
@@ -34,17 +34,17 @@ export async function productFormAction(
         errors: {},
         message: "Product updated successfully",
         success: true,
-        data: product,
+        data,
       };
     } else {
-      const product = await createProduct(productData);
+      const data = await createProduct(productData);
       revalidateTag("products");
 
       return {
         errors: {},
         message: "Product created successfully",
         success: true,
-        data: product,
+        data,
       };
     }
   } catch (error) {
@@ -61,22 +61,15 @@ export async function deleteProductAction(
   id: string,
 ): Promise<ActionState<Product>> {
   if (!id) {
-    return {
-      success: false,
-      message: "Product ID is required",
-    };
+    return { success: false, message: "Product ID is required" };
   }
 
   try {
-    const product = await deleteProduct(id);
+    const data = await deleteProduct(id);
     revalidateTag("products");
     revalidateTag("product");
 
-    return {
-      success: true,
-      message: "Product deleted successfully",
-      data: product,
-    };
+    return { success: true, message: "Product deleted successfully", data };
   } catch (error) {
     return {
       success: false,

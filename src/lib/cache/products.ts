@@ -1,4 +1,4 @@
-import { getProductById, getProducts } from "@/db/products";
+import { getProductById, getProducts } from "@/lib/db/products";
 import { unstable_cache } from "next/cache";
 
 export const getCachedProducts = unstable_cache(getProducts, ["products"], {
