@@ -1,6 +1,6 @@
 "use server";
 
-import { createUser, verifyUser } from "@/db/auth";
+import { createUser, verifyUser } from "@/lib/db/auth";
 import { registerSchema, verifySchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 
