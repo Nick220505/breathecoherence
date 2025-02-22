@@ -1,9 +1,9 @@
 "use client";
 
-import { productFormAction } from "@/actions/product";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { productFormAction } from "@/lib/actions/product";
 import { ProductFormData, productSchema } from "@/lib/schemas/product";
 import { useProductStore } from "@/lib/stores/use-product-store";
 import { FormState } from "@/lib/types/form";

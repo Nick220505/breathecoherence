@@ -1,6 +1,5 @@
 "use client";
 
-import { verifyAction } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import {
   CardContent,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Link, useRouter } from "@/i18n/routing";
+import { verifyAction } from "@/lib/actions/auth";
 import { VerifyFormData, verifySchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";

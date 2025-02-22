@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteProduct } from "@/actions/product";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,6 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { deleteProduct } from "@/lib/actions/product";
 import { useTableStore } from "@/lib/stores/use-table-store";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";

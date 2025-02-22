@@ -1,4 +1,4 @@
-import { getProducts } from "@/actions/product";
+import { getProducts } from "@/lib/cache/product";
 import { getChatResponse } from "@/lib/gemini";
 import { NextResponse } from "next/server";
 
