@@ -1,7 +1,7 @@
 "use server";
 
+import { prisma } from "@/db/prisma";
 import { sendVerificationEmail } from "@/lib/email";
-import { prisma } from "@/lib/prisma";
 import { registerSchema, verifySchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 import { hash } from "bcryptjs";
