@@ -1,11 +1,8 @@
 "use server";
 
-import { prisma } from "@/db/prisma";
-import { sendVerificationEmail } from "@/lib/email";
+import { createUser, verifyUser } from "@/db/auth";
 import { registerSchema, verifySchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
-import { hash } from "bcryptjs";
-import crypto from "crypto";
 
 export async function registerAction(
   _prevState: FormState,
@@ -22,56 +19,7 @@ export async function registerAction(
     };
   }
 
-  try {
-    const { name, email, password } = data;
-
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-
-    if (existingUser) {
-      return {
-        errors: { email: ["User already exists"] },
-        message: "User already exists",
-        success: false,
-      };
-    }
-
-    const verifyToken = crypto.randomInt(100000, 999999).toString();
-    const verifyTokenExpiry = new Date(Date.now() + 30 * 60 * 1000);
-    const hashedPassword = await hash(password, 12);
-
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        verifyToken,
-        verifyTokenExpiry,
-        emailVerified: false,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-      },
-    });
-
-    await sendVerificationEmail(email, verifyToken);
-
-    return {
-      errors: {},
-      message: "Verification code sent to your email",
-      success: true,
-      data: user,
-    };
-  } catch (error) {
-    console.error("Registration error:", error);
-    return {
-      errors: {},
-      message: "Something went wrong during registration.",
-      success: false,
-    };
-  }
+  return createUser(data);
 }
 
 export async function verifyAction(
@@ -89,47 +37,5 @@ export async function verifyAction(
     };
   }
 
-  try {
-    const { email, code } = data;
-
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-        verifyToken: code,
-        verifyTokenExpiry: {
-          gt: new Date(),
-        },
-      },
-    });
-
-    if (!user) {
-      return {
-        errors: { code: ["Invalid or expired verification code"] },
-        message: "Invalid or expired verification code",
-        success: false,
-      };
-    }
-
-    await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        emailVerified: true,
-        verifyToken: null,
-        verifyTokenExpiry: null,
-      },
-    });
-
-    return {
-      errors: {},
-      message: "Email verified successfully",
-      success: true,
-    };
-  } catch (error) {
-    console.error("Verification error:", error);
-    return {
-      errors: {},
-      message: "Something went wrong during verification",
-      success: false,
-    };
-  }
+  return verifyUser(data);
 }
