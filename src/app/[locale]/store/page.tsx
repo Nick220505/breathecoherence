@@ -1,4 +1,4 @@
-import { getProducts } from "@/actions/product";
+import { getProducts } from "@/lib/cache/product";
 import { Suspense } from "react";
 import { StoreContent } from "./components/store-content";
 import { StoreHeader } from "./components/store-header";

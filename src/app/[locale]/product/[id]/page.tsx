@@ -1,6 +1,5 @@
 "use client";
 
-import { getProductById } from "@/actions/product";
 import { useCart } from "@/components/cart-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Link } from "@/i18n/routing";
+import { getProductById } from "@/lib/cache/product";
 import { type Product } from "@prisma/client";
 import { motion } from "framer-motion";
 import { ArrowLeft, Loader2, ShoppingCart } from "lucide-react";
