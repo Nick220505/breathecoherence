@@ -10,10 +10,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { deleteProduct } from "@/lib/actions/product";
+import { deleteProductAction } from "@/lib/actions/product";
 import { useTableStore } from "@/lib/stores/use-table-store";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export function DeleteProductDialog() {
   const t = useTranslations("DeleteProductDialog");
@@ -21,28 +22,31 @@ export function DeleteProductDialog() {
   const {
     isDeleteDialogOpen,
     productToDelete,
-    isDeleting,
     setIsDeleting,
     resetDeleteState,
   } = useTableStore();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleConfirmDelete = async () => {
     if (!productToDelete) return;
 
-    try {
-      setIsDeleting(true);
-      const { success, message } = await deleteProduct(productToDelete.id);
+    setIsLoading(true);
+    setIsDeleting(true);
 
-      if (success) {
+    try {
+      const result = await deleteProductAction(productToDelete.id);
+
+      if (result.success) {
         toast({
           title: t("success"),
-          description: message,
+          description: result.message,
           variant: "default",
         });
+        resetDeleteState();
       } else {
         toast({
           title: t("error"),
-          description: message,
+          description: result.message,
           variant: "destructive",
         });
       }
@@ -54,8 +58,8 @@ export function DeleteProductDialog() {
         variant: "destructive",
       });
     } finally {
+      setIsLoading(false);
       setIsDeleting(false);
-      resetDeleteState();
     }
   };
 
@@ -72,16 +76,16 @@ export function DeleteProductDialog() {
           <Button
             variant="outline"
             onClick={resetDeleteState}
-            disabled={isDeleting}
+            disabled={isLoading}
           >
             {t("cancel")}
           </Button>
           <Button
             variant="destructive"
             onClick={handleConfirmDelete}
-            disabled={isDeleting}
+            disabled={isLoading}
           >
-            {isDeleting ? (
+            {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t("deleting")}
