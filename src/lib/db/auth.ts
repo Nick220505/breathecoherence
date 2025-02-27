@@ -3,7 +3,7 @@ import { RegisterFormData, VerifyFormData } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 import { hash } from "bcryptjs";
 import crypto from "crypto";
-import { prisma } from "./prisma";
+import { prisma } from "../db";
 
 export async function findUserByEmail(email: string) {
   return prisma.user.findUnique({ where: { email } });

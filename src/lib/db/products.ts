@@ -1,7 +1,7 @@
 import { ProductFormData } from "@/lib/schemas/product";
 import { Product } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { prisma } from "./prisma";
+import { prisma } from "../db";
 
 export async function getProducts(): Promise<Product[]> {
   const products = await prisma.product.findMany({
