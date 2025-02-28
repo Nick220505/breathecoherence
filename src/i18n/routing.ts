@@ -18,9 +18,9 @@ export const routing = defineRouting({
       en: "/store/flower-essences",
       es: "/tienda/esencias-florales",
     },
-    "/product/[id]": {
-      en: "/product/[id]",
-      es: "/producto/[id]",
+    "/store/product/[id]": {
+      en: "/store/product/[id]",
+      es: "/tienda/producto/[id]",
     },
     "/login": {
       en: "/login",
