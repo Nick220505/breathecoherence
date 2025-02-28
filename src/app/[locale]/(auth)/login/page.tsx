@@ -8,8 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { authActions } from "@/features/auth/actions";
 import { LoginFormData, loginSchema } from "@/features/auth/schema";
 import { Link } from "@/i18n/routing";
+import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { AlertCircle, Loader2 } from "lucide-react";
@@ -17,8 +19,15 @@ import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
+
+const initialState: FormState = {
+  errors: {},
+  message: "",
+  success: false,
+};
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -36,42 +45,28 @@ const staggerContainer = {
 export default function LoginPage() {
   const t = useTranslations("LoginPage");
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [state, formAction] = useFormState(authActions.login, initialState);
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   });
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
-  } = form;
-
-  const onSubmit = async ({ email, password }: LoginFormData) => {
-    try {
-      startTransition(async () => {
-        const result = await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        });
-
+  useEffect(() => {
+    if (state.success) {
+      signIn("credentials", {
+        email: form.getValues("email"),
+        password: form.getValues("password"),
+        redirect: false,
+      }).then((result) => {
         if (result?.error) {
-          setError("root", { message: t("error.invalid") });
-          return;
+          console.error("Error signing in:", result.error);
+        } else {
+          router.push("/");
         }
-
-        router.push("/");
       });
-    } catch {
-      setError("root", { message: t("error.generic") });
     }
-  };
-
-  const isLoading = isSubmitting || isPending;
+  }, [state.success, router, form]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-background via-background/80 to-background px-4">
@@ -112,7 +107,7 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form action={formAction} className="space-y-6">
               <motion.div variants={fadeInUp} className="space-y-2">
                 <label
                   htmlFor="email"
@@ -124,18 +119,18 @@ export default function LoginPage() {
                   id="email"
                   type="email"
                   placeholder={t("placeholder.email")}
-                  {...register("email")}
-                  disabled={isLoading}
+                  {...form.register("email")}
+                  disabled={form.formState.isSubmitting}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
-                {errors.email && (
+                {state.errors.email && (
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-sm text-red-500 flex items-center gap-1"
                   >
                     <AlertCircle className="h-4 w-4" />
-                    {errors.email.message}
+                    {state.errors.email[0]}
                   </motion.p>
                 )}
               </motion.div>
@@ -151,40 +146,40 @@ export default function LoginPage() {
                   id="password"
                   type="password"
                   placeholder={t("placeholder.password")}
-                  {...register("password")}
-                  disabled={isLoading}
+                  {...form.register("password")}
+                  disabled={form.formState.isSubmitting}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
-                {errors.password && (
+                {state.errors.password && (
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-sm text-red-500 flex items-center gap-1"
                   >
                     <AlertCircle className="h-4 w-4" />
-                    {errors.password.message}
+                    {state.errors.password[0]}
                   </motion.p>
                 )}
               </motion.div>
 
-              {errors.root && (
+              {state.message && !state.success && (
                 <motion.p
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-sm text-red-500 text-center flex items-center justify-center gap-1 bg-red-500/10 p-3 rounded-lg"
                 >
                   <AlertCircle className="h-4 w-4" />
-                  {errors.root.message}
+                  {state.message}
                 </motion.p>
               )}
 
               <motion.div variants={fadeInUp}>
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={form.formState.isSubmitting}
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
                 >
-                  {isLoading ? (
+                  {form.formState.isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       {t("loading")}

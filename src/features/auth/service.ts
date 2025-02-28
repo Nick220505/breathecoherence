@@ -1,17 +1,20 @@
 import { sendVerificationEmail } from "@/lib/email";
 import { User } from "@prisma/client";
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import crypto from "crypto";
-import { InvalidVerificationError, UserExistsError } from "./errors";
+import {
+  InvalidCredentialsError,
+  InvalidVerificationError,
+  UserExistsError,
+} from "./errors";
 import { authRepository } from "./repository";
-import { RegisterFormData, VerifyFormData } from "./schema";
+import { LoginFormData, RegisterFormData, VerifyFormData } from "./schema";
 
 export const authService = {
   async register(
     data: RegisterFormData,
   ): Promise<Pick<User, "id" | "name" | "email" | "role">> {
-    const { name, email, password } = data;
-    const existingUser = await authRepository.findByEmail(email);
+    const existingUser = await authRepository.findByEmail(data.email);
 
     if (existingUser) {
       throw new UserExistsError();
@@ -19,14 +22,14 @@ export const authService = {
 
     const verifyToken = crypto.randomInt(100000, 999999).toString();
     const user = await authRepository.create({
-      name,
-      email,
-      password: await hash(password, 12),
+      name: data.name,
+      email: data.email,
+      password: await hash(data.password, 12),
       verifyToken,
       verifyTokenExpiry: new Date(Date.now() + 30 * 60 * 1000),
     });
 
-    await sendVerificationEmail(email, verifyToken);
+    await sendVerificationEmail(data.email, verifyToken);
 
     return user;
   },
@@ -43,5 +46,32 @@ export const authService = {
     await authRepository.updateVerification(user.id);
 
     return user;
+  },
+
+  async login(
+    data: LoginFormData,
+  ): Promise<Pick<User, "id" | "name" | "email" | "role">> {
+    const user = await authRepository.findByEmail(data.email);
+
+    if (!user) {
+      throw new InvalidCredentialsError();
+    }
+
+    const isValid = await compare(data.password, user.password);
+
+    if (!isValid) {
+      throw new InvalidCredentialsError();
+    }
+
+    if (!user.emailVerified) {
+      throw new InvalidVerificationError();
+    }
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
   },
 };
