@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { register } from "@/features/auth/actions";
+import { registerAction } from "@/features/auth/actions";
 import { RegisterFormData, registerSchema } from "@/features/auth/schema";
 import { Link, useRouter } from "@/i18n/routing";
 import { FormState } from "@/lib/types/form";
@@ -42,7 +42,7 @@ const staggerContainer = {
 export default function RegisterPage() {
   const t = useTranslations("RegisterPage");
   const router = useRouter();
-  const [state, formAction] = useActionState(register, initialState);
+  const [state, formAction] = useActionState(registerAction, initialState);
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<RegisterFormData>({
