@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { authActions } from "@/features/auth/actions";
+import { login } from "@/features/auth/actions";
 import { LoginFormData, loginSchema } from "@/features/auth/schema";
 import { Link } from "@/i18n/routing";
 import { FormState } from "@/lib/types/form";
@@ -19,8 +19,7 @@ import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 const initialState: FormState = {
@@ -45,7 +44,8 @@ const staggerContainer = {
 export default function LoginPage() {
   const t = useTranslations("LoginPage");
   const router = useRouter();
-  const [state, formAction] = useFormState(authActions.login, initialState);
+  const [state, formAction] = useActionState(login, initialState);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -54,6 +54,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (state.success) {
+      const formData = new FormData();
+      formData.append("email", form.getValues("email"));
+      formData.append("password", form.getValues("password"));
       signIn("credentials", {
         email: form.getValues("email"),
         password: form.getValues("password"),
@@ -67,6 +70,18 @@ export default function LoginPage() {
       });
     }
   }, [state.success, router, form]);
+
+  const onSubmit = async (data: LoginFormData) => {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+    startTransition(() => formAction(formData));
+  };
+
+  const isLoading = form.formState.isSubmitting || isPending;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-background via-background/80 to-background px-4">
@@ -107,7 +122,11 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form action={formAction} className="space-y-6">
+            <form
+              action={formAction}
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-6"
+            >
               <motion.div variants={fadeInUp} className="space-y-2">
                 <label
                   htmlFor="email"
@@ -120,7 +139,7 @@ export default function LoginPage() {
                   type="email"
                   placeholder={t("placeholder.email")}
                   {...form.register("email")}
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
                 {state.errors.email && (
@@ -147,7 +166,7 @@ export default function LoginPage() {
                   type="password"
                   placeholder={t("placeholder.password")}
                   {...form.register("password")}
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
                 {state.errors.password && (
@@ -176,10 +195,10 @@ export default function LoginPage() {
               <motion.div variants={fadeInUp}>
                 <Button
                   type="submit"
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
                 >
-                  {form.formState.isSubmitting ? (
+                  {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       {t("loading")}
