@@ -45,12 +45,6 @@ const staggerContainer = {
   },
 };
 
-const digitVariants = {
-  initial: { scale: 0.8, opacity: 0 },
-  animate: { scale: 1, opacity: 1 },
-  exit: { scale: 0.8, opacity: 0 },
-};
-
 export function VerificationForm({ email }: VerificationFormProps) {
   const t = useTranslations("VerificationForm");
   const { toast } = useToast();
