@@ -9,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { productCache } from "@/features/products/cache";
 import { Link } from "@/i18n/routing";
-import { getCachedProductById } from "@/lib/cache/products";
 import { type Product } from "@prisma/client";
 import { motion } from "framer-motion";
 import { ArrowLeft, Loader2, ShoppingCart } from "lucide-react";
@@ -43,7 +43,7 @@ export default function ProductPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        setProduct(await getCachedProductById(params.id as string));
+        setProduct(await productCache.getById(params.id as string));
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {

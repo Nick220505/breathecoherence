@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getCachedProducts } from "@/lib/cache/products";
+import { productCache } from "@/features/products/cache";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
@@ -16,6 +16,7 @@ export const revalidate = 3600;
 
 export default async function AdminDashboard() {
   const t = await getTranslations("AdminDashboard");
+  const products = await productCache.getAll();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -26,7 +27,7 @@ export default async function AdminDashboard() {
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TableSkeleton />}>
-            <ProductTable products={await getCachedProducts()} />
+            <ProductTable products={products} />
           </Suspense>
         </CardContent>
       </Card>

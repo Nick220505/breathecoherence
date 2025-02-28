@@ -7,7 +7,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { productSchema } from "@/lib/schemas/product";
+import { productSchema } from "@/features/products/schema";
 import { useProductStore } from "@/lib/stores/use-product-store";
 import { useTableStore } from "@/lib/stores/use-table-store";
 import { Product } from "@prisma/client";
