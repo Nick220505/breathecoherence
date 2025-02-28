@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { authActions } from "@/features/auth/actions";
+import { verifyAction } from "@/features/auth/actions";
 import { VerifyFormData, verifySchema } from "@/features/auth/schema";
 import { useToast } from "@/hooks/use-toast";
 import { Link, useRouter } from "@/i18n/routing";
@@ -49,7 +49,7 @@ export function VerificationForm({ email }: VerificationFormProps) {
   const t = useTranslations("VerificationForm");
   const { toast } = useToast();
   const router = useRouter();
-  const [state, formAction] = useFormState(authActions.verify, initialState);
+  const [state, formAction] = useFormState(verifyAction, initialState);
 
   const form = useForm<VerifyFormData>({
     resolver: zodResolver(verifySchema),

@@ -6,7 +6,7 @@ import { AuthError } from "./errors";
 import { loginSchema, registerSchema, verifySchema } from "./schema";
 import { authService } from "./service";
 
-export async function register(
+export async function registerAction(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Pick<User, "id" | "name" | "email" | "role">>> {
@@ -45,7 +45,7 @@ export async function register(
   }
 }
 
-export async function verify(
+export async function verifyAction(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<User>> {
@@ -84,7 +84,7 @@ export async function verify(
   }
 }
 
-export async function login(
+export async function loginAction(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Pick<User, "id" | "name" | "email" | "role">>> {
