@@ -280,7 +280,7 @@ export function ChatBot() {
                             </div>
                             <Link
                               href={{
-                                pathname: "/product/[id]",
+                                pathname: "/store/product/[id]",
                                 params: { id: product.id || "" },
                               }}
                               className="text-sm text-primary hover:underline"

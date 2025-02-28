@@ -25,7 +25,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
   return (
     <Link
       href={{
-        pathname: "/product/[id]",
+        pathname: "/store/product/[id]",
         params: { id: product.id },
       }}
     >
