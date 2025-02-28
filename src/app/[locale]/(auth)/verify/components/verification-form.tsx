@@ -8,31 +8,28 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { authActions } from "@/features/auth/actions";
+import { VerifyFormData, verifySchema } from "@/features/auth/schema";
+import { useToast } from "@/hooks/use-toast";
 import { Link, useRouter } from "@/i18n/routing";
-import { verifyAction } from "@/lib/actions/auth";
-import { VerifyFormData, verifySchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import {
-  startTransition,
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
 
 interface VerificationFormProps {
-  email: string | null;
+  email: string;
 }
 
 const initialState: FormState = {
   errors: {},
   message: "",
+  success: false,
 };
 
 const fadeInUp = {
@@ -56,161 +53,27 @@ const digitVariants = {
 
 export function VerificationForm({ email }: VerificationFormProps) {
   const t = useTranslations("VerificationForm");
+  const { toast } = useToast();
   const router = useRouter();
-  const [state, formAction] = useActionState(verifyAction, initialState);
-  const refs = useRef<Array<HTMLInputElement | null>>([]);
-  const [digits, setDigits] = useState(["", "", "", "", "", ""]);
+  const [state, formAction] = useFormState(authActions.verify, initialState);
 
   const form = useForm<VerifyFormData>({
     resolver: zodResolver(verifySchema),
     defaultValues: {
-      email: email || "",
+      email,
       code: "",
     },
   });
 
-  const {
-    setValue,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-    clearErrors,
-  } = form;
-
-  useEffect(() => {
-    refs.current[0]?.focus();
-  }, []);
-
   useEffect(() => {
     if (state.success) {
-      router.push({
-        pathname: "/login",
-        query: { verified: "true" },
+      toast({
+        title: t("success"),
+        description: state.message,
       });
+      router.push("/login");
     }
-  }, [state.success, router]);
-
-  const handleInput = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return;
-
-    const newDigits = [...digits];
-    newDigits[index] = value;
-    setDigits(newDigits);
-
-    const code = newDigits.join("");
-    setValue("code", code, { shouldValidate: true });
-    clearErrors("code");
-
-    if (value && index < 5) {
-      refs.current[index + 1]?.focus();
-    }
-
-    if (index === 5 && value && code.length === 6) {
-      handleSubmit(onSubmit)();
-    }
-  };
-
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
-    if (e.key === "Backspace" && !digits[index] && index > 0) {
-      const newDigits = [...digits];
-      newDigits[index - 1] = "";
-      setDigits(newDigits);
-      setValue("code", newDigits.join(""), { shouldValidate: true });
-      refs.current[index - 1]?.focus();
-    }
-  };
-
-  const handlePaste = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    const pastedData = e.clipboardData.getData("text").slice(0, 6);
-    if (!/^\d+$/.test(pastedData)) {
-      setError("code", { message: t("error.codeFormat") });
-      return;
-    }
-
-    const newDigits = pastedData.padEnd(6, "").split("");
-    setDigits(newDigits);
-    setValue("code", pastedData, { shouldValidate: true });
-    clearErrors("code");
-
-    if (pastedData.length === 6) {
-      handleSubmit(onSubmit)();
-    } else {
-      const focusIndex = Math.min(pastedData.length, 5);
-      refs.current[focusIndex]?.focus();
-    }
-  };
-
-  const onSubmit = async (data: VerifyFormData) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        formData.append(key, value.toString());
-      }
-    });
-
-    startTransition(() => {
-      formAction(formData);
-    });
-  };
-
-  if (!email) {
-    return (
-      <div className="flex items-center justify-center min-h-screen px-4">
-        <motion.div
-          initial="initial"
-          animate="animate"
-          variants={staggerContainer}
-          className="w-full max-w-[450px]"
-        >
-          <motion.div variants={fadeInUp}>
-            <Link
-              href="/"
-              className="flex items-center justify-center mb-8 gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-            >
-              <div className="relative h-16 w-48">
-                <Image
-                  src="/images/BC-logo-transp-120.png"
-                  alt="Breathe Coherence"
-                  fill
-                  sizes="(max-width: 192px) 100vw, 192px"
-                  className="object-contain dark:invert transition-all duration-300"
-                  priority
-                />
-              </div>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="backdrop-blur-lg bg-white/10 dark:bg-gray-950/50 rounded-2xl border border-purple-500/10 shadow-xl overflow-hidden"
-          >
-            <CardHeader className="space-y-2 pb-6">
-              <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 text-center">
-                {t("error.title")}
-              </CardTitle>
-              <CardDescription className="text-center text-gray-600 dark:text-gray-400">
-                {t("error.description")}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <motion.div variants={fadeInUp}>
-                <Button
-                  onClick={() => router.push("/register")}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
-                >
-                  {t("goToRegister")}
-                </Button>
-              </motion.div>
-            </CardContent>
-          </motion.div>
-        </motion.div>
-      </div>
-    );
-  }
+  }, [state.success, state.message, toast, router, t]);
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4">
@@ -254,79 +117,49 @@ export function VerificationForm({ email }: VerificationFormProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <motion.div
-                variants={fadeInUp}
-                className="flex gap-3 justify-center"
-              >
-                {digits.map((digit, index) => (
-                  <motion.div
-                    key={index}
-                    variants={digitVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="relative"
-                  >
-                    <Input
-                      ref={(el) => {
-                        refs.current[index] = el;
-                      }}
-                      type="text"
-                      inputMode="numeric"
-                      maxLength={1}
-                      value={digit}
-                      onChange={(e) => handleInput(index, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(index, e)}
-                      onPaste={handlePaste}
-                      disabled={isSubmitting}
-                      className="w-14 h-14 text-center text-2xl font-bold bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    />
-                    {digit && (
-                      <motion.div
-                        layoutId={`digit-${index}`}
-                        className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-blue-600/10 dark:from-purple-400/10 dark:to-blue-400/10 rounded-md pointer-events-none"
-                      />
-                    )}
-                  </motion.div>
-                ))}
-              </motion.div>
+            <form action={formAction} className="space-y-6">
+              <Input type="hidden" {...form.register("email")} />
 
-              {(errors.code || (state.message && !state.success)) && (
-                <motion.p
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+              <div className="space-y-2">
+                <Input
+                  type="text"
+                  placeholder={t("code.placeholder")}
+                  {...form.register("code")}
+                  disabled={form.formState.isSubmitting}
+                  className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
+                />
+                {state.errors.code && (
+                  <p className="text-sm text-red-500 flex items-center gap-1">
+                    <AlertCircle className="h-4 w-4" />
+                    {state.errors.code[0]}
+                  </p>
+                )}
+              </div>
+
+              {state.message && !state.success && (
+                <p
                   className="text-sm text-red-500 text-center flex items-center justify-center gap-1 bg-red-500/10 p-3 rounded-lg"
+                  role="alert"
                 >
                   <AlertCircle className="h-4 w-4" />
-                  {errors.code?.message || state.message}
-                </motion.p>
+                  {state.message}
+                </p>
               )}
 
-              <motion.div variants={fadeInUp} className="space-y-4">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {t("loading")}
-                    </>
-                  ) : (
-                    t("submit")
-                  )}
-                </Button>
-
-                <Link
-                  href="/register"
-                  className="flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  {t("backToRegister")}
-                </Link>
-              </motion.div>
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
+              >
+                {form.formState.isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t("verifying")}
+                  </>
+                ) : (
+                  t("verify")
+                )}
+              </Button>
             </form>
           </CardContent>
         </motion.div>
