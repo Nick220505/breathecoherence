@@ -18,3 +18,10 @@ export class InvalidVerificationError extends AuthError {
     this.name = "InvalidVerificationError";
   }
 }
+
+export class InvalidCredentialsError extends AuthError {
+  constructor() {
+    super("Invalid email or password");
+    this.name = "InvalidCredentialsError";
+  }
+}
