@@ -9,8 +9,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { productActions } from "@/features/products/actions";
 import { useToast } from "@/hooks/use-toast";
-import { deleteProductAction } from "@/lib/actions/product";
 import { useTableStore } from "@/lib/stores/use-table-store";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -34,7 +34,7 @@ export function DeleteProductDialog() {
     setIsDeleting(true);
 
     try {
-      const result = await deleteProductAction(productToDelete.id);
+      const result = await productActions.delete(productToDelete.id);
 
       if (result.success) {
         toast({

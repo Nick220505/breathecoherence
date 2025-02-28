@@ -1,4 +1,4 @@
-import { ProductFormData } from "@/lib/schemas/product";
+import { ProductFormData } from "@/features/products/schema";
 import { create } from "zustand";
 
 interface ProductStore {

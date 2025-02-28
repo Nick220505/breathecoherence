@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { productActions } from "@/features/products/actions";
+import { ProductFormData, productSchema } from "@/features/products/schema";
 import { useToast } from "@/hooks/use-toast";
-import { productFormAction } from "@/lib/actions/product";
-import { ProductFormData, productSchema } from "@/lib/schemas/product";
 import { useProductStore } from "@/lib/stores/use-product-store";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,7 +38,10 @@ export function ProductForm({
   const { toast } = useToast();
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
-  const [state, formAction] = useActionState(productFormAction, initialState);
+  const [state, formAction] = useActionState(
+    productActions.handleForm,
+    initialState,
+  );
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
