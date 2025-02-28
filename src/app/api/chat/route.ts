@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/db/products";
+import { productService } from "@/features/products/service";
 import { getChatResponse } from "@/lib/gemini";
 import { NextResponse } from "next/server";
 
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const { message, chatHistory } = await request.json();
 
     // Get current product data
-    const products = await getProducts();
+    const products = await productService.getAll();
 
     // Create a map of products by ID for quick lookup
     const productMap = new Map(
