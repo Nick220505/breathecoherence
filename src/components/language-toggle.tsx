@@ -43,7 +43,7 @@ export function LanguageToggle() {
     if (pathname.startsWith("/product/")) {
       const id = pathname.split("/").pop() || "";
       router.replace(
-        { pathname: "/product/[id]", params: { id } },
+        { pathname: "/store/product/[id]", params: { id } },
         { locale: newLanguage },
       );
     } else {
@@ -69,7 +69,10 @@ export function LanguageToggle() {
         }
       });
 
-      const newPathname = pathname as Exclude<typeof pathname, "/product/[id]">;
+      const newPathname = pathname as Exclude<
+        typeof pathname,
+        "/store/product/[id]"
+      >;
 
       router.replace(
         {
