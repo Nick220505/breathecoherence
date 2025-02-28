@@ -12,7 +12,7 @@ export async function getChatResponse(
   systemPrompt: string,
 ) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     // Enhance the system prompt to request structured responses
     const enhancedPrompt = `${systemPrompt}
@@ -37,11 +37,9 @@ I recommend Olive Essence for exhaustion [PRODUCT_REC]{"id": "olive", "name": "O
     }
 
     // Send the user's message and get the response
-    const result = await chat.sendMessage(userMessage);
-    const response = await result.response;
-    const text = response.text();
+    const { response } = await chat.sendMessage(userMessage);
 
-    return text;
+    return response.text();
   } catch (error) {
     console.error("Error getting chat response:", error);
     return "I apologize, but I'm having trouble processing your request at the moment. Please try again later.";
