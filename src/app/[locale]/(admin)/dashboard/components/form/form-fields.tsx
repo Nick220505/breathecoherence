@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { type ProductFormData } from "@/lib/schemas/product";
+import { ProductFormData } from "@/features/products/schema";
 import {
   AlertCircle,
   Box,
