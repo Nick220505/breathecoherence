@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { LoginFormData, loginSchema } from "@/features/auth/schema";
 import { Link } from "@/i18n/routing";
-import { LoginFormData, loginSchema } from "@/lib/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { AlertCircle, Loader2 } from "lucide-react";
