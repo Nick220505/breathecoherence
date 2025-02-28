@@ -198,8 +198,6 @@ body {
   background: #805ad5;
 }
 
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
