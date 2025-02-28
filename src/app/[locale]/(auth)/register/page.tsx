@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { authActions } from "@/features/auth/actions";
+import { register } from "@/features/auth/actions";
 import { RegisterFormData, registerSchema } from "@/features/auth/schema";
 import { Link, useRouter } from "@/i18n/routing";
 import { FormState } from "@/lib/types/form";
@@ -17,8 +17,7 @@ import { motion } from "framer-motion";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
 const initialState: FormState = {
@@ -43,7 +42,8 @@ const staggerContainer = {
 export default function RegisterPage() {
   const t = useTranslations("RegisterPage");
   const router = useRouter();
-  const [state, formAction] = useFormState(authActions.register, initialState);
+  const [state, formAction] = useActionState(register, initialState);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -63,6 +63,18 @@ export default function RegisterPage() {
       });
     }
   }, [state.success, router, form]);
+
+  const onSubmit = async (data: RegisterFormData) => {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+    startTransition(() => formAction(formData));
+  };
+
+  const isLoading = form.formState.isSubmitting || isPending;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-background via-background/80 to-background px-4">
@@ -103,7 +115,11 @@ export default function RegisterPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form action={formAction} className="space-y-6">
+            <form
+              action={formAction}
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-6"
+            >
               <motion.div variants={fadeInUp} className="space-y-2">
                 <label
                   htmlFor="name"
@@ -116,7 +132,7 @@ export default function RegisterPage() {
                   type="text"
                   placeholder={t("placeholder.name")}
                   {...form.register("name")}
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
                 {state.errors.name && (
@@ -143,7 +159,7 @@ export default function RegisterPage() {
                   type="email"
                   placeholder={t("placeholder.email")}
                   {...form.register("email")}
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
                 {state.errors.email && (
@@ -170,7 +186,7 @@ export default function RegisterPage() {
                   type="password"
                   placeholder={t("placeholder.password")}
                   {...form.register("password")}
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
                 {state.errors.password && (
@@ -197,7 +213,7 @@ export default function RegisterPage() {
                   type="password"
                   placeholder={t("placeholder.confirmPassword")}
                   {...form.register("confirmPassword")}
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
                 {state.errors.confirmPassword && (
@@ -226,10 +242,10 @@ export default function RegisterPage() {
               <motion.div variants={fadeInUp}>
                 <Button
                   type="submit"
-                  disabled={form.formState.isSubmitting}
+                  disabled={isLoading}
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
                 >
-                  {form.formState.isSubmitting ? (
+                  {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       {t("loading")}
