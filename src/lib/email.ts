@@ -1,5 +1,5 @@
 import { VerificationEmail } from "@/components/email-templates/verification-email";
-import { Resend } from "resend";
+import { CreateEmailResponseSuccess, Resend } from "resend";
 
 if (!process.env.RESEND_API_KEY) {
   throw new Error("Missing RESEND_API_KEY environment variable");
@@ -21,26 +21,17 @@ const COMPANY_NAME = process.env.COMPANY_NAME;
 export async function sendVerificationEmail(
   email: string,
   verificationCode: string,
-) {
-  try {
-    const { data, error } = await resend.emails.send({
-      from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
-      to: email,
-      subject: "Verify your email address",
-      react: VerificationEmail({
-        verificationCode,
-        companyName: COMPANY_NAME,
-      }),
-    });
+): Promise<CreateEmailResponseSuccess | null> {
+  const { data, error } = await resend.emails.send({
+    from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
+    to: email,
+    subject: "Verify your email address",
+    react: VerificationEmail({ verificationCode, companyName: COMPANY_NAME }),
+  });
 
-    if (error) {
-      console.error("Error sending verification email:", error);
-      throw new Error("Failed to send verification email");
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Error sending verification email:", error);
+  if (error) {
     throw new Error("Failed to send verification email");
   }
+
+  return data;
 }
