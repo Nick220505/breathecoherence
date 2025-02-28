@@ -112,20 +112,30 @@ The application will be available at [http://localhost:3000](http://localhost:30
 
 ```
 breathecoherence/
-├── actions/              # Server actions for data mutations
-├── app/                  # Next.js 15 app directory
-│   ├── (admin)/         # Admin dashboard routes
-│   ├── (auth)/          # Authentication routes
-│   ├── product/         # Product pages
-│   └── store/           # Store pages
-├── lib/                 # Utility functions and configurations
-│   └── schemas/         # Zod validation schemas
+├── src/
+│   ├── app/                  # Next.js 15 app directory
+│   │   ├── [locale]/        # Internationalized routes
+│   │   │   ├── (admin)/     # Admin dashboard routes
+│   │   │   ├── (auth)/      # Authentication routes
+│   │   │   ├── product/     # Product pages
+│   │   │   └── store/       # Store pages
+│   │   ├── api/            # API routes
+│   │   └── globals.css     # Global styles
+│   ├── features/           # Feature-based modules
+│   │   ├── auth/          # Authentication feature
+│   │   └── products/      # Products feature
+│   ├── lib/               # Utility functions and configurations
+│   │   ├── db/           # Database utilities
+│   │   ├── email/        # Email service utilities
+│   │   ├── stores/       # Zustand stores
+│   │   └── types/        # TypeScript types and interfaces
+│   ├── components/       # Shared UI components
+│   ├── hooks/           # Custom React hooks
+│   ├── i18n/            # Internationalization config
+│   └── messages/        # Translation messages
 ├── prisma/              # Database schema and migrations
-│   └── migrations/      # Database migration files
-├── public/              # Static assets
-│   ├── images/          # Image assets
-│   └── products/        # Product-related assets
-└── styles/              # Global styles and Tailwind config
+├── public/             # Static assets
+└── styles/            # Tailwind and other style configs
 ```
 
 ## 🔐 Security
