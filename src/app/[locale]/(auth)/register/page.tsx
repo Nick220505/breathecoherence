@@ -8,21 +8,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { authActions } from "@/features/auth/actions";
+import { RegisterFormData, registerSchema } from "@/features/auth/schema";
 import { Link, useRouter } from "@/i18n/routing";
-import { registerAction } from "@/lib/actions/auth";
-import { RegisterFormData, registerSchema } from "@/lib/schemas/auth";
 import { FormState } from "@/lib/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useActionState, useEffect, useTransition } from "react";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
 
 const initialState: FormState = {
   errors: {},
   message: "",
+  success: false,
 };
 
 const fadeInUp = {
@@ -41,8 +43,7 @@ const staggerContainer = {
 export default function RegisterPage() {
   const t = useTranslations("RegisterPage");
   const router = useRouter();
-  const [state, formAction] = useActionState(registerAction, initialState);
-  const [isPending, startTransition] = useTransition();
+  const [state, formAction] = useFormState(authActions.register, initialState);
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -54,36 +55,14 @@ export default function RegisterPage() {
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = form;
-
   useEffect(() => {
     if (state.success) {
-      const email = form.getValues("email");
       router.push({
         pathname: "/verify",
-        query: { email: encodeURIComponent(email) },
+        query: { email: encodeURIComponent(form.getValues("email")) },
       });
     }
   }, [state.success, router, form]);
-
-  const onSubmit = async (data: RegisterFormData) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        formData.append(key, value.toString());
-      }
-    });
-
-    startTransition(() => {
-      formAction(formData);
-    });
-  };
-
-  const isLoading = isSubmitting || isPending;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-background via-background/80 to-background px-4">
@@ -124,7 +103,7 @@ export default function RegisterPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form action={formAction} className="space-y-6">
               <motion.div variants={fadeInUp} className="space-y-2">
                 <label
                   htmlFor="name"
@@ -136,18 +115,18 @@ export default function RegisterPage() {
                   id="name"
                   type="text"
                   placeholder={t("placeholder.name")}
-                  {...register("name")}
-                  disabled={isLoading}
+                  {...form.register("name")}
+                  disabled={form.formState.isSubmitting}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
-                {errors.name && (
+                {state.errors.name && (
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-sm text-red-500 flex items-center gap-1"
                   >
                     <AlertCircle className="h-4 w-4" />
-                    {errors.name.message}
+                    {state.errors.name[0]}
                   </motion.p>
                 )}
               </motion.div>
@@ -163,18 +142,18 @@ export default function RegisterPage() {
                   id="email"
                   type="email"
                   placeholder={t("placeholder.email")}
-                  {...register("email")}
-                  disabled={isLoading}
+                  {...form.register("email")}
+                  disabled={form.formState.isSubmitting}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
-                {errors.email && (
+                {state.errors.email && (
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-sm text-red-500 flex items-center gap-1"
                   >
                     <AlertCircle className="h-4 w-4" />
-                    {errors.email.message}
+                    {state.errors.email[0]}
                   </motion.p>
                 )}
               </motion.div>
@@ -190,18 +169,18 @@ export default function RegisterPage() {
                   id="password"
                   type="password"
                   placeholder={t("placeholder.password")}
-                  {...register("password")}
-                  disabled={isLoading}
+                  {...form.register("password")}
+                  disabled={form.formState.isSubmitting}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
-                {errors.password && (
+                {state.errors.password && (
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-sm text-red-500 flex items-center gap-1"
                   >
                     <AlertCircle className="h-4 w-4" />
-                    {errors.password.message}
+                    {state.errors.password[0]}
                   </motion.p>
                 )}
               </motion.div>
@@ -217,18 +196,18 @@ export default function RegisterPage() {
                   id="confirmPassword"
                   type="password"
                   placeholder={t("placeholder.confirmPassword")}
-                  {...register("confirmPassword")}
-                  disabled={isLoading}
+                  {...form.register("confirmPassword")}
+                  disabled={form.formState.isSubmitting}
                   className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
                 />
-                {errors.confirmPassword && (
+                {state.errors.confirmPassword && (
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-sm text-red-500 flex items-center gap-1"
                   >
                     <AlertCircle className="h-4 w-4" />
-                    {errors.confirmPassword.message}
+                    {state.errors.confirmPassword[0]}
                   </motion.p>
                 )}
               </motion.div>
@@ -247,13 +226,13 @@ export default function RegisterPage() {
               <motion.div variants={fadeInUp}>
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={form.formState.isSubmitting}
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
                 >
-                  {isLoading ? (
+                  {form.formState.isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {t("creating")}
+                      {t("loading")}
                     </>
                   ) : (
                     t("submit")
