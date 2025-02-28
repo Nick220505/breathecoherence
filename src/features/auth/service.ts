@@ -63,10 +63,6 @@ export const authService = {
       throw new InvalidCredentialsError();
     }
 
-    if (!user.emailVerified) {
-      throw new InvalidVerificationError();
-    }
-
     return {
       id: user.id,
       name: user.name,
