@@ -196,7 +196,7 @@ export default function CheckoutPage() {
             {t("empty_cart_message")}
           </p>
           <Link href="/store" className="inline-block">
-            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8">
+            <Button className="bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8">
               {t("continue_shopping")}
             </Button>
           </Link>
@@ -214,7 +214,7 @@ export default function CheckoutPage() {
       >
         <div className="flex items-center gap-2 mb-8">
           <Lock className="h-5 w-5 text-green-500" />
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600">
             {t("title")}
           </h1>
         </div>

@@ -77,7 +77,7 @@ export default function RegisterPage() {
   const isLoading = form.formState.isSubmitting || isPending;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-background via-background/80 to-background px-4">
+    <div className="flex items-center justify-center min-h-screen bg-linear-to-b from-background via-background/80 to-background px-4">
       <motion.div
         initial="initial"
         animate="animate"
@@ -107,7 +107,7 @@ export default function RegisterPage() {
           className="backdrop-blur-lg bg-white/10 dark:bg-gray-950/50 rounded-2xl border border-purple-500/10 shadow-xl overflow-hidden"
         >
           <CardHeader className="space-y-2 pb-6">
-            <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 text-center">
+            <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 text-center">
               {t("title")}
             </CardTitle>
             <CardDescription className="text-center text-gray-600 dark:text-gray-400">
@@ -243,7 +243,7 @@ export default function RegisterPage() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
+                  className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
                 >
                   {isLoading ? (
                     <>

@@ -66,7 +66,7 @@ export function ImageUpload({
           )}
         >
           {uploadingImage && (
-            <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm z-10">
+            <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-xs z-10">
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
             </div>
           )}

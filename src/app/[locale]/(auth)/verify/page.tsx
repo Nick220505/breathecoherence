@@ -16,7 +16,7 @@ export default async function VerifyPage(props: {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background/80 to-background">
+    <div className="min-h-screen bg-linear-to-b from-background via-background/80 to-background">
       <Suspense fallback={<Loading />}>
         <VerificationForm email={email} />
       </Suspense>

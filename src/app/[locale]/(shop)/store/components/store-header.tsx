@@ -48,7 +48,7 @@ export function StoreHeader({ category }: StoreHeaderProps) {
       <div className="space-y-6">
         <h1
           className={cn(
-            "font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 leading-tight",
+            "font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 leading-tight",
             "text-5xl md:text-6xl lg:text-7xl",
           )}
         >
@@ -70,8 +70,8 @@ export function StoreHeader({ category }: StoreHeaderProps) {
 
         {/* Decorative Line */}
         <div className="relative">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-2 w-6 h-6 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 blur-lg opacity-50" />
-          <div className="h-1 w-24 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full" />
+          <div className="absolute left-1/2 -translate-x-1/2 -top-2 w-6 h-6 rounded-full bg-linear-to-r from-purple-600 to-blue-600 blur-lg opacity-50" />
+          <div className="h-1 w-24 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full" />
         </div>
 
         {/* Subtitle */}
