@@ -23,7 +23,7 @@ export default async function Page(props: {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background/80 to-background">
+    <div className="min-h-screen bg-linear-to-b from-background via-background/80 to-background">
       <div className="container mx-auto px-4 py-12">
         <div className="space-y-12">
           <StoreHeader category={category} type={type} />

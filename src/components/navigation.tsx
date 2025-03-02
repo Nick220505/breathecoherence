@@ -190,7 +190,7 @@ export function Navigation() {
             </SheetTrigger>
             <SheetContent className="fixed top-0 right-0 h-full border-l bg-background/95 backdrop-blur-lg w-full sm:max-w-md">
               <SheetHeader>
-                <SheetTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+                <SheetTitle className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600">
                   {t("store.cart.title")}
                 </SheetTitle>
                 <SheetDescription className="text-muted-foreground">
@@ -333,7 +333,7 @@ export function Navigation() {
                     </div>
                     <Button
                       onClick={handleCheckout}
-                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
+                      className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
                     >
                       {t("store.cart.checkout")}
                     </Button>
@@ -364,7 +364,7 @@ export function Navigation() {
                       alt={session?.user?.name || "User"}
                       className="object-cover"
                     />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-600 to-blue-600 text-white">
+                    <AvatarFallback className="bg-linear-to-br from-purple-600 to-blue-600 text-white">
                       {session?.user?.name?.[0] || "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -442,7 +442,7 @@ export function Navigation() {
               className="w-[300px] sm:w-[400px] backdrop-blur-lg bg-background/95"
             >
               <SheetHeader>
-                <SheetTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+                <SheetTitle className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600">
                   Menu
                 </SheetTitle>
               </SheetHeader>

@@ -27,7 +27,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-24 bg-gradient-to-b from-background via-background/80 to-background overflow-hidden">
+      <section className="relative py-24 bg-linear-to-b from-background via-background/80 to-background overflow-hidden">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             className="flex justify-center mb-12"
@@ -51,13 +51,13 @@ export default function HomePage() {
             animate="animate"
           >
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 leading-normal px-4"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 leading-normal px-4"
               variants={fadeInUp}
             >
               {t("hero.title")}
             </motion.h1>
             <motion.div
-              className="h-1 w-24 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full"
+              className="h-1 w-24 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full"
               variants={fadeInUp}
             />
             <motion.p
@@ -70,7 +70,7 @@ export default function HomePage() {
               <Link href="/store">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg px-8 py-6 text-lg h-auto transform hover:scale-105 transition-transform duration-300"
+                  className="bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg px-8 py-6 text-lg h-auto transform hover:scale-105 transition-transform duration-300"
                 >
                   {t("hero.cta")}
                 </Button>
@@ -81,7 +81,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white/5 dark:bg-black/20 backdrop-blur-sm">
+      <section className="py-24 bg-white/5 dark:bg-black/20 backdrop-blur-xs">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center space-y-4 mb-16"
@@ -93,7 +93,7 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-4xl font-bold dark:text-white">
               {t("features.title")}
             </h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto rounded-full" />
+            <div className="h-1 w-24 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full" />
           </motion.div>
 
           <motion.div
@@ -121,7 +121,7 @@ export default function HomePage() {
               },
             ].map((feature, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="bg-white/5 dark:bg-white/5 backdrop-blur-sm border-purple-500/10 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <Card className="bg-white/5 dark:bg-white/5 backdrop-blur-xs border-purple-500/10 shadow-lg transform hover:scale-105 transition-transform duration-300">
                   <CardContent className="p-8 text-center">
                     <motion.div
                       className="mb-6 text-5xl flex justify-center"
@@ -136,7 +136,7 @@ export default function HomePage() {
                     >
                       {feature.icon}
                     </motion.div>
-                    <h3 className="text-xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+                    <h3 className="text-xl font-semibold mb-4 bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600">
                       {feature.title}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -151,7 +151,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-b from-background/80 to-background">
+      <section className="py-24 bg-linear-to-b from-background/80 to-background">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             className="max-w-3xl mx-auto space-y-8"
@@ -160,13 +160,13 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
+            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
               {t("cta.title")}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
               {t("cta.description")}
             </p>
-            <div className="h-px w-full max-w-xs bg-gradient-to-r from-transparent via-purple-500/20 to-transparent mx-auto" />
+            <div className="h-px w-full max-w-xs bg-linear-to-r from-transparent via-purple-500/20 to-transparent mx-auto" />
             <motion.div
               className="flex justify-center gap-4 pt-4"
               variants={staggerContainer}
@@ -179,7 +179,7 @@ export default function HomePage() {
                   <Button
                     variant="default"
                     size="lg"
-                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg px-8 py-6 text-lg h-auto transform hover:scale-105 transition-transform duration-300"
+                    className="bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg px-8 py-6 text-lg h-auto transform hover:scale-105 transition-transform duration-300"
                   >
                     {t("cta.shop")}
                   </Button>

@@ -61,7 +61,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background/80 to-background">
+    <div className="min-h-screen bg-linear-to-b from-background via-background/80 to-background">
       <div className="container mx-auto px-4 py-12">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -98,7 +98,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </motion.div>
 
@@ -121,7 +121,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"
+                className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"
               >
                 {product.name}
               </motion.h1>
@@ -151,7 +151,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="space-y-4 bg-white/5 dark:bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-purple-500/10"
+                className="space-y-4 bg-white/5 dark:bg-white/5 backdrop-blur-xs rounded-xl p-6 border border-purple-500/10"
               >
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -178,7 +178,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             >
               <Button
                 onClick={handleAddToCart}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105"
+                className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105"
                 size="lg"
                 disabled={
                   (product.type === "Flower Essence" && !selectedBase) ||

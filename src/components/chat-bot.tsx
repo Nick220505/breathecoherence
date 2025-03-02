@@ -177,7 +177,7 @@ export function ChatBot() {
           <motion.div animate={pulseAnimation}>
             <Button
               onClick={() => setIsOpen(true)}
-              className="rounded-full w-14 h-14 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300"
+              className="rounded-full w-14 h-14 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300"
             >
               <MessageCircle className="w-6 h-6" />
             </Button>
@@ -194,7 +194,7 @@ export function ChatBot() {
         >
           <Card className="w-[calc(100vw-2rem)] sm:w-[400px] h-[600px] shadow-2xl flex flex-col bg-background/95 backdrop-blur-lg border border-purple-500/20 rounded-2xl overflow-hidden">
             <motion.div
-              className="p-4 border-b flex justify-between items-center bg-gradient-to-r from-purple-600 to-blue-600 text-white"
+              className="p-4 border-b flex justify-between items-center bg-linear-to-r from-purple-600 to-blue-600 text-white"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -355,7 +355,7 @@ export function ChatBot() {
                 <Button
                   type="submit"
                   disabled={isTyping}
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300 rounded-xl px-4 shadow-lg hover:shadow-purple-500/20"
+                  className="bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300 rounded-xl px-4 shadow-lg hover:shadow-purple-500/20"
                 >
                   <Send className="w-4 h-4" />
                 </Button>
