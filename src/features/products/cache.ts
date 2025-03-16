@@ -20,6 +20,6 @@ export const productCache = {
       }
     },
     ["product"],
-    { revalidate: 3600, tags: ["products", "product"] }
+    { revalidate: 3600, tags: ["products", "product"] },
   ),
 };
