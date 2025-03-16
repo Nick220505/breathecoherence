@@ -58,10 +58,6 @@ export async function productFormAction(
 export async function deleteProductAction(
   id: string,
 ): Promise<ActionState<Product>> {
-  if (!id) {
-    return { success: false, message: "Product ID is required" };
-  }
-
   try {
     const data = await productService.delete(id);
     revalidateTag("products");
