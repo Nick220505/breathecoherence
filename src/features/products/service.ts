@@ -1,5 +1,4 @@
 import { Product } from "@prisma/client";
-import { notFound } from "next/navigation";
 import { productRepository } from "./repository";
 import { ProductFormData } from "./schema";
 
@@ -12,7 +11,7 @@ export const productService = {
     const product = await productRepository.getById(id);
 
     if (!product) {
-      notFound();
+      throw new Error("Product not found");
     }
 
     return product;
@@ -23,22 +22,12 @@ export const productService = {
   },
 
   async update(id: string, data: ProductFormData): Promise<Product> {
-    const existingProduct = await productRepository.getById(id);
-
-    if (!existingProduct) {
-      throw new Error("Product not found");
-    }
-
+    await this.getById(id);
     return productRepository.update(id, data);
   },
 
   async delete(id: string): Promise<Product> {
-    const product = await productRepository.getById(id);
-
-    if (!product) {
-      throw new Error("Product not found");
-    }
-
+    await this.getById(id);
     return productRepository.delete(id);
   },
 };
