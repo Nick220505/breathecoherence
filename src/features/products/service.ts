@@ -5,13 +5,7 @@ import { ProductFormData } from "./schema";
 
 export const productService = {
   async getAll(): Promise<Product[]> {
-    const products = await productRepository.getAll();
-
-    if (!products) {
-      throw new Error("Failed to fetch products");
-    }
-
-    return products;
+    return await productRepository.getAll();
   },
 
   async getById(id: string): Promise<Product> {
