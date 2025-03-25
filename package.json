@@ -7,11 +7,22 @@
     "build": "next build",
     "postinstall": "prisma generate",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "prepare": "husky"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma",
     "seed": "tsx src/prisma/seed.ts"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss,md,json}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
@@ -64,6 +75,8 @@
     "eslint": "^9",
     "eslint-config-next": "^15.2.2",
     "eslint-config-prettier": "^10.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^6.5.0",
