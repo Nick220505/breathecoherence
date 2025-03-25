@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { AddProductButton } from "./components/add-product-button";
 import { ProductTable } from "./components/product-table";
-import { TableSkeleton } from "./components/table/table-skeleton";
+import { TableSkeleton } from "./components/product-table/table-skeleton";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | Geometry Store",
