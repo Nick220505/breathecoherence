@@ -32,9 +32,14 @@ const eslintConfig: Linter.Config[] = [
     parserOptions: { project: './tsconfig.json', tsconfigRootDir: __dirname },
     settings: {
       'import/resolver': {
-        typescript: { alwaysTryTypes: true, project: './tsconfig.json' },
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
       },
-      'import/parsers': { '@typescript-eslint/parser': ['.ts', '.tsx'] },
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.tsx'],
+      },
     },
     rules: {
       'import/order': [
