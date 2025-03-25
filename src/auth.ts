@@ -1,11 +1,11 @@
-import prisma from "@/lib/prisma";
-import { compare } from "bcryptjs";
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from '@/lib/prisma';
+import { compare } from 'bcryptjs';
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
-type UserRole = "ADMIN" | "USER";
+type UserRole = 'ADMIN' | 'USER';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
@@ -23,19 +23,19 @@ declare module "next-auth" {
 export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
     maxAge: 172800,
   },
   pages: {
-    signIn: "/login",
-    signOut: "/login",
+    signIn: '/login',
+    signOut: '/login',
   },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         const { email, password } = credentials as {
@@ -44,7 +44,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         };
 
         if (!email || !password) {
-          throw new Error("Missing credentials");
+          throw new Error('Missing credentials');
         }
 
         const user = await prisma.user.findUnique({
@@ -52,13 +52,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         if (!user || !user.password) {
-          throw new Error("Invalid credentials");
+          throw new Error('Invalid credentials');
         }
 
         const isPasswordValid = await compare(password, user.password);
 
         if (!isPasswordValid) {
-          throw new Error("Invalid credentials");
+          throw new Error('Invalid credentials');
         }
 
         return {

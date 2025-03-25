@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Link } from "@/i18n/routing";
-import { type Product } from "@prisma/client";
-import { AnimatePresence, motion } from "framer-motion";
-import { Bot, MessageCircle, Minimize2, Send, X } from "lucide-react";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Link } from '@/i18n/routing';
+import { type Product } from '@prisma/client';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
   id: string;
   products?: Partial<Product>[];
@@ -26,7 +26,7 @@ const chatBotVariants = {
     scale: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       duration: 0.5,
       bounce: 0.3,
     },
@@ -47,7 +47,7 @@ const messageVariants = {
     opacity: 1,
     x: 0,
     transition: {
-      type: "spring",
+      type: 'spring',
       duration: 0.5,
       bounce: 0.3,
     },
@@ -59,29 +59,29 @@ const pulseAnimation = {
   transition: {
     duration: 1.5,
     repeat: Infinity,
-    ease: "easeInOut",
+    ease: 'easeInOut',
   },
 };
 
 export function ChatBot() {
-  const t = useTranslations("ChatBot");
+  const t = useTranslations('ChatBot');
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
         {
-          role: "assistant",
-          content: t("welcome"),
+          role: 'assistant',
+          content: t('welcome'),
           id: Date.now().toString(),
         },
       ]);
@@ -105,13 +105,13 @@ export function ChatBot() {
         const product = JSON.parse(match[1]);
         productRecs.push(product);
       } catch (e) {
-        console.error("Failed to parse product recommendation:", e);
+        console.error('Failed to parse product recommendation:', e);
       }
     }
 
     const cleanMessage = message.replace(
       /\[PRODUCT_REC\].*?\[\/PRODUCT_REC\]/g,
-      "",
+      '',
     );
     return { cleanMessage, productRecs };
   };
@@ -121,18 +121,18 @@ export function ChatBot() {
     if (!input.trim() || isTyping) return;
 
     const userMessage = input;
-    setInput("");
+    setInput('');
     setMessages((prev) => [
       ...prev,
-      { role: "user", content: userMessage, id: Date.now().toString() },
+      { role: 'user', content: userMessage, id: Date.now().toString() },
     ]);
     setIsTyping(true);
 
     try {
       const processedMessage = userMessage;
-      const chatResponse = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const chatResponse = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: processedMessage,
           chatHistory: messages.map(({ role, content }) => ({ role, content })),
@@ -146,17 +146,17 @@ export function ChatBot() {
       setMessages((prev) => [
         ...prev,
         {
-          role: "assistant",
+          role: 'assistant',
           content: cleanMessage,
           id: Date.now().toString(),
           products: productRecs,
         },
       ]);
     } catch (error) {
-      console.error("Error in chat:", error);
+      console.error('Error in chat:', error);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: t("error"), id: Date.now().toString() },
+        { role: 'assistant', content: t('error'), id: Date.now().toString() },
       ]);
     } finally {
       setIsTyping(false);
@@ -172,14 +172,14 @@ export function ChatBot() {
           animate="visible"
           exit="exit"
           variants={chatBotVariants}
-          className="fixed bottom-4 right-4 z-50"
+          className="fixed right-4 bottom-4 z-50"
         >
           <motion.div animate={pulseAnimation}>
             <Button
               onClick={() => setIsOpen(true)}
-              className="rounded-full w-14 h-14 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-purple-500/20 transition-shadow duration-300"
+              className="h-14 w-14 rounded-full bg-linear-to-r from-purple-600 to-blue-600 shadow-lg transition-shadow duration-300 hover:from-purple-700 hover:to-blue-700 hover:shadow-purple-500/20"
             >
-              <MessageCircle className="w-6 h-6" />
+              <MessageCircle className="h-6 w-6" />
             </Button>
           </motion.div>
         </motion.div>
@@ -190,45 +190,45 @@ export function ChatBot() {
           animate="visible"
           exit="exit"
           variants={chatBotVariants}
-          className="fixed bottom-4 right-4 z-50"
+          className="fixed right-4 bottom-4 z-50"
         >
-          <Card className="w-[calc(100vw-2rem)] sm:w-[400px] h-[600px] shadow-2xl flex flex-col bg-background/95 backdrop-blur-lg border border-purple-500/20 rounded-2xl overflow-hidden">
+          <Card className="bg-background/95 flex h-[600px] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-purple-500/20 shadow-2xl backdrop-blur-lg sm:w-[400px]">
             <motion.div
-              className="p-4 border-b flex justify-between items-center bg-linear-to-r from-purple-600 to-blue-600 text-white"
+              className="flex items-center justify-between border-b bg-linear-to-r from-purple-600 to-blue-600 p-4 text-white"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
               <div className="flex items-center gap-2">
-                <Bot className="w-5 h-5" />
-                <h2 className="font-semibold">{t("title")}</h2>
+                <Bot className="h-5 w-5" />
+                <h2 className="font-semibold">{t('title')}</h2>
               </div>
               <div className="flex gap-2">
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 hover:bg-white/20 transition-colors duration-200"
+                  className="h-8 w-8 transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsOpen(false)}
-                  title={t("minimize")}
+                  title={t('minimize')}
                 >
-                  <Minimize2 className="w-4 h-4" />
+                  <Minimize2 className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 hover:bg-white/20 transition-colors duration-200"
+                  className="h-8 w-8 transition-colors duration-200 hover:bg-white/20"
                   onClick={() => {
                     setIsOpen(false);
                     setMessages([]);
                   }}
-                  title={t("close")}
+                  title={t('close')}
                 >
-                  <X className="w-4 h-4" />
+                  <X className="h-4 w-4" />
                 </Button>
               </div>
             </motion.div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+            <div className="custom-scrollbar flex-1 space-y-4 overflow-y-auto p-4">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -236,56 +236,56 @@ export function ChatBot() {
                   initial="hidden"
                   animate="visible"
                   className={`flex flex-col ${
-                    message.role === "assistant" ? "items-start" : "items-end"
+                    message.role === 'assistant' ? 'items-start' : 'items-end'
                   } mb-4`}
                 >
                   <div
-                    className={`rounded-lg p-3 max-w-[80%] ${
-                      message.role === "assistant"
-                        ? "bg-secondary text-secondary-foreground"
-                        : "bg-primary text-primary-foreground"
+                    className={`max-w-[80%] rounded-lg p-3 ${
+                      message.role === 'assistant'
+                        ? 'bg-secondary text-secondary-foreground'
+                        : 'bg-primary text-primary-foreground'
                     }`}
                   >
                     <ReactMarkdown>{message.content}</ReactMarkdown>
                     {message.products && message.products.length > 0 && (
                       <div className="mt-4 space-y-2">
                         <p className="font-semibold">
-                          {t("recommended_products")}
+                          {t('recommended_products')}
                         </p>
                         {message.products.map((product) => (
                           <div
                             key={product.id}
-                            className="flex items-center justify-between p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+                            className="flex items-center justify-between rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                           >
                             <div className="flex items-center space-x-2">
                               <Image
                                 src={
                                   product.imageUrl ||
-                                  "/images/default-product.jpg"
+                                  '/images/default-product.jpg'
                                 }
-                                alt={product.name || ""}
+                                alt={product.name || ''}
                                 width={40}
                                 height={40}
                                 className="rounded-md"
                               />
                               <div>
                                 <p className="font-medium">{product.name}</p>
-                                <p className="text-sm text-muted-foreground">
+                                <p className="text-muted-foreground text-sm">
                                   $
-                                  {typeof product.price === "number"
+                                  {typeof product.price === 'number'
                                     ? product.price.toFixed(2)
-                                    : "0.00"}
+                                    : '0.00'}
                                 </p>
                               </div>
                             </div>
                             <Link
                               href={{
-                                pathname: "/store/product/[id]",
-                                params: { id: product.id || "" },
+                                pathname: '/store/product/[id]',
+                                params: { id: product.id || '' },
                               }}
-                              className="text-sm text-primary hover:underline"
+                              className="text-primary text-sm hover:underline"
                             >
-                              {t("view_details")}
+                              {t('view_details')}
                             </Link>
                           </div>
                         ))}
@@ -300,13 +300,13 @@ export function ChatBot() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex justify-start"
                 >
-                  <div className="max-w-[85%] p-3 rounded-2xl bg-gray-100 dark:bg-gray-800/50">
+                  <div className="max-w-[85%] rounded-2xl bg-gray-100 p-3 dark:bg-gray-800/50">
                     <div className="flex items-center gap-2">
                       <div className="flex gap-1">
                         <motion.div
                           animate={{ scale: [1, 1.2, 1] }}
                           transition={{ duration: 1, repeat: Infinity }}
-                          className="w-2 h-2 rounded-full bg-purple-500"
+                          className="h-2 w-2 rounded-full bg-purple-500"
                         />
                         <motion.div
                           animate={{ scale: [1, 1.2, 1] }}
@@ -315,7 +315,7 @@ export function ChatBot() {
                             repeat: Infinity,
                             delay: 0.2,
                           }}
-                          className="w-2 h-2 rounded-full bg-purple-500"
+                          className="h-2 w-2 rounded-full bg-purple-500"
                         />
                         <motion.div
                           animate={{ scale: [1, 1.2, 1] }}
@@ -324,11 +324,11 @@ export function ChatBot() {
                             repeat: Infinity,
                             delay: 0.4,
                           }}
-                          className="w-2 h-2 rounded-full bg-purple-500"
+                          className="h-2 w-2 rounded-full bg-purple-500"
                         />
                       </div>
-                      <span className="text-sm text-muted-foreground">
-                        {t("typing")}
+                      <span className="text-muted-foreground text-sm">
+                        {t('typing')}
                       </span>
                     </div>
                   </div>
@@ -341,23 +341,23 @@ export function ChatBot() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="p-4 border-t bg-background/95 backdrop-blur-lg"
+              className="bg-background/95 border-t p-4 backdrop-blur-lg"
             >
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder={t("input_placeholder")}
+                  placeholder={t('input_placeholder')}
                   disabled={isTyping}
-                  className="border-purple-500/20 focus:border-purple-500 text-sm rounded-xl bg-background/50"
+                  className="bg-background/50 rounded-xl border-purple-500/20 text-sm focus:border-purple-500"
                 />
                 <Button
                   type="submit"
                   disabled={isTyping}
-                  className="bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300 rounded-xl px-4 shadow-lg hover:shadow-purple-500/20"
+                  className="rounded-xl bg-linear-to-r from-purple-600 to-blue-600 px-4 shadow-lg transition-all duration-300 hover:from-purple-700 hover:to-blue-700 hover:shadow-purple-500/20"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="h-4 w-4" />
                 </Button>
               </form>
             </motion.div>

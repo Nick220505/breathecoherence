@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { TableBody } from "@/components/ui/table";
-import { useTableStore } from "@/lib/stores/use-table-store";
-import { Product } from "@prisma/client";
-import { ProductTableRow } from "./table-row";
+import { TableBody } from '@/components/ui/table';
+import { useTableStore } from '@/lib/stores/use-table-store';
+import { Product } from '@prisma/client';
+import { ProductTableRow } from './table-row';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -19,7 +19,7 @@ export function ProductTableContent({ products }: ProductTableContentProps) {
       .toLowerCase()
       .includes(nameFilter.toLowerCase());
     const typeMatch =
-      typeFilter === "all" ||
+      typeFilter === 'all' ||
       product.type.toLowerCase().includes(typeFilter.toLowerCase());
     return nameMatch && typeMatch;
   });
@@ -29,14 +29,14 @@ export function ProductTableContent({ products }: ProductTableContentProps) {
         const aValue = a[sortConfig.key as keyof Product];
         const bValue = b[sortConfig.key as keyof Product];
 
-        if (typeof aValue === "string" && typeof bValue === "string") {
-          return sortConfig.direction === "asc"
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          return sortConfig.direction === 'asc'
             ? aValue.localeCompare(bValue)
             : bValue.localeCompare(aValue);
         }
 
-        if (typeof aValue === "number" && typeof bValue === "number") {
-          return sortConfig.direction === "asc"
+        if (typeof aValue === 'number' && typeof bValue === 'number') {
+          return sortConfig.direction === 'asc'
             ? aValue - bValue
             : bValue - aValue;
         }

@@ -1,9 +1,9 @@
-import { Product } from "@prisma/client";
-import { create } from "zustand";
+import { Product } from '@prisma/client';
+import { create } from 'zustand';
 
 export type SortConfig = {
   key: keyof Product | null;
-  direction: "asc" | "desc";
+  direction: 'asc' | 'desc';
 };
 
 interface TableStore {
@@ -39,22 +39,22 @@ export const useTableStore = create<TableStore>()((set) => ({
   // Sorting
   sortConfig: {
     key: null,
-    direction: "asc",
+    direction: 'asc',
   },
   setSortConfig: (key) =>
     set((state) => ({
       sortConfig: {
         key,
         direction:
-          state.sortConfig.key === key && state.sortConfig.direction === "asc"
-            ? "desc"
-            : "asc",
+          state.sortConfig.key === key && state.sortConfig.direction === 'asc'
+            ? 'desc'
+            : 'asc',
       },
     })),
 
   // Filtering
-  nameFilter: "",
-  typeFilter: "all",
+  nameFilter: '',
+  typeFilter: 'all',
   setNameFilter: (filter) => set({ nameFilter: filter }),
   setTypeFilter: (filter) => set({ typeFilter: filter }),
 

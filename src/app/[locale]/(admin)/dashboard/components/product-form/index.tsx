@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { createProduct, updateProduct } from "@/features/products/controller";
-import { ProductFormData, productSchema } from "@/features/products/schema";
-import { useToast } from "@/hooks/use-toast";
-import { useProductStore } from "@/lib/stores/use-product-store";
-import { FormState } from "@/lib/types/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useActionState, useEffect, useRef, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { FormFields } from "./form-fields";
-import { ImageUpload } from "./image-upload";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { createProduct, updateProduct } from '@/features/products/controller';
+import { ProductFormData, productSchema } from '@/features/products/schema';
+import { useToast } from '@/hooks/use-toast';
+import { useProductStore } from '@/lib/stores/use-product-store';
+import { FormState } from '@/lib/types/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AlertCircle, Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useActionState, useEffect, useRef, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import { FormFields } from './form-fields';
+import { ImageUpload } from './image-upload';
 
 interface ProductFormProps {
   initialData?: ProductFormData;
@@ -21,20 +21,20 @@ interface ProductFormProps {
 
 const initialState: FormState = {
   errors: {},
-  message: "",
+  message: '',
 };
 
 export function ProductForm({
   initialData = {
-    name: "",
-    description: "",
-    type: "Flower Essence",
+    name: '',
+    description: '',
+    type: 'Flower Essence',
     price: 0,
     stock: 0,
-    imageUrl: "",
+    imageUrl: '',
   },
 }: ProductFormProps) {
-  const t = useTranslations("ProductForm");
+  const t = useTranslations('ProductForm');
   const { toast } = useToast();
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
@@ -54,9 +54,9 @@ export function ProductForm({
     if (state.success && !successShown.current) {
       successShown.current = true;
       toast({
-        title: t("success"),
+        title: t('success'),
         description: state.message,
-        variant: "default",
+        variant: 'default',
       });
       if (initialData?.id) {
         setEditDialogOpen(false);
@@ -94,21 +94,21 @@ export function ProductForm({
       onSubmit={form.handleSubmit(onSubmit)}
       className="space-y-6"
     >
-      {initialData.id && <Input type="hidden" {...form.register("id")} />}
+      {initialData.id && <Input type="hidden" {...form.register('id')} />}
 
       <FormFields form={form} />
 
       <ImageUpload
-        initialImageUrl={form.getValues("imageUrl") || undefined}
-        productType={form.getValues("type")}
-        onImageUrlChange={(url) => form.setValue("imageUrl", url)}
+        initialImageUrl={form.getValues('imageUrl') || undefined}
+        productType={form.getValues('type')}
+        onImageUrlChange={(url) => form.setValue('imageUrl', url)}
       />
 
       {!state.success &&
         state.message &&
         Object.keys(state.errors).length > 0 && (
           <p
-            className="text-sm flex items-center gap-1 text-red-500"
+            className="flex items-center gap-1 text-sm text-red-500"
             role="alert"
           >
             <AlertCircle className="h-4 w-4" />
@@ -118,18 +118,18 @@ export function ProductForm({
 
       <Button
         type="submit"
-        className="w-full bg-primary hover:bg-primary/90"
+        className="bg-primary hover:bg-primary/90 w-full"
         disabled={isLoading}
       >
         {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            {initialData?.name ? t("editing") : t("adding")}
+            {initialData?.name ? t('editing') : t('adding')}
           </>
         ) : initialData?.name ? (
-          t("edit")
+          t('edit')
         ) : (
-          t("add")
+          t('add')
         )}
       </Button>
     </form>

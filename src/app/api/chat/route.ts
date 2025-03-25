@@ -1,8 +1,8 @@
-import { productService } from "@/features/products/service";
-import { getChatResponse } from "@/lib/gemini";
-import { NextResponse } from "next/server";
+import { productService } from '@/features/products/service';
+import { getChatResponse } from '@/lib/gemini';
+import { NextResponse } from 'next/server';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs';
 
 export const maxDuration = 60;
 
@@ -31,7 +31,7 @@ ${products
 - **ID:** ${product.id}
 `,
   )
-  .join("\n")}
+  .join('\n')}
 
 When answering questions:
 1. Use markdown formatting for better readability
@@ -59,20 +59,20 @@ When answering questions:
         const validProduct = productMap.get(recommendation.id);
         if (!validProduct) {
           // Remove invalid product recommendation
-          validatedResponse = validatedResponse.replace(match[0], "");
+          validatedResponse = validatedResponse.replace(match[0], '');
         }
       } catch (e) {
-        console.error("Error parsing product recommendation:", e);
+        console.error('Error parsing product recommendation:', e);
         // Remove malformed product recommendation
-        validatedResponse = validatedResponse.replace(match[0], "");
+        validatedResponse = validatedResponse.replace(match[0], '');
       }
     }
 
     return NextResponse.json({ response: validatedResponse });
   } catch (error) {
-    console.error("Error in chat endpoint:", error);
+    console.error('Error in chat endpoint:', error);
     return NextResponse.json(
-      { error: "Failed to process chat request" },
+      { error: 'Failed to process chat request' },
       { status: 500 },
     );
   }

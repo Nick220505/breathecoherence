@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const spinnerVariants = {
   animate: {
     rotate: 360,
     transition: {
       duration: 1,
-      ease: "linear",
+      ease: 'linear',
       repeat: Infinity,
     },
   },
@@ -15,11 +15,11 @@ const spinnerVariants = {
 
 export function Loading() {
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex min-h-screen items-center justify-center">
       <motion.div
         variants={spinnerVariants}
         animate="animate"
-        className="w-20 h-20 border-4 border-purple-500/20 rounded-full border-t-purple-500"
+        className="h-20 w-20 rounded-full border-4 border-purple-500/20 border-t-purple-500"
       />
     </div>
   );

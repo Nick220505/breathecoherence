@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { TableCell, TableRow } from "@/components/ui/table";
+import { Button } from '@/components/ui/button';
+import { TableCell, TableRow } from '@/components/ui/table';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { productSchema } from "@/features/products/schema";
-import { useProductStore } from "@/lib/stores/use-product-store";
-import { useTableStore } from "@/lib/stores/use-table-store";
-import { Product } from "@prisma/client";
-import { Edit, Trash2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
+} from '@/components/ui/tooltip';
+import { productSchema } from '@/features/products/schema';
+import { useProductStore } from '@/lib/stores/use-product-store';
+import { useTableStore } from '@/lib/stores/use-table-store';
+import { Product } from '@prisma/client';
+import { Edit, Trash2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 interface ProductTableRowProps {
   product: Product;
 }
 
 export function ProductTableRow({ product }: ProductTableRowProps) {
-  const t = useTranslations("ProductTableRow");
+  const t = useTranslations('ProductTableRow');
   const { setEditDialogOpen, setEditingProduct } = useProductStore();
   const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
   const imageUrl =
     product.imageUrl ||
-    (product.type === "Sacred Geometry"
+    (product.type === 'Sacred Geometry'
       ? `/products/sacred-geometry.svg#${product.id}`
-      : "/products/flower-essence.svg");
+      : '/products/flower-essence.svg');
 
   const handleEdit = () => {
     setEditingProduct(productSchema.parse(product));
@@ -48,7 +48,7 @@ export function ProductTableRow({ product }: ProductTableRowProps) {
           alt={product.name}
           width={64}
           height={64}
-          className="w-16 h-16 object-cover rounded-lg"
+          className="h-16 w-16 rounded-lg object-cover"
           sizes="64px"
           priority={false}
         />
@@ -71,7 +71,7 @@ export function ProductTableRow({ product }: ProductTableRowProps) {
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{t("edit_tooltip")}</p>
+              <p>{t('edit_tooltip')}</p>
             </TooltipContent>
           </Tooltip>
 
@@ -81,13 +81,13 @@ export function ProductTableRow({ product }: ProductTableRowProps) {
                 onClick={handleDelete}
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
+                className="h-8 w-8 text-red-500 hover:bg-red-50 hover:text-red-600"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{t("delete_tooltip")}</p>
+              <p>{t('delete_tooltip')}</p>
             </TooltipContent>
           </Tooltip>
         </div>

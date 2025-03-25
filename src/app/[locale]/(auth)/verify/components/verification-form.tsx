@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { verifyAction } from "@/features/auth/actions";
-import { VerifyFormData, verifySchema } from "@/features/auth/schema";
-import { useToast } from "@/hooks/use-toast";
-import { Link, useRouter } from "@/i18n/routing";
-import { FormState } from "@/lib/types/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
-import { AlertCircle, Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
-import { useForm } from "react-hook-form";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { verifyAction } from '@/features/auth/actions';
+import { VerifyFormData, verifySchema } from '@/features/auth/schema';
+import { useToast } from '@/hooks/use-toast';
+import { Link, useRouter } from '@/i18n/routing';
+import { FormState } from '@/lib/types/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { AlertCircle, Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { useFormState } from 'react-dom';
+import { useForm } from 'react-hook-form';
 
 interface VerificationFormProps {
   email: string;
@@ -28,7 +28,7 @@ interface VerificationFormProps {
 
 const initialState: FormState = {
   errors: {},
-  message: "",
+  message: '',
   success: false,
 };
 
@@ -46,7 +46,7 @@ const staggerContainer = {
 };
 
 export function VerificationForm({ email }: VerificationFormProps) {
-  const t = useTranslations("VerificationForm");
+  const t = useTranslations('VerificationForm');
   const { toast } = useToast();
   const router = useRouter();
   const [state, formAction] = useFormState(verifyAction, initialState);
@@ -55,22 +55,22 @@ export function VerificationForm({ email }: VerificationFormProps) {
     resolver: zodResolver(verifySchema),
     defaultValues: {
       email,
-      code: "",
+      code: '',
     },
   });
 
   useEffect(() => {
     if (state.success) {
       toast({
-        title: t("success"),
+        title: t('success'),
         description: state.message,
       });
-      router.push("/login");
+      router.push('/login');
     }
   }, [state.success, state.message, toast, router, t]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4">
+    <div className="flex min-h-screen items-center justify-center px-4">
       <motion.div
         initial="initial"
         animate="animate"
@@ -80,7 +80,7 @@ export function VerificationForm({ email }: VerificationFormProps) {
         <motion.div variants={fadeInUp}>
           <Link
             href="/"
-            className="flex items-center justify-center mb-8 gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+            className="mb-8 flex items-center justify-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <div className="relative h-16 w-48">
               <Image
@@ -88,7 +88,7 @@ export function VerificationForm({ email }: VerificationFormProps) {
                 alt="Breathe Coherence"
                 fill
                 sizes="(max-width: 192px) 100vw, 192px"
-                className="object-contain dark:invert transition-all duration-300"
+                className="object-contain transition-all duration-300 dark:invert"
                 priority
               />
             </div>
@@ -97,14 +97,14 @@ export function VerificationForm({ email }: VerificationFormProps) {
 
         <motion.div
           variants={fadeInUp}
-          className="backdrop-blur-lg bg-white/10 dark:bg-gray-950/50 rounded-2xl border border-purple-500/10 shadow-xl overflow-hidden"
+          className="overflow-hidden rounded-2xl border border-purple-500/10 bg-white/10 shadow-xl backdrop-blur-lg dark:bg-gray-950/50"
         >
           <CardHeader className="space-y-2 pb-6">
-            <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 text-center">
-              {t("title")}
+            <CardTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-purple-400 dark:to-blue-400">
+              {t('title')}
             </CardTitle>
             <CardDescription className="text-center text-gray-600 dark:text-gray-400">
-              {t("description")}{" "}
+              {t('description')}{' '}
               <span className="font-bold text-gray-900 dark:text-gray-100">
                 {email}
               </span>
@@ -112,18 +112,18 @@ export function VerificationForm({ email }: VerificationFormProps) {
           </CardHeader>
           <CardContent>
             <form action={formAction} className="space-y-6">
-              <Input type="hidden" {...form.register("email")} />
+              <Input type="hidden" {...form.register('email')} />
 
               <div className="space-y-2">
                 <Input
                   type="text"
-                  placeholder={t("code.placeholder")}
-                  {...form.register("code")}
+                  placeholder={t('code.placeholder')}
+                  {...form.register('code')}
                   disabled={form.formState.isSubmitting}
-                  className="bg-white/5 dark:bg-gray-950/50 border-purple-500/20 focus:border-purple-500 focus:ring-purple-500/20 transition-all"
+                  className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
                 />
                 {state.errors.code && (
-                  <p className="text-sm text-red-500 flex items-center gap-1">
+                  <p className="flex items-center gap-1 text-sm text-red-500">
                     <AlertCircle className="h-4 w-4" />
                     {state.errors.code[0]}
                   </p>
@@ -132,7 +132,7 @@ export function VerificationForm({ email }: VerificationFormProps) {
 
               {state.message && !state.success && (
                 <p
-                  className="text-sm text-red-500 text-center flex items-center justify-center gap-1 bg-red-500/10 p-3 rounded-lg"
+                  className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
                   role="alert"
                 >
                   <AlertCircle className="h-4 w-4" />
@@ -143,15 +143,15 @@ export function VerificationForm({ email }: VerificationFormProps) {
               <Button
                 type="submit"
                 disabled={form.formState.isSubmitting}
-                className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02]"
+                className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
               >
                 {form.formState.isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t("verifying")}
+                    {t('verifying')}
                   </>
                 ) : (
-                  t("verify")
+                  t('verify')
                 )}
               </Button>
             </form>

@@ -1,19 +1,19 @@
-import { sendVerificationEmail } from "@/lib/email";
-import { User } from "@prisma/client";
-import { compare, hash } from "bcryptjs";
-import crypto from "crypto";
+import { sendVerificationEmail } from '@/lib/email';
+import { User } from '@prisma/client';
+import { compare, hash } from 'bcryptjs';
+import crypto from 'crypto';
 import {
   InvalidCredentialsError,
   InvalidVerificationError,
   UserExistsError,
-} from "./errors";
-import { authRepository } from "./repository";
-import { LoginFormData, RegisterFormData, VerifyFormData } from "./schema";
+} from './errors';
+import { authRepository } from './repository';
+import { LoginFormData, RegisterFormData, VerifyFormData } from './schema';
 
 export const authService = {
   async register(
     data: RegisterFormData,
-  ): Promise<Pick<User, "id" | "name" | "email" | "role">> {
+  ): Promise<Pick<User, 'id' | 'name' | 'email' | 'role'>> {
     const existingUser = await authRepository.findByEmail(data.email);
 
     if (existingUser) {
@@ -50,7 +50,7 @@ export const authService = {
 
   async login(
     data: LoginFormData,
-  ): Promise<Pick<User, "id" | "name" | "email" | "role">> {
+  ): Promise<Pick<User, 'id' | 'name' | 'email' | 'role'>> {
     const user = await authRepository.findByEmail(data.email);
 
     if (!user) {

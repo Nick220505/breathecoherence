@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   PaymentElement,
   useElements,
   useStripe,
-} from "@stripe/react-stripe-js";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+} from '@stripe/react-stripe-js';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 export function StripePaymentForm() {
-  const t = useTranslations("StripePaymentForm");
+  const t = useTranslations('StripePaymentForm');
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -35,13 +35,13 @@ export function StripePaymentForm() {
       });
 
       if (submitError) {
-        setError(submitError.message ?? t("error.unknown"));
+        setError(submitError.message ?? t('error.unknown'));
         setIsLoading(false);
       }
       // If no error, the page will redirect to return_url
     } catch (e) {
-      console.error("Error:", e);
-      setError(t("error.unexpected"));
+      console.error('Error:', e);
+      setError(t('error.unexpected'));
       setIsLoading(false);
     }
   };
@@ -51,7 +51,7 @@ export function StripePaymentForm() {
       <PaymentElement />
       {error && <p className="text-sm text-red-500">{error}</p>}
       <Button type="submit" disabled={!stripe || isLoading} className="w-full">
-        {isLoading ? t("processing") : t("pay_now")}
+        {isLoading ? t('processing') : t('pay_now')}
       </Button>
     </form>
   );

@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useCart } from "@/components/cart-provider";
-import { Button } from "@/components/ui/button";
+import { useCart } from '@/components/cart-provider';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Link } from "@/i18n/routing";
-import { type Product } from "@prisma/client";
-import { motion } from "framer-motion";
-import { ArrowLeft, Loader2, ShoppingCart } from "lucide-react";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { useState } from "react";
+} from '@/components/ui/select';
+import { Link } from '@/i18n/routing';
+import { type Product } from '@prisma/client';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Loader2, ShoppingCart } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useState } from 'react';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -34,20 +34,20 @@ interface ProductDetailsProps {
 }
 
 export function ProductDetails({ product }: ProductDetailsProps) {
-  const t = useTranslations("ProductPage");
+  const t = useTranslations('ProductPage');
   const { addToCart } = useCart();
-  const [selectedBase, setSelectedBase] = useState<string>("");
+  const [selectedBase, setSelectedBase] = useState<string>('');
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddToCart = async () => {
     setIsAdding(true);
 
     try {
-      if (product.type === "Flower Essence" && selectedBase) {
+      if (product.type === 'Flower Essence' && selectedBase) {
         await addToCart({
           ...product,
-          name: t("cart.name", { name: product.name, base: selectedBase }),
-          description: t("cart.description", {
+          name: t('cart.name', { name: product.name, base: selectedBase }),
+          description: t('cart.description', {
             base: selectedBase,
             description: product.description,
           }),
@@ -61,7 +61,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-background via-background/80 to-background">
+    <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">
       <div className="container mx-auto px-4 py-12">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -70,35 +70,35 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         >
           <Link
             href="/store"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 mb-8 transition-colors"
+            className="mb-8 inline-flex items-center text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            {t("back_to_store")}
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {t('back_to_store')}
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <motion.div
             className="lg:sticky lg:top-8"
             variants={fadeIn}
             initial="initial"
             animate="animate"
           >
-            <div className="relative aspect-square rounded-2xl overflow-hidden group">
+            <div className="group relative aspect-square overflow-hidden rounded-2xl">
               <Image
                 src={
                   product.imageUrl ||
-                  (product.type === "Sacred Geometry"
+                  (product.type === 'Sacred Geometry'
                     ? `/products/sacred-geometry.svg#${product.id}`
-                    : "/products/flower-essence.svg")
+                    : '/products/flower-essence.svg')
                 }
                 alt={product.name}
                 fill
-                className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+                className="transform object-cover transition-transform duration-500 group-hover:scale-105"
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
           </motion.div>
 
@@ -113,7 +113,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+                className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium"
               >
                 {product.type}
               </motion.div>
@@ -121,7 +121,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400"
+                className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-4xl font-bold text-transparent md:text-5xl dark:from-purple-400 dark:to-blue-400"
               >
                 {product.name}
               </motion.h1>
@@ -129,7 +129,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-3xl font-bold text-primary"
+                className="text-primary text-3xl font-bold"
               >
                 ${product.price.toFixed(2)}
               </motion.p>
@@ -141,30 +141,30 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               transition={{ delay: 0.5 }}
               className="prose prose-gray dark:prose-invert max-w-none"
             >
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
                 {product.description}
               </p>
             </motion.div>
 
-            {product.type === "Flower Essence" && (
+            {product.type === 'Flower Essence' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="space-y-4 bg-white/5 dark:bg-white/5 backdrop-blur-xs rounded-xl p-6 border border-purple-500/10"
+                className="space-y-4 rounded-xl border border-purple-500/10 bg-white/5 p-6 backdrop-blur-xs dark:bg-white/5"
               >
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                    {t("base.label")}
-                    <span className="text-red-500 ml-1">*</span>
+                    {t('base.label')}
+                    <span className="ml-1 text-red-500">*</span>
                   </label>
                   <Select onValueChange={setSelectedBase} value={selectedBase}>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder={t("select_option")} />
+                      <SelectValue placeholder={t('select_option')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="brandy">{t("base.brandy")}</SelectItem>
-                      <SelectItem value="water">{t("base.water")}</SelectItem>
+                      <SelectItem value="brandy">{t('base.brandy')}</SelectItem>
+                      <SelectItem value="water">{t('base.water')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -178,22 +178,22 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             >
               <Button
                 onClick={handleAddToCart}
-                className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105"
+                className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
                 size="lg"
                 disabled={
-                  (product.type === "Flower Essence" && !selectedBase) ||
+                  (product.type === 'Flower Essence' && !selectedBase) ||
                   isAdding
                 }
               >
                 {isAdding ? (
                   <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    {t("adding_to_cart")}
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t('adding_to_cart')}
                   </>
                 ) : (
                   <>
-                    <ShoppingCart className="w-4 h-4 mr-2" />
-                    {t("add_to_cart")}
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    {t('add_to_cart')}
                   </>
                 )}
               </Button>

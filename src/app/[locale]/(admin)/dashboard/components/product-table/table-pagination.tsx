@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Pagination,
@@ -7,9 +7,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
-import { useTableStore } from "@/lib/stores/use-table-store";
-import { useTranslations } from "next-intl";
+} from '@/components/ui/pagination';
+import { useTableStore } from '@/lib/stores/use-table-store';
+import { useTranslations } from 'next-intl';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -18,7 +18,7 @@ interface TablePaginationProps {
 }
 
 export function TablePagination({ totalItems }: TablePaginationProps) {
-  const t = useTranslations("TablePagination");
+  const t = useTranslations('TablePagination');
   const { currentPage, setCurrentPage } = useTableStore();
 
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
@@ -32,9 +32,9 @@ export function TablePagination({ totalItems }: TablePaginationProps) {
           <PaginationPrevious
             onClick={() => setCurrentPage(currentPage - 1)}
             aria-disabled={currentPage <= 1}
-            className={currentPage <= 1 ? "pointer-events-none opacity-50" : ""}
+            className={currentPage <= 1 ? 'pointer-events-none opacity-50' : ''}
           >
-            {t("previous")}
+            {t('previous')}
           </PaginationPrevious>
         </PaginationItem>
 
@@ -56,10 +56,10 @@ export function TablePagination({ totalItems }: TablePaginationProps) {
             onClick={() => setCurrentPage(currentPage + 1)}
             aria-disabled={currentPage >= totalPages}
             className={
-              currentPage >= totalPages ? "pointer-events-none opacity-50" : ""
+              currentPage >= totalPages ? 'pointer-events-none opacity-50' : ''
             }
           >
-            {t("next")}
+            {t('next')}
           </PaginationNext>
         </PaginationItem>
       </PaginationContent>
