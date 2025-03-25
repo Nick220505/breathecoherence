@@ -12,8 +12,8 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useRef, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { FormFields } from "./form/form-fields";
-import { ImageUpload } from "./form/image-upload";
+import { FormFields } from "./form-fields";
+import { ImageUpload } from "./image-upload";
 
 interface ProductFormProps {
   initialData?: ProductFormData;
