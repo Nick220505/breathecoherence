@@ -1,12 +1,20 @@
 'use server';
 
-import { User } from '@prisma/client';
-
-import { FormState } from '@/lib/types/form';
+import { type FormState } from '@/lib/types/form';
 
 import { AuthError } from './errors';
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
+
+import type { User } from '@prisma/client';
+
+// Constants for error messages
+const ERROR_VALIDATION_MESSAGE =
+  'Please fill in all required fields and ensure they are valid';
+const ERROR_GENERIC_MESSAGE = 'Something went wrong during ';
+const REGISTRATION_ACTION = 'registration';
+const VERIFICATION_ACTION = 'verification';
+const LOGIN_ACTION = 'login';
 
 export async function registerAction(
   _prevState: FormState,
@@ -18,7 +26,7 @@ export async function registerAction(
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: 'Please fill in all required fields and ensure they are valid',
+      message: ERROR_VALIDATION_MESSAGE,
       success: false,
     };
   }
@@ -41,7 +49,7 @@ export async function registerAction(
     }
     return {
       errors: {},
-      message: 'Something went wrong during registration',
+      message: ERROR_GENERIC_MESSAGE + REGISTRATION_ACTION,
       success: false,
     };
   }
@@ -57,7 +65,7 @@ export async function verifyAction(
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: 'Please fill in all required fields and ensure they are valid',
+      message: ERROR_VALIDATION_MESSAGE,
       success: false,
     };
   }
@@ -80,7 +88,7 @@ export async function verifyAction(
     }
     return {
       errors: {},
-      message: 'Something went wrong during verification',
+      message: ERROR_GENERIC_MESSAGE + VERIFICATION_ACTION,
       success: false,
     };
   }
@@ -96,7 +104,7 @@ export async function loginAction(
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: 'Please fill in all required fields and ensure they are valid',
+      message: ERROR_VALIDATION_MESSAGE,
       success: false,
     };
   }
@@ -119,7 +127,7 @@ export async function loginAction(
     }
     return {
       errors: {},
-      message: 'Something went wrong during login',
+      message: ERROR_GENERIC_MESSAGE + LOGIN_ACTION,
       success: false,
     };
   }
