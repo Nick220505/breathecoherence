@@ -1,8 +1,10 @@
 'use server';
 
+import { Product } from '@prisma/client';
+
 import { ActionState } from '@/lib/types/action';
 import { FormState } from '@/lib/types/form';
-import { Product } from '@prisma/client';
+
 import { productSchema } from './schema';
 import { productService } from './service';
 

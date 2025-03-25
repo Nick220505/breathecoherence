@@ -2,6 +2,7 @@
 
 import { type Product } from '@prisma/client';
 import { useTranslations } from 'next-intl';
+
 import { CustomBlendCard } from './product/custom-blend-card';
 import { ProductCard } from './product/product-card';
 

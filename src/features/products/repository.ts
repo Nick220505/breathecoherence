@@ -1,5 +1,7 @@
-import prisma from '@/lib/prisma';
 import { Product } from '@prisma/client';
+
+import prisma from '@/lib/prisma';
+
 import { ProductFormData } from './schema';
 
 export const productRepository = {

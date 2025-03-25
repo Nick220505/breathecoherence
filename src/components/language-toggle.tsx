@@ -1,5 +1,8 @@
 'use client';
 
+import { Check, Globe } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -8,8 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { usePathname, useRouter } from '@/i18n/routing';
-import { Check, Globe } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
 
 type SupportedLanguage = 'en' | 'es';
 

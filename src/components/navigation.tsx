@@ -1,5 +1,12 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
+import { LogOut, Menu, ShoppingCart, User, X } from 'lucide-react';
+import Image from 'next/image';
+import { signOut, useSession } from 'next-auth/react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { useCart } from '@/components/cart-provider';
 import { LanguageToggle } from '@/components/language-toggle';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -21,12 +28,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Link, useRouter } from '@/i18n/routing';
-import { AnimatePresence, motion } from 'framer-motion';
-import { LogOut, Menu, ShoppingCart, User, X } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
-import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useState } from 'react';
 
 const navVariants = {
   hidden: { opacity: 0, y: -20 },

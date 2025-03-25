@@ -1,5 +1,10 @@
 'use client';
 
+import { ArrowLeft, Loader2, Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { useCart } from '@/components/cart-provider';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,10 +15,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Link } from '@/i18n/routing';
-import { ArrowLeft, Loader2, Sparkles } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useState } from 'react';
 
 // List of all available flower essences
 const FLOWER_ESSENCES = [

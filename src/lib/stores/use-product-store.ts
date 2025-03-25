@@ -1,5 +1,6 @@
-import { ProductFormData } from '@/features/products/schema';
 import { create } from 'zustand';
+
+import { ProductFormData } from '@/features/products/schema';
 
 interface ProductStore {
   isAddDialogOpen: boolean;

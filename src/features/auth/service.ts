@@ -1,7 +1,10 @@
-import { sendVerificationEmail } from '@/lib/email';
+import crypto from 'crypto';
+
 import { User } from '@prisma/client';
 import { compare, hash } from 'bcryptjs';
-import crypto from 'crypto';
+
+import { sendVerificationEmail } from '@/lib/email';
+
 import {
   InvalidCredentialsError,
   InvalidVerificationError,

@@ -1,8 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getAllProducts } from '@/features/products/controller';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { getAllProducts } from '@/features/products/controller';
+
 import { AddProductButton } from './components/add-product-button';
 import { ProductTable } from './components/product-table';
 import { TableSkeleton } from './components/product-table/table-skeleton';

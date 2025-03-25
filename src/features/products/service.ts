@@ -1,4 +1,5 @@
 import { Product } from '@prisma/client';
+
 import { productRepository } from './repository';
 import { ProductFormData } from './schema';
 

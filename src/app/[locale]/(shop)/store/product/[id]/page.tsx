@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
-import { ProductDetails } from './components/ProductDetails';
+
 import { getProductById } from '@/features/products/controller';
+
+import { ProductDetails } from './components/ProductDetails';
 
 export default async function ProductPage({
   params,

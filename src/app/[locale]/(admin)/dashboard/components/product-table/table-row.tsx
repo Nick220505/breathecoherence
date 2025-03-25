@@ -1,5 +1,10 @@
 'use client';
 
+import { Product } from '@prisma/client';
+import { Edit, Trash2 } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import {
@@ -10,10 +15,6 @@ import {
 import { productSchema } from '@/features/products/schema';
 import { useProductStore } from '@/lib/stores/use-product-store';
 import { useTableStore } from '@/lib/stores/use-table-store';
-import { Product } from '@prisma/client';
-import { Edit, Trash2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 interface ProductTableRowProps {
   product: Product;

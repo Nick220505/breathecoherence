@@ -1,8 +1,10 @@
 'use client';
 
+import { Product } from '@prisma/client';
+
 import { TableBody } from '@/components/ui/table';
 import { useTableStore } from '@/lib/stores/use-table-store';
-import { Product } from '@prisma/client';
+
 import { ProductTableRow } from './table-row';
 
 const ITEMS_PER_PAGE = 10;

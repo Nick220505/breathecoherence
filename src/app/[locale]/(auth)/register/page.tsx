@@ -1,5 +1,13 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { AlertCircle, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useActionState, useEffect, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Button } from '@/components/ui/button';
 import {
   CardContent,
@@ -12,13 +20,6 @@ import { registerAction } from '@/features/auth/actions';
 import { RegisterFormData, registerSchema } from '@/features/auth/schema';
 import { Link, useRouter } from '@/i18n/routing';
 import { FormState } from '@/lib/types/form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion } from 'framer-motion';
-import { AlertCircle, Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useActionState, useEffect, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
 
 const initialState: FormState = {
   errors: {},

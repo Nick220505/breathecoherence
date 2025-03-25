@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
+
 import { Loading } from './components/loading';
 import { VerificationForm } from './components/verification-form';
 

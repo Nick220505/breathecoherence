@@ -1,8 +1,10 @@
 import { Product } from '@prisma/client';
 import { Suspense } from 'react';
+
+import { getAllProducts } from '@/features/products/controller';
+
 import { StoreContent } from './components/store-content';
 import { StoreHeader } from './components/store-header';
-import { getAllProducts } from '@/features/products/controller';
 
 export default async function Page(props: {
   searchParams?: Promise<{
