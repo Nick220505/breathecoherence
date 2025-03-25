@@ -32,8 +32,6 @@ const eslintConfig: Linter.Config[] = [
     parserOptions: {
       project: './tsconfig.json',
       tsconfigRootDir: __dirname,
-      ecmaVersion: 2022,
-      sourceType: 'module',
     },
     rules: {
       'import/order': [
