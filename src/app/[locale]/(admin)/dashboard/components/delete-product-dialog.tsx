@@ -83,7 +83,7 @@ export function DeleteProductDialog() {
           </Button>
           <Button
             variant="destructive"
-            onClick={handleConfirmDelete}
+            onClick={() => void handleConfirmDelete()}
             disabled={isLoading}
           >
             {isLoading ? (

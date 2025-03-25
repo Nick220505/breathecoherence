@@ -11,7 +11,10 @@ interface StoreContentProps {
   category: string;
 }
 
-export function StoreContent({ products, category }: StoreContentProps) {
+export function StoreContent({
+  products,
+  category,
+}: Readonly<StoreContentProps>) {
   const t = useTranslations('StoreContent');
 
   if (!products.length && category !== 'Flower Essence') {

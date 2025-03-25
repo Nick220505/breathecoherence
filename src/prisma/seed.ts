@@ -139,6 +139,8 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
+  .finally(() => {
+    prisma.$disconnect().catch((e) => {
+      console.error('Error disconnecting from database:', e);
+    });
   });

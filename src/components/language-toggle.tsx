@@ -42,7 +42,7 @@ export function LanguageToggle() {
 
   const handleLanguageChange = (newLanguage: SupportedLanguage) => {
     if (pathname.startsWith('/product/')) {
-      const id = pathname.split('/').pop() || '';
+      const id = pathname.split('/').pop() ?? '';
       router.replace(
         { pathname: '/store/product/[id]', params: { id } },
         { locale: newLanguage },
@@ -54,7 +54,7 @@ export function LanguageToggle() {
 
       // Handle category parameter translation
       const category =
-        searchParams.get('category') || searchParams.get('categoria');
+        searchParams.get('category') ?? searchParams.get('categoria');
       const newSearchParams = new URLSearchParams();
 
       if (category) {
@@ -94,9 +94,10 @@ export function LanguageToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
         {(
-          Object.entries(languages) as Array<
-            [SupportedLanguage, (typeof languages)[SupportedLanguage]]
-          >
+          Object.entries(languages) as [
+            SupportedLanguage,
+            (typeof languages)[SupportedLanguage],
+          ][]
         ).map(([code, { name, flag, label }]) => (
           <DropdownMenuItem
             key={code}

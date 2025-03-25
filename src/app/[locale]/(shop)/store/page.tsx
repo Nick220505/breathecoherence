@@ -6,17 +6,19 @@ import { getAllProducts } from '@/features/products/controller';
 import { StoreContent } from './components/store-content';
 import { StoreHeader } from './components/store-header';
 
-export default async function Page(props: {
-  searchParams?: Promise<{
-    category?: string;
-    categoria?: string;
-    type?: string;
-  }>;
-}) {
+export default async function Page(
+  props: Readonly<{
+    searchParams?: Promise<{
+      category?: string;
+      categoria?: string;
+      type?: string;
+    }>;
+  }>,
+) {
   const searchParams = await props.searchParams;
   // Handle both English and Spanish category parameters
-  const category = searchParams?.category || searchParams?.categoria || '';
-  const type = searchParams?.type || '';
+  const category = searchParams?.category ?? searchParams?.categoria ?? '';
+  const type = searchParams?.type ?? '';
   const products = await getAllProducts();
 
   const filteredProducts = products.filter(

@@ -103,7 +103,7 @@ export function ChatBot() {
 
     while ((match = regex.exec(message)) !== null) {
       try {
-        const product = JSON.parse(match[1]);
+        const product = JSON.parse(match[1]) as Partial<Product>;
         productRecs.push(product);
       } catch (e) {
         console.error('Failed to parse product recommendation:', e);
@@ -140,7 +140,7 @@ export function ChatBot() {
         }),
       });
 
-      const data = await chatResponse.json();
+      const data = (await chatResponse.json()) as { response: string };
       const finalResponse = data.response;
       const { cleanMessage, productRecs } = extractProductRecs(finalResponse);
 
@@ -261,10 +261,10 @@ export function ChatBot() {
                             <div className="flex items-center space-x-2">
                               <Image
                                 src={
-                                  product.imageUrl ||
+                                  product.imageUrl ??
                                   '/images/default-product.jpg'
                                 }
-                                alt={product.name || ''}
+                                alt={product.name ?? ''}
                                 width={40}
                                 height={40}
                                 className="rounded-md"
@@ -282,7 +282,7 @@ export function ChatBot() {
                             <Link
                               href={{
                                 pathname: '/store/product/[id]',
-                                params: { id: product.id || '' },
+                                params: { id: product.id ?? '' },
                               }}
                               className="text-primary text-sm hover:underline"
                             >
@@ -344,7 +344,10 @@ export function ChatBot() {
               transition={{ delay: 0.3 }}
               className="bg-background/95 border-t p-4 backdrop-blur-lg"
             >
-              <form onSubmit={handleSubmit} className="flex gap-2">
+              <form
+                onSubmit={(e) => void handleSubmit(e)}
+                className="flex gap-2"
+              >
                 <Input
                   ref={inputRef}
                   value={input}

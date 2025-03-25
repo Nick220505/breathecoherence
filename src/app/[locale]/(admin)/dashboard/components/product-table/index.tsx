@@ -14,7 +14,7 @@ interface ProductTableProps {
   products: Product[];
 }
 
-export function ProductTable({ products }: ProductTableProps) {
+export function ProductTable({ products }: Readonly<ProductTableProps>) {
   return (
     <>
       <TooltipProvider>

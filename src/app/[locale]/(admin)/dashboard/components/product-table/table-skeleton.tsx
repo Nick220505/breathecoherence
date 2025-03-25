@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-function SkeletonCell({ width }: { width: string }) {
+function SkeletonCell({ width }: Readonly<{ width: string }>) {
   return (
     <TableCell>
       <div className={`h-4 ${width} bg-muted animate-pulse rounded`} />
@@ -55,7 +55,7 @@ export function TableSkeleton() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[...Array(5)].map((_, index) => (
+          {Array.from({ length: 5 }).map((_, index) => (
             <TableRow key={index}>
               <ImageSkeleton />
               <SkeletonCell width="w-32" />

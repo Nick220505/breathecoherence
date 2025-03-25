@@ -9,7 +9,7 @@ interface Product {
   price: number;
   type: string;
   stock: number;
-  imageUrl?: string | null | undefined;
+  imageUrl?: string | null;
 }
 
 interface CartItem extends Product {
@@ -30,7 +30,11 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
+export function CartProvider({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 

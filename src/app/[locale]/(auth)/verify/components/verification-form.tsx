@@ -46,7 +46,7 @@ const staggerContainer = {
   },
 };
 
-export function VerificationForm({ email }: VerificationFormProps) {
+export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
   const { toast } = useToast();
   const router = useRouter();

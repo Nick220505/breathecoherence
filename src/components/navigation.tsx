@@ -244,7 +244,7 @@ export function Navigation() {
                                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
                                   <Image
                                     src={
-                                      item.imageUrl ||
+                                      item.imageUrl ??
                                       (item.type === 'Sacred Geometry'
                                         ? `/products/sacred-geometry.svg#${item.id}`
                                         : '/products/flower-essence.svg')
@@ -362,11 +362,11 @@ export function Navigation() {
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage
-                      alt={session?.user?.name || 'User'}
+                      alt={session?.user?.name ?? 'User'}
                       className="object-cover"
                     />
                     <AvatarFallback className="bg-linear-to-br from-purple-600 to-blue-600 text-white">
-                      {session?.user?.name?.[0] || 'U'}
+                      {session?.user?.name?.[0] ?? 'U'}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -389,7 +389,7 @@ export function Navigation() {
                       </span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onClick={() => signOut()}
+                      onClick={() => void signOut()}
                       className="flex items-center gap-2 text-red-500 hover:text-red-600 focus:text-red-600"
                     >
                       <LogOut className="h-4 w-4" />

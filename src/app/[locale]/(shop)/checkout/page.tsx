@@ -74,10 +74,10 @@ type CheckoutFormData = z.infer<typeof checkoutSchema>;
 function PayPalPaymentButton({
   finalTotal,
   watch,
-}: {
+}: Readonly<{
   finalTotal: number;
   watch: () => CheckoutFormData;
-}) {
+}>) {
   const [{ isPending }] = usePayPalScriptReducer();
   const t = useTranslations('CheckoutPage');
 
@@ -172,12 +172,14 @@ export default function CheckoutPage() {
         body: JSON.stringify({ amount: finalTotal }),
       })
         .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret))
+        .then((data: { clientSecret: string }) =>
+          setClientSecret(data.clientSecret),
+        )
         .catch((error) => console.error('Error:', error));
     }
   }, [paymentMethod, finalTotal]);
 
-  const onSubmit = async (data: CheckoutFormData) => {
+  const onSubmit = (data: CheckoutFormData) => {
     if (paymentMethod === 'card') {
       // Stripe payment is handled by StripePaymentForm
       console.log('Form data:', data);
@@ -228,7 +230,10 @@ export default function CheckoutPage() {
           {/* Billing & Shipping Information */}
           <div className="space-y-8 lg:col-span-2">
             <Card className="bg-card/50 p-6 shadow-lg backdrop-blur-lg">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <form
+                onSubmit={(e) => void handleSubmit(onSubmit)(e)}
+                className="space-y-6"
+              >
                 <div className="space-y-4">
                   <h2 className="flex items-center gap-2 text-xl font-semibold">
                     {t('billing_info')}
@@ -486,7 +491,7 @@ export default function CheckoutPage() {
                     <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
                       <Image
                         src={
-                          item.imageUrl ||
+                          item.imageUrl ??
                           (item.type === 'Sacred Geometry'
                             ? `/products/sacred-geometry.svg#${item.id}`
                             : '/products/flower-essence.svg')

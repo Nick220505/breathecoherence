@@ -38,18 +38,18 @@ interface ProductDetailsProps {
   product: Product;
 }
 
-export function ProductDetails({ product }: ProductDetailsProps) {
+export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
   const t = useTranslations('ProductPage');
   const { addToCart } = useCart();
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [isAdding, setIsAdding] = useState(false);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = () => {
     setIsAdding(true);
 
     try {
       if (product.type === PRODUCT_TYPE_FLOWER_ESSENCE && selectedBase) {
-        await addToCart({
+        addToCart({
           ...product,
           name: t('cart.name', { name: product.name, base: selectedBase }),
           description: t('cart.description', {
@@ -58,7 +58,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           }),
         });
       } else {
-        await addToCart(product);
+        addToCart(product);
       }
     } finally {
       setIsAdding(false);
@@ -92,7 +92,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             <div className="group relative aspect-square overflow-hidden rounded-2xl">
               <Image
                 src={
-                  product.imageUrl ||
+                  product.imageUrl ??
                   (product.type === PRODUCT_TYPE_SACRED_GEOMETRY
                     ? `/products/sacred-geometry.svg#${product.id}`
                     : '/products/flower-essence.svg')

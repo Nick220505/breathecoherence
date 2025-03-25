@@ -7,9 +7,19 @@ export const runtime = 'nodejs';
 
 export const maxDuration = 60;
 
+interface ChatRequest {
+  message: string;
+  chatHistory: { role: 'user' | 'assistant'; content: string }[];
+}
+
+interface ProductRecommendation {
+  id: string;
+  [key: string]: unknown;
+}
+
 export async function POST(request: Request) {
   try {
-    const { message, chatHistory } = await request.json();
+    const { message, chatHistory } = (await request.json()) as ChatRequest;
 
     // Get current product data
     const products = await productService.getAll();
@@ -55,7 +65,7 @@ When answering questions:
 
     while ((match = regex.exec(response)) !== null) {
       try {
-        const recommendation = JSON.parse(match[1]);
+        const recommendation = JSON.parse(match[1]) as ProductRecommendation;
         // Check if the recommended product exists in our database
         const validProduct = productMap.get(recommendation.id);
         if (!validProduct) {

@@ -2,9 +2,15 @@ import { NextResponse } from 'next/server';
 
 import { translateText } from '@/lib/translation-service';
 
+interface TranslationRequest {
+  text: string;
+  targetLanguage?: string;
+}
+
 export async function POST(request: Request) {
   try {
-    const { text, targetLanguage = 'es' } = await request.json();
+    const { text, targetLanguage = 'es' } =
+      (await request.json()) as TranslationRequest;
 
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });

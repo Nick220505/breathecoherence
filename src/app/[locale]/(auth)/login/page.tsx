@@ -58,24 +58,33 @@ export default function LoginPage() {
       const formData = new FormData();
       formData.append('email', form.getValues('email'));
       formData.append('password', form.getValues('password'));
-      signIn('credentials', {
-        email: form.getValues('email'),
-        password: form.getValues('password'),
-        redirect: false,
-      }).then((result) => {
-        if (result?.error) {
-          console.error('Error signing in:', result.error);
-        } else {
-          router.push('/');
+
+      const performSignIn = async () => {
+        try {
+          const result = await signIn('credentials', {
+            email: form.getValues('email'),
+            password: form.getValues('password'),
+            redirect: false,
+          });
+
+          if (result?.error) {
+            console.error('Error signing in:', result.error);
+          } else {
+            router.push('/');
+          }
+        } catch (error) {
+          console.error('Sign in failed:', error);
         }
-      });
+      };
+
+      void performSignIn();
     }
   }, [state.success, router, form]);
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = (data: LoginFormData) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
+      if (value != null) {
         formData.append(key, value.toString());
       }
     });
@@ -125,7 +134,7 @@ export default function LoginPage() {
           <CardContent>
             <form
               action={formAction}
-              onSubmit={form.handleSubmit(onSubmit)}
+              onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
               className="space-y-6"
             >
               <motion.div variants={fadeInUp} className="space-y-2">

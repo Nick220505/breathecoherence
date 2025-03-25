@@ -48,7 +48,7 @@ export function StripePaymentForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={(e) => void handleSubmit(e)} className="space-y-6">
       <PaymentElement />
       {error && <p className="text-sm text-red-500">{error}</p>}
       <Button type="submit" disabled={!stripe || isLoading} className="w-full">

@@ -11,7 +11,7 @@ interface StoreHeaderProps {
   type: string;
 }
 
-export function StoreHeader({ category }: StoreHeaderProps) {
+export function StoreHeader({ category }: Readonly<StoreHeaderProps>) {
   const t = useTranslations('StoreHeader');
 
   const getCategoryIcon = (category: string) => {

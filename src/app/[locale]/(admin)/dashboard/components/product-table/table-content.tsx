@@ -13,7 +13,9 @@ interface ProductTableContentProps {
   products: Product[];
 }
 
-export function ProductTableContent({ products }: ProductTableContentProps) {
+export function ProductTableContent({
+  products,
+}: Readonly<ProductTableContentProps>) {
   const { nameFilter, typeFilter, sortConfig, currentPage } = useTableStore();
 
   const filteredProducts = products.filter((product) => {
@@ -28,8 +30,8 @@ export function ProductTableContent({ products }: ProductTableContentProps) {
 
   const sortedProducts = sortConfig.key
     ? [...filteredProducts].sort((a, b) => {
-        const aValue = a[sortConfig.key as keyof Product];
-        const bValue = b[sortConfig.key as keyof Product];
+        const aValue = a[sortConfig.key!];
+        const bValue = b[sortConfig.key!];
 
         if (typeof aValue === 'string' && typeof bValue === 'string') {
           return sortConfig.direction === 'asc'

@@ -19,9 +19,9 @@ export function ImageUpload({
   initialImageUrl,
   productType,
   onImageUrlChange,
-}: ImageUploadProps) {
+}: Readonly<ImageUploadProps>) {
   const t = useTranslations('ImageUpload');
-  const [imageUrl, setImageUrl] = useState(initialImageUrl || '');
+  const [imageUrl, setImageUrl] = useState(initialImageUrl ?? '');
   const [uploadingImage, setUploadingImage] = useState(false);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ export function ImageUpload({
         throw new Error('Failed to upload image');
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as { url: string };
       setImageUrl(data.url);
       onImageUrlChange(data.url);
     } catch (error) {
@@ -98,7 +98,7 @@ export function ImageUpload({
           <Input
             type="file"
             accept="image/*"
-            onChange={handleImageUpload}
+            onChange={(e) => void handleImageUpload(e)}
             disabled={uploadingImage}
             className="hidden"
             id="image-upload"

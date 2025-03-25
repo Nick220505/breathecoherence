@@ -20,8 +20,20 @@ const eslintConfig: Linter.Config[] = [
       'next/typescript',
       'prettier',
       'plugin:prettier/recommended',
+      'plugin:@typescript-eslint/recommended',
+      'plugin:@typescript-eslint/recommended-type-checked',
+      'plugin:@typescript-eslint/stylistic-type-checked',
+      'plugin:import/recommended',
+      'plugin:import/typescript',
     ],
     plugins: ['@typescript-eslint', 'import', 'react-hooks', 'prettier'],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      project: './tsconfig.json',
+      tsconfigRootDir: __dirname,
+      ecmaVersion: 2022,
+      sourceType: 'module',
+    },
     settings: {
       'import/resolver': {
         typescript: {
