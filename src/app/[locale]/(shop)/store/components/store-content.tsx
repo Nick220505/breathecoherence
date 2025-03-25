@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { type Product } from "@prisma/client";
-import { useTranslations } from "next-intl";
-import { CustomBlendCard } from "./product/custom-blend-card";
-import { ProductCard } from "./product/product-card";
+import { type Product } from '@prisma/client';
+import { useTranslations } from 'next-intl';
+import { CustomBlendCard } from './product/custom-blend-card';
+import { ProductCard } from './product/product-card';
 
 interface StoreContentProps {
   products: Product[];
@@ -11,23 +11,23 @@ interface StoreContentProps {
 }
 
 export function StoreContent({ products, category }: StoreContentProps) {
-  const t = useTranslations("StoreContent");
+  const t = useTranslations('StoreContent');
 
-  if (!products.length && category !== "Flower Essence") {
+  if (!products.length && category !== 'Flower Essence') {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
+      <div className="flex min-h-[50vh] flex-col items-center justify-center space-y-4">
         <div className="text-6xl">🔍</div>
         <h2 className="text-2xl font-semibold text-gray-600 dark:text-gray-400">
-          {t("no_products")}
+          {t('no_products')}
         </h2>
-        <p className="text-gray-500 dark:text-gray-500">{t("try_adjusting")}</p>
+        <p className="text-gray-500 dark:text-gray-500">{t('try_adjusting')}</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {(!category || category === "Flower Essence") && (
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {(!category || category === 'Flower Essence') && (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <CustomBlendCard />
         </div>

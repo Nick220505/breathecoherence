@@ -1,18 +1,18 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
-  throw new Error("Missing NEXT_PUBLIC_GEMINI_API_KEY environment variable");
+  throw new Error('Missing NEXT_PUBLIC_GEMINI_API_KEY environment variable');
 }
 
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
 export async function getChatResponse(
   userMessage: string,
-  chatHistory: { role: "user" | "assistant"; content: string }[],
+  chatHistory: { role: 'user' | 'assistant'; content: string }[],
   systemPrompt: string,
 ) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     // Enhance the system prompt to request structured responses
     const enhancedPrompt = `${systemPrompt}
@@ -41,7 +41,7 @@ I recommend Olive Essence for exhaustion [PRODUCT_REC]{"id": "olive", "name": "O
 
     return response.text();
   } catch (error) {
-    console.error("Error getting chat response:", error);
+    console.error('Error getting chat response:', error);
     return "I apologize, but I'm having trouble processing your request at the moment. Please try again later.";
   }
 }

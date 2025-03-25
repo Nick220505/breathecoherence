@@ -1,10 +1,10 @@
-import prisma from "@/lib/prisma";
-import { Product } from "@prisma/client";
-import { ProductFormData } from "./schema";
+import prisma from '@/lib/prisma';
+import { Product } from '@prisma/client';
+import { ProductFormData } from './schema';
 
 export const productRepository = {
   async getAll(): Promise<Product[]> {
-    return prisma.product.findMany({ orderBy: { createdAt: "desc" } });
+    return prisma.product.findMany({ orderBy: { createdAt: 'desc' } });
   },
 
   async getById(id: string): Promise<Product | null> {

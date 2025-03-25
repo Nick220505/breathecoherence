@@ -1,6 +1,6 @@
-import { Product } from "@prisma/client";
-import { productRepository } from "./repository";
-import { ProductFormData } from "./schema";
+import { Product } from '@prisma/client';
+import { productRepository } from './repository';
+import { ProductFormData } from './schema';
 
 export const productService = {
   async getAll(): Promise<Product[]> {

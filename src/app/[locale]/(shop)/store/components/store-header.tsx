@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { Flower, Sparkles } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { Flower, Sparkles } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface StoreHeaderProps {
   category: string;
@@ -11,14 +11,14 @@ interface StoreHeaderProps {
 }
 
 export function StoreHeader({ category }: StoreHeaderProps) {
-  const t = useTranslations("StoreHeader");
+  const t = useTranslations('StoreHeader');
 
   const getCategoryIcon = (category: string) => {
     switch (category.toLowerCase()) {
-      case "sacred geometry":
-        return <Sparkles className="w-4 h-4 mr-2" />;
-      case "flower essence":
-        return <Flower className="w-4 h-4 mr-2" />;
+      case 'sacred geometry':
+        return <Sparkles className="mr-2 h-4 w-4" />;
+      case 'flower essence':
+        return <Flower className="mr-2 h-4 w-4" />;
       default:
         return null;
     }
@@ -31,15 +31,15 @@ export function StoreHeader({ category }: StoreHeaderProps) {
 
   const title = category
     ? t(`category.${getNormalizedCategory(category)}.title`)
-    : t("title");
+    : t('title');
 
   const subtitle = category
     ? t(`category.${getNormalizedCategory(category)}.description`)
-    : t("subtitle");
+    : t('subtitle');
 
   return (
     <motion.div
-      className="text-center space-y-8 py-12"
+      className="space-y-8 py-12 text-center"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -48,8 +48,8 @@ export function StoreHeader({ category }: StoreHeaderProps) {
       <div className="space-y-6">
         <h1
           className={cn(
-            "font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 leading-tight",
-            "text-5xl md:text-6xl lg:text-7xl",
+            'bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text leading-tight font-bold text-transparent dark:from-purple-400 dark:to-blue-400',
+            'text-5xl md:text-6xl lg:text-7xl',
           )}
         >
           {title}
@@ -61,7 +61,7 @@ export function StoreHeader({ category }: StoreHeaderProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium"
+            className="bg-primary/10 text-primary inline-flex items-center rounded-full px-4 py-2 text-sm font-medium"
           >
             {getCategoryIcon(category)}
             {t(`category.${getNormalizedCategory(category)}.badge`)}
@@ -70,12 +70,12 @@ export function StoreHeader({ category }: StoreHeaderProps) {
 
         {/* Decorative Line */}
         <div className="relative">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-2 w-6 h-6 rounded-full bg-linear-to-r from-purple-600 to-blue-600 blur-lg opacity-50" />
-          <div className="h-1 w-24 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full" />
+          <div className="absolute -top-2 left-1/2 h-6 w-6 -translate-x-1/2 rounded-full bg-linear-to-r from-purple-600 to-blue-600 opacity-50 blur-lg" />
+          <div className="mx-auto h-1 w-24 rounded-full bg-linear-to-r from-purple-600 to-blue-600" />
         </div>
 
         {/* Subtitle */}
-        <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed">
           {subtitle}
         </p>
       </div>

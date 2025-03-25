@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { usePathname, useRouter } from "@/i18n/routing";
-import { Check, Globe } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+} from '@/components/ui/dropdown-menu';
+import { usePathname, useRouter } from '@/i18n/routing';
+import { Check, Globe } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
-type SupportedLanguage = "en" | "es";
+type SupportedLanguage = 'en' | 'es';
 
 const languages = {
   en: {
-    name: "English",
-    flag: "🇺🇸",
-    label: "Switch to English",
+    name: 'English',
+    flag: '🇺🇸',
+    label: 'Switch to English',
   },
   es: {
-    name: "Español",
-    flag: "🇪🇸",
-    label: "Cambiar a Español",
+    name: 'Español',
+    flag: '🇪🇸',
+    label: 'Cambiar a Español',
   },
 } as const satisfies Record<
   SupportedLanguage,
@@ -34,16 +34,16 @@ const languages = {
 >;
 
 export function LanguageToggle() {
-  const t = useTranslations("LanguageToggle");
+  const t = useTranslations('LanguageToggle');
   const router = useRouter();
   const pathname = usePathname();
   const currentLocale = useLocale() as SupportedLanguage;
 
   const handleLanguageChange = (newLanguage: SupportedLanguage) => {
-    if (pathname.startsWith("/product/")) {
-      const id = pathname.split("/").pop() || "";
+    if (pathname.startsWith('/product/')) {
+      const id = pathname.split('/').pop() || '';
       router.replace(
-        { pathname: "/store/product/[id]", params: { id } },
+        { pathname: '/store/product/[id]', params: { id } },
         { locale: newLanguage },
       );
     } else {
@@ -53,25 +53,25 @@ export function LanguageToggle() {
 
       // Handle category parameter translation
       const category =
-        searchParams.get("category") || searchParams.get("categoria");
+        searchParams.get('category') || searchParams.get('categoria');
       const newSearchParams = new URLSearchParams();
 
       if (category) {
         // Use the appropriate parameter name based on language
-        const categoryParam = newLanguage === "en" ? "category" : "categoria";
+        const categoryParam = newLanguage === 'en' ? 'category' : 'categoria';
         newSearchParams.set(categoryParam, category);
       }
 
       // Copy any other search parameters
       searchParams.forEach((value, key) => {
-        if (key !== "category" && key !== "categoria") {
+        if (key !== 'category' && key !== 'categoria') {
           newSearchParams.set(key, value);
         }
       });
 
       const newPathname = pathname as Exclude<
         typeof pathname,
-        "/store/product/[id]"
+        '/store/product/[id]'
       >;
 
       router.replace(
@@ -87,7 +87,7 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label={t("toggle_language")}>
+        <Button variant="ghost" size="icon" aria-label={t('toggle_language')}>
           <Globe className="h-[1.2rem] w-[1.2rem]" />
         </Button>
       </DropdownMenuTrigger>
@@ -100,9 +100,9 @@ export function LanguageToggle() {
           <DropdownMenuItem
             key={code}
             onClick={() => handleLanguageChange(code)}
-            className="flex items-center justify-between cursor-pointer hover:bg-accent/50 focus:bg-accent"
+            className="hover:bg-accent/50 focus:bg-accent flex cursor-pointer items-center justify-between"
             aria-label={label}
-            aria-current={currentLocale === code ? "true" : undefined}
+            aria-current={currentLocale === code ? 'true' : undefined}
           >
             <div className="flex items-center gap-2">
               <span className="text-base" aria-hidden="true">

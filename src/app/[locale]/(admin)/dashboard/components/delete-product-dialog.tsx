@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,16 +8,16 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { deleteProduct } from "@/features/products/controller";
-import { useToast } from "@/hooks/use-toast";
-import { useTableStore } from "@/lib/stores/use-table-store";
-import { Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+} from '@/components/ui/dialog';
+import { deleteProduct } from '@/features/products/controller';
+import { useToast } from '@/hooks/use-toast';
+import { useTableStore } from '@/lib/stores/use-table-store';
+import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 export function DeleteProductDialog() {
-  const t = useTranslations("DeleteProductDialog");
+  const t = useTranslations('DeleteProductDialog');
   const { toast } = useToast();
   const {
     isDeleteDialogOpen,
@@ -38,24 +38,24 @@ export function DeleteProductDialog() {
 
       if (result.success) {
         toast({
-          title: t("success"),
+          title: t('success'),
           description: result.message,
-          variant: "default",
+          variant: 'default',
         });
         resetDeleteState();
       } else {
         toast({
-          title: t("error"),
+          title: t('error'),
           description: result.message,
-          variant: "destructive",
+          variant: 'destructive',
         });
       }
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error('Error deleting product:', error);
       toast({
-        title: t("error"),
-        description: t("error_delete"),
-        variant: "destructive",
+        title: t('error'),
+        description: t('error_delete'),
+        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
@@ -67,18 +67,18 @@ export function DeleteProductDialog() {
     <Dialog open={isDeleteDialogOpen} onOpenChange={resetDeleteState}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t("delete_confirm_title")}</DialogTitle>
+          <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
           <DialogDescription>
-            {t("delete_confirm_description")}
+            {t('delete_confirm_description')}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex space-x-2 justify-end">
+        <DialogFooter className="flex justify-end space-x-2">
           <Button
             variant="outline"
             onClick={resetDeleteState}
             disabled={isLoading}
           >
-            {t("cancel")}
+            {t('cancel')}
           </Button>
           <Button
             variant="destructive"
@@ -88,10 +88,10 @@ export function DeleteProductDialog() {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {t("deleting")}
+                {t('deleting')}
               </>
             ) : (
-              t("confirm_delete")
+              t('confirm_delete')
             )}
           </Button>
         </DialogFooter>

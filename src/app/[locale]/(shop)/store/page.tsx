@@ -1,8 +1,8 @@
-import { Product } from "@prisma/client";
-import { Suspense } from "react";
-import { StoreContent } from "./components/store-content";
-import { StoreHeader } from "./components/store-header";
-import { getAllProducts } from "@/features/products/controller";
+import { Product } from '@prisma/client';
+import { Suspense } from 'react';
+import { StoreContent } from './components/store-content';
+import { StoreHeader } from './components/store-header';
+import { getAllProducts } from '@/features/products/controller';
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -13,8 +13,8 @@ export default async function Page(props: {
 }) {
   const searchParams = await props.searchParams;
   // Handle both English and Spanish category parameters
-  const category = searchParams?.category || searchParams?.categoria || "";
-  const type = searchParams?.type || "";
+  const category = searchParams?.category || searchParams?.categoria || '';
+  const type = searchParams?.type || '';
   const products = await getAllProducts();
 
   const filteredProducts = products.filter((product: Product) => {
@@ -23,15 +23,15 @@ export default async function Page(props: {
   });
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-background via-background/80 to-background">
+    <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">
       <div className="container mx-auto px-4 py-12">
         <div className="space-y-12">
           <StoreHeader category={category} type={type} />
 
           <Suspense
             fallback={
-              <div className="flex justify-center items-center min-h-[50vh]">
-                <div className="w-20 h-20 rounded-full border-4 border-purple-500/30 border-t-purple-600 animate-spin" />
+              <div className="flex min-h-[50vh] items-center justify-center">
+                <div className="h-20 w-20 animate-spin rounded-full border-4 border-purple-500/30 border-t-purple-600" />
               </div>
             }
           >

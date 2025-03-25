@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -6,13 +6,13 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { useProductStore } from "@/lib/stores/use-product-store";
-import { useTranslations } from "next-intl";
-import { ProductForm } from "./product-form";
+} from '@/components/ui/dialog';
+import { useProductStore } from '@/lib/stores/use-product-store';
+import { useTranslations } from 'next-intl';
+import { ProductForm } from './product-form';
 
 export function EditProductDialog() {
-  const t = useTranslations("EditProductDialog");
+  const t = useTranslations('EditProductDialog');
   const {
     isEditDialogOpen,
     setEditDialogOpen,
@@ -32,9 +32,9 @@ export function EditProductDialog() {
     >
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t("edit_product")}</DialogTitle>
+          <DialogTitle>{t('edit_product')}</DialogTitle>
           <DialogDescription className="sr-only">
-            {t("form_description")}
+            {t('form_description')}
           </DialogDescription>
         </DialogHeader>
         <ProductForm initialData={editingProduct} />

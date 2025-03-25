@@ -1,15 +1,15 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary } from 'cloudinary';
 
 if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
-  throw new Error("Missing NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME");
+  throw new Error('Missing NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME');
 }
 
 if (!process.env.CLOUDINARY_API_KEY) {
-  throw new Error("Missing CLOUDINARY_API_KEY");
+  throw new Error('Missing CLOUDINARY_API_KEY');
 }
 
 if (!process.env.CLOUDINARY_API_SECRET) {
-  throw new Error("Missing CLOUDINARY_API_SECRET");
+  throw new Error('Missing CLOUDINARY_API_SECRET');
 }
 
 cloudinary.config({

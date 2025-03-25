@@ -1,22 +1,22 @@
-"use server";
+'use server';
 
-import { FormState } from "@/lib/types/form";
-import { User } from "@prisma/client";
-import { AuthError } from "./errors";
-import { loginSchema, registerSchema, verifySchema } from "./schema";
-import { authService } from "./service";
+import { FormState } from '@/lib/types/form';
+import { User } from '@prisma/client';
+import { AuthError } from './errors';
+import { loginSchema, registerSchema, verifySchema } from './schema';
+import { authService } from './service';
 
 export async function registerAction(
   _prevState: FormState,
   formData: FormData,
-): Promise<FormState<Pick<User, "id" | "name" | "email" | "role">>> {
+): Promise<FormState<Pick<User, 'id' | 'name' | 'email' | 'role'>>> {
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = registerSchema.safeParse(rawData);
 
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: "Please fill in all required fields and ensure they are valid",
+      message: 'Please fill in all required fields and ensure they are valid',
       success: false,
     };
   }
@@ -25,7 +25,7 @@ export async function registerAction(
     const user = await authService.register(data);
     return {
       errors: {},
-      message: "Verification code sent to your email",
+      message: 'Verification code sent to your email',
       success: true,
       data: user,
     };
@@ -39,7 +39,7 @@ export async function registerAction(
     }
     return {
       errors: {},
-      message: "Something went wrong during registration",
+      message: 'Something went wrong during registration',
       success: false,
     };
   }
@@ -55,7 +55,7 @@ export async function verifyAction(
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: "Please fill in all required fields and ensure they are valid",
+      message: 'Please fill in all required fields and ensure they are valid',
       success: false,
     };
   }
@@ -64,7 +64,7 @@ export async function verifyAction(
     const user = await authService.verify(data);
     return {
       errors: {},
-      message: "Email verified successfully",
+      message: 'Email verified successfully',
       success: true,
       data: user,
     };
@@ -78,7 +78,7 @@ export async function verifyAction(
     }
     return {
       errors: {},
-      message: "Something went wrong during verification",
+      message: 'Something went wrong during verification',
       success: false,
     };
   }
@@ -87,14 +87,14 @@ export async function verifyAction(
 export async function loginAction(
   _prevState: FormState,
   formData: FormData,
-): Promise<FormState<Pick<User, "id" | "name" | "email" | "role">>> {
+): Promise<FormState<Pick<User, 'id' | 'name' | 'email' | 'role'>>> {
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = loginSchema.safeParse(rawData);
 
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: "Please fill in all required fields and ensure they are valid",
+      message: 'Please fill in all required fields and ensure they are valid',
       success: false,
     };
   }
@@ -103,7 +103,7 @@ export async function loginAction(
     const user = await authService.login(data);
     return {
       errors: {},
-      message: "Logged in successfully",
+      message: 'Logged in successfully',
       success: true,
       data: user,
     };
@@ -117,7 +117,7 @@ export async function loginAction(
     }
     return {
       errors: {},
-      message: "Something went wrong during login",
+      message: 'Something went wrong during login',
       success: false,
     };
   }

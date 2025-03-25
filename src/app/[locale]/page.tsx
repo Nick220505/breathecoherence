@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "@/i18n/routing";
-import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Link } from '@/i18n/routing';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -22,15 +22,15 @@ const staggerContainer = {
 };
 
 export default function HomePage() {
-  const t = useTranslations("HomePage");
+  const t = useTranslations('HomePage');
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       {/* Hero Section */}
-      <section className="relative py-24 bg-linear-to-b from-background via-background/80 to-background overflow-hidden">
+      <section className="from-background via-background/80 to-background relative overflow-hidden bg-linear-to-b py-24">
         <div className="container mx-auto px-4 text-center">
           <motion.div
-            className="flex justify-center mb-12"
+            className="mb-12 flex justify-center"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -40,39 +40,39 @@ export default function HomePage() {
               alt="Breathe Coherence"
               width={120}
               height={120}
-              className="dark:invert w-[200px] h-[200px]"
+              className="h-[200px] w-[200px] dark:invert"
               priority
             />
           </motion.div>
           <motion.div
-            className="space-y-6 max-w-4xl mx-auto"
+            className="mx-auto max-w-4xl space-y-6"
             variants={staggerContainer}
             initial="initial"
             animate="animate"
           >
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 leading-normal px-4"
+              className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text px-4 text-4xl leading-normal font-bold text-transparent md:text-5xl lg:text-6xl dark:from-purple-400 dark:to-blue-400"
               variants={fadeInUp}
             >
-              {t("hero.title")}
+              {t('hero.title')}
             </motion.h1>
             <motion.div
-              className="h-1 w-24 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full"
+              className="mx-auto h-1 w-24 rounded-full bg-linear-to-r from-purple-600 to-blue-600"
               variants={fadeInUp}
             />
             <motion.p
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4 leading-relaxed"
+              className="mx-auto max-w-2xl px-4 text-xl leading-relaxed text-gray-600 dark:text-gray-300"
               variants={fadeInUp}
             >
-              {t("hero.subtitle")}
+              {t('hero.subtitle')}
             </motion.p>
             <motion.div className="pt-8" variants={fadeInUp}>
               <Link href="/store">
                 <Button
                   size="lg"
-                  className="bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg px-8 py-6 text-lg h-auto transform hover:scale-105 transition-transform duration-300"
+                  className="h-auto transform bg-linear-to-r from-purple-600 to-blue-600 px-8 py-6 text-lg text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600"
                 >
-                  {t("hero.cta")}
+                  {t('hero.cta')}
                 </Button>
               </Link>
             </motion.div>
@@ -81,23 +81,23 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white/5 dark:bg-black/20 backdrop-blur-xs">
+      <section className="bg-white/5 py-24 backdrop-blur-xs dark:bg-black/20">
         <div className="container mx-auto px-4">
           <motion.div
-            className="text-center space-y-4 mb-16"
+            className="mb-16 space-y-4 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold dark:text-white">
-              {t("features.title")}
+            <h2 className="text-3xl font-bold md:text-4xl dark:text-white">
+              {t('features.title')}
             </h2>
-            <div className="h-1 w-24 bg-linear-to-r from-purple-600 to-blue-600 mx-auto rounded-full" />
+            <div className="mx-auto h-1 w-24 rounded-full bg-linear-to-r from-purple-600 to-blue-600" />
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4"
+            className="grid grid-cols-1 gap-8 px-4 md:grid-cols-3"
             variants={staggerContainer}
             initial="initial"
             whileInView="animate"
@@ -105,41 +105,41 @@ export default function HomePage() {
           >
             {[
               {
-                icon: "🔮",
-                title: t("features.geometry.title"),
-                description: t("features.geometry.description"),
+                icon: '🔮',
+                title: t('features.geometry.title'),
+                description: t('features.geometry.description'),
               },
               {
-                icon: "🌸",
-                title: t("features.essences.title"),
-                description: t("features.essences.description"),
+                icon: '🌸',
+                title: t('features.essences.title'),
+                description: t('features.essences.description'),
               },
               {
-                icon: "✨",
-                title: t("features.harmony.title"),
-                description: t("features.harmony.description"),
+                icon: '✨',
+                title: t('features.harmony.title'),
+                description: t('features.harmony.description'),
               },
             ].map((feature, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="bg-white/5 dark:bg-white/5 backdrop-blur-xs border-purple-500/10 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <Card className="transform border-purple-500/10 bg-white/5 shadow-lg backdrop-blur-xs transition-transform duration-300 hover:scale-105 dark:bg-white/5">
                   <CardContent className="p-8 text-center">
                     <motion.div
-                      className="mb-6 text-5xl flex justify-center"
+                      className="mb-6 flex justify-center text-5xl"
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{
                         delay: index * 0.2,
-                        type: "spring",
+                        type: 'spring',
                         stiffness: 200,
                       }}
                     >
                       {feature.icon}
                     </motion.div>
-                    <h3 className="text-xl font-semibold mb-4 bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600">
+                    <h3 className="mb-4 bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-xl font-semibold text-transparent">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <p className="leading-relaxed text-gray-600 dark:text-gray-300">
                       {feature.description}
                     </p>
                   </CardContent>
@@ -151,22 +151,22 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-linear-to-b from-background/80 to-background">
+      <section className="from-background/80 to-background bg-linear-to-b py-24">
         <div className="container mx-auto px-4 text-center">
           <motion.div
-            className="max-w-3xl mx-auto space-y-8"
+            className="mx-auto max-w-3xl space-y-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400">
-              {t("cta.title")}
+            <h2 className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-3xl font-bold text-transparent md:text-4xl dark:from-purple-400 dark:to-blue-400">
+              {t('cta.title')}
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-              {t("cta.description")}
+            <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
+              {t('cta.description')}
             </p>
-            <div className="h-px w-full max-w-xs bg-linear-to-r from-transparent via-purple-500/20 to-transparent mx-auto" />
+            <div className="mx-auto h-px w-full max-w-xs bg-linear-to-r from-transparent via-purple-500/20 to-transparent" />
             <motion.div
               className="flex justify-center gap-4 pt-4"
               variants={staggerContainer}
@@ -179,9 +179,9 @@ export default function HomePage() {
                   <Button
                     variant="default"
                     size="lg"
-                    className="bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white shadow-lg px-8 py-6 text-lg h-auto transform hover:scale-105 transition-transform duration-300"
+                    className="h-auto transform bg-linear-to-r from-purple-600 to-blue-600 px-8 py-6 text-lg text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600"
                   >
-                    {t("cta.shop")}
+                    {t('cta.shop')}
                   </Button>
                 </Link>
               </motion.div>
@@ -190,9 +190,9 @@ export default function HomePage() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="border-purple-500/20 hover:bg-purple-500/10 px-8 py-6 text-lg h-auto transform hover:scale-105 transition-transform duration-300"
+                    className="h-auto transform border-purple-500/20 px-8 py-6 text-lg transition-transform duration-300 hover:scale-105 hover:bg-purple-500/10"
                   >
-                    {t("cta.signin")}
+                    {t('cta.signin')}
                   </Button>
                 </Link>
               </motion.div>

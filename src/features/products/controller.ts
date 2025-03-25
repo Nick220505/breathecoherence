@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
-import { ActionState } from "@/lib/types/action";
-import { FormState } from "@/lib/types/form";
-import { Product } from "@prisma/client";
-import { productSchema } from "./schema";
-import { productService } from "./service";
+import { ActionState } from '@/lib/types/action';
+import { FormState } from '@/lib/types/form';
+import { Product } from '@prisma/client';
+import { productSchema } from './schema';
+import { productService } from './service';
 
 export const getAllProducts = productService.getAll;
 
@@ -20,7 +20,7 @@ export async function createProduct(
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: "Please fill in all required fields and ensure they are valid",
+      message: 'Please fill in all required fields and ensure they are valid',
       success: false,
     };
   }
@@ -30,7 +30,7 @@ export async function createProduct(
 
     return {
       errors: {},
-      message: "Product created successfully",
+      message: 'Product created successfully',
       success: true,
       data: createdProduct,
     };
@@ -38,7 +38,7 @@ export async function createProduct(
     return {
       errors: {},
       message:
-        error instanceof Error ? error.message : "Failed to create product",
+        error instanceof Error ? error.message : 'Failed to create product',
       success: false,
     };
   }
@@ -54,7 +54,7 @@ export async function updateProduct(
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: "Please fill in all required fields and ensure they are valid",
+      message: 'Please fill in all required fields and ensure they are valid',
       success: false,
     };
   }
@@ -65,7 +65,7 @@ export async function updateProduct(
     if (!id) {
       return {
         errors: {},
-        message: "Product ID is required for updating",
+        message: 'Product ID is required for updating',
         success: false,
       };
     }
@@ -74,7 +74,7 @@ export async function updateProduct(
 
     return {
       errors: {},
-      message: "Product updated successfully",
+      message: 'Product updated successfully',
       success: true,
       data: updatedProduct,
     };
@@ -82,7 +82,7 @@ export async function updateProduct(
     return {
       errors: {},
       message:
-        error instanceof Error ? error.message : "Failed to update product",
+        error instanceof Error ? error.message : 'Failed to update product',
       success: false,
     };
   }
@@ -91,12 +91,12 @@ export async function updateProduct(
 export async function deleteProduct(id: string): Promise<ActionState<Product>> {
   try {
     const data = await productService.delete(id);
-    return { success: true, message: "Product deleted successfully", data };
+    return { success: true, message: 'Product deleted successfully', data };
   } catch (error) {
     return {
       success: false,
       message:
-        error instanceof Error ? error.message : "Failed to delete product",
+        error instanceof Error ? error.message : 'Failed to delete product',
     };
   }
 }

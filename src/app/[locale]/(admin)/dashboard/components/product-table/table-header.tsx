@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useTableStore } from "@/lib/stores/use-table-store";
-import { ArrowUpDown, ChevronDown } from "lucide-react";
-import { useTranslations } from "next-intl";
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useTableStore } from '@/lib/stores/use-table-store';
+import { ArrowUpDown, ChevronDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function ProductTableHeader() {
-  const t = useTranslations("ProductTableHeader");
+  const t = useTranslations('ProductTableHeader');
   const {
     nameFilter,
     typeFilter,
@@ -27,10 +27,10 @@ export function ProductTableHeader() {
   return (
     <TableHeader>
       <TableRow>
-        <TableHead>{t("image")}</TableHead>
+        <TableHead>{t('image')}</TableHead>
         <TableHead>
           <div className="flex items-center gap-2">
-            {t("name")}
+            {t('name')}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
@@ -40,16 +40,16 @@ export function ProductTableHeader() {
               <DropdownMenuContent align="start">
                 <div className="p-2">
                   <Input
-                    placeholder={t("filter_by_name")}
+                    placeholder={t('filter_by_name')}
                     value={nameFilter}
                     onChange={(e) => setNameFilter(e.target.value)}
                     className="h-8"
                   />
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setSortConfig("name")}>
+                <DropdownMenuItem onClick={() => setSortConfig('name')}>
                   <ArrowUpDown className="mr-2 h-3.5 w-3.5" />
-                  {t("sort_by_name")}
+                  {t('sort_by_name')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -57,7 +57,7 @@ export function ProductTableHeader() {
         </TableHead>
         <TableHead>
           <div className="flex items-center gap-2">
-            {t("type")}
+            {t('type')}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
@@ -67,30 +67,30 @@ export function ProductTableHeader() {
               <DropdownMenuContent align="start">
                 <div className="p-2">
                   <Input
-                    placeholder={t("filter_by_type")}
-                    value={typeFilter === "all" ? "" : typeFilter}
-                    onChange={(e) => setTypeFilter(e.target.value || "all")}
+                    placeholder={t('filter_by_type')}
+                    value={typeFilter === 'all' ? '' : typeFilter}
+                    onChange={(e) => setTypeFilter(e.target.value || 'all')}
                     className="h-8"
                   />
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setTypeFilter("all")}>
-                  {t("all")}
+                <DropdownMenuItem onClick={() => setTypeFilter('all')}>
+                  {t('all')}
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => setTypeFilter("Flower Essence")}
+                  onClick={() => setTypeFilter('Flower Essence')}
                 >
-                  {t("flower_essence")}
+                  {t('flower_essence')}
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => setTypeFilter("Sacred Geometry")}
+                  onClick={() => setTypeFilter('Sacred Geometry')}
                 >
-                  {t("sacred_geometry")}
+                  {t('sacred_geometry')}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setSortConfig("type")}>
+                <DropdownMenuItem onClick={() => setSortConfig('type')}>
                   <ArrowUpDown className="mr-2 h-3.5 w-3.5" />
-                  {t("sort_by_type")}
+                  {t('sort_by_type')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -98,11 +98,11 @@ export function ProductTableHeader() {
         </TableHead>
         <TableHead>
           <div className="flex items-center gap-2">
-            {t("price")}
+            {t('price')}
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setSortConfig("price")}
+              onClick={() => setSortConfig('price')}
               className="h-8 w-8 p-0"
             >
               <ArrowUpDown className="h-4 w-4" />
@@ -111,18 +111,18 @@ export function ProductTableHeader() {
         </TableHead>
         <TableHead>
           <div className="flex items-center gap-2">
-            {t("stock")}
+            {t('stock')}
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setSortConfig("stock")}
+              onClick={() => setSortConfig('stock')}
               className="h-8 w-8 p-0"
             >
               <ArrowUpDown className="h-4 w-4" />
             </Button>
           </div>
         </TableHead>
-        <TableHead>{t("actions")}</TableHead>
+        <TableHead>{t('actions')}</TableHead>
       </TableRow>
     </TableHeader>
   );

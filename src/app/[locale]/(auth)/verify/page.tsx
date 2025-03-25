@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
-import { Loading } from "./components/loading";
-import { VerificationForm } from "./components/verification-form";
+import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import { Loading } from './components/loading';
+import { VerificationForm } from './components/verification-form';
 
 export default async function VerifyPage(props: {
   searchParams?: Promise<{
@@ -12,11 +12,11 @@ export default async function VerifyPage(props: {
   const email = searchParams?.email;
 
   if (!email) {
-    redirect("/register");
+    redirect('/register');
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-background via-background/80 to-background">
+    <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">
       <Suspense fallback={<Loading />}>
         <VerificationForm email={email} />
       </Suspense>
