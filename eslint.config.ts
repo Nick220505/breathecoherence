@@ -62,7 +62,6 @@ const eslintConfig: Linter.Config[] = [
           alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],
-      'import/no-duplicates': 'error',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   }),
