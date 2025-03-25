@@ -51,8 +51,6 @@ const eslintConfig: Linter.Config[] = [
         'single',
         { avoidEscape: true, allowTemplateLiterals: true },
       ],
-      '@typescript-eslint/no-unused-vars': ['warn'],
-      '@typescript-eslint/no-explicit-any': ['warn'],
       'import/order': [
         'error',
         {
