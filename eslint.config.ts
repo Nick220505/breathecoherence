@@ -46,12 +46,6 @@ const eslintConfig: Linter.Config[] = [
       },
     },
     rules: {
-      semi: ['error'],
-      quotes: [
-        'error',
-        'single',
-        { avoidEscape: true, allowTemplateLiterals: true },
-      ],
       'import/order': [
         'error',
         {
