@@ -29,10 +29,7 @@ const eslintConfig: Linter.Config[] = [
     ],
     plugins: ['@typescript-eslint', 'import', 'react-hooks', 'prettier'],
     parser: '@typescript-eslint/parser',
-    parserOptions: {
-      project: './tsconfig.json',
-      tsconfigRootDir: __dirname,
-    },
+    parserOptions: { project: './tsconfig.json', tsconfigRootDir: __dirname },
     rules: {
       'import/order': [
         'error',
