@@ -1,9 +1,10 @@
 'use client';
 
-import { Link } from '@/i18n/routing';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
+import { Link } from '@/i18n/routing';
 
 export function ProductNotFound() {
   const t = useTranslations('ProductPage');

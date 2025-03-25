@@ -1,5 +1,12 @@
 'use client';
 
+import { type Product } from '@prisma/client';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Loader2, ShoppingCart } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { useCart } from '@/components/cart-provider';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,12 +17,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Link } from '@/i18n/routing';
-import { type Product } from '@prisma/client';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Loader2, ShoppingCart } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useState } from 'react';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },

@@ -1,5 +1,17 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { motion } from 'framer-motion';
+import { CreditCard, Lock, ShoppingBag, Wallet2 } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import { useCart } from '@/components/cart-provider';
 import { StripePaymentForm } from '@/components/stripe-payment-form';
 import { Button } from '@/components/ui/button';
@@ -18,17 +30,6 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { Link } from '@/i18n/routing';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import { motion } from 'framer-motion';
-import { CreditCard, Lock, ShoppingBag, Wallet2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,

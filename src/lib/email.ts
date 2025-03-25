@@ -1,5 +1,6 @@
-import { VerificationEmail } from '@/components/email-templates/verification-email';
 import { CreateEmailResponseSuccess, Resend } from 'resend';
+
+import { VerificationEmail } from '@/components/email-templates/verification-email';
 
 if (!process.env.RESEND_API_KEY) {
   throw new Error('Missing RESEND_API_KEY environment variable');

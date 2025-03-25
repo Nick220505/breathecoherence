@@ -1,11 +1,12 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/routing';
-import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },

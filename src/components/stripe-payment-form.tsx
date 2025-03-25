@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import {
   PaymentElement,
   useElements,
@@ -8,6 +7,8 @@ import {
 } from '@stripe/react-stripe-js';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
 
 export function StripePaymentForm() {
   const t = useTranslations('StripePaymentForm');

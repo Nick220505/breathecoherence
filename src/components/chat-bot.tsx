@@ -1,16 +1,17 @@
 'use client';
 
+import { type Product } from '@prisma/client';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Link } from '@/i18n/routing';
-import { type Product } from '@prisma/client';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 
 interface Message {
   role: 'user' | 'assistant';

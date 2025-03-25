@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import {
   Table,
   TableBody,
@@ -8,7 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useTranslations } from 'next-intl';
 
 function SkeletonCell({ width }: { width: string }) {
   return (

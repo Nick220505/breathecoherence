@@ -1,5 +1,14 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { AlertCircle, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
+import { useFormState } from 'react-dom';
+import { useForm } from 'react-hook-form';
+
 import { Button } from '@/components/ui/button';
 import {
   CardContent,
@@ -13,14 +22,6 @@ import { VerifyFormData, verifySchema } from '@/features/auth/schema';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useRouter } from '@/i18n/routing';
 import { FormState } from '@/lib/types/form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion } from 'framer-motion';
-import { AlertCircle, Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useEffect } from 'react';
-import { useFormState } from 'react-dom';
-import { useForm } from 'react-hook-form';
 
 interface VerificationFormProps {
   email: string;

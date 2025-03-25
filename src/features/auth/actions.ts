@@ -1,7 +1,9 @@
 'use server';
 
-import { FormState } from '@/lib/types/form';
 import { User } from '@prisma/client';
+
+import { FormState } from '@/lib/types/form';
+
 import { AuthError } from './errors';
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';

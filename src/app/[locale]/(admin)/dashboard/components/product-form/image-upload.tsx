@@ -1,12 +1,13 @@
 'use client';
 
+import { Image as ImageIcon, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { Image as ImageIcon, Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useState } from 'react';
 
 interface ImageUploadProps {
   initialImageUrl?: string;

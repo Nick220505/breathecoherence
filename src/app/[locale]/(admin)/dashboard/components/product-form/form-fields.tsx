@@ -1,5 +1,16 @@
 'use client';
 
+import {
+  AlertCircle,
+  Box,
+  DollarSign,
+  Info,
+  Package2,
+  Tags,
+} from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { UseFormReturn } from 'react-hook-form';
+
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -12,16 +23,6 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { ProductFormData } from '@/features/products/schema';
-import {
-  AlertCircle,
-  Box,
-  DollarSign,
-  Info,
-  Package2,
-  Tags,
-} from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { UseFormReturn } from 'react-hook-form';
 
 interface FormFieldsProps {
   form: UseFormReturn<ProductFormData>;

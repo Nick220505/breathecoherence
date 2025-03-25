@@ -1,5 +1,8 @@
 'use client';
 
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,8 +13,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 export function CustomBlendCard() {
   const t = useTranslations('CustomBlendCard');

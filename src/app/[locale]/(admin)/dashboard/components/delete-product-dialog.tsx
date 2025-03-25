@@ -1,5 +1,9 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,9 +16,6 @@ import {
 import { deleteProduct } from '@/features/products/controller';
 import { useToast } from '@/hooks/use-toast';
 import { useTableStore } from '@/lib/stores/use-table-store';
-import { Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
 export function DeleteProductDialog() {
   const t = useTranslations('DeleteProductDialog');

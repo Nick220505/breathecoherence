@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import {
   Dialog,
   DialogContent,
@@ -8,7 +10,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useProductStore } from '@/lib/stores/use-product-store';
-import { useTranslations } from 'next-intl';
+
 import { ProductForm } from './product-form';
 
 export function EditProductDialog() {

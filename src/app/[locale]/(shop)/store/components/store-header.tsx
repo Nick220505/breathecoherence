@@ -1,9 +1,10 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Flower, Sparkles } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
+import { cn } from '@/lib/utils';
 
 interface StoreHeaderProps {
   category: string;

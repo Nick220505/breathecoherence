@@ -1,6 +1,7 @@
+import { NextResponse } from 'next/server';
+
 import { productService } from '@/features/products/service';
 import { getChatResponse } from '@/lib/gemini';
-import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 

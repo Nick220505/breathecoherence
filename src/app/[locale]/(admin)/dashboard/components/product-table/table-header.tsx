@@ -1,5 +1,8 @@
 'use client';
 
+import { ArrowUpDown, ChevronDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,8 +14,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTableStore } from '@/lib/stores/use-table-store';
-import { ArrowUpDown, ChevronDown } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 export function ProductTableHeader() {
   const t = useTranslations('ProductTableHeader');

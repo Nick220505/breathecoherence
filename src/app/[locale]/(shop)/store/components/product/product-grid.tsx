@@ -1,6 +1,7 @@
 'use client';
 
 import { type Product } from '@prisma/client';
+
 import { ProductCard } from './product-card';
 import { ProductSkeleton } from './product-skeleton';
 

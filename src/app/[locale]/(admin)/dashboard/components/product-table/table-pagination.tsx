@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import {
   Pagination,
   PaginationContent,
@@ -9,7 +11,6 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { useTableStore } from '@/lib/stores/use-table-store';
-import { useTranslations } from 'next-intl';
 
 const ITEMS_PER_PAGE = 10;
 
