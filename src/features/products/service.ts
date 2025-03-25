@@ -7,14 +7,8 @@ export const productService = {
     return productRepository.getAll();
   },
 
-  async getById(id: string): Promise<Product> {
-    const product = await productRepository.getById(id);
-
-    if (!product) {
-      throw new Error("Product not found");
-    }
-
-    return product;
+  async getById(id: string): Promise<Product | null> {
+    return productRepository.getById(id);
   },
 
   async create(data: ProductFormData): Promise<Product> {
@@ -22,12 +16,10 @@ export const productService = {
   },
 
   async update(id: string, data: ProductFormData): Promise<Product> {
-    await this.getById(id);
     return productRepository.update(id, data);
   },
 
   async delete(id: string): Promise<Product> {
-    await this.getById(id);
     return productRepository.delete(id);
   },
 };
