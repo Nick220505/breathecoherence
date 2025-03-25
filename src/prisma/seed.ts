@@ -3,6 +3,12 @@ import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
+// Constants for products
+const SACRED_GEOMETRY_TYPE = 'Sacred Geometry';
+const FLOWER_ESSENCE_TYPE = 'Flower Essence';
+const SACRED_GEOMETRY_PRICE = 29.99;
+const FLOWER_ESSENCE_PRICE = 19.99;
+
 async function main() {
   // Create admin user
   const adminPassword = await hash('admin123', 12);
@@ -39,8 +45,8 @@ async function main() {
         name: 'Tetrahedron (Fire Element)',
         description:
           'Represents transformation, spiritual growth, and personal power. The tetrahedron is associated with the element of Fire.',
-        price: 29.99,
-        type: 'Sacred Geometry',
+        price: SACRED_GEOMETRY_PRICE,
+        type: SACRED_GEOMETRY_TYPE,
         stock: 50,
       },
     }),
@@ -52,8 +58,8 @@ async function main() {
         name: 'Cube (Earth Element)',
         description:
           'Symbolizes stability, grounding, and physical well-being. The cube is associated with the element of Earth.',
-        price: 29.99,
-        type: 'Sacred Geometry',
+        price: SACRED_GEOMETRY_PRICE,
+        type: SACRED_GEOMETRY_TYPE,
         stock: 50,
       },
     }),
@@ -65,8 +71,8 @@ async function main() {
         name: 'Octahedron (Air Element)',
         description:
           'Associated with love, forgiveness, and compassion. The octahedron is linked to the element of Air.',
-        price: 29.99,
-        type: 'Sacred Geometry',
+        price: SACRED_GEOMETRY_PRICE,
+        type: SACRED_GEOMETRY_TYPE,
         stock: 50,
       },
     }),
@@ -78,8 +84,8 @@ async function main() {
         name: 'Icosahedron (Water Element)',
         description:
           'Linked to joy, emotional flow, and fluidity. The icosahedron is connected to the element of Water.',
-        price: 29.99,
-        type: 'Sacred Geometry',
+        price: SACRED_GEOMETRY_PRICE,
+        type: SACRED_GEOMETRY_TYPE,
         stock: 50,
       },
     }),
@@ -91,8 +97,8 @@ async function main() {
         name: 'Dodecahedron (Aether Element)',
         description:
           'Represents the universe, wisdom, and spiritual connection. The dodecahedron is associated with the element of Aether/Cosmos.',
-        price: 29.99,
-        type: 'Sacred Geometry',
+        price: SACRED_GEOMETRY_PRICE,
+        type: SACRED_GEOMETRY_TYPE,
         stock: 50,
       },
     }),
@@ -106,8 +112,8 @@ async function main() {
         id: 'aspen',
         name: 'Aspen Essence',
         description: 'For vague, unexplained fears.',
-        price: 19.99,
-        type: 'Flower Essence',
+        price: FLOWER_ESSENCE_PRICE,
+        type: FLOWER_ESSENCE_TYPE,
         stock: 100,
       },
     }),
@@ -118,8 +124,8 @@ async function main() {
         id: 'olive',
         name: 'Olive Essence',
         description: 'For exhaustion after mental or physical effort.',
-        price: 19.99,
-        type: 'Flower Essence',
+        price: FLOWER_ESSENCE_PRICE,
+        type: FLOWER_ESSENCE_TYPE,
         stock: 100,
       },
     }),

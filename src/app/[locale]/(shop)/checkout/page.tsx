@@ -37,6 +37,10 @@ const stripePromise = loadStripe(
 
 const SHIPPING_COST = 13.0;
 
+// Constants for styling
+const ERROR_TEXT_CLASS = 'mt-1 text-sm text-red-500';
+const ERROR_BORDER_CLASS = 'border-red-500';
+
 // Zod validation schema
 const checkoutSchema = z.object({
   // Billing Information
@@ -235,11 +239,11 @@ export default function CheckoutPage() {
                       <Input
                         id="firstName"
                         {...register('firstName')}
-                        className={errors.firstName ? 'border-red-500' : ''}
+                        className={errors.firstName ? ERROR_BORDER_CLASS : ''}
                         placeholder={t('placeholder.first_name')}
                       />
                       {errors.firstName && (
-                        <p className="mt-1 text-sm text-red-500">
+                        <p className={ERROR_TEXT_CLASS}>
                           {errors.firstName.message}
                         </p>
                       )}
@@ -249,11 +253,11 @@ export default function CheckoutPage() {
                       <Input
                         id="lastName"
                         {...register('lastName')}
-                        className={errors.lastName ? 'border-red-500' : ''}
+                        className={errors.lastName ? ERROR_BORDER_CLASS : ''}
                         placeholder={t('placeholder.last_name')}
                       />
                       {errors.lastName && (
-                        <p className="mt-1 text-sm text-red-500">
+                        <p className={ERROR_TEXT_CLASS}>
                           {errors.lastName.message}
                         </p>
                       )}
@@ -266,13 +270,11 @@ export default function CheckoutPage() {
                       id="email"
                       type="email"
                       {...register('email')}
-                      className={errors.email ? 'border-red-500' : ''}
+                      className={errors.email ? ERROR_BORDER_CLASS : ''}
                       placeholder={t('placeholder.email')}
                     />
                     {errors.email && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {errors.email.message}
-                      </p>
+                      <p className={ERROR_TEXT_CLASS}>{errors.email.message}</p>
                     )}
                   </div>
 
@@ -282,13 +284,11 @@ export default function CheckoutPage() {
                       id="phone"
                       type="tel"
                       {...register('phone')}
-                      className={errors.phone ? 'border-red-500' : ''}
+                      className={errors.phone ? ERROR_BORDER_CLASS : ''}
                       placeholder={t('placeholder.phone')}
                     />
                     {errors.phone && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {errors.phone.message}
-                      </p>
+                      <p className={ERROR_TEXT_CLASS}>{errors.phone.message}</p>
                     )}
                   </div>
 
@@ -297,11 +297,11 @@ export default function CheckoutPage() {
                     <Input
                       id="address"
                       {...register('address')}
-                      className={errors.address ? 'border-red-500' : ''}
+                      className={errors.address ? ERROR_BORDER_CLASS : ''}
                       placeholder={t('placeholder.address')}
                     />
                     {errors.address && (
-                      <p className="mt-1 text-sm text-red-500">
+                      <p className={ERROR_TEXT_CLASS}>
                         {errors.address.message}
                       </p>
                     )}
@@ -314,7 +314,7 @@ export default function CheckoutPage() {
                         onValueChange={(value) => setValue('country', value)}
                       >
                         <SelectTrigger
-                          className={errors.country ? 'border-red-500' : ''}
+                          className={errors.country ? ERROR_BORDER_CLASS : ''}
                         >
                           <SelectValue placeholder={t('placeholder.country')} />
                         </SelectTrigger>
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
                         </SelectContent>
                       </Select>
                       {errors.country && (
-                        <p className="mt-1 text-sm text-red-500">
+                        <p className={ERROR_TEXT_CLASS}>
                           {errors.country.message}
                         </p>
                       )}
@@ -337,7 +337,7 @@ export default function CheckoutPage() {
                         onValueChange={(value) => setValue('state', value)}
                       >
                         <SelectTrigger
-                          className={errors.state ? 'border-red-500' : ''}
+                          className={errors.state ? ERROR_BORDER_CLASS : ''}
                         >
                           <SelectValue placeholder={t('placeholder.state')} />
                         </SelectTrigger>
@@ -349,7 +349,7 @@ export default function CheckoutPage() {
                         </SelectContent>
                       </Select>
                       {errors.state && (
-                        <p className="mt-1 text-sm text-red-500">
+                        <p className={ERROR_TEXT_CLASS}>
                           {errors.state.message}
                         </p>
                       )}
@@ -362,11 +362,11 @@ export default function CheckoutPage() {
                       <Input
                         id="city"
                         {...register('city')}
-                        className={errors.city ? 'border-red-500' : ''}
+                        className={errors.city ? ERROR_BORDER_CLASS : ''}
                         placeholder={t('placeholder.city')}
                       />
                       {errors.city && (
-                        <p className="mt-1 text-sm text-red-500">
+                        <p className={ERROR_TEXT_CLASS}>
                           {errors.city.message}
                         </p>
                       )}
@@ -376,11 +376,11 @@ export default function CheckoutPage() {
                       <Input
                         id="postalCode"
                         {...register('postalCode')}
-                        className={errors.postalCode ? 'border-red-500' : ''}
+                        className={errors.postalCode ? ERROR_BORDER_CLASS : ''}
                         placeholder={t('placeholder.postal_code')}
                       />
                       {errors.postalCode && (
-                        <p className="mt-1 text-sm text-red-500">
+                        <p className={ERROR_TEXT_CLASS}>
                           {errors.postalCode.message}
                         </p>
                       )}
@@ -536,14 +536,14 @@ export default function CheckoutPage() {
                   <Checkbox
                     id="terms"
                     {...register('acceptedTerms')}
-                    className={errors.acceptedTerms ? 'border-red-500' : ''}
+                    className={errors.acceptedTerms ? ERROR_BORDER_CLASS : ''}
                   />
                   <Label htmlFor="terms" className="text-sm">
                     {t('terms')}
                   </Label>
                 </div>
                 {errors.acceptedTerms && (
-                  <p className="text-sm text-red-500">
+                  <p className={ERROR_TEXT_CLASS}>
                     {errors.acceptedTerms.message}
                   </p>
                 )}

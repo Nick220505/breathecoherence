@@ -1,6 +1,6 @@
 'use client';
 
-import { type Product } from '@prisma/client';
+import { Product } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
@@ -30,6 +30,10 @@ const fadeIn = {
   transition: { duration: 0.5 },
 };
 
+const TRANSLATION_SELECT_OPTION = 'select_option';
+const PRODUCT_TYPE_FLOWER_ESSENCE = 'Flower Essence';
+const PRODUCT_TYPE_SACRED_GEOMETRY = 'Sacred Geometry';
+
 interface ProductDetailsProps {
   product: Product;
 }
@@ -44,7 +48,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
     setIsAdding(true);
 
     try {
-      if (product.type === 'Flower Essence' && selectedBase) {
+      if (product.type === PRODUCT_TYPE_FLOWER_ESSENCE && selectedBase) {
         await addToCart({
           ...product,
           name: t('cart.name', { name: product.name, base: selectedBase }),
@@ -89,7 +93,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               <Image
                 src={
                   product.imageUrl ||
-                  (product.type === 'Sacred Geometry'
+                  (product.type === PRODUCT_TYPE_SACRED_GEOMETRY
                     ? `/products/sacred-geometry.svg#${product.id}`
                     : '/products/flower-essence.svg')
                 }
@@ -147,7 +151,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               </p>
             </motion.div>
 
-            {product.type === 'Flower Essence' && (
+            {product.type === PRODUCT_TYPE_FLOWER_ESSENCE && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -161,7 +165,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                   </label>
                   <Select onValueChange={setSelectedBase} value={selectedBase}>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder={t('select_option')} />
+                      <SelectValue placeholder={t(TRANSLATION_SELECT_OPTION)} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="brandy">{t('base.brandy')}</SelectItem>
@@ -182,7 +186,8 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                 className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
                 size="lg"
                 disabled={
-                  (product.type === 'Flower Essence' && !selectedBase) ||
+                  (product.type === PRODUCT_TYPE_FLOWER_ESSENCE &&
+                    !selectedBase) ||
                   isAdding
                 }
               >
