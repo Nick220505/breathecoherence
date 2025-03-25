@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
+/* eslint-disable sonarjs/table-header */
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
