@@ -7,7 +7,6 @@ import { revalidateTag } from "next/cache";
 import { productSchema } from "./schema";
 import { productService } from "./service";
 import { unstable_cache } from "next/cache";
-import { notFound } from "next/navigation";
 
 export const getAllProducts = unstable_cache(
   productService.getAll,
@@ -16,16 +15,7 @@ export const getAllProducts = unstable_cache(
 );
 
 export const getProductById = unstable_cache(
-  async (id: string) => {
-    try {
-      return await productService.getById(id);
-    } catch (error) {
-      if (error instanceof Error && error.message === "Product not found") {
-        notFound();
-      }
-      throw error;
-    }
-  },
+  productService.getById,
   ["product"],
   { revalidate: 3600, tags: ["products", "product"] },
 );
