@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { productFormAction } from "@/features/products/actions";
+import { createProduct, updateProduct } from "@/features/products/controller";
 import { ProductFormData, productSchema } from "@/features/products/schema";
 import { useToast } from "@/hooks/use-toast";
 import { useProductStore } from "@/lib/stores/use-product-store";
@@ -38,7 +38,10 @@ export function ProductForm({
   const { toast } = useToast();
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
-  const [state, formAction] = useActionState(productFormAction, initialState);
+
+  // Use the appropriate action based on whether we're editing or creating
+  const actionToUse = initialData?.id ? updateProduct : createProduct;
+  const [state, formAction] = useActionState(actionToUse, initialState);
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 

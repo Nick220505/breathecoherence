@@ -1,5 +1,5 @@
-import { productCache } from "@/features/products/cache";
 import { ProductDetails } from "./components/ProductDetails";
+import { getProductById } from "@/features/products/controller";
 
 export default async function ProductPage({
   params,
@@ -7,6 +7,6 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const id = (await params).id;
-  const product = await productCache.getById(id);
+  const product = await getProductById(id);
   return <ProductDetails product={product} />;
 }
