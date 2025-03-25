@@ -13,8 +13,13 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 
 const eslintConfig: Linter.Config[] = [
   ...compat.config({
-    extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
-    plugins: ['@typescript-eslint', 'import', 'react-hooks'],
+    extends: [
+      'next/core-web-vitals',
+      'next/typescript',
+      'prettier',
+      'plugin:prettier/recommended',
+    ],
+    plugins: ['@typescript-eslint', 'import', 'react-hooks', 'prettier'],
     settings: {
       'import/resolver': {
         typescript: {
@@ -53,6 +58,7 @@ const eslintConfig: Linter.Config[] = [
       'import/no-duplicates': 'error',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      'prettier/prettier': 'error',
     },
   }),
 ];
