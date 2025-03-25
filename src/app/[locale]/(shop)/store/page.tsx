@@ -1,8 +1,8 @@
-import { productCache } from "@/features/products/cache";
 import { Product } from "@prisma/client";
 import { Suspense } from "react";
 import { StoreContent } from "./components/store-content";
 import { StoreHeader } from "./components/store-header";
+import { getAllProducts } from "@/features/products/controller";
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -15,7 +15,7 @@ export default async function Page(props: {
   // Handle both English and Spanish category parameters
   const category = searchParams?.category || searchParams?.categoria || "";
   const type = searchParams?.type || "";
-  const products = await productCache.getAll();
+  const products = await getAllProducts();
 
   const filteredProducts = products.filter((product: Product) => {
     if (category && product.type !== category) return false;
