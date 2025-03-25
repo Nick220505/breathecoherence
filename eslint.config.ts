@@ -35,16 +35,6 @@ const eslintConfig: Linter.Config[] = [
       ecmaVersion: 2022,
       sourceType: 'module',
     },
-    settings: {
-      'import/resolver': {
-        typescript: {
-          alwaysTryTypes: true,
-        },
-      },
-      'import/parsers': {
-        '@typescript-eslint/parser': ['.ts', '.tsx'],
-      },
-    },
     rules: {
       'import/order': [
         'error',
