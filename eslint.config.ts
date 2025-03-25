@@ -64,7 +64,7 @@ const eslintConfig: Linter.Config[] = [
       'import/no-duplicates': 'error',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      'prettier/prettier': 'error',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
       'sonarjs/cognitive-complexity': ['error', 15],
       'sonarjs/no-identical-functions': 'warn',
       'sonarjs/no-duplicate-string': ['warn', { threshold: 3 }],
