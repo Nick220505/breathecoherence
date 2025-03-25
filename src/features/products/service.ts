@@ -4,7 +4,7 @@ import { ProductFormData } from "./schema";
 
 export const productService = {
   async getAll(): Promise<Product[]> {
-    return await productRepository.getAll();
+    return productRepository.getAll();
   },
 
   async getById(id: string): Promise<Product> {
