@@ -48,7 +48,7 @@ export function ProductTableContent({ products }: ProductTableContentProps) {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedProducts = sortedProducts.slice(
     startIndex,
-    startIndex + ITEMS_PER_PAGE
+    startIndex + ITEMS_PER_PAGE,
   );
 
   return (

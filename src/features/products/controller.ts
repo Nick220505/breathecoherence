@@ -12,7 +12,7 @@ import { notFound } from "next/navigation";
 export const getAllProducts = unstable_cache(
   productService.getAll,
   ["products"],
-  { revalidate: 3600, tags: ["products"] }
+  { revalidate: 3600, tags: ["products"] },
 );
 
 export const getProductById = unstable_cache(
@@ -27,12 +27,12 @@ export const getProductById = unstable_cache(
     }
   },
   ["product"],
-  { revalidate: 3600, tags: ["products", "product"] }
+  { revalidate: 3600, tags: ["products", "product"] },
 );
 
 export async function createProduct(
   _prevState: FormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<FormState<Product>> {
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = productSchema.safeParse(rawData);
@@ -67,7 +67,7 @@ export async function createProduct(
 
 export async function updateProduct(
   _prevState: FormState,
-  formData: FormData
+  formData: FormData,
 ): Promise<FormState<Product>> {
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = productSchema.safeParse(rawData);
