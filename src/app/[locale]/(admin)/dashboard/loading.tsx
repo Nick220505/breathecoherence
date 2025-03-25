@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
-import { TableSkeleton } from "./components/table/table-skeleton";
+import { TableSkeleton } from "./components/product-table/table-skeleton";
 
 export default async function Loading() {
   const t = await getTranslations("AdminDashboard");
