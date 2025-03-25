@@ -2,6 +2,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import { FlatCompat } from '@eslint/eslintrc';
+import sonarjs from 'eslint-plugin-sonarjs';
 
 import type { Linter } from 'eslint';
 import '@typescript-eslint/eslint-plugin';
@@ -12,6 +13,7 @@ const __dirname = dirname(__filename);
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
 const eslintConfig: Linter.Config[] = [
+  sonarjs.configs.recommended,
   ...compat.config({
     extends: [
       'next/core-web-vitals',
@@ -19,13 +21,7 @@ const eslintConfig: Linter.Config[] = [
       'prettier',
       'plugin:prettier/recommended',
     ],
-    plugins: [
-      '@typescript-eslint',
-      'import',
-      'react-hooks',
-      'prettier',
-      'sonarjs',
-    ],
+    plugins: ['@typescript-eslint', 'import', 'react-hooks', 'prettier'],
     settings: {
       'import/resolver': {
         typescript: {
@@ -65,15 +61,6 @@ const eslintConfig: Linter.Config[] = [
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
-      'sonarjs/cognitive-complexity': ['error', 15],
-      'sonarjs/no-identical-functions': 'warn',
-      'sonarjs/no-duplicate-string': ['warn', { threshold: 3 }],
-      'sonarjs/no-empty-collection': 'error',
-      'sonarjs/no-redundant-boolean': 'error',
-      'sonarjs/no-use-of-empty-return-value': 'error',
-      'sonarjs/no-inverted-boolean-check': 'warn',
-      'sonarjs/no-nested-template-literals': 'warn',
-      'sonarjs/prefer-immediate-return': 'warn',
     },
   }),
 ];

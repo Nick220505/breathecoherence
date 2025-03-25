@@ -19,10 +19,9 @@ export default async function Page(props: {
   const type = searchParams?.type || '';
   const products = await getAllProducts();
 
-  const filteredProducts = products.filter((product: Product) => {
-    if (category && product.type !== category) return false;
-    return true;
-  });
+  const filteredProducts = products.filter(
+    (product: Product) => !category || product.type === category,
+  );
 
   return (
     <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">

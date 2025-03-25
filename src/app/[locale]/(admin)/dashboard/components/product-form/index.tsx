@@ -41,7 +41,6 @@ export function ProductForm({
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
 
-  // Use the appropriate action based on whether we're editing or creating
   const actionToUse = initialData?.id ? updateProduct : createProduct;
   const [state, formAction] = useActionState(actionToUse, initialState);
   const [isPending, startTransition] = useTransition();
@@ -128,10 +127,8 @@ export function ProductForm({
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             {initialData?.name ? t('editing') : t('adding')}
           </>
-        ) : initialData?.name ? (
-          t('edit')
         ) : (
-          t('add')
+          <>{initialData?.name ? t('edit') : t('add')}</>
         )}
       </Button>
     </form>
