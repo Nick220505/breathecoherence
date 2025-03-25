@@ -5,10 +5,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-02-24.acacia',
 });
 
+interface PaymentRequest {
+  amount: number;
+}
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { amount } = body;
+    const { amount } = (await req.json()) as PaymentRequest;
 
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({

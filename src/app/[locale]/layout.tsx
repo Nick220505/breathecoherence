@@ -22,10 +22,10 @@ export function generateStaticParams() {
 export default async function LocaleLayout({
   children,
   params,
-}: {
+}: Readonly<{
   children: React.ReactNode;
   params: Promise<{ locale: 'en' | 'es' }>;
-}) {
+}>) {
   const locale = (await params).locale;
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale)) {

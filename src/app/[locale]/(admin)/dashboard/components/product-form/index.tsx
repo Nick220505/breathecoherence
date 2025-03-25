@@ -35,7 +35,7 @@ export function ProductForm({
     stock: 0,
     imageUrl: '',
   },
-}: ProductFormProps) {
+}: Readonly<ProductFormProps>) {
   const t = useTranslations('ProductForm');
   const { toast } = useToast();
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
@@ -77,10 +77,10 @@ export function ProductForm({
     setEditingProduct,
   ]);
 
-  const onSubmit = async (data: ProductFormData) => {
+  const onSubmit = (data: ProductFormData) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
+      if (value != null) {
         formData.append(key, value.toString());
       }
     });
@@ -92,7 +92,7 @@ export function ProductForm({
   return (
     <form
       action={formAction}
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
       className="space-y-6"
     >
       {initialData.id && <Input type="hidden" {...form.register('id')} />}
@@ -100,7 +100,7 @@ export function ProductForm({
       <FormFields form={form} />
 
       <ImageUpload
-        initialImageUrl={form.getValues('imageUrl') || undefined}
+        initialImageUrl={form.getValues('imageUrl') ?? undefined}
         productType={form.getValues('type')}
         onImageUrlChange={(url) => form.setValue('imageUrl', url)}
       />

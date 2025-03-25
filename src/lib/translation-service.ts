@@ -6,7 +6,7 @@ interface TranslationResponse {
 
 export async function translateText(
   text: string,
-  targetLanguage: string = 'es',
+  targetLanguage = 'es',
 ): Promise<string> {
   try {
     if (!process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY) {
@@ -41,7 +41,7 @@ export async function translateText(
 
 export async function translateProduct(
   product: Product,
-  targetLanguage: string = 'es',
+  targetLanguage = 'es',
 ): Promise<Product> {
   if (!product) return product;
 
@@ -68,7 +68,7 @@ export async function translateProduct(
 
 export async function translateProducts(
   products: Product[],
-  targetLanguage: string = 'es',
+  targetLanguage = 'es',
 ): Promise<Product[]> {
   return Promise.all(
     products.map((product) => translateProduct(product, targetLanguage)),

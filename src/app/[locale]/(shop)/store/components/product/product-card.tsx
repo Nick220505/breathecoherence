@@ -20,7 +20,7 @@ interface ProductCardProps {
   index: number;
 }
 
-export function ProductCard({ product, index }: ProductCardProps) {
+export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
   const t = useTranslations('ProductCard');
 
   return (

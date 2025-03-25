@@ -16,7 +16,6 @@ import {
 } from '@/components/ui/select';
 import { Link } from '@/i18n/routing';
 
-// List of all available flower essences
 const FLOWER_ESSENCES = [
   'Agrimony',
   'Aspen',
@@ -81,13 +80,13 @@ export default function CustomBlendPage() {
     return selectedCount === 2;
   };
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = () => {
     setIsAdding(true);
     try {
       const selectedEssencesList = selectedEssences.filter(
         (essence) => essence,
       );
-      await addToCart({
+      addToCart({
         id: 'custom-blend',
         name: t('cart.name', { essences: selectedEssencesList.join(', ') }),
         description: t('cart.description', {

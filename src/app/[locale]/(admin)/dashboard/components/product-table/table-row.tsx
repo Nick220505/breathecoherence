@@ -20,13 +20,13 @@ interface ProductTableRowProps {
   product: Product;
 }
 
-export function ProductTableRow({ product }: ProductTableRowProps) {
+export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   const t = useTranslations('ProductTableRow');
   const { setEditDialogOpen, setEditingProduct } = useProductStore();
   const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
   const imageUrl =
-    product.imageUrl ||
+    product.imageUrl ??
     (product.type === 'Sacred Geometry'
       ? `/products/sacred-geometry.svg#${product.id}`
       : '/products/flower-essence.svg');

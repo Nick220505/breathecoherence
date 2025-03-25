@@ -28,7 +28,7 @@ interface FormFieldsProps {
   form: UseFormReturn<ProductFormData>;
 }
 
-export function FormFields({ form }: FormFieldsProps) {
+export function FormFields({ form }: Readonly<FormFieldsProps>) {
   const t = useTranslations('FormFields');
   const {
     register,

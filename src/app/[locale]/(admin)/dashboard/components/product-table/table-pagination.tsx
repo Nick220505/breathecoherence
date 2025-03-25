@@ -18,7 +18,9 @@ interface TablePaginationProps {
   totalItems: number;
 }
 
-export function TablePagination({ totalItems }: TablePaginationProps) {
+export function TablePagination({
+  totalItems,
+}: Readonly<TablePaginationProps>) {
   const t = useTranslations('TablePagination');
   const { currentPage, setCurrentPage } = useTableStore();
 

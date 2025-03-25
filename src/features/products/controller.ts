@@ -8,9 +8,9 @@ import { FormState } from '@/lib/types/form';
 import { productSchema } from './schema';
 import { productService } from './service';
 
-export const getAllProducts = productService.getAll;
+export const getAllProducts = async () => productService.getAll();
 
-export const getProductById = productService.getById;
+export const getProductById = async (id: string) => productService.getById(id);
 
 export async function createProduct(
   _prevState: FormState,

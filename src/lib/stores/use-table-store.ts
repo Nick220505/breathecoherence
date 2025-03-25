@@ -1,10 +1,10 @@
 import { Product } from '@prisma/client';
 import { create } from 'zustand';
 
-export type SortConfig = {
+export interface SortConfig {
   key: keyof Product | null;
   direction: 'asc' | 'desc';
-};
+}
 
 interface TableStore {
   // Pagination

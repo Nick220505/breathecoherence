@@ -65,10 +65,10 @@ export default function RegisterPage() {
     }
   }, [state.success, router, form]);
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = (data: RegisterFormData) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
+      if (value != null) {
         formData.append(key, value.toString());
       }
     });
@@ -118,7 +118,7 @@ export default function RegisterPage() {
           <CardContent>
             <form
               action={formAction}
-              onSubmit={form.handleSubmit(onSubmit)}
+              onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
               className="space-y-6"
             >
               <motion.div variants={fadeInUp} className="space-y-2">

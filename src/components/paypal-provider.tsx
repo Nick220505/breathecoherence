@@ -10,7 +10,11 @@ const paypalScriptOptions = {
   components: 'buttons',
 };
 
-export function PayPalProvider({ children }: { children: React.ReactNode }) {
+export function PayPalProvider({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <PayPalScriptProvider options={paypalScriptOptions}>
       {children}
