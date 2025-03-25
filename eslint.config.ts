@@ -30,6 +30,12 @@ const eslintConfig: Linter.Config[] = [
     plugins: ['@typescript-eslint', 'import', 'react-hooks', 'prettier'],
     parser: '@typescript-eslint/parser',
     parserOptions: { project: './tsconfig.json', tsconfigRootDir: __dirname },
+    settings: {
+      'import/resolver': {
+        typescript: { alwaysTryTypes: true, project: './tsconfig.json' },
+      },
+      'import/parsers': { '@typescript-eslint/parser': ['.ts', '.tsx'] },
+    },
     rules: {
       'import/order': [
         'error',
