@@ -25,11 +25,15 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   const { setEditDialogOpen, setEditingProduct } = useProductStore();
   const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
-  const imageUrl =
-    product.imageUrl ??
-    (product.type === 'Sacred Geometry'
-      ? `/products/sacred-geometry.svg#${product.id}`
-      : '/products/flower-essence.svg');
+  let imageUrl = '/products/flower-essence.svg';
+
+  if (product.type === 'Sacred Geometry') {
+    imageUrl = `/products/sacred-geometry.svg#${product.id}`;
+  }
+
+  if (product.imageUrl && product.imageUrl.trim() !== '') {
+    imageUrl = product.imageUrl;
+  }
 
   const handleEdit = () => {
     setEditingProduct(productSchema.parse(product));
