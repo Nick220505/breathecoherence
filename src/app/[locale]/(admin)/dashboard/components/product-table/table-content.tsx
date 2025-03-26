@@ -3,6 +3,7 @@
 import { Product } from '@prisma/client';
 
 import { TableBody } from '@/components/ui/table';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { useTableStore } from '@/lib/stores/use-table-store';
 
 import { ProductTableRow } from './table-row';
@@ -56,10 +57,12 @@ export function ProductTableContent({
   );
 
   return (
-    <TableBody>
-      {paginatedProducts.map((product) => (
-        <ProductTableRow key={product.id} product={product} />
-      ))}
-    </TableBody>
+    <TooltipProvider>
+      <TableBody>
+        {paginatedProducts.map((product) => (
+          <ProductTableRow key={product.id} product={product} />
+        ))}
+      </TableBody>
+    </TooltipProvider>
   );
 }

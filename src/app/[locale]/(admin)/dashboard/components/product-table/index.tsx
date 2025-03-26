@@ -1,5 +1,4 @@
 import { Table } from '@/components/ui/table';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { getAllProducts } from '@/features/products/controller';
 
 import { DeleteProductDialog } from '../delete-product-dialog';
@@ -14,16 +13,14 @@ export async function ProductTable() {
 
   return (
     <>
-      <TooltipProvider>
-        <div className="space-y-4">
-          <Table>
-            <ProductTableHeader />
-            <ProductTableContent products={products} />
-          </Table>
+      <div className="space-y-4">
+        <Table>
+          <ProductTableHeader />
+          <ProductTableContent products={products} />
+        </Table>
 
-          <TablePagination totalItems={products.length} />
-        </div>
-      </TooltipProvider>
+        <TablePagination totalItems={products.length} />
+      </div>
 
       <EditProductDialog />
       <DeleteProductDialog />
