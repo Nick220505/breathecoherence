@@ -11,6 +11,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { useTableStore } from '@/lib/stores/use-table-store';
+import { cn } from '@/lib/utils';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -35,7 +36,7 @@ export function TablePagination({
           <PaginationPrevious
             onClick={() => setCurrentPage(currentPage - 1)}
             aria-disabled={currentPage <= 1}
-            className={currentPage <= 1 ? 'pointer-events-none opacity-50' : ''}
+            className={cn(currentPage <= 1 && 'pointer-events-none opacity-50')}
           >
             {t('previous')}
           </PaginationPrevious>
@@ -58,9 +59,9 @@ export function TablePagination({
           <PaginationNext
             onClick={() => setCurrentPage(currentPage + 1)}
             aria-disabled={currentPage >= totalPages}
-            className={
-              currentPage >= totalPages ? 'pointer-events-none opacity-50' : ''
-            }
+            className={cn(
+              currentPage >= totalPages && 'pointer-events-none opacity-50',
+            )}
           >
             {t('next')}
           </PaginationNext>
