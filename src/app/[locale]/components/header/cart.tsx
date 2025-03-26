@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { useCart } from '@/app/[locale]/providers/cart-provider';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
@@ -17,6 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { useCart } from '@/providers/cart-provider';
 
 const cartItemVariants = {
   initial: { opacity: 0, x: 20, scale: 0.95 },

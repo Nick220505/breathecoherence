@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useCart } from '@/app/[locale]/providers/cart-provider';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -29,6 +28,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { Link } from '@/i18n/routing';
+import { useCart } from '@/providers/cart-provider';
 
 import { StripePaymentForm } from './components/stripe-payment-form';
 

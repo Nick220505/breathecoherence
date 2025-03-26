@@ -11,14 +11,9 @@ import { ThemeProvider } from './theme-provider';
 interface ProvidersProps {
   readonly children: ReactNode;
   readonly messages: Record<string, unknown>;
-  readonly locale: string;
 }
 
-export function Providers({
-  children,
-  messages,
-  locale,
-}: Readonly<ProvidersProps>) {
+export function Providers({ children, messages }: Readonly<ProvidersProps>) {
   return (
     <SessionProvider>
       <ThemeProvider
@@ -27,7 +22,7 @@ export function Providers({
         enableSystem
         disableTransitionOnChange
       >
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider messages={messages}>
           <CartProvider>
             <PayPalProvider>{children}</PayPalProvider>
           </CartProvider>
