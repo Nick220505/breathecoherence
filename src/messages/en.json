@@ -35,40 +35,49 @@
     }
   },
   "RegisterPage": {
-    "title": "Register",
-    "description": "Create a new account to start shopping",
+    "title": "Create Account",
+    "description": "Join our community",
     "name": "Full Name",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "submit": "Create Account",
     "haveAccount": "Already have an account?",
-    "login": "Login here",
+    "login": "Sign in",
     "creating": "Creating account...",
     "placeholder": {
       "name": "Enter your full name",
       "email": "Enter your email address",
       "password": "Enter your password",
       "confirmPassword": "Enter your password again"
-    }
+    },
+    "error": {
+      "generic": "Registration failed. Please try again."
+    },
+    "errorOccurred": "Registration Error",
+    "tryAgainLater": "Please try again later",
+    "tryAgain": "Try again"
   },
   "LoginPage": {
-    "title": "Welcome Back",
-    "description": "Enter your credentials to access your account",
+    "title": "Sign In",
+    "description": "Access your account",
     "email": "Email",
     "password": "Password",
-    "submit": "Login",
-    "loading": "Logging in...",
+    "submit": "Sign In",
+    "loading": "Signing in...",
     "noAccount": "Don't have an account?",
-    "register": "Register here",
+    "register": "Create account",
     "error": {
       "invalid": "Invalid email or password",
-      "generic": "An error occurred during login"
+      "generic": "Sign in failed. Please try again."
     },
     "placeholder": {
       "email": "Enter your email address",
       "password": "Enter your password"
-    }
+    },
+    "errorOccurred": "Sign In Error",
+    "tryAgainLater": "Please try again later",
+    "tryAgain": "Try again"
   },
   "VerificationForm": {
     "title": "Verify your email",
@@ -88,8 +97,8 @@
       "sacred_geometry": "Sacred Geometry",
       "flower_essences": "Flower Essences",
       "dashboard": "Dashboard",
-      "login": "Login",
-      "register": "Register",
+      "login": "Sign In",
+      "register": "Create Account",
       "signout": "Sign Out"
     },
     "store": {

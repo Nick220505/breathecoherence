@@ -50,12 +50,10 @@ export default function LoginError({
 
             <div className="text-center">
               <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
-                {t('errorOccurred') || 'An error occurred'}
+                {t('signInError')}
               </h3>
               <p className="mb-4 text-gray-600 dark:text-gray-400">
-                {error.message ||
-                  t('tryAgainLater') ||
-                  'Please try again later'}
+                {error.message || t('tryAgainLater')}
               </p>
             </div>
 
@@ -64,7 +62,7 @@ export default function LoginError({
               className="flex transform items-center gap-2 bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
             >
               <RefreshCw className="h-4 w-4" />
-              {t('tryAgain') || 'Try again'}
+              {t('tryAgain')}
             </Button>
           </div>
         </motion.div>
