@@ -1,18 +1,14 @@
-import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
+'use client';
 
-import {
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+
 import { Link } from '@/i18n/routing';
 
-import LoginForm from './components/login-form';
-
-export default async function LoginPage() {
-  const t = await getTranslations('LoginPage');
+export default function RegisterLoading() {
+  const t = useTranslations('RegisterPage');
 
   return (
     <div className="from-background via-background/80 to-background flex min-h-screen items-center justify-center bg-linear-to-b px-4">
@@ -36,18 +32,21 @@ export default async function LoginPage() {
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-purple-500/10 bg-white/10 shadow-xl backdrop-blur-lg dark:bg-gray-950/50">
-          <CardHeader className="space-y-2 pb-6">
-            <CardTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-purple-400 dark:to-blue-400">
-              {t('title')}
-            </CardTitle>
-            <CardDescription className="text-center text-gray-600 dark:text-gray-400">
-              {t('description')}
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent>
-            <LoginForm />
-          </CardContent>
+          <div className="flex flex-col items-center justify-center space-y-6 p-8">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            >
+              <Loader2 className="h-12 w-12 text-purple-600 dark:text-purple-400" />
+            </motion.div>
+            <p className="text-center text-gray-600 dark:text-gray-400">
+              {t('loading')}...
+            </p>
+          </div>
         </div>
       </div>
     </div>
