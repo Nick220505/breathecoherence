@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-// Constants for validation messages
 const EMAIL_VALIDATION_MESSAGE = 'Please enter a valid email address';
 
 export const loginSchema = z.object({
