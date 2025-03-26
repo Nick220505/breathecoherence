@@ -1,6 +1,7 @@
 'use server';
 
 import { Product } from '@prisma/client';
+import { revalidateTag, unstable_cache } from 'next/cache';
 
 import { ActionState } from '@/lib/types/action';
 import { FormState } from '@/lib/types/form';
@@ -8,9 +9,17 @@ import { FormState } from '@/lib/types/form';
 import { productSchema } from './schema';
 import { productService } from './service';
 
-export const getAllProducts = async () => productService.getAll();
+export const getAllProducts = unstable_cache(
+  async () => productService.getAll(),
+  ['products'],
+  { revalidate: 3600, tags: ['products'] },
+);
 
-export const getProductById = async (id: string) => productService.getById(id);
+export const getProductById = unstable_cache(
+  async (id: string) => productService.getById(id),
+  ['product'],
+  { revalidate: 3600, tags: ['products', 'product'] },
+);
 
 export async function createProduct(
   _prevState: FormState,
@@ -29,6 +38,7 @@ export async function createProduct(
 
   try {
     const createdProduct = await productService.create(data);
+    revalidateTag('products');
 
     return {
       errors: {},
@@ -73,6 +83,8 @@ export async function updateProduct(
     }
 
     const updatedProduct = await productService.update(id, productData);
+    revalidateTag('products');
+    revalidateTag('product');
 
     return {
       errors: {},
@@ -93,6 +105,8 @@ export async function updateProduct(
 export async function deleteProduct(id: string): Promise<ActionState<Product>> {
   try {
     const data = await productService.delete(id);
+    revalidateTag('products');
+    revalidateTag('product');
     return { success: true, message: 'Product deleted successfully', data };
   } catch (error) {
     return {
