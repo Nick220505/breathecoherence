@@ -24,16 +24,11 @@ export default async function LocaleLayout({
   params: Promise<{ locale: 'en' | 'es' }>;
 }>) {
   const locale = (await params).locale;
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale)) {
-    notFound();
-  }
 
-  // Enable static rendering
+  if (!routing.locales.includes(locale)) notFound();
+
   setRequestLocale(locale);
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
@@ -41,43 +36,6 @@ export default async function LocaleLayout({
       <body className={inter.className}>
         <Providers messages={messages} locale={locale}>
           <div className="bg-background text-foreground relative flex min-h-screen flex-col">
-            {/* Geometric Background Pattern */}
-            <div className="fixed inset-0 -z-10 opacity-10 dark:opacity-20">
-              <div className="animate-blob absolute top-0 left-0 h-96 w-96 rounded-full bg-purple-500/30 mix-blend-multiply blur-3xl filter" />
-              <div className="animate-blob animation-delay-2000 absolute top-0 right-0 h-96 w-96 rounded-full bg-yellow-500/30 mix-blend-multiply blur-3xl filter" />
-              <div className="animate-blob animation-delay-4000 absolute bottom-0 left-0 h-96 w-96 rounded-full bg-pink-500/30 mix-blend-multiply blur-3xl filter" />
-              <div className="animate-blob animation-delay-6000 absolute right-0 bottom-0 h-96 w-96 rounded-full bg-blue-500/30 mix-blend-multiply blur-3xl filter" />
-            </div>
-
-            {/* Sacred Geometry Line Pattern */}
-            <div className="fixed inset-0 -z-10 opacity-10 dark:opacity-5">
-              <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern
-                    id="grid"
-                    width="50"
-                    height="50"
-                    patternUnits="userSpaceOnUse"
-                  >
-                    <path
-                      d="M 50 0 L 0 0 0 50"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="0.5"
-                    />
-                    <circle
-                      cx="0"
-                      cy="0"
-                      r="2"
-                      fill="currentColor"
-                      opacity="0.3"
-                    />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-              </svg>
-            </div>
-
             <Header />
             <main className="flex-1 pt-16">{children}</main>
             <Footer />
