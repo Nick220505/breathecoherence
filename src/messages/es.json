@@ -35,40 +35,49 @@
     }
   },
   "RegisterPage": {
-    "title": "Registrarse",
-    "description": "Crea una nueva cuenta para empezar a comprar",
+    "title": "Crear Cuenta",
+    "description": "Únete a nuestra comunidad",
     "name": "Nombre Completo",
     "email": "Correo Electrónico",
     "password": "Contraseña",
     "confirmPassword": "Confirmar Contraseña",
     "submit": "Crear Cuenta",
     "haveAccount": "¿Ya tienes una cuenta?",
-    "login": "Inicia sesión aquí",
+    "login": "Iniciar sesión",
     "creating": "Creando cuenta...",
     "placeholder": {
       "name": "Ingresa tu nombre completo",
       "email": "Ingresa tu correo electrónico",
       "password": "Ingresa tu contraseña",
       "confirmPassword": "Ingresa tu contraseña nuevamente"
-    }
+    },
+    "error": {
+      "generic": "Registro fallido. Inténtalo de nuevo."
+    },
+    "errorOccurred": "Error de Registro",
+    "tryAgainLater": "Por favor intenta más tarde",
+    "tryAgain": "Intentar de nuevo"
   },
   "LoginPage": {
-    "title": "Bienvenido de Nuevo",
-    "description": "Ingresa tus credenciales para acceder a tu cuenta",
+    "title": "Iniciar Sesión",
+    "description": "Accede a tu cuenta",
     "email": "Correo Electrónico",
     "password": "Contraseña",
     "submit": "Iniciar Sesión",
     "loading": "Iniciando sesión...",
     "noAccount": "¿No tienes una cuenta?",
-    "register": "Regístrate aquí",
+    "register": "Crear cuenta",
     "error": {
       "invalid": "Correo electrónico o contraseña inválidos",
-      "generic": "Ocurrió un error durante el inicio de sesión"
+      "generic": "Error al iniciar sesión. Inténtalo de nuevo."
     },
     "placeholder": {
       "email": "Ingresa tu correo electrónico",
       "password": "Ingresa tu contraseña"
-    }
+    },
+    "errorOccurred": "Error de Inicio de Sesión",
+    "tryAgainLater": "Por favor intenta más tarde",
+    "tryAgain": "Intentar de nuevo"
   },
   "VerificationForm": {
     "title": "Verifica tu correo electrónico",
@@ -89,7 +98,7 @@
       "flower_essences": "Esencias Florales",
       "dashboard": "Panel de Control",
       "login": "Iniciar Sesión",
-      "register": "Registrarse",
+      "register": "Crear Cuenta",
       "signout": "Cerrar Sesión"
     },
     "store": {
