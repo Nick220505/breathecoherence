@@ -1,17 +1,10 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 import { Link } from '@/i18n/routing';
 
 export function Logo() {
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="relative"
-    >
+    <div className="relative">
       <Link href="/" className="flex items-center">
         <Image
           src="/images/BC-logo-180x60.png"
@@ -22,6 +15,6 @@ export function Logo() {
           priority
         />
       </Link>
-    </motion.div>
+    </div>
   );
 }
