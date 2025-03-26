@@ -1,13 +1,10 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { Suspense } from 'react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getAllProducts } from '@/features/products/controller';
 
 import { AddProductButton } from './components/add-product-button';
 import { ProductTable } from './components/product-table';
-import { TableSkeleton } from './components/product-table/table-skeleton';
 
 export const metadata: Metadata = {
   title: 'Admin Dashboard | Geometry Store',
@@ -18,7 +15,6 @@ export const revalidate = 3600;
 
 export default async function AdminDashboard() {
   const t = await getTranslations('AdminDashboard');
-  const products = await getAllProducts();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -28,9 +24,7 @@ export default async function AdminDashboard() {
           <AddProductButton />
         </CardHeader>
         <CardContent>
-          <Suspense fallback={<TableSkeleton />}>
-            <ProductTable products={products} />
-          </Suspense>
+          <ProductTable />
         </CardContent>
       </Card>
     </div>

@@ -1,7 +1,8 @@
-import { Product } from '@prisma/client';
+import { Suspense } from 'react';
 
 import { Table } from '@/components/ui/table';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { getAllProducts } from '@/features/products/controller';
 
 import { DeleteProductDialog } from '../delete-product-dialog';
 import { EditProductDialog } from '../edit-product-dialog';
@@ -9,22 +10,23 @@ import { EditProductDialog } from '../edit-product-dialog';
 import { ProductTableContent } from './table-content';
 import { ProductTableHeader } from './table-header';
 import { TablePagination } from './table-pagination';
+import { TableSkeleton } from './table-skeleton';
 
-interface ProductTableProps {
-  products: Product[];
-}
+export async function ProductTable() {
+  const products = await getAllProducts();
 
-export function ProductTable({ products }: Readonly<ProductTableProps>) {
   return (
     <>
       <TooltipProvider>
         <div className="space-y-4">
-          <Table>
-            <ProductTableHeader />
-            <ProductTableContent products={products} />
-          </Table>
+          <Suspense fallback={<TableSkeleton />}>
+            <Table>
+              <ProductTableHeader />
+              <ProductTableContent products={products} />
+            </Table>
 
-          <TablePagination totalItems={products.length} />
+            <TablePagination totalItems={products.length} />
+          </Suspense>
         </div>
       </TooltipProvider>
 
