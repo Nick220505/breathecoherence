@@ -15,9 +15,9 @@ const navVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-export function Navigation() {
+export function Header() {
   return (
-    <motion.nav
+    <motion.header
       initial="hidden"
       animate="visible"
       variants={navVariants}
@@ -43,6 +43,6 @@ export function Navigation() {
           <MobileMenu navigationItems={<NavigationItems />} />
         </div>
       </div>
-    </motion.nav>
+    </motion.header>
   );
 }

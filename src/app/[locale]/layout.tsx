@@ -12,7 +12,7 @@ import { routing } from '@/i18n/routing';
 
 import { ChatBot } from './components/chat-bot';
 import { Footer } from './components/footer';
-import { Navigation } from './components/navigation';
+import { Header } from './components/header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -94,7 +94,7 @@ export default async function LocaleLayout({
                       </svg>
                     </div>
 
-                    <Navigation />
+                    <Header />
                     <main className="flex-1 pt-16">{children}</main>
                     <Footer />
                   </div>
