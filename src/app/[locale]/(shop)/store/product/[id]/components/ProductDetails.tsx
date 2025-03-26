@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { useCart } from '@/components/cart-provider';
+import { useCart } from '@/app/[locale]/components/cart-provider';
 import { Button } from '@/components/ui/button';
 import {
   Select,

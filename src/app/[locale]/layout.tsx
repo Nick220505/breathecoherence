@@ -4,15 +4,15 @@ import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 
-import { CartProvider } from '@/components/cart-provider';
-import { PayPalProvider } from '@/components/paypal-provider';
-import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { routing } from '@/i18n/routing';
 
+import { CartProvider } from './components/cart-provider';
 import { ChatBot } from './components/chat-bot';
 import { Footer } from './components/footer';
 import { Header } from './components/header';
+import { PayPalProvider } from './components/paypal-provider';
+import { ThemeProvider } from './components/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
