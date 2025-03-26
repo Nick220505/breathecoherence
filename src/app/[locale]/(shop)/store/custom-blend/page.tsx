@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { useCart } from '@/app/[locale]/providers/cart-provider';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -15,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Link } from '@/i18n/routing';
+import { useCart } from '@/providers/cart-provider';
 
 const FLOWER_ESSENCES = [
   'Agrimony',
