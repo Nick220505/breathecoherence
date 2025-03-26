@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useCart } from '@/components/cart-provider';
+import { useCart } from '@/app/[locale]/components/cart-provider';
 import { StripePaymentForm } from '@/components/stripe-payment-form';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
