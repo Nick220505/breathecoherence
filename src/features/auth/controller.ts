@@ -16,7 +16,7 @@ const REGISTRATION_ACTION = 'registration';
 const VERIFICATION_ACTION = 'verification';
 const LOGIN_ACTION = 'login';
 
-export async function registerAction(
+export async function register(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Pick<User, 'id' | 'name' | 'email' | 'role'>>> {
@@ -55,7 +55,7 @@ export async function registerAction(
   }
 }
 
-export async function verifyAction(
+export async function verify(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<User>> {
@@ -94,7 +94,7 @@ export async function verifyAction(
   }
 }
 
-export async function loginAction(
+export async function login(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Pick<User, 'id' | 'name' | 'email' | 'role'>>> {

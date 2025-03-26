@@ -18,7 +18,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { loginAction } from '@/features/auth/actions';
+import { login } from '@/features/auth/controller';
 import { LoginFormData, loginSchema } from '@/features/auth/schema';
 import { Link } from '@/i18n/routing';
 import { FormState } from '@/lib/types/form';
@@ -45,7 +45,7 @@ const staggerContainer = {
 export default function LoginPage() {
   const t = useTranslations('LoginPage');
   const router = useRouter();
-  const [state, formAction] = useActionState(loginAction, initialState);
+  const [state, formAction] = useActionState(login, initialState);
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<LoginFormData>({
