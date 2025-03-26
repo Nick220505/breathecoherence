@@ -1,16 +1,7 @@
 'use client';
 
+import { Product } from '@prisma/client';
 import React, { createContext, useContext, useState } from 'react';
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  type: string;
-  stock: number;
-  imageUrl?: string | null;
-}
 
 interface CartItem extends Product {
   quantity: number;
@@ -79,7 +70,6 @@ export function CartProvider({
     return cart.reduce((total, item) => total + (item.quantity || 0), 0);
   };
 
-  // Format total as string with 2 decimal places, ensure it's never NaN
   const total = (getTotalPrice() || 0).toFixed(2);
 
   return (
@@ -103,8 +93,6 @@ export function CartProvider({
 
 export function useCart() {
   const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
+  if (!context) throw new Error('useCart must be used within a CartProvider');
   return context;
 }
