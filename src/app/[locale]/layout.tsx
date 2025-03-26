@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 import { Toaster } from '@/components/ui/toaster';
 import { routing } from '@/i18n/routing';
@@ -29,12 +29,10 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  const messages = await getMessages();
-
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers messages={messages}>
+        <Providers>
           <div className="bg-background text-foreground relative flex min-h-screen flex-col">
             <Header />
             <main className="flex-1 pt-16">{children}</main>

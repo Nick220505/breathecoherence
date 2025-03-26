@@ -1,5 +1,6 @@
 import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
 
 import { CartProvider } from './cart-provider';
@@ -8,10 +9,11 @@ import { ThemeProvider } from './theme-provider';
 
 interface ProvidersProps {
   readonly children: ReactNode;
-  readonly messages: Record<string, unknown>;
 }
 
-export function Providers({ children, messages }: Readonly<ProvidersProps>) {
+export async function Providers({ children }: Readonly<ProvidersProps>) {
+  const messages = await getMessages();
+
   return (
     <SessionProvider>
       <ThemeProvider
