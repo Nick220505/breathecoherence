@@ -7,7 +7,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { CartProvider } from '@/components/cart-provider';
 import { ChatBot } from '@/components/chat-bot';
 import { Footer } from '@/components/footer';
-import { Navigation } from '@/components/navigation';
+import { Navigation } from '@/components/navigation/index';
 import { PayPalProvider } from '@/components/paypal-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
