@@ -10,7 +10,7 @@ export function NavigationItems() {
   const locale = useLocale();
 
   return (
-    <div className="flex space-x-4">
+    <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
       <div>
         <Link
           href={{
@@ -19,10 +19,11 @@ export function NavigationItems() {
               [locale === 'es' ? 'categoria' : 'category']: 'Sacred Geometry',
             },
           }}
+          className="w-full"
         >
           <Button
             variant="ghost"
-            className="hover:bg-primary/10 flex items-center gap-2 transition-colors duration-300"
+            className="hover:bg-primary/10 flex w-full items-center justify-start gap-2 transition-colors duration-300 md:w-auto"
           >
             <span className="text-xl">⬡</span>
             {t('nav.sacred_geometry')}
@@ -38,10 +39,11 @@ export function NavigationItems() {
               [locale === 'es' ? 'categoria' : 'category']: 'Flower Essence',
             },
           }}
+          className="w-full"
         >
           <Button
             variant="ghost"
-            className="hover:bg-primary/10 flex items-center gap-2 transition-colors duration-300"
+            className="hover:bg-primary/10 flex w-full items-center justify-start gap-2 transition-colors duration-300 md:w-auto"
           >
             <span className="text-xl">🌸</span>
             {t('nav.flower_essences')}

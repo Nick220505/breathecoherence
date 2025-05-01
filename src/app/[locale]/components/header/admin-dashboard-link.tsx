@@ -13,10 +13,10 @@ export async function AdminDashboardLink() {
 
   return (
     <div>
-      <Link href="/dashboard">
+      <Link href="/dashboard" className="w-full">
         <Button
           variant="ghost"
-          className="hover:bg-primary/10 transition-colors duration-300"
+          className="hover:bg-primary/10 w-full justify-start transition-colors duration-300 md:w-auto"
         >
           {t('nav.dashboard')}
         </Button>

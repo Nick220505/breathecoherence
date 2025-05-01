@@ -42,7 +42,7 @@ export function MobileMenu({ navigationItems }: Readonly<MobileMenuProps>) {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="bg-background/95 w-[300px] backdrop-blur-lg sm:w-[400px]"
+        className="bg-background/95 fixed h-full w-full max-w-[300px] overflow-y-auto pb-20 backdrop-blur-lg sm:max-w-[400px]"
       >
         <SheetHeader>
           <SheetTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">
