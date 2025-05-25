@@ -1,7 +1,6 @@
-import prisma from '@/lib/prisma';
-import { Product } from '@/prisma/generated';
+import { Prisma, Product } from '@prisma/client';
 
-import { ProductFormData } from './schema';
+import prisma from '@/lib/prisma';
 
 export const productRepository = {
   getAll(): Promise<Product[]> {
@@ -12,11 +11,11 @@ export const productRepository = {
     return prisma.product.findUnique({ where: { id } });
   },
 
-  create(data: ProductFormData): Promise<Product> {
+  create(data: Prisma.ProductCreateInput): Promise<Product> {
     return prisma.product.create({ data });
   },
 
-  update(id: string, data: ProductFormData): Promise<Product> {
+  update(id: string, data: Prisma.ProductUpdateInput): Promise<Product> {
     return prisma.product.update({ where: { id }, data });
   },
 

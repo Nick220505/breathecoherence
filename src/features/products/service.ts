@@ -1,7 +1,6 @@
-import { Product } from '@prisma/client';
+import { Prisma, Product } from '@prisma/client';
 
 import { productRepository } from './repository';
-import { ProductFormData } from './schema';
 
 export const productService = {
   getAll(): Promise<Product[]> {
@@ -12,11 +11,11 @@ export const productService = {
     return productRepository.getById(id);
   },
 
-  create(data: ProductFormData): Promise<Product> {
+  create(data: Prisma.ProductCreateInput): Promise<Product> {
     return productRepository.create(data);
   },
 
-  update(id: string, data: ProductFormData): Promise<Product> {
+  update(id: string, data: Prisma.ProductUpdateInput): Promise<Product> {
     return productRepository.update(id, data);
   },
 

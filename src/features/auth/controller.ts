@@ -1,12 +1,12 @@
 'use server';
 
+import { User } from '@prisma/client';
+
 import { type FormState } from '@/lib/types/form';
 
 import { AuthError } from './errors';
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
-
-import type { User } from '@prisma/client';
 
 // Constants for error messages
 const ERROR_VALIDATION_MESSAGE =
