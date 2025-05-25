@@ -1,16 +1,15 @@
-import { PrismaClient } from '@prisma/client';
 import { hash } from 'bcryptjs';
+
+import { PrismaClient } from '../app/generated/prisma';
 
 const prisma = new PrismaClient();
 
-// Constants for products
 const SACRED_GEOMETRY_TYPE = 'Sacred Geometry';
 const FLOWER_ESSENCE_TYPE = 'Flower Essence';
 const SACRED_GEOMETRY_PRICE = 29.99;
 const FLOWER_ESSENCE_PRICE = 19.99;
 
 async function main() {
-  // Create admin user
   const adminPassword = await hash('admin123', 12);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@example.com' },
@@ -23,7 +22,6 @@ async function main() {
     },
   });
 
-  // Create regular user
   const userPassword = await hash('user123', 12);
   const user = await prisma.user.upsert({
     where: { email: 'user@example.com' },
@@ -34,7 +32,7 @@ async function main() {
       password: userPassword,
       role: 'USER',
     },
-  }); // Create initial products - Platonic Solids
+  });
 
   const platonicSolids = await Promise.all([
     prisma.product.upsert({

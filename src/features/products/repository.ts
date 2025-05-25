@@ -1,6 +1,6 @@
-import { Product } from '@prisma/client';
-
 import prisma from '@/lib/prisma';
+
+import { Product } from '../../app/generated/prisma';
 
 import { ProductFormData } from './schema';
 
