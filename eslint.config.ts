@@ -14,9 +14,6 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 
 const eslintConfig: Linter.Config[] = [
   sonarjs.configs.recommended,
-  {
-    ignores: ['src/prisma/generated/**'],
-  },
   ...compat.config({
     extends: [
       'next/core-web-vitals',
