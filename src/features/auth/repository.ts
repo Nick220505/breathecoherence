@@ -1,5 +1,6 @@
+import { User } from '@prisma/client';
+
 import prisma from '@/lib/prisma';
-import { User } from '@/prisma/generated';
 
 export const authRepository = {
   findByEmail(email: string): Promise<User | null> {
