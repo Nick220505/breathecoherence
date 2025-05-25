@@ -1,19 +1,20 @@
+import { User } from '@prisma/client';
+
 import prisma from '@/lib/prisma';
-import { User } from '@/prisma/generated';
 
 export const authRepository = {
-  async findByEmail(email: string): Promise<User | null> {
-    return await prisma.user.findUnique({ where: { email } });
+  findByEmail(email: string): Promise<User | null> {
+    return prisma.user.findUnique({ where: { email } });
   },
 
-  async create(data: {
+  create(data: {
     name: string;
     email: string;
     password: string;
     verifyToken: string;
     verifyTokenExpiry: Date;
   }): Promise<Pick<User, 'id' | 'name' | 'email' | 'role'>> {
-    return await prisma.user.create({
+    return prisma.user.create({
       data: {
         ...data,
         emailVerified: false,
@@ -27,20 +28,18 @@ export const authRepository = {
     });
   },
 
-  async findByVerification(email: string, code: string): Promise<User | null> {
-    return await prisma.user.findUnique({
+  findByVerification(email: string, code: string): Promise<User | null> {
+    return prisma.user.findUnique({
       where: {
         email,
         verifyToken: code,
-        verifyTokenExpiry: {
-          gt: new Date(),
-        },
+        verifyTokenExpiry: { gt: new Date() },
       },
     });
   },
 
-  async updateVerification(id: string): Promise<User> {
-    return await prisma.user.update({
+  updateVerification(id: string): Promise<User> {
+    return prisma.user.update({
       where: { id },
       data: {
         emailVerified: true,
