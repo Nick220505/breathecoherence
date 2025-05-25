@@ -41,8 +41,10 @@ export function ProductForm({
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
 
-  const actionToUse = initialData?.id ? updateProduct : createProduct;
-  const [state, formAction] = useActionState(actionToUse, initialState);
+  const [state, formAction] = useActionState(
+    initialData?.id ? updateProduct : createProduct,
+    initialState,
+  );
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
