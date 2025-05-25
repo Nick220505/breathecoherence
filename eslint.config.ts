@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import sonarjs from 'eslint-plugin-sonarjs';
 
-import type { Linter } from 'eslint';
 import '@typescript-eslint/eslint-plugin';
+import type { Linter } from 'eslint';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,6 +14,9 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 
 const eslintConfig: Linter.Config[] = [
   sonarjs.configs.recommended,
+  {
+    ignores: ['src/prisma/generated/**'],
+  },
   ...compat.config({
     extends: [
       'next/core-web-vitals',

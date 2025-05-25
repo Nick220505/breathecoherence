@@ -17,6 +17,18 @@ declare module 'next-auth' {
   }
 
   interface User {
+    id: string;
+    email: string;
+    name: string;
+    role: UserRole;
+  }
+}
+
+declare module 'next-auth' {
+  interface DefaultJWT {
+    id: string;
+    email: string | null;
+    name: string | null;
     role: UserRole;
   }
 }
@@ -84,8 +96,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.email = token.email!;
-        session.user.name = token.name!;
+        session.user.email = token.email ?? '';
+        session.user.name = token.name ?? '';
         session.user.role = token.role as UserRole;
       }
       return session;
