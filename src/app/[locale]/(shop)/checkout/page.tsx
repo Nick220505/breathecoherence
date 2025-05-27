@@ -62,9 +62,6 @@ const checkoutSchema = z.object({
     .regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code (e.g., 12345 or 12345-6789)'),
   // Additional Information
   orderNotes: z.string().optional(),
-  acceptedTerms: z.boolean().refine((val) => val === true, {
-    message: 'You must accept the terms and conditions',
-  }),
 });
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
@@ -151,9 +148,7 @@ export default function CheckoutPage() {
     watch,
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
-    defaultValues: {
-      acceptedTerms: false,
-    },
+    defaultValues: {},
   });
 
   // Calculate totals
@@ -534,22 +529,6 @@ export default function CheckoutPage() {
                     <span>${finalTotal.toFixed(2)}</span>
                   </div>
                 </div>
-
-                <div className="mt-6 flex items-center space-x-2">
-                  <Checkbox
-                    id="terms"
-                    {...register('acceptedTerms')}
-                    className={errors.acceptedTerms ? ERROR_BORDER_CLASS : ''}
-                  />
-                  <Label htmlFor="terms" className="text-sm">
-                    {t('terms')}
-                  </Label>
-                </div>
-                {errors.acceptedTerms && (
-                  <p className={ERROR_TEXT_CLASS}>
-                    {errors.acceptedTerms.message}
-                  </p>
-                )}
               </div>
             </Card>
           </div>
