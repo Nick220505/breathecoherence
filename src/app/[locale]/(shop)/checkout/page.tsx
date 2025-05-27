@@ -48,20 +48,11 @@ const checkoutSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters'),
   lastName: z.string().min(2, 'Last name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
-  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number'),
+  phone: z.string().regex(/^(\d{10}|(\d{3}-){2}\d{4}|\(\d{3}\) \d{3}-\d{4})$/, 'Invalid US phone number (e.g., 1234567890, 123-456-7890, or (123) 456-7890)'),
   address: z.string().min(5, 'Address must be at least 5 characters'),
   city: z.string().min(2, 'City must be at least 2 characters'),
   state: z.string().min(2, 'State must be at least 2 characters'),
-  country: z.string().min(2, 'Please select a country'),
-  postalCode: z.string().min(3, 'Postal code must be at least 3 characters'),
-  // Shipping Information (optional based on differentShippingAddress)
-  shippingFirstName: z.string().optional(),
-  shippingLastName: z.string().optional(),
-  shippingAddress: z.string().optional(),
-  shippingCity: z.string().optional(),
-  shippingState: z.string().optional(),
-  shippingCountry: z.string().optional(),
-  shippingPostalCode: z.string().optional(),
+  postalCode: z.string().regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code (e.g., 12345 or 12345-6789)'),
   // Additional Information
   orderNotes: z.string().optional(),
   acceptedTerms: z.boolean().refine((val) => val === true, {
@@ -120,7 +111,7 @@ function PayPalPaymentButton({
                     address_line_1: formData.address,
                     admin_area_2: formData.city,
                     postal_code: formData.postalCode,
-                    country_code: formData.country,
+                    country_code: 'US',
                   },
                 }
               : undefined,
@@ -143,8 +134,6 @@ export default function CheckoutPage() {
   const t = useTranslations('CheckoutPage');
   const { total, cart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState('card');
-  const [differentShippingAddress, setDifferentShippingAddress] =
-    useState(false);
   const [clientSecret, setClientSecret] = useState<string>();
 
   const {
@@ -291,7 +280,7 @@ export default function CheckoutPage() {
                       type="tel"
                       {...register('phone')}
                       className={errors.phone ? ERROR_BORDER_CLASS : ''}
-                      placeholder={t('placeholder.phone')}
+                      placeholder={t('placeholder.phone_us')}
                     />
                     {errors.phone && (
                       <p className={ERROR_TEXT_CLASS}>{errors.phone.message}</p>
@@ -315,29 +304,6 @@ export default function CheckoutPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="country">{t('country')}</Label>
-                      <Select
-                        onValueChange={(value) => setValue('country', value)}
-                      >
-                        <SelectTrigger
-                          className={errors.country ? ERROR_BORDER_CLASS : ''}
-                        >
-                          <SelectValue placeholder={t('placeholder.country')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="CO">
-                            {t('countries.colombia')}
-                          </SelectItem>
-                          {/* Add more countries as needed */}
-                        </SelectContent>
-                      </Select>
-                      {errors.country && (
-                        <p className={ERROR_TEXT_CLASS}>
-                          {errors.country.message}
-                        </p>
-                      )}
-                    </div>
-                    <div>
                       <Label htmlFor="state">{t('state')}</Label>
                       <Select
                         onValueChange={(value) => setValue('state', value)}
@@ -348,10 +314,56 @@ export default function CheckoutPage() {
                           <SelectValue placeholder={t('placeholder.state')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="BOG">
-                            {t('states.bogota')}
-                          </SelectItem>
-                          {/* Add more states as needed */}
+                          <SelectItem value="AL">Alabama</SelectItem>
+                          <SelectItem value="AK">Alaska</SelectItem>
+                          <SelectItem value="AZ">Arizona</SelectItem>
+                          <SelectItem value="AR">Arkansas</SelectItem>
+                          <SelectItem value="CA">California</SelectItem>
+                          <SelectItem value="CO">Colorado</SelectItem>
+                          <SelectItem value="CT">Connecticut</SelectItem>
+                          <SelectItem value="DE">Delaware</SelectItem>
+                          <SelectItem value="FL">Florida</SelectItem>
+                          <SelectItem value="GA">Georgia</SelectItem>
+                          <SelectItem value="HI">Hawaii</SelectItem>
+                          <SelectItem value="ID">Idaho</SelectItem>
+                          <SelectItem value="IL">Illinois</SelectItem>
+                          <SelectItem value="IN">Indiana</SelectItem>
+                          <SelectItem value="IA">Iowa</SelectItem>
+                          <SelectItem value="KS">Kansas</SelectItem>
+                          <SelectItem value="KY">Kentucky</SelectItem>
+                          <SelectItem value="LA">Louisiana</SelectItem>
+                          <SelectItem value="ME">Maine</SelectItem>
+                          <SelectItem value="MD">Maryland</SelectItem>
+                          <SelectItem value="MA">Massachusetts</SelectItem>
+                          <SelectItem value="MI">Michigan</SelectItem>
+                          <SelectItem value="MN">Minnesota</SelectItem>
+                          <SelectItem value="MS">Mississippi</SelectItem>
+                          <SelectItem value="MO">Missouri</SelectItem>
+                          <SelectItem value="MT">Montana</SelectItem>
+                          <SelectItem value="NE">Nebraska</SelectItem>
+                          <SelectItem value="NV">Nevada</SelectItem>
+                          <SelectItem value="NH">New Hampshire</SelectItem>
+                          <SelectItem value="NJ">New Jersey</SelectItem>
+                          <SelectItem value="NM">New Mexico</SelectItem>
+                          <SelectItem value="NY">New York</SelectItem>
+                          <SelectItem value="NC">North Carolina</SelectItem>
+                          <SelectItem value="ND">North Dakota</SelectItem>
+                          <SelectItem value="OH">Ohio</SelectItem>
+                          <SelectItem value="OK">Oklahoma</SelectItem>
+                          <SelectItem value="OR">Oregon</SelectItem>
+                          <SelectItem value="PA">Pennsylvania</SelectItem>
+                          <SelectItem value="RI">Rhode Island</SelectItem>
+                          <SelectItem value="SC">South Carolina</SelectItem>
+                          <SelectItem value="SD">South Dakota</SelectItem>
+                          <SelectItem value="TN">Tennessee</SelectItem>
+                          <SelectItem value="TX">Texas</SelectItem>
+                          <SelectItem value="UT">Utah</SelectItem>
+                          <SelectItem value="VT">Vermont</SelectItem>
+                          <SelectItem value="VA">Virginia</SelectItem>
+                          <SelectItem value="WA">Washington</SelectItem>
+                          <SelectItem value="WV">West Virginia</SelectItem>
+                          <SelectItem value="WI">Wisconsin</SelectItem>
+                          <SelectItem value="WY">Wyoming</SelectItem>
                         </SelectContent>
                       </Select>
                       {errors.state && (
@@ -378,12 +390,12 @@ export default function CheckoutPage() {
                       )}
                     </div>
                     <div>
-                      <Label htmlFor="postalCode">{t('postal_code')}</Label>
+                      <Label htmlFor="postalCode">{t('zip_code')}</Label>
                       <Input
                         id="postalCode"
                         {...register('postalCode')}
                         className={errors.postalCode ? ERROR_BORDER_CLASS : ''}
-                        placeholder={t('placeholder.postal_code')}
+                        placeholder={t('placeholder.zip_code')}
                       />
                       {errors.postalCode && (
                         <p className={ERROR_TEXT_CLASS}>
@@ -392,37 +404,6 @@ export default function CheckoutPage() {
                       )}
                     </div>
                   </div>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="differentShipping"
-                      checked={differentShippingAddress}
-                      onCheckedChange={(checked) =>
-                        setDifferentShippingAddress(checked as boolean)
-                      }
-                    />
-                    <Label htmlFor="differentShipping">
-                      {t('different_shipping')}
-                    </Label>
-                  </div>
-
-                  {differentShippingAddress && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="space-y-4"
-                    >
-                      <h2 className="text-xl font-semibold">
-                        {t('shipping_info')}
-                      </h2>
-                      {/* Add shipping address fields with their own validation */}
-                    </motion.div>
-                  )}
                 </div>
 
                 <Separator />
@@ -438,6 +419,14 @@ export default function CheckoutPage() {
                 </div>
               </form>
             </Card>
+
+            {/* 
+              The shipping address section is dynamically rendered when `differentShippingAddress` is true.
+              It currently does not have its own explicit "Country" field, as it seems to rely on the main
+              billing address schema or was intended to be added. Since the previous step removed 
+              `shippingCountry` from the Zod schema, there's no corresponding JSX to remove here for 
+              a shipping-specific country field. If it were present, a similar removal diff block would be added.
+            */}
 
             <Card className="bg-card/50 p-6 shadow-lg backdrop-blur-lg">
               <h2 className="mb-4 text-xl font-semibold">

@@ -309,8 +309,6 @@
     "continue_shopping": "Continue Shopping",
     "loading_paypal": "Loading PayPal...",
     "billing_info": "Billing Information",
-    "shipping_info": "Shipping Information",
-    "different_shipping": "Ship to a different address?",
     "order_notes": "Order Notes",
     "payment_method": "Payment Method",
     "card_payment": "Credit/Debit Card",
@@ -325,27 +323,24 @@
     "email": "Email *",
     "phone": "Phone *",
     "address": "Address *",
-    "country": "Country *",
-    "state": "State/Department *",
+    "state": "State *",
     "city": "City *",
-    "postal_code": "Postal Code *",
+    "zip_code": "ZIP Code *",
     "placeholder": {
       "first_name": "Enter your first name",
       "last_name": "Enter your last name",
       "email": "Enter your email address",
       "phone": "Enter your phone number",
-      "address": "Enter your address",
-      "country": "Select your country",
+      "phone_us": "(555) 123-4567",
+      "address": "Enter your street address",
       "state": "Select your state",
       "city": "Enter your city",
-      "postal_code": "Enter your postal code",
+      "zip_code": "Enter ZIP code",
       "order_notes": "Notes about your order, e.g. special notes for delivery"
     },
     "countries": {
-      "colombia": "Colombia"
     },
     "states": {
-      "bogota": "Bogotá"
     }
   },
   "StripePaymentForm": {
