@@ -59,10 +59,7 @@ const checkoutSchema = z.object({
   state: z.string().min(2, 'State must be at least 2 characters'),
   postalCode: z
     .string()
-    .regex(
-      /^\d{5}(-\d{4})?$/,
-      'Invalid ZIP code (e.g., 12345 or 12345-6789)',
-    ),
+    .regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code (e.g., 12345 or 12345-6789)'),
   // Additional Information
   orderNotes: z.string().optional(),
   acceptedTerms: z.boolean().refine((val) => val === true, {
