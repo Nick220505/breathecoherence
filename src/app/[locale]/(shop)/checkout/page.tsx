@@ -281,20 +281,6 @@ export default function CheckoutPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="phone">{t('phone')}</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      {...register('phone')}
-                      className={errors.phone ? ERROR_BORDER_CLASS : ''}
-                      placeholder={t('placeholder.phone_us')}
-                    />
-                    {errors.phone && (
-                      <p className={ERROR_TEXT_CLASS}>{errors.phone.message}</p>
-                    )}
-                  </div>
-
-                  <div>
                     <Label htmlFor="address">{t('address')}</Label>
                     <Input
                       id="address"
@@ -309,7 +295,20 @@ export default function CheckoutPage() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="phone">{t('phone')}</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        {...register('phone')}
+                        className={errors.phone ? ERROR_BORDER_CLASS : ''}
+                        placeholder={t('placeholder.phone_us')}
+                      />
+                      {errors.phone && (
+                        <p className={ERROR_TEXT_CLASS}>{errors.phone.message}</p>
+                      )}
+                    </div>
                     <div>
                       <Label htmlFor="state">{t('state')}</Label>
                       <Select
@@ -381,7 +380,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <Label htmlFor="city">{t('city')}</Label>
                       <Input
