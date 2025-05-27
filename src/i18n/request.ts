@@ -1,27 +1,16 @@
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import { getRequestConfig } from 'next-intl/server';
 
 import { routing } from './routing';
 
-interface MessagesModule {
-  default: Record<string, string>;
-}
-
-export default getRequestConfig(async ({ requestLocale }) => {
-  // This typically corresponds to the `[locale]` segment
-  let locale = await requestLocale;
-
-  // Ensure that a valid locale is used
-  if (!locale || !routing.locales.includes(locale as 'en' | 'es')) {
-    locale = routing.defaultLocale;
-  }
-
-  // Import and type the messages module
-  const messagesModule = (await import(
-    `../messages/${locale}.json`
-  )) as MessagesModule;
-
+export default getRequestConfig(async ({ locale }) => {
   return {
-    locale,
-    messages: messagesModule.default,
+    messages: (await import(`../messages/${locale}.json`)).default,
+    timeZone: 'UTC',
   };
+});
+
+export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation({
+  locales: routing.locales,
+  localePrefix: 'always',
 });
