@@ -306,7 +306,9 @@ export default function CheckoutPage() {
                         placeholder={t('placeholder.phone_us')}
                       />
                       {errors.phone && (
-                        <p className={ERROR_TEXT_CLASS}>{errors.phone.message}</p>
+                        <p className={ERROR_TEXT_CLASS}>
+                          {errors.phone.message}
+                        </p>
                       )}
                     </div>
                     <div>
