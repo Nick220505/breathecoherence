@@ -7,7 +7,7 @@ import { AddProductButton } from './components/add-product-button';
 import { ProductTable } from './components/product-table';
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard | Geometry Store',
+  title: 'Admin Dashboard',
   description: 'Manage your products and inventory',
 };
 
