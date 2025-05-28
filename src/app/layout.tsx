@@ -1,4 +1,7 @@
-import { Metadata } from 'next';
+import React from 'react';
+
+import type { Metadata } from 'next';
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -9,3 +12,11 @@ export const metadata: Metadata = {
   description:
     'Discover our collection of sacred geometry objects and healing flower essences.',
 };
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <>{children}</>;
+}
