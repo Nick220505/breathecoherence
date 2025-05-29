@@ -34,7 +34,7 @@ export function ProductForm({
     type: ProductType.FLOWER_ESSENCE,
     price: 0,
     stock: 0,
-    imageUrl: '',
+    imageBase64: '',
   },
 }: Readonly<ProductFormProps>) {
   const t = useTranslations('ProductForm');
@@ -103,9 +103,9 @@ export function ProductForm({
       <FormFields form={form} />
 
       <ImageUpload
-        initialImageUrl={form.getValues('imageUrl') ?? undefined}
+        initialImage={form.getValues('imageBase64') ?? undefined}
         productType={form.getValues('type')}
-        onImageUrlChange={(url) => form.setValue('imageUrl', url)}
+        onImageChange={(base64) => form.setValue('imageBase64', base64)}
       />
 
       {!state.success &&

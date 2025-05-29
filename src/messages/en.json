@@ -235,7 +235,8 @@
     "label": "Product Image",
     "placeholder": {
       "choose_file": "Choose File",
-      "no_file": "No file chosen"
+      "no_file": "No file chosen",
+      "file_chosen": "File chosen"
     },
     "alt": {
       "product": "Product",
@@ -337,10 +338,8 @@
       "zip_code": "Enter ZIP code",
       "order_notes": "Notes about your order, e.g. special notes for delivery"
     },
-    "countries": {
-    },
-    "states": {
-    }
+    "countries": {},
+    "states": {}
   },
   "StripePaymentForm": {
     "pay_now": "Pay Now",

@@ -8,8 +8,10 @@ export const productSchema = z.object({
   type: z.nativeEnum(ProductType),
   price: z.coerce.number().min(0, 'Price must be a positive number'),
   stock: z.coerce.number().int().min(0, 'Stock must be a positive integer'),
-  imageUrl: z.union([
-    z.string().url('Image URL must be a valid URL'),
+  imageBase64: z.union([
+    z
+      .string()
+      .startsWith('data:image/', { message: 'Image must be a valid data URL' }),
     z.string().max(0),
     z.null(),
     z.undefined(),

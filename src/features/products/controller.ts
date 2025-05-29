@@ -33,7 +33,11 @@ export async function createProduct(
   }
 
   try {
-    const createdProduct = await productService.create(data);
+    const productDataToCreate = {
+      ...data,
+      imageBase64: data.imageBase64 ?? null,
+    };
+    const createdProduct = await productService.create(productDataToCreate);
     revalidateTag('products');
 
     return {
@@ -67,18 +71,23 @@ export async function updateProduct(
     };
   }
 
+  if (!data.id) {
+    return {
+      errors: {},
+      message: 'Product ID is missing',
+      success: false,
+    };
+  }
+
   try {
-    const { id, ...productData } = data;
-
-    if (!id) {
-      return {
-        errors: {},
-        message: 'Product ID is required for updating',
-        success: false,
-      };
-    }
-
-    const updatedProduct = await productService.update(id, productData);
+    const productDataToUpdate = {
+      ...data,
+      imageBase64: data.imageBase64 ?? null,
+    };
+    const updatedProduct = await productService.update(
+      data.id,
+      productDataToUpdate,
+    );
     revalidateTag('products');
     revalidateTag('product');
 
