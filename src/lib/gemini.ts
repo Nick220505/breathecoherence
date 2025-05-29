@@ -14,7 +14,6 @@ export async function getChatResponse(
   try {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-    // Enhance the system prompt to request structured responses
     const enhancedPrompt = `${systemPrompt}
 
 When recommending products, please use the following JSON structure within your response (all fields are required except imageUrl):
@@ -25,18 +24,14 @@ I recommend the Dodecahedron for spiritual growth [PRODUCT_REC]{"id": "dodecahed
 Or for flower essences:
 I recommend Olive Essence for exhaustion [PRODUCT_REC]{"id": "olive", "name": "Olive Essence", "price": 19.99, "type": "Flower Essence", "description": "For mental and physical exhaustion", "stock": 999, "imageUrl": "/products/flower-essence.svg"}[/PRODUCT_REC]`;
 
-    // Start a new chat
     const chat = model.startChat();
 
-    // Send the enhanced system prompt first
     await chat.sendMessage(enhancedPrompt);
 
-    // Send the chat history
     for (const msg of chatHistory) {
       await chat.sendMessage(msg.content);
     }
 
-    // Send the user's message and get the response
     const { response } = await chat.sendMessage(userMessage);
 
     return response.text();
