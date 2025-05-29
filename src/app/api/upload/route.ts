@@ -1,3 +1,4 @@
+import { ProductType } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
 import cloudinary from '@/lib/cloudinary';
@@ -19,7 +20,9 @@ export async function POST(request: Request) {
     )}`;
 
     const folder =
-      productType === 'Sacred Geometry' ? 'sacred-geometry' : 'flower-essences';
+      productType === ProductType.SACRED_GEOMETRY
+        ? 'sacred-geometry'
+        : 'flower-essences';
     const result = await cloudinary.uploader.upload(base64String, {
       folder: `products/${folder}`,
     });

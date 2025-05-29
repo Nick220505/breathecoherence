@@ -1,5 +1,6 @@
 'use client';
 
+import { ProductType } from '@prisma/client';
 import { Image as ImageIcon, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -82,7 +83,7 @@ export function ImageUpload({
           ) : (
             <Image
               src={
-                productType === 'Sacred Geometry'
+                productType === ProductType.SACRED_GEOMETRY
                   ? '/products/sacred-geometry.svg'
                   : '/products/flower-essence.svg'
               }

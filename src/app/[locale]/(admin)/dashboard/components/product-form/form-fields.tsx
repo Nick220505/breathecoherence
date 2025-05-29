@@ -1,5 +1,6 @@
 'use client';
 
+import { ProductType } from '@prisma/client';
 import {
   AlertCircle,
   Box,
@@ -102,10 +103,10 @@ export function FormFields({ form }: Readonly<FormFieldsProps>) {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>{t('product_types.label')}</SelectLabel>
-              <SelectItem value="Flower Essence">
+              <SelectItem value={ProductType.FLOWER_ESSENCE}>
                 {t('product_types.flower_essence')}
               </SelectItem>
-              <SelectItem value="Sacred Geometry">
+              <SelectItem value={ProductType.SACRED_GEOMETRY}>
                 {t('product_types.sacred_geometry')}
               </SelectItem>
             </SelectGroup>
