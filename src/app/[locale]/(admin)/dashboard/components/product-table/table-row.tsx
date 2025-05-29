@@ -38,12 +38,12 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   }
 
   const handleEdit = () => {
-    const result = productSchema.safeParse(product);
-    if (result.success) {
-      setEditingProduct(result.data);
+    const { success, data } = productSchema.safeParse(product);
+    if (success) {
+      setEditingProduct(data);
       setEditDialogOpen(true);
     } else {
-      console.error('Product validation failed:', result.error);
+      console.error('Product validation failed:', data);
     }
   };
 
