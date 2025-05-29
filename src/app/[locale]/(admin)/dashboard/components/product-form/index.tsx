@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ProductType } from '@prisma/client';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
@@ -30,7 +31,7 @@ export function ProductForm({
   initialData = {
     name: '',
     description: '',
-    type: 'Flower Essence',
+    type: ProductType.FLOWER_ESSENCE,
     price: 0,
     stock: 0,
     imageUrl: '',

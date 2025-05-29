@@ -1,6 +1,6 @@
 'use client';
 
-import { Product } from '@prisma/client';
+import { Product, ProductType } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
@@ -31,8 +31,6 @@ const fadeIn = {
 };
 
 const TRANSLATION_SELECT_OPTION = 'select_option';
-const PRODUCT_TYPE_FLOWER_ESSENCE = 'Flower Essence';
-const PRODUCT_TYPE_SACRED_GEOMETRY = 'Sacred Geometry';
 
 interface ProductDetailsProps {
   product: Product;
@@ -40,6 +38,7 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
   const t = useTranslations('ProductPage');
+  const storeHeaderT = useTranslations('StoreHeader.category');
   const { addToCart } = useCart();
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [isAdding, setIsAdding] = useState(false);
@@ -48,7 +47,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
     setIsAdding(true);
 
     try {
-      if (product.type === PRODUCT_TYPE_FLOWER_ESSENCE && selectedBase) {
+      if (product.type === ProductType.FLOWER_ESSENCE && selectedBase) {
         addToCart({
           ...product,
           name: t('cart.name', { name: product.name, base: selectedBase }),
@@ -93,7 +92,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
               <Image
                 src={
                   product.imageUrl ??
-                  (product.type === PRODUCT_TYPE_SACRED_GEOMETRY
+                  (product.type === ProductType.SACRED_GEOMETRY
                     ? `/products/sacred-geometry.svg#${product.id}`
                     : '/products/flower-essence.svg')
                 }
@@ -120,7 +119,9 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
                 transition={{ delay: 0.2 }}
                 className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium"
               >
-                {product.type}
+                {product.type === ProductType.SACRED_GEOMETRY
+                  ? storeHeaderT('sacred_geometry')
+                  : storeHeaderT('flower_essence')}
               </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -151,7 +152,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
               </p>
             </motion.div>
 
-            {product.type === PRODUCT_TYPE_FLOWER_ESSENCE && (
+            {product.type === ProductType.FLOWER_ESSENCE && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -186,7 +187,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
                 className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
                 size="lg"
                 disabled={
-                  (product.type === PRODUCT_TYPE_FLOWER_ESSENCE &&
+                  (product.type === ProductType.FLOWER_ESSENCE &&
                     !selectedBase) ||
                   isAdding
                 }

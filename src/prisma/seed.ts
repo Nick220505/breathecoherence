@@ -1,10 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, ProductType } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const SACRED_GEOMETRY_TYPE = 'Sacred Geometry';
-const FLOWER_ESSENCE_TYPE = 'Flower Essence';
 const SACRED_GEOMETRY_PRICE = 29.99;
 const FLOWER_ESSENCE_PRICE = 19.99;
 
@@ -43,7 +41,7 @@ async function main() {
         description:
           'Represents transformation, spiritual growth, and personal power. The tetrahedron is associated with the element of Fire.',
         price: SACRED_GEOMETRY_PRICE,
-        type: SACRED_GEOMETRY_TYPE,
+        type: ProductType.SACRED_GEOMETRY,
         stock: 50,
       },
     }),
@@ -56,7 +54,7 @@ async function main() {
         description:
           'Symbolizes stability, grounding, and physical well-being. The cube is associated with the element of Earth.',
         price: SACRED_GEOMETRY_PRICE,
-        type: SACRED_GEOMETRY_TYPE,
+        type: ProductType.SACRED_GEOMETRY,
         stock: 50,
       },
     }),
@@ -69,7 +67,7 @@ async function main() {
         description:
           'Associated with love, forgiveness, and compassion. The octahedron is linked to the element of Air.',
         price: SACRED_GEOMETRY_PRICE,
-        type: SACRED_GEOMETRY_TYPE,
+        type: ProductType.SACRED_GEOMETRY,
         stock: 50,
       },
     }),
@@ -82,7 +80,7 @@ async function main() {
         description:
           'Linked to joy, emotional flow, and fluidity. The icosahedron is connected to the element of Water.',
         price: SACRED_GEOMETRY_PRICE,
-        type: SACRED_GEOMETRY_TYPE,
+        type: ProductType.SACRED_GEOMETRY,
         stock: 50,
       },
     }),
@@ -95,7 +93,7 @@ async function main() {
         description:
           'Represents the universe, wisdom, and spiritual connection. The dodecahedron is associated with the element of Aether/Cosmos.',
         price: SACRED_GEOMETRY_PRICE,
-        type: SACRED_GEOMETRY_TYPE,
+        type: ProductType.SACRED_GEOMETRY,
         stock: 50,
       },
     }),
@@ -110,7 +108,7 @@ async function main() {
         name: 'Aspen Essence',
         description: 'For vague, unexplained fears.',
         price: FLOWER_ESSENCE_PRICE,
-        type: FLOWER_ESSENCE_TYPE,
+        type: ProductType.FLOWER_ESSENCE,
         stock: 100,
       },
     }),
@@ -122,7 +120,7 @@ async function main() {
         name: 'Olive Essence',
         description: 'For exhaustion after mental or physical effort.',
         price: FLOWER_ESSENCE_PRICE,
-        type: FLOWER_ESSENCE_TYPE,
+        type: ProductType.FLOWER_ESSENCE,
         stock: 100,
       },
     }),

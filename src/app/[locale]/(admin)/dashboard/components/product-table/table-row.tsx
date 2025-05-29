@@ -1,6 +1,6 @@
 'use client';
 
-import { Product } from '@prisma/client';
+import { Product, ProductType } from '@prisma/client';
 import { Edit, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -22,12 +22,13 @@ interface ProductTableRowProps {
 
 export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   const t = useTranslations('ProductTableRow');
+  const tableHeaderT = useTranslations('ProductTableHeader');
   const { setEditDialogOpen, setEditingProduct } = useProductStore();
   const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
   let imageUrl = '/products/flower-essence.svg';
 
-  if (product.type === 'Sacred Geometry') {
+  if (product.type === ProductType.SACRED_GEOMETRY) {
     imageUrl = `/products/sacred-geometry.svg#${product.id}`;
   }
 
@@ -36,8 +37,13 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   }
 
   const handleEdit = () => {
-    setEditingProduct(productSchema.parse(product));
-    setEditDialogOpen(true);
+    const result = productSchema.safeParse(product);
+    if (result.success) {
+      setEditingProduct(result.data);
+      setEditDialogOpen(true);
+    } else {
+      console.error('Product validation failed:', result.error);
+    }
   };
 
   const handleDelete = () => {
@@ -59,7 +65,11 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
         />
       </TableCell>
       <TableCell>{product.name}</TableCell>
-      <TableCell>{product.type}</TableCell>
+      <TableCell>
+        {product.type === ProductType.SACRED_GEOMETRY
+          ? tableHeaderT('sacred_geometry')
+          : tableHeaderT('flower_essence')}
+      </TableCell>
       <TableCell>${product.price.toFixed(2)}</TableCell>
       <TableCell>{product.stock}</TableCell>
       <TableCell>

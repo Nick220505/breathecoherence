@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 
 import {
   Table,
@@ -41,6 +42,11 @@ function ImageSkeleton() {
 export function TableSkeleton() {
   const t = useTranslations('TableSkeleton');
 
+  const skeletonItems = useMemo(
+    () => Array.from({ length: 5 }).map(() => ({ id: crypto.randomUUID() })),
+    [],
+  );
+
   return (
     <div className="space-y-4">
       <Table>
@@ -55,8 +61,8 @@ export function TableSkeleton() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <TableRow key={index}>
+          {skeletonItems.map((item) => (
+            <TableRow key={item.id}>
               <ImageSkeleton />
               <SkeletonCell width="w-32" />
               <SkeletonCell width="w-24" />

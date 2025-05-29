@@ -1,7 +1,7 @@
 'use server';
 
 import { Product } from '@prisma/client';
-import { revalidateTag, unstable_cache } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 import { ActionState } from '@/lib/types/action';
 import { FormState } from '@/lib/types/form';
@@ -9,17 +9,13 @@ import { FormState } from '@/lib/types/form';
 import { productSchema } from './schema';
 import { productService } from './service';
 
-export const getAllProducts = unstable_cache(
-  async () => productService.getAll(),
-  ['products'],
-  { revalidate: 3600, tags: ['products'] },
-);
+export async function getAllProducts() {
+  return productService.getAll();
+}
 
-export const getProductById = unstable_cache(
-  async (id: string) => productService.getById(id),
-  ['product'],
-  { revalidate: 3600, tags: ['products', 'product'] },
-);
+export async function getProductById(id: string) {
+  return productService.getById(id);
+}
 
 export async function createProduct(
   _prevState: FormState,

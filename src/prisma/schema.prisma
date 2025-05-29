@@ -14,29 +14,29 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String
-  email         String    @unique
-  password      String
-  role          Role      @default(USER)
-  emailVerified Boolean   @default(false)
-  verifyToken   String?   @unique
+  id                String    @id @default(cuid())
+  name              String
+  email             String    @unique
+  password          String
+  role              Role      @default(USER)
+  emailVerified     Boolean   @default(false)
+  verifyToken       String?   @unique
   verifyTokenExpiry DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  orders        Order[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  orders            Order[]
 }
 
 model Product {
-  id          String    @id @default(cuid())
+  id          String      @id @default(cuid())
   name        String
   description String
   price       Float
-  type        String
+  type        ProductType
   stock       Int
   imageUrl    String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
   orderItems  OrderItem[]
 }
 
@@ -52,11 +52,11 @@ model Order {
 }
 
 model OrderItem {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   orderId   String
-  order     Order    @relation(fields: [orderId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
   productId String
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
   quantity  Int
   price     Float
 }
@@ -64,6 +64,11 @@ model OrderItem {
 enum Role {
   USER
   ADMIN
+}
+
+enum ProductType {
+  SACRED_GEOMETRY
+  FLOWER_ESSENCE
 }
 
 enum OrderStatus {
