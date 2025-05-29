@@ -1,6 +1,6 @@
 'use client';
 
-import { type Product } from '@prisma/client';
+import { ProductType, type Product } from '@prisma/client';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -22,6 +22,18 @@ interface ProductCardProps {
 
 export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
   const t = useTranslations('ProductCard');
+  const tableHeaderT = useTranslations('ProductTableHeader');
+
+  let imageToDisplay: string;
+  const actualImageValue: unknown = product.imageBase64;
+
+  if (typeof actualImageValue === 'string' && actualImageValue.trim() !== '') {
+    imageToDisplay = actualImageValue;
+  } else if (product.type === ProductType.SACRED_GEOMETRY) {
+    imageToDisplay = `/products/sacred-geometry.svg#${product.id}`;
+  } else {
+    imageToDisplay = '/products/flower-essence.svg';
+  }
 
   return (
     <Link
@@ -38,7 +50,7 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
       >
         <CardHeader className="border-b border-purple-500/10 p-6">
           <CardTitle className="flex items-center gap-3 bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-lg text-transparent md:text-xl dark:from-purple-400 dark:to-blue-400">
-            {product.type === 'Sacred Geometry' ? (
+            {product.type === ProductType.SACRED_GEOMETRY ? (
               <span className="rotate-slow inline-block text-2xl text-purple-600 md:text-3xl dark:text-purple-400">
                 ⬡
               </span>
@@ -50,36 +62,22 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
             {product.name}
           </CardTitle>
           <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
-            {product.type}
+            {product.type === ProductType.SACRED_GEOMETRY
+              ? tableHeaderT('sacred_geometry')
+              : tableHeaderT('flower_essence')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4 p-6">
           <div className="relative overflow-hidden rounded-lg transition-shadow duration-300 group-hover:shadow-2xl">
-            {product.imageUrl ? (
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                width={400}
-                height={400}
-                className="aspect-square w-full transform rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
-                priority
-                sizes="(max-width: 768px) 100vw, 400px"
-              />
-            ) : (
-              <Image
-                src={
-                  product.type === 'Sacred Geometry'
-                    ? `/products/sacred-geometry.svg#${product.id}`
-                    : '/products/flower-essence.svg'
-                }
-                alt={product.name}
-                width={400}
-                height={400}
-                className="aspect-square w-full transform rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
-                priority
-                sizes="(max-width: 768px) 100vw, 400px"
-              />
-            )}
+            <Image
+              src={imageToDisplay}
+              alt={product.name}
+              width={400}
+              height={400}
+              className="aspect-square w-full transform rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
+              priority
+              sizes="(max-width: 768px) 100vw, 400px"
+            />
             <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </div>
           <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">

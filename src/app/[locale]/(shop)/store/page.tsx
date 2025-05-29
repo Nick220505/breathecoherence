@@ -1,4 +1,4 @@
-import { Product } from '@prisma/client';
+import { Product, ProductType } from '@prisma/client';
 import { Suspense } from 'react';
 
 import { getAllProducts } from '@/features/products/controller';
@@ -16,20 +16,39 @@ export default async function Page(
   }>,
 ) {
   const searchParams = await props.searchParams;
-  // Handle both English and Spanish category parameters
-  const category = searchParams?.category ?? searchParams?.categoria ?? '';
-  const type = searchParams?.type ?? '';
+  const categoryQueryParam =
+    searchParams?.category ?? searchParams?.categoria ?? '';
   const products = await getAllProducts();
 
+  const getProductTypeFromQuery = (query: string): ProductType | null => {
+    const lowerQuery = query.toLowerCase();
+    if (
+      lowerQuery === 'sacred geometry' ||
+      lowerQuery === 'geometría sagrada'
+    ) {
+      return ProductType.SACRED_GEOMETRY;
+    }
+    if (lowerQuery === 'flower essence' || lowerQuery === 'esencia floral') {
+      return ProductType.FLOWER_ESSENCE;
+    }
+    return null;
+  };
+
+  const targetProductType = getProductTypeFromQuery(categoryQueryParam);
+
   const filteredProducts = products.filter(
-    (product: Product) => !category || product.type === category,
+    (product: Product) =>
+      !targetProductType || product.type === targetProductType,
   );
 
   return (
     <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">
       <div className="container mx-auto px-4 py-12">
         <div className="space-y-12">
-          <StoreHeader category={category} type={type} />
+          <StoreHeader
+            category={categoryQueryParam}
+            type={searchParams?.type ?? ''}
+          />
 
           <Suspense
             fallback={
@@ -38,7 +57,10 @@ export default async function Page(
               </div>
             }
           >
-            <StoreContent products={filteredProducts} category={category} />
+            <StoreContent
+              products={filteredProducts}
+              category={categoryQueryParam}
+            />
           </Suspense>
         </div>
       </div>

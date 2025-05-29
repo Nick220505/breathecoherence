@@ -38,10 +38,21 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
   const t = useTranslations('ProductPage');
-  const storeHeaderT = useTranslations('StoreHeader.category');
+  const storeHeaderCategoryT = useTranslations('StoreHeader.category');
   const { addToCart } = useCart();
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [isAdding, setIsAdding] = useState(false);
+
+  let imageToDisplay: string;
+  const actualImageValue: unknown = product.imageBase64;
+
+  if (typeof actualImageValue === 'string' && actualImageValue.trim() !== '') {
+    imageToDisplay = actualImageValue;
+  } else if (product.type === ProductType.SACRED_GEOMETRY) {
+    imageToDisplay = `/products/sacred-geometry.svg#${product.id}`;
+  } else {
+    imageToDisplay = '/products/flower-essence.svg';
+  }
 
   const handleAddToCart = () => {
     setIsAdding(true);
@@ -90,12 +101,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
           >
             <div className="group relative aspect-square overflow-hidden rounded-2xl">
               <Image
-                src={
-                  product.imageUrl ??
-                  (product.type === ProductType.SACRED_GEOMETRY
-                    ? `/products/sacred-geometry.svg#${product.id}`
-                    : '/products/flower-essence.svg')
-                }
+                src={imageToDisplay}
                 alt={product.name}
                 fill
                 className="transform object-cover transition-transform duration-500 group-hover:scale-105"
@@ -120,8 +126,8 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
                 className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium"
               >
                 {product.type === ProductType.SACRED_GEOMETRY
-                  ? storeHeaderT('sacred_geometry')
-                  : storeHeaderT('flower_essence')}
+                  ? storeHeaderCategoryT('sacred geometry.badge')
+                  : storeHeaderCategoryT('flower essence.badge')}
               </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
