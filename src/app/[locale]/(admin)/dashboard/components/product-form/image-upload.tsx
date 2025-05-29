@@ -11,18 +11,18 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
 interface ImageUploadProps {
-  initialImageUrl?: string;
+  initialImage?: string;
   productType: string;
-  onImageUrlChange: (url: string) => void;
+  onImageChange: (imageData: string) => void;
 }
 
 export function ImageUpload({
-  initialImageUrl,
+  initialImage,
   productType,
-  onImageUrlChange,
+  onImageChange,
 }: Readonly<ImageUploadProps>) {
   const t = useTranslations('ImageUpload');
-  const [imageUrl, setImageUrl] = useState(initialImageUrl ?? '');
+  const [imageData, setImageData] = useState(initialImage ?? '');
   const [uploadingImage, setUploadingImage] = useState(false);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,9 +43,9 @@ export function ImageUpload({
         throw new Error('Failed to upload image');
       }
 
-      const data = (await response.json()) as { url: string };
-      setImageUrl(data.url);
-      onImageUrlChange(data.url);
+      const data = (await response.json()) as { imageBase64: string };
+      setImageData(data.imageBase64);
+      onImageChange(data.imageBase64);
     } catch (error) {
       console.error('Failed to upload image:', error);
     } finally {
@@ -72,9 +72,9 @@ export function ImageUpload({
               <Loader2 className="text-primary h-6 w-6 animate-spin" />
             </div>
           )}
-          {imageUrl ? (
+          {imageData ? (
             <Image
-              src={imageUrl}
+              src={imageData}
               alt={t('alt.product')}
               fill
               className="object-cover"
@@ -121,7 +121,9 @@ export function ImageUpload({
             )}
           </Button>
           <p className="text-muted-foreground mt-1 text-sm">
-            {imageUrl ? imageUrl.split('/').pop() : t('placeholder.no_file')}
+            {imageData
+              ? t('placeholder.file_chosen')
+              : t('placeholder.no_file')}
           </p>
         </div>
       </div>

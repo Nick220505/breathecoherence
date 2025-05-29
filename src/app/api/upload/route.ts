@@ -1,13 +1,9 @@
-import { ProductType } from '@prisma/client';
 import { NextResponse } from 'next/server';
-
-import cloudinary from '@/lib/cloudinary';
 
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    const productType = formData.get('type') as string;
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
@@ -19,15 +15,7 @@ export async function POST(request: Request) {
       'base64',
     )}`;
 
-    const folder =
-      productType === ProductType.SACRED_GEOMETRY
-        ? 'sacred-geometry'
-        : 'flower-essences';
-    const result = await cloudinary.uploader.upload(base64String, {
-      folder: `products/${folder}`,
-    });
-
-    return NextResponse.json({ url: result.secure_url });
+    return NextResponse.json({ imageBase64: base64String });
   } catch (error) {
     console.error('Upload error:', error);
     return NextResponse.json(

@@ -26,14 +26,15 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   const { setEditDialogOpen, setEditingProduct } = useProductStore();
   const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
-  let imageUrl = '/products/flower-essence.svg';
+  let imageToDisplay: string;
+  const actualImageValue: unknown = product.imageBase64;
 
-  if (product.type === ProductType.SACRED_GEOMETRY) {
-    imageUrl = `/products/sacred-geometry.svg#${product.id}`;
-  }
-
-  if (product.imageUrl && product.imageUrl.trim() !== '') {
-    imageUrl = product.imageUrl;
+  if (typeof actualImageValue === 'string' && actualImageValue.trim() !== '') {
+    imageToDisplay = actualImageValue;
+  } else if (product.type === ProductType.SACRED_GEOMETRY) {
+    imageToDisplay = `/products/sacred-geometry.svg#${product.id}`;
+  } else {
+    imageToDisplay = '/products/flower-essence.svg';
   }
 
   const handleEdit = () => {
@@ -55,7 +56,7 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
     <TableRow>
       <TableCell>
         <Image
-          src={imageUrl}
+          src={imageToDisplay}
           alt={product.name}
           width={64}
           height={64}
