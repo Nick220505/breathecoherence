@@ -261,7 +261,7 @@ export function ChatBot() {
                             <div className="flex items-center space-x-2">
                               <Image
                                 src={
-                                  product.imageUrl ??
+                                  product.imageBase64 ??
                                   '/images/default-product.jpg'
                                 }
                                 alt={product.name ?? ''}
