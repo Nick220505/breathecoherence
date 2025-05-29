@@ -53,12 +53,6 @@ export async function translateProduct(
       product.description,
       targetLanguage,
     );
-    if (product.type) {
-      translatedProduct.type = await translateText(
-        product.type,
-        targetLanguage,
-      );
-    }
   } catch (error) {
     console.error('Error translating product:', error);
   }
