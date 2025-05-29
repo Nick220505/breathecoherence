@@ -8,7 +8,6 @@ import { AuthError } from './errors';
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
 
-// Constants for error messages
 const ERROR_VALIDATION_MESSAGE =
   'Please fill in all required fields and ensure they are valid';
 const ERROR_GENERIC_MESSAGE = 'Something went wrong during ';

@@ -21,15 +21,12 @@ export async function POST(request: Request) {
   try {
     const { message, chatHistory } = (await request.json()) as ChatRequest;
 
-    // Get current product data
     const products = await productService.getAll();
 
-    // Create a map of products by ID for quick lookup
     const productMap = new Map(
       products.map((product) => [product.id, product]),
     );
 
-    // Create a dynamic system prompt with current product data
     const systemPrompt = `You are a helpful shopping assistant for a store that sells Sacred Geometry items and Flower Essences. Here are the current products available:
 
 ${products
@@ -55,26 +52,21 @@ When answering questions:
 8. Include stock availability when relevant
 9. For flower essences, mention they can be ordered with either water or brandy base`;
 
-    // Get chat response with current product data
     const response = await getChatResponse(message, chatHistory, systemPrompt);
 
-    // Extract product recommendations and validate them
-    const regex = /\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
+    const regex = /^\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
     let validatedResponse = response;
     let match;
 
     while ((match = regex.exec(response)) !== null) {
       try {
         const recommendation = JSON.parse(match[1]) as ProductRecommendation;
-        // Check if the recommended product exists in our database
         const validProduct = productMap.get(recommendation.id);
         if (!validProduct) {
-          // Remove invalid product recommendation
           validatedResponse = validatedResponse.replace(match[0], '');
         }
       } catch (e) {
         console.error('Error parsing product recommendation:', e);
-        // Remove malformed product recommendation
         validatedResponse = validatedResponse.replace(match[0], '');
       }
     }

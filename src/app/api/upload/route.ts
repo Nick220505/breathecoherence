@@ -12,14 +12,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    // Convert file to base64
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const base64String = `data:${file.type};base64,${buffer.toString(
       'base64',
     )}`;
 
-    // Upload to Cloudinary
     const folder =
       productType === 'Sacred Geometry' ? 'sacred-geometry' : 'flower-essences';
     const result = await cloudinary.uploader.upload(base64String, {

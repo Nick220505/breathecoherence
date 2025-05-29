@@ -7,21 +7,17 @@ export interface SortConfig {
 }
 
 interface TableStore {
-  // Pagination
   currentPage: number;
   setCurrentPage: (page: number) => void;
 
-  // Sorting
   sortConfig: SortConfig;
   setSortConfig: (key: keyof Product) => void;
 
-  // Filtering
   nameFilter: string;
   typeFilter: string;
   setNameFilter: (filter: string) => void;
   setTypeFilter: (filter: string) => void;
 
-  // Delete Dialog
   isDeleteDialogOpen: boolean;
   productToDelete: Product | null;
   isDeleting: boolean;
@@ -32,11 +28,9 @@ interface TableStore {
 }
 
 export const useTableStore = create<TableStore>()((set) => ({
-  // Pagination
   currentPage: 1,
   setCurrentPage: (page) => set({ currentPage: page }),
 
-  // Sorting
   sortConfig: {
     key: null,
     direction: 'asc',
@@ -52,13 +46,11 @@ export const useTableStore = create<TableStore>()((set) => ({
       },
     })),
 
-  // Filtering
   nameFilter: '',
   typeFilter: 'all',
   setNameFilter: (filter) => set({ nameFilter: filter }),
   setTypeFilter: (filter) => set({ typeFilter: filter }),
 
-  // Delete Dialog
   isDeleteDialogOpen: false,
   productToDelete: null,
   isDeleting: false,
