@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { LayoutDashboard, LogOut, User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -18,7 +18,6 @@ import { Link } from '@/i18n/routing';
 export function UserMenu() {
   const t = useTranslations('Navigation');
   const { data: session } = useSession();
-  const isAdmin = session?.user?.role === 'ADMIN';
 
   return (
     <DropdownMenu>
@@ -53,17 +52,6 @@ export function UserMenu() {
                   {session.user.name || session.user.email}
                 </span>
               </DropdownMenuItem>
-              {isAdmin && (
-                <DropdownMenuItem>
-                  <Link
-                    href="/dashboard"
-                    className="flex w-full items-center gap-2"
-                  >
-                    <LayoutDashboard className="h-4 w-4" />
-                    {t('nav.dashboard')}
-                  </Link>
-                </DropdownMenuItem>
-              )}
               <DropdownMenuItem
                 onClick={() => void signOut()}
                 className="flex items-center gap-2 text-red-500 hover:text-red-600 focus:text-red-600"
