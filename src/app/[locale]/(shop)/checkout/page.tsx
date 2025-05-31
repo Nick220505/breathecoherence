@@ -37,55 +37,53 @@ const stripePromise = loadStripe(
 
 const SHIPPING_COST = 13.0;
 
-// Constants for styling
 const ERROR_TEXT_CLASS = 'mt-1 text-sm text-red-500';
 const ERROR_BORDER_CLASS = 'border-red-500';
 
-// Zod validation schema
 const checkoutSchema = z.object({
-  // Billing Information
-  firstName: z.string().min(2, 'First name must be at least 2 characters'),
-  lastName: z.string().min(2, 'Last name must be at least 2 characters'),
+  name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
-  phone: z
-    .string()
-    .regex(
-      /^(\d{10}|(\d{3}-){2}\d{4}|\(\d{3}\) \d{3}-\d{4})$/,
-      'Invalid US phone number (e.g., 1234567890, 123-456-7890, or (123) 456-7890)',
-    ),
   address: z.string().min(5, 'Address must be at least 5 characters'),
   city: z.string().min(2, 'City must be at least 2 characters'),
   state: z.string().min(2, 'State must be at least 2 characters'),
   postalCode: z
     .string()
     .regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code (e.g., 12345 or 12345-6789)'),
-  // Additional Information
   orderNotes: z.string().optional(),
 });
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
-// Create a separate PayPal component
 function PayPalPaymentButton({
   finalTotal,
   watch,
+  isFormValid,
 }: Readonly<{
   finalTotal: number;
   watch: () => CheckoutFormData;
+  isFormValid: boolean;
 }>) {
   const [{ isPending }] = usePayPalScriptReducer();
   const t = useTranslations('CheckoutPage');
 
+  if (!isFormValid) {
+    return (
+      <div className="text-muted-foreground flex min-h-[100px] items-center justify-center">
+        {t('complete_form')}
+      </div>
+    );
+  }
+
   if (isPending) {
     return (
-      <div className="text-muted-foreground flex min-h-[200px] items-center justify-center">
+      <div className="text-muted-foreground flex min-h-[100px] items-center justify-center">
         {t('loading_paypal')}
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-[200px] items-center justify-center">
+    <div className="flex min-h-[100px] items-center justify-center">
       <PayPalButtons
         style={{
           layout: 'vertical',
@@ -107,8 +105,7 @@ function PayPalPaymentButton({
               ? {
                   email_address: formData.email,
                   name: {
-                    given_name: formData.firstName,
-                    surname: formData.lastName,
+                    given_name: formData.name,
                   },
                   address: {
                     address_line_1: formData.address,
@@ -142,25 +139,47 @@ export default function CheckoutPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setValue,
     watch,
+    trigger,
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {},
+    mode: 'onChange',
   });
 
-  // Calculate totals
   const subtotal = parseFloat(total);
   const finalTotal = subtotal + SHIPPING_COST;
 
-  // Create PaymentIntent as soon as the page loads
   useEffect(() => {
-    if (paymentMethod === 'card') {
+    void trigger();
+  }, [trigger]);
+
+  useEffect(() => {
+    if (paymentMethod === 'card' && isValid) {
+      const formData = watch();
+
       fetch('/api/stripe/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: finalTotal }),
+        body: JSON.stringify({
+          amount: finalTotal,
+          items: cart.map((item) => ({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+          shippingDetails: {
+            name: formData.name || '',
+            email: formData.email || '',
+            address: formData.address || '',
+            city: formData.city || '',
+            state: formData.state || '',
+            zipCode: formData.postalCode || '',
+          },
+        }),
       })
         .then((res) => res.json())
         .then((data: { clientSecret: string }) =>
@@ -168,18 +187,16 @@ export default function CheckoutPage() {
         )
         .catch((error) => console.error('Error:', error));
     }
-  }, [paymentMethod, finalTotal]);
+  }, [paymentMethod, finalTotal, cart, watch, isValid]);
 
   const onSubmit = (data: CheckoutFormData) => {
     if (paymentMethod === 'card') {
-      // Stripe payment is handled by StripePaymentForm
       console.log('Form data:', data);
     } else if (paymentMethod === 'paypal') {
-      // PayPal is handled by PayPal buttons
+      // PayPal handling is done in the PayPalButtons component
     }
   };
 
-  // Don't show checkout if cart is empty
   if (!cart || cart.length === 0) {
     return (
       <div className="container mx-auto px-4 py-24 text-center">
@@ -218,7 +235,6 @@ export default function CheckoutPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* Billing & Shipping Information */}
           <div className="space-y-8 lg:col-span-2">
             <Card className="bg-card/50 p-6 shadow-lg backdrop-blur-lg">
               <form
@@ -227,37 +243,20 @@ export default function CheckoutPage() {
               >
                 <div className="space-y-4">
                   <h2 className="flex items-center gap-2 text-xl font-semibold">
-                    {t('billing_info')}
+                    {t('shipping_info')}
                   </h2>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
-                      <Label htmlFor="firstName">{t('first_name')}</Label>
-                      <Input
-                        id="firstName"
-                        {...register('firstName')}
-                        className={errors.firstName ? ERROR_BORDER_CLASS : ''}
-                        placeholder={t('placeholder.first_name')}
-                      />
-                      {errors.firstName && (
-                        <p className={ERROR_TEXT_CLASS}>
-                          {errors.firstName.message}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName">{t('last_name')}</Label>
-                      <Input
-                        id="lastName"
-                        {...register('lastName')}
-                        className={errors.lastName ? ERROR_BORDER_CLASS : ''}
-                        placeholder={t('placeholder.last_name')}
-                      />
-                      {errors.lastName && (
-                        <p className={ERROR_TEXT_CLASS}>
-                          {errors.lastName.message}
-                        </p>
-                      )}
-                    </div>
+
+                  <div>
+                    <Label htmlFor="name">{t('name')}</Label>
+                    <Input
+                      id="name"
+                      {...register('name')}
+                      className={errors.name ? ERROR_BORDER_CLASS : ''}
+                      placeholder={t('placeholder.name')}
+                    />
+                    {errors.name && (
+                      <p className={ERROR_TEXT_CLASS}>{errors.name.message}</p>
+                    )}
                   </div>
 
                   <div>
@@ -289,26 +288,28 @@ export default function CheckoutPage() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     <div>
-                      <Label htmlFor="phone">{t('phone')}</Label>
+                      <Label htmlFor="city">{t('city')}</Label>
                       <Input
-                        id="phone"
-                        type="tel"
-                        {...register('phone')}
-                        className={errors.phone ? ERROR_BORDER_CLASS : ''}
-                        placeholder={t('placeholder.phone_us')}
+                        id="city"
+                        {...register('city')}
+                        className={errors.city ? ERROR_BORDER_CLASS : ''}
+                        placeholder={t('placeholder.city')}
                       />
-                      {errors.phone && (
+                      {errors.city && (
                         <p className={ERROR_TEXT_CLASS}>
-                          {errors.phone.message}
+                          {errors.city.message}
                         </p>
                       )}
                     </div>
                     <div>
                       <Label htmlFor="state">{t('state')}</Label>
                       <Select
-                        onValueChange={(value) => setValue('state', value)}
+                        onValueChange={(value) => {
+                          setValue('state', value);
+                          void trigger('state');
+                        }}
                       >
                         <SelectTrigger
                           className={errors.state ? ERROR_BORDER_CLASS : ''}
@@ -374,23 +375,6 @@ export default function CheckoutPage() {
                         </p>
                       )}
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
-                      <Label htmlFor="city">{t('city')}</Label>
-                      <Input
-                        id="city"
-                        {...register('city')}
-                        className={errors.city ? ERROR_BORDER_CLASS : ''}
-                        placeholder={t('placeholder.city')}
-                      />
-                      {errors.city && (
-                        <p className={ERROR_TEXT_CLASS}>
-                          {errors.city.message}
-                        </p>
-                      )}
-                    </div>
                     <div>
                       <Label htmlFor="postalCode">{t('zip_code')}</Label>
                       <Input
@@ -422,14 +406,6 @@ export default function CheckoutPage() {
               </form>
             </Card>
 
-            {/* 
-              The shipping address section is dynamically rendered when `differentShippingAddress` is true.
-              It currently does not have its own explicit "Country" field, as it seems to rely on the main
-              billing address schema or was intended to be added. Since the previous step removed 
-              `shippingCountry` from the Zod schema, there's no corresponding JSX to remove here for 
-              a shipping-specific country field. If it were present, a similar removal diff block would be added.
-            */}
-
             <Card className="bg-card/50 p-6 shadow-lg backdrop-blur-lg">
               <h2 className="mb-4 text-xl font-semibold">
                 {t('payment_method')}
@@ -455,23 +431,49 @@ export default function CheckoutPage() {
                 </div>
               </RadioGroup>
 
-              {paymentMethod === 'card' && clientSecret && (
+              {paymentMethod === 'card' && (
                 <div className="mt-6">
-                  <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <StripePaymentForm />
-                  </Elements>
+                  {(() => {
+                    if (clientSecret) {
+                      return (
+                        <Elements
+                          stripe={stripePromise}
+                          options={{ clientSecret }}
+                        >
+                          <StripePaymentForm />
+                        </Elements>
+                      );
+                    }
+
+                    if (isValid) {
+                      return (
+                        <div className="text-muted-foreground flex min-h-[100px] items-center justify-center">
+                          {t('loading_payment_form')}
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div className="text-muted-foreground flex min-h-[100px] items-center justify-center">
+                        {t('complete_form')}
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
 
               {paymentMethod === 'paypal' && (
                 <div className="mt-6">
-                  <PayPalPaymentButton finalTotal={finalTotal} watch={watch} />
+                  <PayPalPaymentButton
+                    finalTotal={finalTotal}
+                    watch={watch}
+                    isFormValid={isValid}
+                  />
                 </div>
               )}
             </Card>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:col-span-1">
             <Card className="bg-card/50 sticky top-24 p-6 shadow-lg backdrop-blur-lg">
               <h2 className="mb-4 text-xl font-semibold">
