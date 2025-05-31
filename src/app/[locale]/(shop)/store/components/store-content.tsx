@@ -17,6 +17,15 @@ export function StoreContent({
 }: Readonly<StoreContentProps>) {
   const t = useTranslations('StoreContent');
 
+  const getDelayClass = (index: number) => {
+    if (index === 1) return 'delay-100';
+    if (index === 2) return 'delay-200';
+    if (index === 3) return 'delay-300';
+    if (index === 4) return 'delay-400';
+    if (index >= 5) return 'delay-500';
+    return '';
+  };
+
   if (!products.length && category !== 'Flower Essence') {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center space-y-4">
@@ -39,10 +48,7 @@ export function StoreContent({
       {products.map((product, index) => (
         <div
           key={product.id}
-          className="animate-in fade-in slide-in-from-bottom-4 duration-500"
-          style={{
-            animationDelay: `${index * 100}ms`,
-          }}
+          className={`animate-in fade-in slide-in-from-bottom-4 duration-500 ${getDelayClass(index)}`}
         >
           <ProductCard product={product} index={index} />
         </div>
