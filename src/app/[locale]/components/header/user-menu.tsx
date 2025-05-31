@@ -53,7 +53,7 @@ export function UserMenu() {
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => void signOut()}
+                onClick={() => void signOut({ callbackUrl: '/' })}
                 className="flex items-center gap-2 text-red-500 hover:text-red-600 focus:text-red-600"
               >
                 <LogOut className="h-4 w-4" />
