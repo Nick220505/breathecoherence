@@ -21,11 +21,14 @@ export default async function LocaleLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: 'en' | 'es' }>;
+  params: { locale: string } | Promise<{ locale: string }>;
 }>) {
-  const locale = (await params).locale;
+  // Handle async params in Next.js 15+
+  const resolvedParams = await Promise.resolve(params);
+  const locale = resolvedParams.locale;
 
-  if (!routing.locales.includes(locale)) notFound();
+  // Type check for locale
+  if (!routing.locales.includes(locale as 'en' | 'es')) notFound();
 
   setRequestLocale(locale);
 
