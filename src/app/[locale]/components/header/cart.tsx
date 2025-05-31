@@ -1,5 +1,6 @@
 'use client';
 
+import { ProductType } from '@prisma/client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ShoppingCart, X } from 'lucide-react';
 import Image from 'next/image';
@@ -124,12 +125,13 @@ export function CartButton() {
                             <Image
                               src={
                                 item.imageUrl ??
-                                (item.type === 'Sacred Geometry'
+                                (item.type === ProductType.SACRED_GEOMETRY
                                   ? `/products/sacred-geometry.svg#${item.id}`
                                   : '/products/flower-essence.svg')
                               }
                               alt={item.name}
                               fill
+                              sizes="80px"
                               className="object-cover transition-transform duration-300 hover:scale-110"
                               priority
                             />
