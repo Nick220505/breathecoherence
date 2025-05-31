@@ -44,8 +44,8 @@ export function CartButton() {
   } = useCart();
 
   const handleCheckout = () => {
-    setIsCartOpen(false); // Close the cart sheet
-    router.push('/checkout'); // Redirect to checkout page
+    setIsCartOpen(false);
+    router.push('/checkout');
   };
 
   return (
@@ -133,7 +133,6 @@ export function CartButton() {
                               fill
                               sizes="80px"
                               className="object-cover transition-transform duration-300 hover:scale-110"
-                              priority
                               unoptimized={
                                 item.type === ProductType.SACRED_GEOMETRY ||
                                 !item.imageUrl
