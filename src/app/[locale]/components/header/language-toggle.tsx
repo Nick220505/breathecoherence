@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Check, Globe } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
@@ -40,14 +41,19 @@ export function LanguageToggle() {
   const router = useRouter();
   const pathname = usePathname();
   const currentLocale = useLocale() as SupportedLanguage;
+  const params = useParams();
 
   const handleLanguageChange = (newLanguage: SupportedLanguage) => {
-    if (pathname.startsWith('/product/')) {
-      const id = pathname.split('/').pop() ?? '';
-      router.replace(
-        { pathname: '/store/product/[id]', params: { id } },
-        { locale: newLanguage },
-      );
+    if (pathname === '/store/product/[id]') {
+      const productId = params?.id as string;
+      if (productId) {
+        router.replace(
+          { pathname: '/store/product/[id]', params: { id: productId } },
+          { locale: newLanguage },
+        );
+      } else {
+        router.replace({ pathname: '/' }, { locale: newLanguage });
+      }
     } else {
       // Get the current URL's search params
       const url = new URL(window.location.href);
@@ -71,10 +77,7 @@ export function LanguageToggle() {
         }
       });
 
-      const newPathname = pathname as Exclude<
-        typeof pathname,
-        '/store/product/[id]'
-      >;
+      const newPathname = pathname;
 
       router.replace(
         {
