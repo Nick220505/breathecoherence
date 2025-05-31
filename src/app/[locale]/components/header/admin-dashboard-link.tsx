@@ -1,5 +1,6 @@
 'use client';
 
+import { LayoutDashboard } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -18,8 +19,9 @@ export function AdminDashboardLink() {
       <Link href="/dashboard" className="w-full">
         <Button
           variant="ghost"
-          className="hover:bg-primary/10 w-full justify-start transition-colors duration-300 md:w-auto"
+          className="hover:bg-primary/10 flex w-full items-center justify-start gap-2 transition-colors duration-300 md:w-auto"
         >
+          <LayoutDashboard className="h-4 w-4" />
           {t('nav.dashboard')}
         </Button>
       </Link>
