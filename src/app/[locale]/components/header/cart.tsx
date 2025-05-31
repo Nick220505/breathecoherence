@@ -134,6 +134,10 @@ export function CartButton() {
                               sizes="80px"
                               className="object-cover transition-transform duration-300 hover:scale-110"
                               priority
+                              unoptimized={
+                                item.type === ProductType.SACRED_GEOMETRY ||
+                                !item.imageUrl
+                              }
                             />
                           </div>
                           <div className="min-w-0 flex-1">
