@@ -349,6 +349,7 @@
   "CheckoutSuccess": {
     "title": "¡Pago Completado!",
     "subtitle": "Gracias por tu compra. Tu pedido ha sido procesado con éxito.",
+    "back_to_store": "Volver a la Tienda",
     "order_details": "Detalles del Pedido",
     "order_id": "ID del Pedido",
     "confirmation_sent": "Se ha enviado una confirmación a tu correo electrónico.",
