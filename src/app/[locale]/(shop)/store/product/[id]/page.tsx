@@ -2,11 +2,12 @@ import { notFound } from 'next/navigation';
 
 import { getAllProducts, getProductById } from '@/features/products/controller';
 
-import { ProductDetails } from './components/ProductDetails';
+import { ProductDetails } from './components/product-details';
 
 export async function generateStaticParams() {
   const products = await getAllProducts();
-  return products.map(({ id }) => ({ id }));
+
+  return products.map((product) => ({ id: product.id }));
 }
 
 export const dynamicParams = true;
