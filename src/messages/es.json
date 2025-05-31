@@ -45,6 +45,7 @@
     "haveAccount": "¿Ya tienes una cuenta?",
     "login": "Iniciar sesión",
     "creating": "Creando cuenta...",
+    "loading": "Cargando...",
     "placeholder": {
       "name": "Ingresa tu nombre completo",
       "email": "Ingresa tu correo electrónico",
@@ -64,7 +65,7 @@
     "email": "Correo Electrónico",
     "password": "Contraseña",
     "submit": "Iniciar Sesión",
-    "loading": "Iniciando sesión...",
+    "loading": "Cargando...",
     "noAccount": "¿No tienes una cuenta?",
     "register": "Crear cuenta",
     "error": {

@@ -45,6 +45,7 @@
     "haveAccount": "Already have an account?",
     "login": "Sign in",
     "creating": "Creating account...",
+    "loading": "Loading...",
     "placeholder": {
       "name": "Enter your full name",
       "email": "Enter your email address",
@@ -64,7 +65,7 @@
     "email": "Email",
     "password": "Password",
     "submit": "Sign In",
-    "loading": "Signing in...",
+    "loading": "Loading...",
     "noAccount": "Don't have an account?",
     "register": "Create account",
     "error": {
