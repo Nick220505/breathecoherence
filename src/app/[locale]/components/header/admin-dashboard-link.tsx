@@ -1,12 +1,14 @@
-import { getTranslations } from 'next-intl/server';
+'use client';
 
-import { auth } from '@/auth';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 
-export async function AdminDashboardLink() {
-  const t = await getTranslations('Navigation');
-  const session = await auth();
+export function AdminDashboardLink() {
+  const t = useTranslations('Navigation');
+  const { data: session } = useSession();
   const isAdmin = session?.user?.role === 'ADMIN';
 
   if (!isAdmin) return null;
