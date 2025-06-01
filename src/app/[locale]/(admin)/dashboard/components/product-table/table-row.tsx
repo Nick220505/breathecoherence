@@ -60,7 +60,7 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
           alt={product.name}
           width={64}
           height={64}
-          className="h-16 w-16 rounded-lg object-cover"
+          className="rounded-lg object-cover"
           sizes="64px"
           priority={false}
         />
