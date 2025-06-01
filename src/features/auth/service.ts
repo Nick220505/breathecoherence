@@ -12,13 +12,14 @@ import {
   UserExistsError,
 } from './errors';
 import { LoginFormData, RegisterFormData, VerifyFormData } from './schema';
+import { AuthUser } from './types';
 
 export const authService = {
   async register({
     name,
     email,
     password,
-  }: RegisterFormData): Promise<Pick<User, 'id' | 'name' | 'email' | 'role'>> {
+  }: RegisterFormData): Promise<AuthUser> {
     const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
@@ -67,10 +68,7 @@ export const authService = {
     });
   },
 
-  async login({
-    email,
-    password,
-  }: LoginFormData): Promise<Pick<User, 'id' | 'name' | 'email' | 'role'>> {
+  async login({ email, password }: LoginFormData): Promise<AuthUser> {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
