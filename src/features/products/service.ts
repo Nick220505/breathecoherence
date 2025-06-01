@@ -1,25 +1,25 @@
 import { Prisma, Product } from '@prisma/client';
 
-import { productRepository } from './repository';
+import prisma from '@/lib/prisma';
 
 export const productService = {
   getAll(): Promise<Product[]> {
-    return productRepository.getAll();
+    return prisma.product.findMany({ orderBy: { createdAt: 'desc' } });
   },
 
   getById(id: string): Promise<Product | null> {
-    return productRepository.getById(id);
+    return prisma.product.findUnique({ where: { id } });
   },
 
   create(data: Prisma.ProductCreateInput): Promise<Product> {
-    return productRepository.create(data);
+    return prisma.product.create({ data });
   },
 
   update(id: string, data: Prisma.ProductUpdateInput): Promise<Product> {
-    return productRepository.update(id, data);
+    return prisma.product.update({ where: { id }, data });
   },
 
   delete(id: string): Promise<Product> {
-    return productRepository.delete(id);
+    return prisma.product.delete({ where: { id } });
   },
 };
