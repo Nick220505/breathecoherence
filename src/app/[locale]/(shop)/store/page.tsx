@@ -1,7 +1,7 @@
 import { Product, ProductType } from '@prisma/client';
 import { Suspense } from 'react';
 
-import { getAllProducts } from '@/features/products/controller';
+import { getAllProducts } from '@/features/product/controller';
 
 import { StoreContent } from './components/store-content';
 import { StoreHeader } from './components/store-header';

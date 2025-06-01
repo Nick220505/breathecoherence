@@ -1,5 +1,5 @@
 import { Table } from '@/components/ui/table';
-import { getAllProducts } from '@/features/products/controller';
+import { getAllProducts } from '@/features/product/controller';
 
 import { DeleteProductDialog } from '../delete-product-dialog';
 import { EditProductDialog } from '../edit-product-dialog';
