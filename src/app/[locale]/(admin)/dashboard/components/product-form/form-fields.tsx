@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { ProductFormData } from '@/features/products/schema';
+import { ProductFormData } from '@/features/product/schema';
 
 interface FormFieldsProps {
   form: UseFormReturn<ProductFormData>;
