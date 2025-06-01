@@ -34,34 +34,25 @@ export function DeleteProductDialog() {
     setIsLoading(true);
     setIsDeleting(true);
 
-    try {
-      const { success, message } = await deleteProduct(productToDelete.id);
+    const { success, message } = await deleteProduct(productToDelete.id);
 
-      if (success) {
-        toast({
-          title: t('success'),
-          description: message,
-          variant: 'default',
-        });
-        resetDeleteState();
-      } else {
-        toast({
-          title: t('error'),
-          description: message,
-          variant: 'destructive',
-        });
-      }
-    } catch (error) {
-      console.error('Error deleting product:', error);
+    if (success) {
+      toast({
+        title: t('success'),
+        description: message,
+        variant: 'default',
+      });
+      resetDeleteState();
+    } else {
       toast({
         title: t('error'),
-        description: t('error_delete'),
+        description: message,
         variant: 'destructive',
       });
-    } finally {
-      setIsLoading(false);
-      setIsDeleting(false);
     }
+
+    setIsLoading(false);
+    setIsDeleting(false);
   };
 
   return (
