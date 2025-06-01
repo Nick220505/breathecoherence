@@ -7,6 +7,7 @@ import { type FormState } from '@/lib/types/form';
 import { AuthError } from './errors';
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
+import { AuthUser } from './types';
 
 const ERROR_VALIDATION_MESSAGE =
   'Please fill in all required fields and ensure they are valid';
@@ -18,7 +19,7 @@ const LOGIN_ACTION = 'login';
 export async function register(
   _prevState: FormState,
   formData: FormData,
-): Promise<FormState<Pick<User, 'id' | 'name' | 'email' | 'role'>>> {
+): Promise<FormState<AuthUser>> {
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = registerSchema.safeParse(rawData);
 
@@ -96,7 +97,7 @@ export async function verify(
 export async function login(
   _prevState: FormState,
   formData: FormData,
-): Promise<FormState<Pick<User, 'id' | 'name' | 'email' | 'role'>>> {
+): Promise<FormState<AuthUser>> {
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = loginSchema.safeParse(rawData);
 
