@@ -9,11 +9,11 @@ import { FormState } from '@/lib/types/form';
 import { productSchema } from './schema';
 import { productService } from './service';
 
-export async function getAllProducts() {
+export async function getAllProducts(): Promise<Product[]> {
   return productService.getAll();
 }
 
-export async function getProductById(id: string) {
+export async function getProductById(id: string): Promise<Product | null> {
   return productService.getById(id);
 }
 
