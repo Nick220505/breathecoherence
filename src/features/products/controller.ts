@@ -109,10 +109,14 @@ export async function updateProduct(
 
 export async function deleteProduct(id: string): Promise<ActionState<Product>> {
   try {
-    const data = await productService.delete(id);
+    const deletedProduct = await productService.delete(id);
     revalidateTag('products');
     revalidateTag('product');
-    return { success: true, message: 'Product deleted successfully', data };
+    return {
+      success: true,
+      message: 'Product deleted successfully',
+      data: deletedProduct,
+    };
   } catch (error) {
     return {
       success: false,
