@@ -6,20 +6,13 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
-import { createRegisterErrorMap } from '@/features/auth/error-map';
 import { RegisterFormData, registerSchema } from '@/features/auth/schema';
 import { Link, useRouter } from '@/i18n/routing';
-import { FormState } from '@/lib/types/form';
-
-const initialState: FormState = {
-  errors: {},
-  message: '',
-  success: false,
-};
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -30,19 +23,54 @@ export default function RegisterForm() {
   const t = useTranslations('RegisterPage');
   const tAuthSchema = useTranslations('AuthSchema');
   const router = useRouter();
-  const [state, formAction] = useActionState(register, initialState);
+  const [state, formAction] = useActionState(register, {
+    errors: {},
+    message: '',
+    success: false,
+  });
   const [isPending, startTransition] = useTransition();
 
-  const clientErrorMap = createRegisterErrorMap(tAuthSchema);
-
   const form = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema, { errorMap: clientErrorMap }),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
+    resolver: zodResolver(registerSchema, {
+      errorMap: (issue, ctx) => {
+        const path = issue.path.join('.');
+
+        if (
+          path === 'email' &&
+          issue.code === ZodIssueCode.invalid_string &&
+          issue.validation === 'email'
+        ) {
+          return { message: tAuthSchema('Register.emailInvalid') };
+        }
+        if (
+          path === 'password' &&
+          issue.code === ZodIssueCode.too_small &&
+          issue.minimum === 6
+        ) {
+          return { message: tAuthSchema('Register.passwordMinLength') };
+        }
+        if (
+          path === 'name' &&
+          issue.code === ZodIssueCode.too_small &&
+          issue.minimum === 1
+        ) {
+          return { message: tAuthSchema('Register.nameRequired') };
+        }
+        if (
+          path === 'confirmPassword' &&
+          issue.code === ZodIssueCode.too_small &&
+          issue.minimum === 6
+        ) {
+          return { message: tAuthSchema('Register.confirmPasswordMinLength') };
+        }
+        if (path === 'confirmPassword' && issue.code === ZodIssueCode.custom) {
+          return { message: tAuthSchema('Register.passwordsDontMatch') };
+        }
+
+        return { message: ctx.defaultError };
+      },
+    }),
+    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
   });
 
   useEffect(() => {
@@ -72,7 +100,6 @@ export default function RegisterForm() {
       onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
       className="space-y-6"
     >
-      {/* Name Field - Restored Styling */}
       <motion.div variants={fadeInUp} className="space-y-2">
         <label
           htmlFor="name"
@@ -100,7 +127,6 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      {/* Email Field - Restored Styling */}
       <motion.div variants={fadeInUp} className="space-y-2">
         <label
           htmlFor="email"
@@ -128,7 +154,6 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      {/* Password Field - Restored Styling */}
       <motion.div variants={fadeInUp} className="space-y-2">
         <label
           htmlFor="password"
@@ -156,7 +181,6 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      {/* Confirm Password Field - Restored Styling */}
       <motion.div variants={fadeInUp} className="space-y-2">
         <label
           htmlFor="confirmPassword"
@@ -184,7 +208,6 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      {/* General server error display - Consistent with LoginForm */}
       {!state.success &&
         state.message &&
         (state.errors.root || state.errors.email) && (
@@ -198,7 +221,6 @@ export default function RegisterForm() {
           </motion.p>
         )}
 
-      {/* Submit Button and Link - Restored Styling */}
       <motion.div variants={fadeInUp}>
         <Button
           type="submit"
