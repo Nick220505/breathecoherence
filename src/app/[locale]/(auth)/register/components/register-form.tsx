@@ -6,15 +6,11 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  ZodIssueCode,
-  type ZodErrorMap,
-  type ZodIssueOptionalMessage,
-} from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
+import { createRegisterErrorMap } from '@/features/auth/error-map';
 import { RegisterFormData, registerSchema } from '@/features/auth/schema';
 import { Link, useRouter } from '@/i18n/routing';
 import { FormState } from '@/lib/types/form';
@@ -37,46 +33,7 @@ export default function RegisterForm() {
   const [state, formAction] = useActionState(register, initialState);
   const [isPending, startTransition] = useTransition();
 
-  const clientErrorMap: ZodErrorMap = (
-    issue: ZodIssueOptionalMessage,
-    ctx: { defaultError: string; data: unknown },
-  ): { message: string } => {
-    const path = issue.path.join('.');
-
-    if (
-      path === 'name' &&
-      issue.code === ZodIssueCode.too_small &&
-      issue.minimum === 1
-    ) {
-      return { message: tAuthSchema('nameRequired') };
-    }
-    if (
-      path === 'email' &&
-      issue.code === ZodIssueCode.invalid_string &&
-      issue.validation === 'email'
-    ) {
-      return { message: tAuthSchema('emailInvalid') };
-    }
-    if (
-      path === 'password' &&
-      issue.code === ZodIssueCode.too_small &&
-      issue.minimum === 6
-    ) {
-      return { message: tAuthSchema('passwordMinLength') };
-    }
-    if (
-      path === 'confirmPassword' &&
-      issue.code === ZodIssueCode.too_small &&
-      issue.minimum === 6
-    ) {
-      return { message: tAuthSchema('confirmPasswordMinLength') };
-    }
-    if (path === 'confirmPassword' && issue.code === ZodIssueCode.custom) {
-      return { message: tAuthSchema('passwordsDontMatch') };
-    }
-
-    return { message: ctx.defaultError };
-  };
+  const clientErrorMap = createRegisterErrorMap(tAuthSchema);
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema, { errorMap: clientErrorMap }),

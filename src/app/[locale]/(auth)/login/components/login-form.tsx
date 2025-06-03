@@ -8,15 +8,11 @@ import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  ZodIssueCode,
-  type ZodIssueOptionalMessage,
-  type ZodErrorMap,
-} from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
+import { createLoginErrorMap } from '@/features/auth/error-map';
 import { LoginFormData, loginSchema } from '@/features/auth/schema';
 import { Link } from '@/i18n/routing';
 import { FormState } from '@/lib/types/form';
@@ -32,38 +28,6 @@ const fadeInUp = {
   animate: { opacity: 1, y: 0 },
 };
 
-// Client-side error map creation function
-type ClientTranslator = (
-  key: string,
-  params?: Record<string, string | number>,
-) => string;
-
-const createClientAuthErrorMap = (t: ClientTranslator): ZodErrorMap => {
-  return (
-    issue: ZodIssueOptionalMessage,
-    ctx: { defaultError: string; data: unknown },
-  ): { message: string } => {
-    const path = issue.path.join('.');
-
-    if (
-      path === 'email' &&
-      issue.code === ZodIssueCode.invalid_string &&
-      issue.validation === 'email'
-    ) {
-      return { message: t('emailInvalid') };
-    }
-    if (
-      path === 'password' &&
-      issue.code === ZodIssueCode.too_small &&
-      issue.minimum === 1
-    ) {
-      return { message: t('passwordRequired') };
-    }
-
-    return { message: ctx.defaultError };
-  };
-};
-
 export default function LoginForm() {
   const t = useTranslations('LoginPage');
   const tAuthSchema = useTranslations('AuthSchema');
@@ -71,7 +35,7 @@ export default function LoginForm() {
   const [state, formAction] = useActionState(login, initialState);
   const [isPending, startTransition] = useTransition();
 
-  const clientErrorMap = createClientAuthErrorMap(tAuthSchema);
+  const clientErrorMap = createLoginErrorMap(tAuthSchema);
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema, { errorMap: clientErrorMap }),

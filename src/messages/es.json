@@ -483,15 +483,23 @@
     "imageInvalid": "La imagen debe ser una URL de datos válida"
   },
   "AuthSchema": {
-    "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
-    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
-    "passwordRequired": "La contraseña es obligatoria",
-    "nameRequired": "El nombre es obligatorio",
-    "confirmPasswordMinLength": "Por favor, confirme su contraseña (mínimo 6 caracteres)",
-    "passwordsDontMatch": "Las contraseñas no coinciden",
-    "verificationCodeLength": "El código de verificación debe tener 6 dígitos",
-    "invalidCredentials": "Correo electrónico o contraseña inválidos",
-    "userExistsError": "Ya existe un usuario con este correo electrónico.",
-    "invalidVerificationCode": "Código de verificación inválido o caducado."
+    "Login": {
+      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
+      "passwordRequired": "La contraseña es obligatoria",
+      "invalidCredentials": "Correo electrónico o contraseña inválidos"
+    },
+    "Register": {
+      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "nameRequired": "El nombre es obligatorio",
+      "confirmPasswordMinLength": "Por favor, confirme su contraseña (mínimo 6 caracteres)",
+      "passwordsDontMatch": "Las contraseñas no coinciden",
+      "userExistsError": "Ya existe un usuario con este correo electrónico."
+    },
+    "Verify": {
+      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
+      "codeLength": "El código de verificación debe tener 6 dígitos",
+      "invalidVerificationCode": "Código de verificación inválido o caducado."
+    }
   }
 }
