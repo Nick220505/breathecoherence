@@ -17,7 +17,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { verify } from '@/features/auth/controller';
+import { verify } from '@/features/auth/actions';
 import { VerifyFormData, verifySchema } from '@/features/auth/schema';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useRouter } from '@/i18n/routing';

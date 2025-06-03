@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { deleteProduct } from '@/features/product/controller';
+import { deleteProduct } from '@/features/product/actions';
 import { useToast } from '@/hooks/use-toast';
 import { useTableStore } from '@/lib/stores/use-table-store';
 
