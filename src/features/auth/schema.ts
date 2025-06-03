@@ -1,29 +1,28 @@
 import { z } from 'zod';
 
-const EMAIL_VALIDATION_MESSAGE = 'Please enter a valid email address';
-
 export const loginSchema = z.object({
-  email: z.string().email(EMAIL_VALIDATION_MESSAGE),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-});
-
-export const registerSchema = z
-  .object({
-    name: z.string().min(1, 'Name is required'),
-    email: z.string().email(EMAIL_VALIDATION_MESSAGE),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z.string().min(6, 'Please confirm your password'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
-
-export const verifySchema = z.object({
-  email: z.string().email(EMAIL_VALIDATION_MESSAGE),
-  code: z.string().length(6, 'Verification code must be 6 digits'),
+  email: z.string().email(),
+  password: z.string().min(1),
 });
 
 export type LoginFormData = z.infer<typeof loginSchema>;
+
+export const registerSchema = z
+  .object({
+    name: z.string().min(1),
+    email: z.string().email(),
+    password: z.string().min(6),
+    confirmPassword: z.string().min(6),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+  });
+
 export type RegisterFormData = z.infer<typeof registerSchema>;
+
+export const verifySchema = z.object({
+  email: z.string().email(),
+  code: z.string().length(6),
+});
+
 export type VerifyFormData = z.infer<typeof verifySchema>;

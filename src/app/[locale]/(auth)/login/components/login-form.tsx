@@ -8,6 +8,11 @@ import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import {
+  ZodIssueCode,
+  type ZodIssueOptionalMessage,
+  type ZodErrorMap,
+} from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,14 +32,49 @@ const fadeInUp = {
   animate: { opacity: 1, y: 0 },
 };
 
+// Client-side error map creation function
+type ClientTranslator = (
+  key: string,
+  params?: Record<string, string | number>,
+) => string;
+
+const createClientAuthErrorMap = (t: ClientTranslator): ZodErrorMap => {
+  return (
+    issue: ZodIssueOptionalMessage,
+    ctx: { defaultError: string; data: unknown },
+  ): { message: string } => {
+    const path = issue.path.join('.');
+
+    if (
+      path === 'email' &&
+      issue.code === ZodIssueCode.invalid_string &&
+      issue.validation === 'email'
+    ) {
+      return { message: t('emailInvalid') };
+    }
+    if (
+      path === 'password' &&
+      issue.code === ZodIssueCode.too_small &&
+      issue.minimum === 1
+    ) {
+      return { message: t('passwordRequired') };
+    }
+
+    return { message: ctx.defaultError };
+  };
+};
+
 export default function LoginForm() {
   const t = useTranslations('LoginPage');
+  const tAuthSchema = useTranslations('AuthSchema');
   const router = useRouter();
   const [state, formAction] = useActionState(login, initialState);
   const [isPending, startTransition] = useTransition();
 
+  const clientErrorMap = createClientAuthErrorMap(tAuthSchema);
+
   const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginSchema, { errorMap: clientErrorMap }),
     defaultValues: { email: '', password: '' },
   });
 
@@ -50,17 +90,21 @@ export default function LoginForm() {
 
           if (result?.error) {
             console.error('Error signing in:', result.error);
+            form.setError('root.serverError', { message: result.error });
           } else {
             router.push('/');
           }
         } catch (error) {
           console.error('Sign in failed:', error);
+          form.setError('root.serverError', {
+            message: t('error.generic'),
+          });
         }
       };
 
       void performSignIn();
     }
-  }, [state.success, router, form]);
+  }, [state.success, router, form, t]);
 
   const onSubmit = (data: LoginFormData) => {
     const formData = new FormData();
@@ -95,14 +139,14 @@ export default function LoginForm() {
           disabled={isLoading}
           className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
         />
-        {state.errors.email && (
+        {form.formState.errors.email && (
           <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-1 text-sm text-red-500"
           >
             <AlertCircle className="h-4 w-4" />
-            {state.errors.email[0]}
+            {form.formState.errors.email.message}
           </motion.p>
         )}
       </motion.div>
@@ -122,26 +166,40 @@ export default function LoginForm() {
           disabled={isLoading}
           className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
         />
-        {state.errors.password && (
+        {form.formState.errors.password && (
           <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-1 text-sm text-red-500"
           >
             <AlertCircle className="h-4 w-4" />
-            {state.errors.password[0]}
+            {form.formState.errors.password.message}
           </motion.p>
         )}
       </motion.div>
 
-      {state.message && !state.success && (
+      {!state.success &&
+        state.message &&
+        (state.errors.root ||
+          Object.keys(state.errors).filter((k) => k !== 'root').length ===
+            0) && (
+          <motion.p
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
+          >
+            <AlertCircle className="h-4 w-4" />
+            {state.message}
+          </motion.p>
+        )}
+      {form.formState.errors.root?.serverError && (
         <motion.p
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
         >
           <AlertCircle className="h-4 w-4" />
-          {state.message}
+          {form.formState.errors.root.serverError.message}
         </motion.p>
       )}
 

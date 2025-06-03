@@ -8,6 +8,11 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
+import {
+  ZodIssueCode,
+  type ZodErrorMap,
+  type ZodIssueOptionalMessage,
+} from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -46,14 +51,42 @@ const staggerContainer = {
   },
 };
 
+// Client-side error map creation function for VerificationForm
+type ClientTranslator = (
+  key: string,
+  params?: Record<string, string | number>,
+) => string;
+
+const createClientAuthErrorMap = (t: ClientTranslator): ZodErrorMap => {
+  return (
+    issue: ZodIssueOptionalMessage,
+    ctx: { defaultError: string; data: unknown },
+  ): { message: string } => {
+    const path = issue.path.join('.');
+
+    if (
+      path === 'code' &&
+      ((issue.code === ZodIssueCode.too_small && issue.minimum === 6) ||
+        (issue.code === ZodIssueCode.too_big && issue.maximum === 6))
+    ) {
+      return { message: t('verificationCodeLength') };
+    }
+
+    return { message: ctx.defaultError };
+  };
+};
+
 export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
+  const tAuthSchema = useTranslations('AuthSchema');
   const { toast } = useToast();
   const router = useRouter();
   const [state, formAction] = useFormState(verify, initialState);
 
+  const clientErrorMap = createClientAuthErrorMap(tAuthSchema);
+
   const form = useForm<VerifyFormData>({
-    resolver: zodResolver(verifySchema),
+    resolver: zodResolver(verifySchema, { errorMap: clientErrorMap }),
     defaultValues: {
       email,
       code: '',
@@ -118,28 +151,27 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
               <div className="space-y-2">
                 <Input
                   type="text"
-                  placeholder={t('code.placeholder')}
+                  placeholder={t('placeholder.code')}
                   {...form.register('code')}
                   disabled={form.formState.isSubmitting}
                   className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
                 />
-                {state.errors.code && (
+                {form.formState.errors.code && (
                   <p className="flex items-center gap-1 text-sm text-red-500">
                     <AlertCircle className="h-4 w-4" />
-                    {state.errors.code[0]}
+                    {form.formState.errors.code.message}
                   </p>
                 )}
-              </div>
 
-              {state.message && !state.success && (
-                <p
-                  className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
-                  role="alert"
-                >
-                  <AlertCircle className="h-4 w-4" />
-                  {state.message}
-                </p>
-              )}
+                {!state.success &&
+                  state.message &&
+                  (state.errors.root || state.errors.code) && (
+                    <p className="flex items-center gap-1 text-sm text-red-500">
+                      <AlertCircle className="h-4 w-4" />
+                      {state.message}
+                    </p>
+                  )}
+              </div>
 
               <Button
                 type="submit"
@@ -149,10 +181,10 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
                 {form.formState.isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t('verifying')}
+                    {t('loading')}
                   </>
                 ) : (
-                  t('verify')
+                  t('submit')
                 )}
               </Button>
             </form>

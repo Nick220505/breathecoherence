@@ -180,9 +180,9 @@
   },
   "ProductForm": {
     "success": "Éxito",
-    "editing": "Guardando cambios...",
+    "editing": "Editando producto...",
     "adding": "Agregando producto...",
-    "edit": "Guardar Cambios",
+    "edit": "Editar Producto",
     "add": "Agregar Producto"
   },
   "ProductTableHeader": {
@@ -193,12 +193,12 @@
     "stock": "Stock",
     "actions": "Acciones",
     "filter_by_name": "Filtrar por nombre",
-    "filter_by_type": "Filtrar por tipo",
     "sort_by_name": "Ordenar por nombre",
+    "filter_by_type": "Filtrar por tipo",
     "sort_by_type": "Ordenar por tipo",
     "all": "Todos",
-    "flower_essence": "Esencia Floral",
-    "sacred_geometry": "Geometría Sagrada"
+    "sacred_geometry": "Geometría Sagrada",
+    "flower_essence": "Esencia Floral"
   },
   "TablePagination": {
     "previous": "Anterior",
@@ -206,7 +206,9 @@
   },
   "ProductTableRow": {
     "edit_tooltip": "Editar producto",
-    "delete_tooltip": "Eliminar producto"
+    "delete_tooltip": "Eliminar producto",
+    "sacred_geometry": "Geometría Sagrada",
+    "flower_essence": "Esencia Floral"
   },
   "TableSkeleton": {
     "image": "Imagen",
@@ -461,14 +463,35 @@
       "loginError": "Ocurrió un error durante el inicio de sesión"
     },
     "Product": {
-      "fillRequiredFields": "Por favor completa todos los campos requeridos y asegúrate de que sean válidos",
-      "createSuccess": "Producto creado exitosamente",
-      "createError": "Error al crear el producto",
-      "updateSuccess": "Producto actualizado exitosamente",
-      "updateError": "Error al actualizar el producto",
-      "deleteSuccess": "Producto eliminado exitosamente",
-      "deleteError": "Error al eliminar el producto",
-      "missingId": "Falta el ID del producto"
+      "fillRequiredFields": "Por favor, complete todos los campos obligatorios.",
+      "createSuccess": "Producto creado con éxito.",
+      "createError": "Error al crear el producto.",
+      "updateSuccess": "Producto actualizado con éxito.",
+      "updateError": "Error al actualizar el producto.",
+      "missingId": "Falta el ID del producto para la actualización.",
+      "deleteSuccess": "Producto eliminado con éxito.",
+      "deleteError": "Error al eliminar el producto."
     }
+  },
+  "ProductSchema": {
+    "nameMin": "El nombre debe tener al menos 3 caracteres",
+    "descriptionMin": "La descripción debe tener al menos 10 caracteres",
+    "typeInvalid": "Tipo de producto inválido",
+    "priceMin": "El precio debe ser un número positivo",
+    "stockInt": "El stock debe ser un número entero",
+    "stockMin": "El stock debe ser un entero positivo",
+    "imageInvalid": "La imagen debe ser una URL de datos válida"
+  },
+  "AuthSchema": {
+    "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
+    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+    "passwordRequired": "La contraseña es obligatoria",
+    "nameRequired": "El nombre es obligatorio",
+    "confirmPasswordMinLength": "Por favor, confirme su contraseña (mínimo 6 caracteres)",
+    "passwordsDontMatch": "Las contraseñas no coinciden",
+    "verificationCodeLength": "El código de verificación debe tener 6 dígitos",
+    "invalidCredentials": "Correo electrónico o contraseña inválidos",
+    "userExistsError": "Ya existe un usuario con este correo electrónico.",
+    "invalidVerificationCode": "Código de verificación inválido o caducado."
   }
 }
