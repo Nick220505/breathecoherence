@@ -8,20 +8,13 @@ import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
-import { createLoginErrorMap } from '@/features/auth/error-map';
 import { LoginFormData, loginSchema } from '@/features/auth/schema';
 import { Link } from '@/i18n/routing';
-import { FormState } from '@/lib/types/form';
-
-const initialState: FormState = {
-  errors: {},
-  message: '',
-  success: false,
-};
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -32,13 +25,36 @@ export default function LoginForm() {
   const t = useTranslations('LoginPage');
   const tAuthSchema = useTranslations('AuthSchema');
   const router = useRouter();
-  const [state, formAction] = useActionState(login, initialState);
+  const [state, formAction] = useActionState(login, {
+    errors: {},
+    message: '',
+    success: false,
+  });
   const [isPending, startTransition] = useTransition();
 
-  const clientErrorMap = createLoginErrorMap(tAuthSchema);
-
   const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema, { errorMap: clientErrorMap }),
+    resolver: zodResolver(loginSchema, {
+      errorMap: (issue, ctx) => {
+        const path = issue.path.join('.');
+
+        if (
+          path === 'email' &&
+          issue.code === ZodIssueCode.invalid_string &&
+          issue.validation === 'email'
+        ) {
+          return { message: tAuthSchema('Login.emailInvalid') };
+        }
+        if (
+          path === 'password' &&
+          issue.code === ZodIssueCode.too_small &&
+          issue.minimum === 1
+        ) {
+          return { message: tAuthSchema('Login.passwordRequired') };
+        }
+
+        return { message: ctx.defaultError };
+      },
+    }),
     defaultValues: { email: '', password: '' },
   });
 

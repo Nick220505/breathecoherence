@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -18,21 +18,13 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { verify } from '@/features/auth/actions';
-import { createVerifyErrorMap } from '@/features/auth/error-map';
 import { VerifyFormData, verifySchema } from '@/features/auth/schema';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useRouter } from '@/i18n/routing';
-import { FormState } from '@/lib/types/form';
 
 interface VerificationFormProps {
   email: string;
 }
-
-const initialState: FormState = {
-  errors: {},
-  message: '',
-  success: false,
-};
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -52,12 +44,36 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const tAuthSchema = useTranslations('AuthSchema');
   const { toast } = useToast();
   const router = useRouter();
-  const [state, formAction] = useFormState(verify, initialState);
-
-  const clientErrorMap = createVerifyErrorMap(tAuthSchema);
+  const [state, formAction] = useActionState(verify, {
+    errors: {},
+    message: '',
+    success: false,
+  });
 
   const form = useForm<VerifyFormData>({
-    resolver: zodResolver(verifySchema, { errorMap: clientErrorMap }),
+    resolver: zodResolver(verifySchema, {
+      errorMap: (issue, ctx) => {
+        const path = issue.path.join('.');
+
+        if (
+          path === 'email' &&
+          issue.code === ZodIssueCode.invalid_string &&
+          issue.validation === 'email'
+        ) {
+          return { message: tAuthSchema('Verify.emailInvalid') };
+        }
+        if (
+          path === 'code' &&
+          ((issue.code === ZodIssueCode.too_small && issue.minimum === 6) ||
+            (issue.code === ZodIssueCode.too_big && issue.maximum === 6) ||
+            issue.code === ZodIssueCode.invalid_string)
+        ) {
+          return { message: tAuthSchema('Verify.codeLength') };
+        }
+
+        return { message: ctx.defaultError };
+      },
+    }),
     defaultValues: {
       email,
       code: '',
