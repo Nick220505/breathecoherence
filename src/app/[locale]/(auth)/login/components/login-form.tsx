@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { login } from '@/features/auth/controller';
+import { login } from '@/features/auth/actions';
 import { LoginFormData, loginSchema } from '@/features/auth/schema';
 import { Link } from '@/i18n/routing';
 import { FormState } from '@/lib/types/form';

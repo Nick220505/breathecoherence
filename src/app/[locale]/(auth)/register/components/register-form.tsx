@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { register } from '@/features/auth/controller';
+import { register } from '@/features/auth/actions';
 import { RegisterFormData, registerSchema } from '@/features/auth/schema';
 import { Link, useRouter } from '@/i18n/routing';
 import { FormState } from '@/lib/types/form';

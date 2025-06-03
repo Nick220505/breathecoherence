@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { createProduct, updateProduct } from '@/features/product/controller';
+import { createProduct, updateProduct } from '@/features/product/actions';
 import { ProductFormData, productSchema } from '@/features/product/schema';
 import { useToast } from '@/hooks/use-toast';
 import { useProductStore } from '@/lib/stores/use-product-store';

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getAllProducts, getProductById } from '@/features/product/controller';
+import { getAllProducts, getProductById } from '@/features/product/actions';
 
 import { ProductDetails } from './components/product-details';
 
