@@ -13,7 +13,6 @@ import { createProduct, updateProduct } from '@/features/product/controller';
 import { ProductFormData, productSchema } from '@/features/product/schema';
 import { useToast } from '@/hooks/use-toast';
 import { useProductStore } from '@/lib/stores/use-product-store';
-import { FormState } from '@/lib/types/form';
 
 import { FormFields } from './form-fields';
 import { ImageUpload } from './image-upload';
@@ -21,11 +20,6 @@ import { ImageUpload } from './image-upload';
 interface ProductFormProps {
   initialData?: ProductFormData;
 }
-
-const initialState: FormState = {
-  errors: {},
-  message: '',
-};
 
 export function ProductForm({
   initialData = {
@@ -44,7 +38,7 @@ export function ProductForm({
 
   const [state, formAction] = useActionState(
     initialData?.id ? updateProduct : createProduct,
-    initialState,
+    { errors: {}, message: '' },
   );
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
