@@ -433,5 +433,26 @@
     "sign_out": "Sign Out",
     "guest_redirect": "Redirecting to your order details...",
     "guest_order": "Guest Order"
+  },
+  "ServerActions": {
+    "Auth": {
+      "fillRequiredFields": "Please fill in all required fields and ensure they are valid",
+      "verificationCodeSent": "Verification code sent to your email",
+      "registrationError": "Something went wrong during registration",
+      "verificationSuccess": "Email verified successfully",
+      "verificationError": "Something went wrong during verification",
+      "loginSuccess": "Logged in successfully",
+      "loginError": "Something went wrong during login"
+    },
+    "Product": {
+      "fillRequiredFields": "Please fill in all required fields and ensure they are valid",
+      "createSuccess": "Product created successfully",
+      "createError": "Failed to create product",
+      "updateSuccess": "Product updated successfully",
+      "updateError": "Failed to update product",
+      "deleteSuccess": "Product deleted successfully",
+      "deleteError": "Failed to delete product",
+      "missingId": "Product ID is missing"
+    }
   }
 }

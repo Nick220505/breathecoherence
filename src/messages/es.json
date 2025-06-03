@@ -449,5 +449,26 @@
     "sign_out": "Cerrar Sesión",
     "guest_redirect": "Redirigiendo a los detalles de tu pedido...",
     "guest_order": "Pedido de Invitado"
+  },
+  "ServerActions": {
+    "Auth": {
+      "fillRequiredFields": "Por favor completa todos los campos requeridos y asegúrate de que sean válidos",
+      "verificationCodeSent": "Código de verificación enviado a tu correo electrónico",
+      "registrationError": "Ocurrió un error durante el registro",
+      "verificationSuccess": "Correo electrónico verificado exitosamente",
+      "verificationError": "Ocurrió un error durante la verificación",
+      "loginSuccess": "Sesión iniciada exitosamente",
+      "loginError": "Ocurrió un error durante el inicio de sesión"
+    },
+    "Product": {
+      "fillRequiredFields": "Por favor completa todos los campos requeridos y asegúrate de que sean válidos",
+      "createSuccess": "Producto creado exitosamente",
+      "createError": "Error al crear el producto",
+      "updateSuccess": "Producto actualizado exitosamente",
+      "updateError": "Error al actualizar el producto",
+      "deleteSuccess": "Producto eliminado exitosamente",
+      "deleteError": "Error al eliminar el producto",
+      "missingId": "Falta el ID del producto"
+    }
   }
 }

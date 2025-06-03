@@ -2,6 +2,7 @@
 
 import { Product } from '@prisma/client';
 import { revalidateTag } from 'next/cache';
+import { getTranslations } from 'next-intl/server';
 
 import { ActionState } from '@/lib/types/action';
 import { FormState } from '@/lib/types/form';
@@ -21,13 +22,14 @@ export async function createProduct(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Product>> {
+  const t = await getTranslations('ServerActions.Product');
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = productSchema.safeParse(rawData);
 
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: 'Please fill in all required fields and ensure they are valid',
+      message: t('fillRequiredFields'),
       success: false,
     };
   }
@@ -42,15 +44,14 @@ export async function createProduct(
 
     return {
       errors: {},
-      message: 'Product created successfully',
+      message: t('createSuccess'),
       success: true,
       data: createdProduct,
     };
   } catch (error) {
     return {
       errors: {},
-      message:
-        error instanceof Error ? error.message : 'Failed to create product',
+      message: error instanceof Error ? error.message : t('createError'),
       success: false,
     };
   }
@@ -60,13 +61,14 @@ export async function updateProduct(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Product>> {
+  const t = await getTranslations('ServerActions.Product');
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = productSchema.safeParse(rawData);
 
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: 'Please fill in all required fields and ensure they are valid',
+      message: t('fillRequiredFields'),
       success: false,
     };
   }
@@ -74,7 +76,7 @@ export async function updateProduct(
   if (!data.id) {
     return {
       errors: {},
-      message: 'Product ID is missing',
+      message: t('missingId'),
       success: false,
     };
   }
@@ -93,35 +95,34 @@ export async function updateProduct(
 
     return {
       errors: {},
-      message: 'Product updated successfully',
+      message: t('updateSuccess'),
       success: true,
       data: updatedProduct,
     };
   } catch (error) {
     return {
       errors: {},
-      message:
-        error instanceof Error ? error.message : 'Failed to update product',
+      message: error instanceof Error ? error.message : t('updateError'),
       success: false,
     };
   }
 }
 
 export async function deleteProduct(id: string): Promise<ActionState<Product>> {
+  const t = await getTranslations('ServerActions.Product');
   try {
     const deletedProduct = await productService.delete(id);
     revalidateTag('products');
     revalidateTag('product');
     return {
       success: true,
-      message: 'Product deleted successfully',
+      message: t('deleteSuccess'),
       data: deletedProduct,
     };
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error ? error.message : 'Failed to delete product',
+      message: error instanceof Error ? error.message : t('deleteError'),
     };
   }
 }
