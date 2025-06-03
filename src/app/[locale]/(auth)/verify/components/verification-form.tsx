@@ -8,11 +8,6 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
-import {
-  ZodIssueCode,
-  type ZodErrorMap,
-  type ZodIssueOptionalMessage,
-} from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -23,6 +18,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { verify } from '@/features/auth/actions';
+import { createVerifyErrorMap } from '@/features/auth/error-map';
 import { VerifyFormData, verifySchema } from '@/features/auth/schema';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useRouter } from '@/i18n/routing';
@@ -51,31 +47,6 @@ const staggerContainer = {
   },
 };
 
-// Client-side error map creation function for VerificationForm
-type ClientTranslator = (
-  key: string,
-  params?: Record<string, string | number>,
-) => string;
-
-const createClientAuthErrorMap = (t: ClientTranslator): ZodErrorMap => {
-  return (
-    issue: ZodIssueOptionalMessage,
-    ctx: { defaultError: string; data: unknown },
-  ): { message: string } => {
-    const path = issue.path.join('.');
-
-    if (
-      path === 'code' &&
-      ((issue.code === ZodIssueCode.too_small && issue.minimum === 6) ||
-        (issue.code === ZodIssueCode.too_big && issue.maximum === 6))
-    ) {
-      return { message: t('verificationCodeLength') };
-    }
-
-    return { message: ctx.defaultError };
-  };
-};
-
 export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
   const tAuthSchema = useTranslations('AuthSchema');
@@ -83,7 +54,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const router = useRouter();
   const [state, formAction] = useFormState(verify, initialState);
 
-  const clientErrorMap = createClientAuthErrorMap(tAuthSchema);
+  const clientErrorMap = createVerifyErrorMap(tAuthSchema);
 
   const form = useForm<VerifyFormData>({
     resolver: zodResolver(verifySchema, { errorMap: clientErrorMap }),

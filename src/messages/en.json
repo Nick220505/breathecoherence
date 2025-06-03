@@ -467,15 +467,23 @@
     "imageInvalid": "Image must be a valid data URL"
   },
   "AuthSchema": {
-    "emailInvalid": "Please enter a valid email address",
-    "passwordMinLength": "Password must be at least 6 characters",
-    "passwordRequired": "Password is required",
-    "nameRequired": "Name is required",
-    "confirmPasswordMinLength": "Please confirm your password (min 6 characters)",
-    "passwordsDontMatch": "Passwords do not match",
-    "verificationCodeLength": "Verification code must be 6 digits",
-    "invalidCredentials": "Invalid email or password",
-    "userExistsError": "User already exists with this email.",
-    "invalidVerificationCode": "Invalid or expired verification code."
+    "Login": {
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "invalidCredentials": "Invalid email or password"
+    },
+    "Register": {
+      "emailInvalid": "Please enter a valid email address",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "nameRequired": "Name is required",
+      "confirmPasswordMinLength": "Please confirm your password (min 6 characters)",
+      "passwordsDontMatch": "Passwords do not match",
+      "userExistsError": "User already exists with this email."
+    },
+    "Verify": {
+      "emailInvalid": "Please enter a valid email address",
+      "codeLength": "Verification code must be 6 digits",
+      "invalidVerificationCode": "Invalid or expired verification code."
+    }
   }
 }
