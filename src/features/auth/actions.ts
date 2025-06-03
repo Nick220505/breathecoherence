@@ -1,6 +1,7 @@
 'use server';
 
 import { User } from '@prisma/client';
+import { getTranslations } from 'next-intl/server';
 
 import { type FormState } from '@/lib/types/form';
 
@@ -9,24 +10,18 @@ import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
 import { AuthUser } from './types';
 
-const ERROR_VALIDATION_MESSAGE =
-  'Please fill in all required fields and ensure they are valid';
-const ERROR_GENERIC_MESSAGE = 'Something went wrong during ';
-const REGISTRATION_ACTION = 'registration';
-const VERIFICATION_ACTION = 'verification';
-const LOGIN_ACTION = 'login';
-
 export async function register(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<AuthUser>> {
+  const t = await getTranslations('ServerActions.Auth');
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = registerSchema.safeParse(rawData);
 
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: ERROR_VALIDATION_MESSAGE,
+      message: t('fillRequiredFields'),
       success: false,
     };
   }
@@ -35,7 +30,7 @@ export async function register(
     const user = await authService.register(data);
     return {
       errors: {},
-      message: 'Verification code sent to your email',
+      message: t('verificationCodeSent'),
       success: true,
       data: user,
     };
@@ -49,7 +44,7 @@ export async function register(
     }
     return {
       errors: {},
-      message: ERROR_GENERIC_MESSAGE + REGISTRATION_ACTION,
+      message: t('registrationError'),
       success: false,
     };
   }
@@ -59,13 +54,14 @@ export async function verify(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<User>> {
+  const t = await getTranslations('ServerActions.Auth');
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = verifySchema.safeParse(rawData);
 
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: ERROR_VALIDATION_MESSAGE,
+      message: t('fillRequiredFields'),
       success: false,
     };
   }
@@ -74,7 +70,7 @@ export async function verify(
     const user = await authService.verify(data);
     return {
       errors: {},
-      message: 'Email verified successfully',
+      message: t('verificationSuccess'),
       success: true,
       data: user,
     };
@@ -88,7 +84,7 @@ export async function verify(
     }
     return {
       errors: {},
-      message: ERROR_GENERIC_MESSAGE + VERIFICATION_ACTION,
+      message: t('verificationError'),
       success: false,
     };
   }
@@ -98,13 +94,14 @@ export async function login(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<AuthUser>> {
+  const t = await getTranslations('ServerActions.Auth');
   const rawData = Object.fromEntries(formData.entries());
   const { success, data, error } = loginSchema.safeParse(rawData);
 
   if (!success) {
     return {
       errors: error.flatten().fieldErrors,
-      message: ERROR_VALIDATION_MESSAGE,
+      message: t('fillRequiredFields'),
       success: false,
     };
   }
@@ -113,7 +110,7 @@ export async function login(
     const user = await authService.login(data);
     return {
       errors: {},
-      message: 'Logged in successfully',
+      message: t('loginSuccess'),
       success: true,
       data: user,
     };
@@ -127,7 +124,7 @@ export async function login(
     }
     return {
       errors: {},
-      message: ERROR_GENERIC_MESSAGE + LOGIN_ACTION,
+      message: t('loginError'),
       success: false,
     };
   }
