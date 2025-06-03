@@ -177,9 +177,9 @@
   },
   "ProductForm": {
     "success": "Success",
-    "editing": "Saving changes...",
+    "editing": "Editing product...",
     "adding": "Adding product...",
-    "edit": "Save Changes",
+    "edit": "Edit Product",
     "add": "Add Product"
   },
   "ProductTableHeader": {
@@ -190,12 +190,12 @@
     "stock": "Stock",
     "actions": "Actions",
     "filter_by_name": "Filter by name",
-    "filter_by_type": "Filter by type",
     "sort_by_name": "Sort by name",
+    "filter_by_type": "Filter by type",
     "sort_by_type": "Sort by type",
     "all": "All",
-    "flower_essence": "Flower Essence",
-    "sacred_geometry": "Sacred Geometry"
+    "sacred_geometry": "Sacred Geometry",
+    "flower_essence": "Flower Essence"
   },
   "TablePagination": {
     "previous": "Previous",
@@ -203,7 +203,9 @@
   },
   "ProductTableRow": {
     "edit_tooltip": "Edit product",
-    "delete_tooltip": "Delete product"
+    "delete_tooltip": "Delete product",
+    "sacred_geometry": "Sacred Geometry",
+    "flower_essence": "Flower Essence"
   },
   "TableSkeleton": {
     "image": "Image",
@@ -445,14 +447,35 @@
       "loginError": "Something went wrong during login"
     },
     "Product": {
-      "fillRequiredFields": "Please fill in all required fields and ensure they are valid",
-      "createSuccess": "Product created successfully",
-      "createError": "Failed to create product",
-      "updateSuccess": "Product updated successfully",
-      "updateError": "Failed to update product",
-      "deleteSuccess": "Product deleted successfully",
-      "deleteError": "Failed to delete product",
-      "missingId": "Product ID is missing"
+      "fillRequiredFields": "Please fill in all required fields.",
+      "createSuccess": "Product created successfully.",
+      "createError": "Failed to create product.",
+      "updateSuccess": "Product updated successfully.",
+      "updateError": "Failed to update product.",
+      "missingId": "Product ID is missing for update.",
+      "deleteSuccess": "Product deleted successfully.",
+      "deleteError": "Failed to delete product."
     }
+  },
+  "ProductSchema": {
+    "nameMin": "Name must be at least 3 characters",
+    "descriptionMin": "Description must be at least 10 characters",
+    "typeInvalid": "Invalid product type",
+    "priceMin": "Price must be a positive number",
+    "stockInt": "Stock must be a whole number",
+    "stockMin": "Stock must be a positive integer",
+    "imageInvalid": "Image must be a valid data URL"
+  },
+  "AuthSchema": {
+    "emailInvalid": "Please enter a valid email address",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "passwordRequired": "Password is required",
+    "nameRequired": "Name is required",
+    "confirmPasswordMinLength": "Please confirm your password (min 6 characters)",
+    "passwordsDontMatch": "Passwords do not match",
+    "verificationCodeLength": "Verification code must be 6 digits",
+    "invalidCredentials": "Invalid email or password",
+    "userExistsError": "User already exists with this email.",
+    "invalidVerificationCode": "Invalid or expired verification code."
   }
 }

@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { createProduct, updateProduct } from '@/features/product/actions';
-import { ProductFormData, productSchema } from '@/features/product/schema';
+import { ProductFormData, getProductSchema } from '@/features/product/schema';
 import { useToast } from '@/hooks/use-toast';
 import { useProductStore } from '@/lib/stores/use-product-store';
 
@@ -32,6 +32,7 @@ export function ProductForm({
   },
 }: Readonly<ProductFormProps>) {
   const t = useTranslations('ProductForm');
+  const tZod = useTranslations('ProductSchema');
   const { toast } = useToast();
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
@@ -42,6 +43,8 @@ export function ProductForm({
   );
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
+
+  const productSchema = getProductSchema(tZod);
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),

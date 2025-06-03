@@ -12,7 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { productSchema } from '@/features/product/schema';
+import { getProductSchema } from '@/features/product/schema';
 import { useProductStore } from '@/lib/stores/use-product-store';
 import { useTableStore } from '@/lib/stores/use-table-store';
 
@@ -23,6 +23,7 @@ interface ProductTableRowProps {
 export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   const t = useTranslations('ProductTableRow');
   const tableHeaderT = useTranslations('ProductTableHeader');
+  const tZod = useTranslations('ProductSchema');
   const { setEditDialogOpen, setEditingProduct } = useProductStore();
   const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
@@ -36,6 +37,8 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   } else {
     imageToDisplay = '/products/flower-essence.svg';
   }
+
+  const productSchema = getProductSchema(tZod);
 
   const handleEdit = () => {
     const { success, data } = productSchema.safeParse(product);
