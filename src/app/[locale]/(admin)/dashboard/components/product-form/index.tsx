@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProductType } from '@prisma/client';
+import { motion } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
@@ -21,6 +22,11 @@ import { ImageUpload } from './image-upload';
 interface ProductFormProps {
   initialData?: ProductFormData;
 }
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export function ProductForm({
   initialData = {
@@ -138,29 +144,33 @@ export function ProductForm({
       {!state.success &&
         state.message &&
         Object.keys(state.errors).length > 0 && (
-          <p
-            className="flex items-center gap-1 text-sm text-red-500"
+          <motion.p
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
             role="alert"
           >
             <AlertCircle className="h-4 w-4" />
             {state.message}
-          </p>
+          </motion.p>
         )}
 
-      <Button
-        type="submit"
-        className="bg-primary hover:bg-primary/90 w-full"
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            {initialData?.name ? t('editing') : t('adding')}
-          </>
-        ) : (
-          <>{initialData?.name ? t('edit') : t('add')}</>
-        )}
-      </Button>
+      <motion.div variants={fadeInUp}>
+        <Button
+          type="submit"
+          className="bg-primary hover:bg-primary/90 w-full"
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {initialData?.name ? t('editing') : t('adding')}
+            </>
+          ) : (
+            <>{initialData?.name ? t('edit') : t('add')}</>
+          )}
+        </Button>
+      </motion.div>
     </form>
   );
 }
