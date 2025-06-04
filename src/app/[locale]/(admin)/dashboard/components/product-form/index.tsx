@@ -6,11 +6,12 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { createProduct, updateProduct } from '@/features/product/actions';
-import { ProductFormData, getProductSchema } from '@/features/product/schema';
+import { ProductFormData, productSchema } from '@/features/product/schema';
 import { useToast } from '@/hooks/use-toast';
 import { useProductStore } from '@/lib/stores/use-product-store';
 
@@ -32,7 +33,7 @@ export function ProductForm({
   },
 }: Readonly<ProductFormProps>) {
   const t = useTranslations('ProductForm');
-  const tZod = useTranslations('ProductSchema');
+  const tProductSchema = useTranslations('ProductSchema');
   const { toast } = useToast();
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
@@ -44,10 +45,39 @@ export function ProductForm({
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
-  const productSchema = getProductSchema(tZod);
-
   const form = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(productSchema, {
+      errorMap: (issue, ctx) => {
+        const path = issue.path.join('.');
+
+        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
+          return { message: tProductSchema('nameMin') };
+        }
+        if (path === 'description' && issue.code === ZodIssueCode.too_small) {
+          return { message: tProductSchema('descriptionMin') };
+        }
+        if (path === 'type' && issue.code === ZodIssueCode.invalid_enum_value) {
+          return { message: tProductSchema('typeInvalid') };
+        }
+        if (path === 'price' && issue.code === ZodIssueCode.too_small) {
+          return { message: tProductSchema('priceMin') };
+        }
+        if (path === 'stock' && issue.code === ZodIssueCode.invalid_type) {
+          return { message: tProductSchema('stockInt') };
+        }
+        if (path === 'stock' && issue.code === ZodIssueCode.too_small) {
+          return { message: tProductSchema('stockMin') };
+        }
+        if (
+          path === 'imageBase64' &&
+          issue.code === ZodIssueCode.invalid_string
+        ) {
+          return { message: tProductSchema('imageInvalid') };
+        }
+
+        return { message: ctx.defaultError };
+      },
+    }),
     defaultValues: initialData,
   });
 

@@ -7,7 +7,7 @@ import { getTranslations } from 'next-intl/server';
 import { ActionState } from '@/lib/types/action';
 import { FormState } from '@/lib/types/form';
 
-import { getProductSchema } from './schema';
+import { productSchema } from './schema';
 import { productService } from './service';
 
 export async function getAllProducts(): Promise<Product[]> {
@@ -23,9 +23,8 @@ export async function createProduct(
   formData: FormData,
 ): Promise<FormState<Product>> {
   const t = await getTranslations('ServerActions.Product');
-  const tSchema = await getTranslations('ProductSchema');
   const rawData = Object.fromEntries(formData.entries());
-  const productSchema = getProductSchema(tSchema);
+
   const { success, data, error } = productSchema.safeParse(rawData);
 
   if (!success) {
@@ -64,9 +63,8 @@ export async function updateProduct(
   formData: FormData,
 ): Promise<FormState<Product>> {
   const t = await getTranslations('ServerActions.Product');
-  const tSchema = await getTranslations('ProductSchema');
   const rawData = Object.fromEntries(formData.entries());
-  const productSchema = getProductSchema(tSchema);
+
   const { success, data, error } = productSchema.safeParse(rawData);
 
   if (!success) {
