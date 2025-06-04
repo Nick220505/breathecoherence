@@ -18,7 +18,7 @@ export default function RegisterForm() {
   const t = useTranslations('RegisterPage');
   const tAuthSchema = useTranslations('AuthSchema.Register');
   const router = useRouter();
-  const [state, formAction] = useActionState(register, {
+  const [{ success, message, errors }, formAction] = useActionState(register, {
     errors: {},
     message: '',
     success: false,
@@ -69,13 +69,13 @@ export default function RegisterForm() {
   });
 
   useEffect(() => {
-    if (state.success) {
+    if (success) {
       router.push({
         pathname: '/verify',
         query: { email: encodeURIComponent(form.getValues('email')) },
       });
     }
-  }, [state.success, router, form]);
+  }, [success, router, form]);
 
   const onSubmit = (data: RegisterFormData) => {
     const formData = new FormData();
@@ -223,18 +223,16 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      {!state.success &&
-        state.message &&
-        (state.errors.root || state.errors.email) && (
-          <motion.p
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
-          >
-            <AlertCircle className="h-4 w-4" />
-            {state.message}
-          </motion.p>
-        )}
+      {!success && message && (errors.root || errors.email) && (
+        <motion.p
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
+        >
+          <AlertCircle className="h-4 w-4" />
+          {message}
+        </motion.p>
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
