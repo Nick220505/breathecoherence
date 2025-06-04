@@ -14,14 +14,9 @@ import { register } from '@/features/auth/actions';
 import { RegisterFormData, registerSchema } from '@/features/auth/schema';
 import { Link, useRouter } from '@/i18n/routing';
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
 export default function RegisterForm() {
   const t = useTranslations('RegisterPage');
-  const tAuthSchema = useTranslations('AuthSchema');
+  const tAuthSchema = useTranslations('AuthSchema.Register');
   const router = useRouter();
   const [state, formAction] = useActionState(register, {
     errors: {},
@@ -40,31 +35,31 @@ export default function RegisterForm() {
           issue.code === ZodIssueCode.invalid_string &&
           issue.validation === 'email'
         ) {
-          return { message: tAuthSchema('Register.emailInvalid') };
+          return { message: tAuthSchema('emailInvalid') };
         }
         if (
           path === 'password' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 6
         ) {
-          return { message: tAuthSchema('Register.passwordMinLength') };
+          return { message: tAuthSchema('passwordMinLength') };
         }
         if (
           path === 'name' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 1
         ) {
-          return { message: tAuthSchema('Register.nameRequired') };
+          return { message: tAuthSchema('nameRequired') };
         }
         if (
           path === 'confirmPassword' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 6
         ) {
-          return { message: tAuthSchema('Register.confirmPasswordMinLength') };
+          return { message: tAuthSchema('confirmPasswordMinLength') };
         }
         if (path === 'confirmPassword' && issue.code === ZodIssueCode.custom) {
-          return { message: tAuthSchema('Register.passwordsDontMatch') };
+          return { message: tAuthSchema('passwordsDontMatch') };
         }
 
         return { message: ctx.defaultError };
@@ -100,7 +95,11 @@ export default function RegisterForm() {
       onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
       className="space-y-6"
     >
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="space-y-2"
+      >
         <label
           htmlFor="name"
           className="text-sm font-medium text-gray-900 dark:text-gray-100"
@@ -127,7 +126,11 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="space-y-2"
+      >
         <label
           htmlFor="email"
           className="text-sm font-medium text-gray-900 dark:text-gray-100"
@@ -154,7 +157,11 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="space-y-2"
+      >
         <label
           htmlFor="password"
           className="text-sm font-medium text-gray-900 dark:text-gray-100"
@@ -181,7 +188,11 @@ export default function RegisterForm() {
         )}
       </motion.div>
 
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="space-y-2"
+      >
         <label
           htmlFor="confirmPassword"
           className="text-sm font-medium text-gray-900 dark:text-gray-100"
@@ -221,7 +232,10 @@ export default function RegisterForm() {
           </motion.p>
         )}
 
-      <motion.div variants={fadeInUp}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <Button
           type="submit"
           disabled={isLoading}
@@ -238,7 +252,8 @@ export default function RegisterForm() {
         </Button>
       </motion.div>
       <motion.div
-        variants={fadeInUp}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400"
       >
         <span>{t('haveAccount')}</span>{' '}

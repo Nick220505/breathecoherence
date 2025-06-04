@@ -23,11 +23,6 @@ interface ProductFormProps {
   initialData?: ProductFormData;
 }
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
 export function ProductForm({
   initialData = {
     name: '',
@@ -155,7 +150,10 @@ export function ProductForm({
           </motion.p>
         )}
 
-      <motion.div variants={fadeInUp}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <Button
           type="submit"
           className="bg-primary hover:bg-primary/90 w-full"
