@@ -71,7 +71,9 @@ export async function updateProduct(
     };
   }
 
-  if (!data.id) {
+  const { id } = data;
+
+  if (!id) {
     return {
       errors: {},
       message: t('missingId'),
@@ -80,7 +82,7 @@ export async function updateProduct(
   }
 
   try {
-    const updatedProduct = await productService.update(data.id, data);
+    const updatedProduct = await productService.update(id, data);
     revalidateTag('products');
     revalidateTag('product');
 
