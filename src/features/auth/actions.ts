@@ -40,8 +40,8 @@ export async function register(
       success: true,
       data: user,
     };
-  } catch (err) {
-    if (err instanceof UserExistsError) {
+  } catch (error) {
+    if (error instanceof UserExistsError) {
       return {
         errors: { email: [tAuthSchema('Register.userExistsError')] },
         message: tAuthSchema('Register.userExistsError'),
@@ -49,8 +49,8 @@ export async function register(
       };
     }
     const errorMessage =
-      err instanceof AuthError
-        ? err.message
+      error instanceof AuthError
+        ? error.message
         : tServerActionsAuth('registrationError');
     return {
       errors: { root: [errorMessage] },
@@ -85,8 +85,8 @@ export async function verify(
       success: true,
       data: user,
     };
-  } catch (err) {
-    if (err instanceof InvalidVerificationError) {
+  } catch (error) {
+    if (error instanceof InvalidVerificationError) {
       return {
         errors: { code: [tAuthSchema('Verify.invalidVerificationCode')] },
         message: tAuthSchema('Verify.invalidVerificationCode'),
@@ -94,8 +94,8 @@ export async function verify(
       };
     }
     const errorMessage =
-      err instanceof AuthError
-        ? err.message
+      error instanceof AuthError
+        ? error.message
         : tServerActionsAuth('verificationError');
     return {
       errors: { root: [errorMessage] },
@@ -130,8 +130,8 @@ export async function login(
       success: true,
       data: user,
     };
-  } catch (err) {
-    if (err instanceof InvalidCredentialsError) {
+  } catch (error) {
+    if (error instanceof InvalidCredentialsError) {
       return {
         errors: { root: [tAuthSchema('Login.invalidCredentials')] },
         message: tAuthSchema('Login.invalidCredentials'),
@@ -139,7 +139,9 @@ export async function login(
       };
     }
     const errorMessage =
-      err instanceof AuthError ? err.message : tServerActionsAuth('loginError');
+      error instanceof AuthError
+        ? error.message
+        : tServerActionsAuth('loginError');
     return {
       errors: { root: [errorMessage] },
       message: errorMessage,
