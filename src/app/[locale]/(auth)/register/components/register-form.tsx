@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, AtSign, Loader2, Lock, Shield, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
@@ -102,8 +102,9 @@ export default function RegisterForm() {
       >
         <label
           htmlFor="name"
-          className="text-sm font-medium text-gray-900 dark:text-gray-100"
+          className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100"
         >
+          <User className="h-4 w-4" />
           {t('name')}
         </label>
         <Input
@@ -133,8 +134,9 @@ export default function RegisterForm() {
       >
         <label
           htmlFor="email"
-          className="text-sm font-medium text-gray-900 dark:text-gray-100"
+          className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100"
         >
+          <AtSign className="h-4 w-4" />
           {t('email')}
         </label>
         <Input
@@ -164,8 +166,9 @@ export default function RegisterForm() {
       >
         <label
           htmlFor="password"
-          className="text-sm font-medium text-gray-900 dark:text-gray-100"
+          className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100"
         >
+          <Lock className="h-4 w-4" />
           {t('password')}
         </label>
         <Input
@@ -195,8 +198,9 @@ export default function RegisterForm() {
       >
         <label
           htmlFor="confirmPassword"
-          className="text-sm font-medium text-gray-900 dark:text-gray-100"
+          className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100"
         >
+          <Shield className="h-4 w-4" />
           {t('confirmPassword')}
         </label>
         <Input
