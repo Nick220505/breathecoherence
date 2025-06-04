@@ -1,6 +1,7 @@
 'use client';
 
 import { ProductType } from '@prisma/client';
+import { motion } from 'framer-motion';
 import {
   AlertCircle,
   Box,
@@ -54,10 +55,14 @@ export function FormFields({ form }: Readonly<FormFieldsProps>) {
           placeholder={t('placeholder.name')}
         />
         {errors.name && (
-          <p className="flex items-center gap-1 text-sm text-red-500">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-1 text-sm text-red-500"
+          >
             <AlertCircle className="h-4 w-4" />
             {errors.name.message}
-          </p>
+          </motion.p>
         )}
       </div>
 
@@ -76,10 +81,14 @@ export function FormFields({ form }: Readonly<FormFieldsProps>) {
           placeholder={t('placeholder.description')}
         />
         {errors.description && (
-          <p className="flex items-center gap-1 text-sm text-red-500">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-1 text-sm text-red-500"
+          >
             <AlertCircle className="h-4 w-4" />
             {errors.description.message}
-          </p>
+          </motion.p>
         )}
       </div>
 
@@ -113,10 +122,14 @@ export function FormFields({ form }: Readonly<FormFieldsProps>) {
           </SelectContent>
         </Select>
         {errors.type && (
-          <p className="flex items-center gap-1 text-sm text-red-500">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-1 text-sm text-red-500"
+          >
             <AlertCircle className="h-4 w-4" />
             {errors.type.message}
-          </p>
+          </motion.p>
         )}
       </div>
 
@@ -138,10 +151,14 @@ export function FormFields({ form }: Readonly<FormFieldsProps>) {
             placeholder={t('placeholder.price')}
           />
           {errors.price && (
-            <p className="flex items-center gap-1 text-sm text-red-500">
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-1 text-sm text-red-500"
+            >
               <AlertCircle className="h-4 w-4" />
               {errors.price.message}
-            </p>
+            </motion.p>
           )}
         </div>
 
@@ -161,10 +178,14 @@ export function FormFields({ form }: Readonly<FormFieldsProps>) {
             placeholder={t('placeholder.stock')}
           />
           {errors.stock && (
-            <p className="flex items-center gap-1 text-sm text-red-500">
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-1 text-sm text-red-500"
+            >
               <AlertCircle className="h-4 w-4" />
               {errors.stock.message}
-            </p>
+            </motion.p>
           )}
         </div>
       </div>
