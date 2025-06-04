@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, AtSign, Loader2, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -106,8 +106,9 @@ export default function LoginForm() {
       >
         <label
           htmlFor="email"
-          className="text-sm font-medium text-gray-900 dark:text-gray-100"
+          className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100"
         >
+          <AtSign className="h-4 w-4" />
           {t('email')}
         </label>
         <Input
@@ -137,8 +138,9 @@ export default function LoginForm() {
       >
         <label
           htmlFor="password"
-          className="text-sm font-medium text-gray-900 dark:text-gray-100"
+          className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100"
         >
+          <Lock className="h-4 w-4" />
           {t('password')}
         </label>
         <Input
