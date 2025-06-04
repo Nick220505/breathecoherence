@@ -62,15 +62,15 @@ export default function LoginForm() {
     if (state.success) {
       const performSignIn = async () => {
         try {
-          const result = await signIn('credentials', {
+          const { error } = await signIn('credentials', {
             email: form.getValues('email'),
             password: form.getValues('password'),
             redirect: false,
           });
 
-          if (result?.error) {
-            console.error('Error signing in:', result.error);
-            form.setError('root.serverError', { message: result.error });
+          if (error) {
+            console.error('Error signing in:', error);
+            form.setError('root.serverError', { message: error });
           } else {
             router.push('/');
           }
