@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { AlertCircle, AtSign, Loader2, Lock, Shield, User } from 'lucide-react';
+import Form from 'next/form';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
@@ -90,7 +91,7 @@ export default function RegisterForm() {
   const isLoading = form.formState.isSubmitting || isPending;
 
   return (
-    <form
+    <Form
       action={formAction}
       onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
       className="space-y-6"
@@ -266,6 +267,6 @@ export default function RegisterForm() {
           {t('login')}
         </Link>
       </motion.div>
-    </form>
+    </Form>
   );
 }
