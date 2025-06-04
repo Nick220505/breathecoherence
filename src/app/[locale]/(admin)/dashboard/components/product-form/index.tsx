@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ProductType } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
+import Form from 'next/form';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
@@ -126,7 +127,7 @@ export function ProductForm({
   const isLoading = form.formState.isSubmitting || isPending;
 
   return (
-    <form
+    <Form
       action={formAction}
       onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
       className="space-y-6"
@@ -172,6 +173,6 @@ export function ProductForm({
           )}
         </Button>
       </motion.div>
-    </form>
+    </Form>
   );
 }
