@@ -34,12 +34,12 @@ export function DeleteProductDialog() {
     setIsLoading(true);
     setIsDeleting(true);
 
-    const { success, message } = await deleteProduct(productToDelete.id);
+    const { success, message, data } = await deleteProduct(productToDelete.id);
 
     if (success) {
       toast({
-        title: t('success'),
-        description: message,
+        title: t('deleted_title'),
+        description: t('deleted_description', { name: data?.name ?? '' }),
         variant: 'default',
       });
       resetDeleteState();

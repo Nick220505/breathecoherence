@@ -38,7 +38,7 @@ export function ProductForm({
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
 
-  const [state, formAction] = useActionState(
+  const [{ success, data, message, errors }, formAction] = useActionState(
     initialData?.id ? updateProduct : createProduct,
     { errors: {}, message: '' },
   );
@@ -82,13 +82,17 @@ export function ProductForm({
   });
 
   useEffect(() => {
-    if (state.success && !successShown.current) {
+    if (success && !successShown.current) {
       successShown.current = true;
+
       toast({
-        title: t('success'),
-        description: state.message,
+        title: initialData?.id ? t('updated_title') : t('created_title'),
+        description: initialData?.id
+          ? t('updated_description', { name: data?.name ?? '' })
+          : t('created_description', { name: data?.name ?? '' }),
         variant: 'default',
       });
+
       if (initialData?.id) {
         setEditDialogOpen(false);
         setEditingProduct(null);
@@ -97,14 +101,16 @@ export function ProductForm({
       }
     }
   }, [
-    state.success,
-    state.message,
+    success,
+    data,
+    message,
     t,
     toast,
     initialData?.id,
     setAddDialogOpen,
     setEditDialogOpen,
     setEditingProduct,
+    form,
   ]);
 
   const onSubmit = (data: ProductFormData) => {
@@ -135,19 +141,17 @@ export function ProductForm({
         onImageChange={(base64) => form.setValue('imageBase64', base64)}
       />
 
-      {!state.success &&
-        state.message &&
-        Object.keys(state.errors).length > 0 && (
-          <motion.p
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
-            role="alert"
-          >
-            <AlertCircle className="h-4 w-4" />
-            {state.message}
-          </motion.p>
-        )}
+      {!success && message && Object.keys(errors).length > 0 && (
+        <motion.p
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
+          role="alert"
+        >
+          <AlertCircle className="h-4 w-4" />
+          {message}
+        </motion.p>
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

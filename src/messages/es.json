@@ -168,7 +168,9 @@
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",
     "deleting": "Eliminando...",
-    "confirm_delete": "Eliminar"
+    "confirm_delete": "Eliminar",
+    "deleted_title": "Producto Eliminado",
+    "deleted_description": "El producto \"{name}\" ha sido eliminado con éxito."
   },
   "AddProductDialog": {
     "add_product": "Agregar Producto",
@@ -180,6 +182,10 @@
   },
   "ProductForm": {
     "success": "Éxito",
+    "created_title": "Producto Creado",
+    "updated_title": "Producto Actualizado",
+    "created_description": "El producto \"{name}\" ha sido creado con éxito.",
+    "updated_description": "El producto \"{name}\" ha sido actualizado con éxito.",
     "editing": "Editando producto...",
     "adding": "Agregando producto...",
     "edit": "Editar Producto",
