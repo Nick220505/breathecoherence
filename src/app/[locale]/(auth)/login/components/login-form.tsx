@@ -16,14 +16,9 @@ import { login } from '@/features/auth/actions';
 import { LoginFormData, loginSchema } from '@/features/auth/schema';
 import { Link } from '@/i18n/routing';
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
 export default function LoginForm() {
   const t = useTranslations('LoginPage');
-  const tAuthSchema = useTranslations('AuthSchema');
+  const tAuthSchema = useTranslations('AuthSchema.Login');
   const router = useRouter();
   const [state, formAction] = useActionState(login, {
     errors: {},
@@ -42,14 +37,14 @@ export default function LoginForm() {
           issue.code === ZodIssueCode.invalid_string &&
           issue.validation === 'email'
         ) {
-          return { message: tAuthSchema('Login.emailInvalid') };
+          return { message: tAuthSchema('emailInvalid') };
         }
         if (
           path === 'password' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 1
         ) {
-          return { message: tAuthSchema('Login.passwordRequired') };
+          return { message: tAuthSchema('passwordRequired') };
         }
 
         return { message: ctx.defaultError };
@@ -104,7 +99,11 @@ export default function LoginForm() {
       onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
       className="space-y-6"
     >
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="space-y-2"
+      >
         <label
           htmlFor="email"
           className="text-sm font-medium text-gray-900 dark:text-gray-100"
@@ -131,7 +130,11 @@ export default function LoginForm() {
         )}
       </motion.div>
 
-      <motion.div variants={fadeInUp} className="space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="space-y-2"
+      >
         <label
           htmlFor="password"
           className="text-sm font-medium text-gray-900 dark:text-gray-100"
@@ -183,7 +186,10 @@ export default function LoginForm() {
         </motion.p>
       )}
 
-      <motion.div variants={fadeInUp}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
         <Button
           type="submit"
           disabled={isLoading}
@@ -201,7 +207,8 @@ export default function LoginForm() {
       </motion.div>
 
       <motion.div
-        variants={fadeInUp}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400"
       >
         <span>{t('noAccount')}</span>{' '}
