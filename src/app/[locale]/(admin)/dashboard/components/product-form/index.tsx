@@ -30,7 +30,6 @@ export function ProductForm({
     type: ProductType.FLOWER_ESSENCE,
     price: 0,
     stock: 0,
-    imageBase64: '',
   },
 }: Readonly<ProductFormProps>) {
   const t = useTranslations('ProductForm');

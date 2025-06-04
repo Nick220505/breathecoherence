@@ -36,11 +36,7 @@ export async function createProduct(
   }
 
   try {
-    const productDataToCreate = {
-      ...data,
-      imageBase64: data.imageBase64 ?? null,
-    };
-    const createdProduct = await productService.create(productDataToCreate);
+    const createdProduct = await productService.create(data);
     revalidateTag('products');
 
     return {
@@ -84,14 +80,7 @@ export async function updateProduct(
   }
 
   try {
-    const productDataToUpdate = {
-      ...data,
-      imageBase64: data.imageBase64 ?? null,
-    };
-    const updatedProduct = await productService.update(
-      data.id,
-      productDataToUpdate,
-    );
+    const updatedProduct = await productService.update(data.id, data);
     revalidateTag('products');
     revalidateTag('product');
 
