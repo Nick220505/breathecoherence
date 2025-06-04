@@ -20,7 +20,7 @@ export default function LoginForm() {
   const t = useTranslations('LoginPage');
   const tAuthSchema = useTranslations('AuthSchema.Login');
   const router = useRouter();
-  const [state, formAction] = useActionState(login, {
+  const [{ success, message, errors }, formAction] = useActionState(login, {
     errors: {},
     message: '',
     success: false,
@@ -54,7 +54,7 @@ export default function LoginForm() {
   });
 
   useEffect(() => {
-    if (state.success) {
+    if (success) {
       const performSignIn = async () => {
         try {
           const { error } = await signIn('credentials', {
@@ -79,7 +79,7 @@ export default function LoginForm() {
 
       void performSignIn();
     }
-  }, [state.success, router, form, t]);
+  }, [success, router, form, t]);
 
   const onSubmit = (data: LoginFormData) => {
     const formData = new FormData();
@@ -163,18 +163,17 @@ export default function LoginForm() {
         )}
       </motion.div>
 
-      {!state.success &&
-        state.message &&
-        (state.errors.root ||
-          Object.keys(state.errors).filter((k) => k !== 'root').length ===
-            0) && (
+      {!success &&
+        message &&
+        (errors.root ||
+          Object.keys(errors).filter((k) => k !== 'root').length === 0) && (
           <motion.p
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
           >
             <AlertCircle className="h-4 w-4" />
-            {state.message}
+            {message}
           </motion.p>
         )}
       {form.formState.errors.root?.serverError && (
