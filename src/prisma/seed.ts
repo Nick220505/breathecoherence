@@ -126,7 +126,95 @@ async function main() {
     }),
   ]);
 
-  console.log({ admin, user, platonicSolids, bachFlowers });
+  const platonicSolidsTranslations = await Promise.all([
+    prisma.productTranslation.upsert({
+      where: { productId_locale: { productId: 'tetrahedron', locale: 'es' } },
+      update: {},
+      create: {
+        productId: 'tetrahedron',
+        locale: 'es',
+        name: 'Tetraedro (Elemento Fuego)',
+        description:
+          'Representa la transformación, el crecimiento espiritual y el poder personal. El tetraedro está asociado con el elemento Fuego.',
+      },
+    }),
+    prisma.productTranslation.upsert({
+      where: { productId_locale: { productId: 'cube', locale: 'es' } },
+      update: {},
+      create: {
+        productId: 'cube',
+        locale: 'es',
+        name: 'Cubo (Elemento Tierra)',
+        description:
+          'Simboliza la estabilidad, el anclaje y el bienestar físico. El cubo está asociado con el elemento Tierra.',
+      },
+    }),
+    prisma.productTranslation.upsert({
+      where: { productId_locale: { productId: 'octahedron', locale: 'es' } },
+      update: {},
+      create: {
+        productId: 'octahedron',
+        locale: 'es',
+        name: 'Octaedro (Elemento Aire)',
+        description:
+          'Asociado con el amor, el perdón y la compasión. El octaedro está vinculado al elemento Aire.',
+      },
+    }),
+    prisma.productTranslation.upsert({
+      where: { productId_locale: { productId: 'icosahedron', locale: 'es' } },
+      update: {},
+      create: {
+        productId: 'icosahedron',
+        locale: 'es',
+        name: 'Icosaedro (Elemento Agua)',
+        description:
+          'Vinculado a la alegría, el flujo emocional y la fluidez. El icosaedro está conectado con el elemento Agua.',
+      },
+    }),
+    prisma.productTranslation.upsert({
+      where: { productId_locale: { productId: 'dodecahedron', locale: 'es' } },
+      update: {},
+      create: {
+        productId: 'dodecahedron',
+        locale: 'es',
+        name: 'Dodecaedro (Elemento Éter)',
+        description:
+          'Representa el universo, la sabiduría y la conexión espiritual. El dodecaedro está asociado con el elemento Éter/Cosmos.',
+      },
+    }),
+  ]);
+
+  const bachFlowersTranslations = await Promise.all([
+    prisma.productTranslation.upsert({
+      where: { productId_locale: { productId: 'aspen', locale: 'es' } },
+      update: {},
+      create: {
+        productId: 'aspen',
+        locale: 'es',
+        name: 'Esencia de Álamo',
+        description: 'Para miedos vagos e inexplicables.',
+      },
+    }),
+    prisma.productTranslation.upsert({
+      where: { productId_locale: { productId: 'olive', locale: 'es' } },
+      update: {},
+      create: {
+        productId: 'olive',
+        locale: 'es',
+        name: 'Esencia de Olivo',
+        description: 'Para el agotamiento tras un esfuerzo mental o físico.',
+      },
+    }),
+  ]);
+
+  console.log({
+    admin,
+    user,
+    platonicSolids,
+    bachFlowers,
+    platonicSolidsTranslations,
+    bachFlowersTranslations,
+  });
 }
 
 main()
