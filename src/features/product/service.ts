@@ -2,7 +2,7 @@ import { Prisma, Product } from '@prisma/client';
 
 import { Locale, routing } from '@/i18n/routing';
 import prisma from '@/lib/prisma';
-import { translationService } from '@/lib/translation-service';
+import { translate } from '@/lib/translation';
 
 export const productService = {
   async getAll(locale: Locale): Promise<Product[]> {
@@ -65,11 +65,8 @@ export const productService = {
       for (const locale of routing.locales) {
         if (locale === routing.defaultLocale) continue;
 
-        const translatedName = await translationService.translate(
-          product.name,
-          locale,
-        );
-        const translatedDescription = await translationService.translate(
+        const translatedName = await translate(product.name, locale);
+        const translatedDescription = await translate(
           product.description,
           locale,
         );
@@ -95,11 +92,8 @@ export const productService = {
       for (const locale of routing.locales) {
         if (locale === routing.defaultLocale) continue;
 
-        const translatedName = await translationService.translate(
-          product.name,
-          locale,
-        );
-        const translatedDescription = await translationService.translate(
+        const translatedName = await translate(product.name, locale);
+        const translatedDescription = await translate(
           product.description,
           locale,
         );

@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 
-import { sendOrderConfirmationEmail } from '@/lib/email-service';
+import { sendOrderConfirmationEmail } from '@/lib/email';
 import prisma from '@/lib/prisma';
 
 interface OrderItemSummary {
