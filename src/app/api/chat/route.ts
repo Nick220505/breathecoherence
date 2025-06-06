@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   try {
     const { message, chatHistory } = (await request.json()) as ChatRequest;
 
-    const products = await productService.getAll();
+    const products = await productService.getAll('en');
 
     const productMap = new Map(
       products.map((product) => [product.id, product]),
