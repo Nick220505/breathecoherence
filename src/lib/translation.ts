@@ -1,49 +1,34 @@
-interface TranslationResponse {
-  data: { translations: { translatedText: string }[] };
-}
+import * as deepl from 'deepl-node';
+
+const authKey = process.env.DEEPL_API_KEY;
+
+const freeApiUrl = 'https://api-free.deepl.com';
+
+const translator = authKey
+  ? new deepl.Translator(authKey, {
+      serverUrl: freeApiUrl,
+    })
+  : null;
 
 export async function translate(
   text: string,
-  targetLocale: string,
+  targetLocale: 'en' | 'es',
 ): Promise<string> {
-  try {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY;
+  const deepLTargetLang =
+    targetLocale.toUpperCase() as deepl.TargetLanguageCode;
 
-    if (!apiKey) {
-      console.warn(
-        'Google Translate API key is missing. Using mock translation.',
-      );
-      return `${text} (${targetLocale})`;
-    }
-
-    const response = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          q: text,
-          target: targetLocale,
-          source: 'en',
-        }),
-      },
+  if (!translator) {
+    console.warn(
+      'DeepL API key is missing. Using mock translation. Please set the DEEPL_API_KEY environment variable.',
     );
+    return `${text} (${targetLocale})`;
+  }
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.error('Translation API error response:', errorBody);
-      throw new Error(`Translation failed with status: ${response.status}`);
-    }
-
-    const { data } = (await response.json()) as TranslationResponse;
-
-    if (!data?.translations?.[0]?.translatedText) {
-      throw new Error('No valid translation returned from API');
-    }
-
-    return data.translations[0].translatedText;
+  try {
+    const result = await translator.translateText(text, 'en', deepLTargetLang);
+    return result.text;
   } catch (error) {
-    console.error('Translation process failed:', error);
+    console.error('DeepL translation process failed:', error);
     return `${text} (${targetLocale})`;
   }
 }
