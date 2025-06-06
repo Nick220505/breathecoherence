@@ -1,11 +1,11 @@
 import { Prisma, Product } from '@prisma/client';
 
-import { routing } from '@/i18n/routing';
+import { Locale, routing } from '@/i18n/routing';
 import prisma from '@/lib/prisma';
 import { translationService } from '@/lib/translation-service';
 
 export const productService = {
-  async getAll(locale: string): Promise<Product[]> {
+  async getAll(locale: Locale): Promise<Product[]> {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
@@ -32,7 +32,7 @@ export const productService = {
     });
   },
 
-  async getById(id: string, locale: string): Promise<Product | null> {
+  async getById(id: string, locale: Locale): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: { id },
       include: {

@@ -4,6 +4,7 @@ import { Product } from '@prisma/client';
 import { revalidateTag } from 'next/cache';
 import { getLocale, getTranslations } from 'next-intl/server';
 
+import { Locale } from '@/i18n/routing';
 import { ActionState } from '@/lib/types/action';
 import { FormState } from '@/lib/types/form';
 
@@ -11,12 +12,12 @@ import { productSchema } from './schema';
 import { productService } from './service';
 
 export async function getAllProducts(): Promise<Product[]> {
-  const locale = await getLocale();
+  const locale = (await getLocale()) as Locale;
   return productService.getAll(locale);
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  const locale = await getLocale();
+  const locale = (await getLocale()) as Locale;
   return productService.getById(id, locale);
 }
 
