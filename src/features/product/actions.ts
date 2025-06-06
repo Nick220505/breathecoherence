@@ -2,7 +2,7 @@
 
 import { Product } from '@prisma/client';
 import { revalidateTag } from 'next/cache';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { ActionState } from '@/lib/types/action';
 import { FormState } from '@/lib/types/form';
@@ -11,11 +11,13 @@ import { productSchema } from './schema';
 import { productService } from './service';
 
 export async function getAllProducts(): Promise<Product[]> {
-  return productService.getAll();
+  const locale = await getLocale();
+  return productService.getAll(locale);
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  return productService.getById(id);
+  const locale = await getLocale();
+  return productService.getById(id, locale);
 }
 
 export async function createProduct(

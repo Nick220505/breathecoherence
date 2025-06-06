@@ -68,3 +68,12 @@ export async function translateProducts(
     products.map((product) => translateProduct(product, targetLanguage)),
   );
 }
+
+export const translationService = {
+  async translate(text: string, targetLocale: string): Promise<string> {
+    console.log(`Translating '${text}' to '${targetLocale}'`);
+    // In a real application, you would integrate a translation API like Google Translate, DeepL, etc.
+    // For this example, we'll just append the locale to the original text.
+    return Promise.resolve(`${text} (${targetLocale})`);
+  },
+};
