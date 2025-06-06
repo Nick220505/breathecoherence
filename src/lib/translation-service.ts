@@ -1,79 +1,48 @@
-import { Product } from '@prisma/client';
-
 interface TranslationResponse {
   data: { translations: { translatedText: string }[] };
 }
 
-export async function translateText(
-  text: string,
-  targetLanguage = 'es',
-): Promise<string> {
-  try {
-    if (!process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY) {
-      console.warn('Missing NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY');
-      return text;
-    }
-
-    const response = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=${process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          q: text,
-          target: targetLanguage,
-          source: 'en',
-        }),
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error('Translation failed');
-    }
-
-    const { data } = (await response.json()) as TranslationResponse;
-    return data.translations[0].translatedText;
-  } catch (error) {
-    console.error('Translation error:', error);
-    return text;
-  }
-}
-
-export async function translateProduct(
-  product: Product,
-  targetLanguage = 'es',
-): Promise<Product> {
-  if (!product) return product;
-
-  const translatedProduct = { ...product };
-
-  try {
-    translatedProduct.name = await translateText(product.name, targetLanguage);
-    translatedProduct.description = await translateText(
-      product.description,
-      targetLanguage,
-    );
-  } catch (error) {
-    console.error('Error translating product:', error);
-  }
-
-  return translatedProduct;
-}
-
-export async function translateProducts(
-  products: Product[],
-  targetLanguage = 'es',
-): Promise<Product[]> {
-  return Promise.all(
-    products.map((product) => translateProduct(product, targetLanguage)),
-  );
-}
-
 export const translationService = {
   async translate(text: string, targetLocale: string): Promise<string> {
-    console.log(`Translating '${text}' to '${targetLocale}'`);
-    // In a real application, you would integrate a translation API like Google Translate, DeepL, etc.
-    // For this example, we'll just append the locale to the original text.
-    return Promise.resolve(`${text} (${targetLocale})`);
+    try {
+      const apiKey = process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_API_KEY;
+
+      if (!apiKey) {
+        console.warn(
+          'Google Translate API key is missing. Using mock translation.',
+        );
+        return `${text} (${targetLocale})`;
+      }
+
+      const response = await fetch(
+        `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            q: text,
+            target: targetLocale,
+            source: 'en',
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        console.error('Translation API error response:', errorBody);
+        throw new Error(`Translation failed with status: ${response.status}`);
+      }
+
+      const { data } = (await response.json()) as TranslationResponse;
+
+      if (!data?.translations?.[0]?.translatedText) {
+        throw new Error('No valid translation returned from API');
+      }
+
+      return data.translations[0].translatedText;
+    } catch (error) {
+      console.error('Translation process failed:', error);
+      return `${text} (${targetLocale})`;
+    }
   },
 };
