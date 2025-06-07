@@ -213,13 +213,6 @@ breathecoherence/
   vercel --prod
   ```
 
-- **Docker**:
-
-  ```bash
-  docker build -t breathecoherence .
-  docker run -p 3000:3000 breathecoherence
-  ```
-
 - **Self-hosted**:
   ```bash
   npm run build
