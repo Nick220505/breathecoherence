@@ -1,4 +1,3 @@
-import { Product } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { getLocale } from 'next-intl/server';
 
@@ -22,14 +21,6 @@ export async function POST(request: Request) {
     const locale = (await getLocale()) as Locale;
 
     const products = await productService.getAll(locale);
-
-    console.log('products', products);
-
-    const productMap = new Map<string, Product>(
-      products.map((product) => [product.id, product]),
-    );
-
-    console.log('productMap', productMap);
 
     const systemPrompt = `You are a helpful shopping assistant for a store that sells Sacred Geometry items and Flower Essences. Here are the current products available:
 
@@ -61,14 +52,12 @@ When answering questions:
 
     const recRegex = /\[PRODUCT_REC:([\w-]+)\]/g;
     const finalResponse = response.replace(recRegex, (_match, productId) => {
-      const product = productMap.get(productId as string);
+      const product = products.find((p) => p.id === productId);
       if (product) {
         return `[PRODUCT_REC]${JSON.stringify(product)}[/PRODUCT_REC]`;
       }
       return '';
     });
-
-    console.log('Final response:', finalResponse);
 
     return NextResponse.json({ response: finalResponse });
   } catch (error) {

@@ -98,22 +98,26 @@ export function ChatBot() {
 
   const extractProductRecs = (message: string) => {
     const productRecs: Partial<Product>[] = [];
+    const seenProductIds = new Set<string>();
     const regex = /\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
     let match;
 
     while ((match = regex.exec(message)) !== null) {
       try {
         const product = JSON.parse(match[1]) as Partial<Product>;
-        productRecs.push(product);
+        if (product.id && !seenProductIds.has(product.id)) {
+          productRecs.push(product);
+          seenProductIds.add(product.id);
+        }
       } catch (e) {
         console.error('Failed to parse product recommendation:', e);
       }
     }
 
-    const cleanMessage = message.replace(
-      /\[PRODUCT_REC\].*?\[\/PRODUCT_REC\]/g,
-      '',
-    );
+    const cleanMessage = message
+      .replace(/\[PRODUCT_REC\].*?\[\/PRODUCT_REC\]/g, '')
+      .replace(/Productos Recomendados:/g, '')
+      .trim();
     return { cleanMessage, productRecs };
   };
 
