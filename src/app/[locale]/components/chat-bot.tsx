@@ -4,7 +4,7 @@ import { type Product, ProductType } from '@prisma/client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
@@ -66,6 +66,7 @@ const pulseAnimation = {
 
 export function ChatBot() {
   const t = useTranslations('ChatBot');
+  const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -135,7 +136,7 @@ export function ChatBot() {
 
     try {
       const processedMessage = userMessage;
-      const chatResponse = await fetch('/api/chat', {
+      const chatResponse = await fetch(`/api/chat?locale=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
