@@ -1,6 +1,6 @@
 'use client';
 
-import { Product, ProductType } from '@prisma/client';
+import { type Product, ProductType } from '@prisma/client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
 import Image from 'next/image';
@@ -271,6 +271,7 @@ export function ChatBot() {
                           } else {
                             imageToDisplay = '/products/flower-essence.svg';
                           }
+
                           return (
                             <div
                               key={product.id}

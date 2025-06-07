@@ -1,6 +1,9 @@
+import { Product } from '@prisma/client';
 import { NextResponse } from 'next/server';
+import { getLocale } from 'next-intl/server';
 
 import { productService } from '@/features/product/service';
+import { Locale } from '@/i18n/routing';
 import { getChatResponse } from '@/lib/gemini';
 
 export const runtime = 'nodejs';
@@ -16,9 +19,11 @@ export async function POST(request: Request) {
   try {
     const { message, chatHistory } = (await request.json()) as ChatRequest;
 
-    const products = await productService.getAll('en');
+    const locale = (await getLocale()) as Locale;
 
-    const productMap = new Map(
+    const products = await productService.getAll(locale);
+
+    const productMap = new Map<string, Product>(
       products.map((product) => [product.id, product]),
     );
 
