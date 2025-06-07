@@ -28,7 +28,7 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 
 ## 📋 Table of Contents
 
-- [� Table of Contents](#-table-of-contents)
+- [📋 Table of Contents](#-table-of-contents)
 - [🚀 Key Features](#-key-features)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [⚙️ Getting Started](#️-getting-started)
