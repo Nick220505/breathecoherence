@@ -1,6 +1,6 @@
 'use client';
 
-import { type Product } from '@prisma/client';
+import { Product, ProductType } from '@prisma/client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
 import Image from 'next/image';
@@ -253,43 +253,59 @@ export function ChatBot() {
                         <p className="font-semibold">
                           {t('recommended_products')}
                         </p>
-                        {message.products.map((product) => (
-                          <div
-                            key={product.id}
-                            className="flex items-center justify-between rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                          >
-                            <div className="flex items-center space-x-2">
-                              <Image
-                                src={
-                                  product.imageBase64 ??
-                                  '/images/default-product.jpg'
-                                }
-                                alt={product.name ?? ''}
-                                width={40}
-                                height={40}
-                                className="rounded-md"
-                              />
-                              <div>
-                                <p className="font-medium">{product.name}</p>
-                                <p className="text-muted-foreground text-sm">
-                                  $
-                                  {typeof product.price === 'number'
-                                    ? product.price.toFixed(2)
-                                    : '0.00'}
-                                </p>
-                              </div>
-                            </div>
-                            <Link
-                              href={{
-                                pathname: '/store/product/[id]',
-                                params: { id: product.id ?? '' },
-                              }}
-                              className="text-primary text-sm hover:underline"
+                        {message.products.map((product) => {
+                          let imageToDisplay: string;
+                          const actualImageValue = product.imageBase64;
+
+                          if (
+                            typeof actualImageValue === 'string' &&
+                            actualImageValue.trim() !== ''
+                          ) {
+                            imageToDisplay = actualImageValue;
+                          } else if (
+                            product.type === ProductType.SACRED_GEOMETRY
+                          ) {
+                            imageToDisplay = `/products/sacred-geometry.svg#${
+                              product.id ?? ''
+                            }`;
+                          } else {
+                            imageToDisplay = '/products/flower-essence.svg';
+                          }
+                          return (
+                            <div
+                              key={product.id}
+                              className="flex items-center justify-between rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                             >
-                              {t('view_details')}
-                            </Link>
-                          </div>
-                        ))}
+                              <div className="flex items-center space-x-2">
+                                <Image
+                                  src={imageToDisplay}
+                                  alt={product.name ?? ''}
+                                  width={40}
+                                  height={40}
+                                  className="rounded-md"
+                                />
+                                <div>
+                                  <p className="font-medium">{product.name}</p>
+                                  <p className="text-muted-foreground text-sm">
+                                    $
+                                    {typeof product.price === 'number'
+                                      ? product.price.toFixed(2)
+                                      : '0.00'}
+                                  </p>
+                                </div>
+                              </div>
+                              <Link
+                                href={{
+                                  pathname: '/store/product/[id]',
+                                  params: { id: product.id ?? '' },
+                                }}
+                                className="text-primary text-sm hover:underline"
+                              >
+                                {t('view_details')}
+                              </Link>
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>

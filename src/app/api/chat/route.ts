@@ -12,11 +12,6 @@ interface ChatRequest {
   chatHistory: { role: 'user' | 'assistant'; content: string }[];
 }
 
-interface ProductRecommendation {
-  id: string;
-  [key: string]: unknown;
-}
-
 export async function POST(request: Request) {
   try {
     const { message, chatHistory } = (await request.json()) as ChatRequest;
@@ -46,7 +41,7 @@ When answering questions:
 2. Be friendly and helpful
 3. Emphasize the energetic and vibrational properties
 4. Explain how the products work with our energy and consciousness
-5. Only recommend products from the list above using their exact IDs
+5. To recommend a product, you MUST use the following format exactly: [PRODUCT_REC:PRODUCT_ID]. You will be replacing PRODUCT_ID with the actual product ID from the list.
 6. If asked about products we don't have, politely explain what we do offer instead
 7. Format prices with $ and two decimal places
 8. Include stock availability when relevant
@@ -54,24 +49,16 @@ When answering questions:
 
     const response = await getChatResponse(message, chatHistory, systemPrompt);
 
-    const regex = /^\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
-    let validatedResponse = response;
-    let match;
-
-    while ((match = regex.exec(response)) !== null) {
-      try {
-        const recommendation = JSON.parse(match[1]) as ProductRecommendation;
-        const validProduct = productMap.get(recommendation.id);
-        if (!validProduct) {
-          validatedResponse = validatedResponse.replace(match[0], '');
-        }
-      } catch (e) {
-        console.error('Error parsing product recommendation:', e);
-        validatedResponse = validatedResponse.replace(match[0], '');
+    const recRegex = /\[PRODUCT_REC:([\w-]+)\]/g;
+    const finalResponse = response.replace(recRegex, (_match, productId) => {
+      const product = productMap.get(productId as string);
+      if (product) {
+        return `[PRODUCT_REC]${JSON.stringify(product)}[/PRODUCT_REC]`;
       }
-    }
+      return '';
+    });
 
-    return NextResponse.json({ response: validatedResponse });
+    return NextResponse.json({ response: finalResponse });
   } catch (error) {
     console.error('Error in chat endpoint:', error);
     return NextResponse.json(
