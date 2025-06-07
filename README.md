@@ -16,7 +16,7 @@
   <a href="https://www.prisma.io/">
     <img src="https://img.shields.io/badge/Prisma-6.9-darkblue?logo=prisma" alt="Prisma">
   </a>
-  <a href="https://next-intl.vercel.app/">
+  <a href="https://next-intl.dev/">
     <img src="https://img.shields.io/badge/i18n-next--intl-blue.svg" alt="next-intl">
   </a>
   <a href="LICENSE">
