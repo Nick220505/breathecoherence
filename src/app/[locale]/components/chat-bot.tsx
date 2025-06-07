@@ -117,7 +117,6 @@ export function ChatBot() {
 
     const cleanMessage = message
       .replace(/\[PRODUCT_REC\].*?\[\/PRODUCT_REC\]/g, '')
-      .replace(/Productos Recomendados:/g, '')
       .trim();
     return { cleanMessage, productRecs };
   };
