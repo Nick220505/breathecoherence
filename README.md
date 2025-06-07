@@ -34,6 +34,7 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 - [⚙️ Getting Started](#️-getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation \& Setup](#installation--setup)
+- [🔧 Environment Variables](#-environment-variables)
 - [📁 Project Structure](#-project-structure)
 - [🚀 Deployment](#-deployment)
 - [📜 Available Scripts](#-available-scripts)
@@ -121,6 +122,45 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
     ```
 
 The application will now be available at `http://localhost:3000`.
+
+## 🔧 Environment Variables
+
+This project requires several environment variables to function properly. Create a `.env` file with the following variables:
+
+```bash
+# Company Information
+COMPANY_NAME="your_company_name"
+
+# Database Configuration - We use Neon.tech PostgreSQL
+POSTGRES_PRISMA_URL="your_postgres_prisma_url"
+
+# Authentication
+NEXTAUTH_URL="your_nextauth_url"
+NEXTAUTH_SECRET="your_nextauth_secret"
+
+# Email Configuration
+EMAIL_FROM="your_email_from"
+
+# API Keys
+DEEPL_API_KEY="your_deepl_api_key"
+GEMINI_API_KEY="your_gemini_api_key"
+NEXT_PUBLIC_GEMINI_API_KEY="your_public_gemini_api_key"
+
+# Payments - Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="your_stripe_publishable_key"
+STRIPE_SECRET_KEY="your_stripe_secret_key"
+
+# Payments - PayPal
+NEXT_PUBLIC_PAYPAL_CLIENT_ID="your_paypal_client_id"
+PAYPAL_SECRET="your_paypal_secret"
+
+# Email - Resend
+RESEND_API_KEY="your_resend_api_key"
+
+# Other Services
+NEXT_PUBLIC_STACK_PROJECT_ID="your_stack_project_id"
+NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY="your_stack_publishable_client_key"
+```
 
 ## 📁 Project Structure
 
