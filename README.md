@@ -1,164 +1,172 @@
-# Breathe Coherence
+<p align="center">
+  <img src="public/images/BC-logo-transp-120.png" alt="Breathe Coherence Logo" width="120"/>
+</p>
+<h1 align="center">Breathe Coherence</h1>
 
-A modern e-commerce platform built with Next.js 15, featuring a sleek design system and powerful backend integration.
+<p align="center">
+  <a href="https://nextjs.org/">
+    <img src="https://img.shields.io/badge/Next.js-15.3-black?logo=next.js" alt="Next.js">
+  </a>
+  <a href="https://react.dev/">
+    <img src="https://img.shields.io/badge/React-19-blue?logo=react" alt="React">
+  </a>
+  <a href="https://www.typescriptlang.org/">
+    <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript">
+  </a>
+  <a href="https://www.prisma.io/">
+    <img src="https://img.shields.io/badge/Prisma-6.9-darkblue?logo=prisma" alt="Prisma">
+  </a>
+  <a href="https://next-intl.vercel.app/">
+    <img src="https://img.shields.io/badge/i18n-next--intl-blue.svg" alt="next-intl">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
+  </a>
+</p>
 
-## 🌟 Features
+A modern e-commerce platform built with Next.js, featuring a sleek design system and powerful backend integration.
 
-- **Modern Tech Stack**: Built with Next.js 15 and React 19
-- **Authentication**: Secure user authentication with NextAuth.js
+## 🚀 Key Features
+
+- **Modern Tech Stack**: Built with the latest Next.js and React.
+- **Secure Authentication**: Robust user authentication with NextAuth.js v5.
+- **Internationalization**: Seamless internationalization with `next-intl`, with dynamic translations powered by the DeepL API.
+- **AI-Powered Chat**: Enhanced user interaction with Google's Gemini AI.
+- **Comprehensive Payments**: Seamless checkout with Stripe and PayPal.
+- **Responsive UI**: Beautiful, accessible components built with Radix UI and Shadcn.
+- **Advanced Form Handling**: Type-safe forms with React Hook Form and Zod.
+- **Transactional Emails**: Reliable email delivery using Resend.
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15
+- **UI**: React 19, TailwindCSS, Shadcn UI, Radix UI, Framer Motion
+- **Backend**: Next.js API Routes
 - **Database**: PostgreSQL with Prisma ORM
-- **UI Components**: Radix UI primitives with custom styling
-- **AI Integration**: Google's Gemini AI for enhanced features
-- **Image Management**: Cloudinary integration for media handling
-- **Internationalization**: Google Translate API support
-- **Theme Support**: Dark/Light mode with next-themes
-- **Form Handling**: React Hook Form with Zod validation
-- **Payment Processing**:
-  - Stripe integration for card payments
-  - PayPal integration for alternative payment methods
-- **Email Service**: Resend for transactional emails
-- **Database Hosting**: Neon.tech for PostgreSQL
-- **Security**: Environment variable protection and SSL enabled connections
+- **Authentication**: NextAuth.js v5
+- **Internationalization**: `next-intl`
+- **Translation**: DeepL API
+- **AI**: Google Gemini
+- **Payments**: Stripe, PayPal
+- **Emails**: Resend
+- **State Management**: Zustand
 
-## 🚀 Getting Started
+## ⚙️ Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js (v18 or higher)
 - npm or yarn
-- PostgreSQL database (we use Neon.tech)
-- Cloudinary account
-- Google API keys for Gemini and Translate
+- A PostgreSQL database (we recommend Neon.tech)
+- API keys for DeepL, Google Gemini, Stripe, PayPal, and Resend
 
-### Environment Setup
+### Installation & Setup
 
-1. Clone the repository:
+1.  **Clone the repository:**
 
-```bash
-git clone https://github.com/Nick220505/breathecoherence.git
-cd breathecoherence
-```
+    ```bash
+    git clone https://github.com/Nick220505/breathecoherence.git
+    cd breathecoherence
+    ```
 
-2. Install dependencies:
+2.  **Install dependencies:**
 
-```bash
-npm install
-# or
-yarn install
-```
+    ```bash
+    npm install
+    ```
 
-3. Create a `.env` file in the root directory with the following variables:
+3.  **Set up environment variables:**
 
-```env
-DATABASE_URL=your_postgres_url
-NEXTAUTH_SECRET=your_secret
-NEXTAUTH_URL=http://localhost:3000
-CLOUDINARY_API_KEY=your_key
-CLOUDINARY_API_SECRET=your_secret
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
-GEMINI_API_KEY=your_key
-GOOGLE_TRANSLATE_API_KEY=your_key
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
-NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_paypal_client_id
-PAYPAL_SECRET=your_paypal_secret
-RESEND_API_KEY=your_resend_api_key
-EMAIL_FROM=your_sender_email
-COMPANY_NAME=your_company_name
-```
+    - Copy the `.env.example` file to a new file named `.env`.
+    - Fill in the required API keys and database URLs.
 
-4. Initialize the database:
+4.  **Initialize the database:**
 
-```bash
-npx prisma generate
-npx prisma db push
-```
+    - This command syncs your Prisma schema with your database.
 
-5. Run the development server:
+    ```bash
+    npx prisma db push
+    ```
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+5.  **Seed the database:**
 
-The application will be available at [http://localhost:3000](http://localhost:3000).
+    - This command populates the database with initial data.
 
-## 🛠️ Development
+    ```bash
+    npx prisma db seed
+    ```
 
-### Scripts
+6.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-- `npm run dev` - Start development server with Turbopack
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+The application will now be available at `http://localhost:3000`.
 
-### Tech Stack Details
-
-- **Frontend**: Next.js 15, React 19, TailwindCSS
-- **Backend**: Next.js API routes, Prisma ORM
-- **Database**: PostgreSQL (Neon.tech)
-- **Authentication**: NextAuth.js v5 Beta
-- **UI Components**: Radix UI, custom components
-- **Styling**: TailwindCSS with custom animations
-- **Form Management**: React Hook Form, Zod
-- **Media**: Cloudinary integration
-- **AI Features**: Google Gemini AI
-- **Type Safety**: TypeScript
-- **Payment Processing**: Stripe, PayPal
-- **Email Service**: Resend
-
-## 📚 Project Structure
+## 📁 Project Structure
 
 ```
 breathecoherence/
+├── public/                 # Static assets (images, fonts)
 ├── src/
-│   ├── app/                  # Next.js 15 app directory
-│   │   ├── [locale]/        # Internationalized routes
-│   │   │   ├── (admin)/     # Admin dashboard routes
-│   │   │   ├── (auth)/      # Authentication routes
-│   │   │   ├── product/     # Product pages
-│   │   │   └── store/       # Store pages
-│   │   ├── api/            # API routes
+│   ├── app/                # Next.js 15 App Router
+│   │   ├── [locale]/       # Internationalized routes
+│   │   │   ├── (admin)/    # Admin-only routes (e.g., dashboard)
+│   │   │   ├── (auth)/     # Auth routes (login, register)
+│   │   │   ├── (shop)/     # Main shop routes (store, checkout)
+│   │   │   └── page.tsx    # Home page
+│   │   ├── api/            # API endpoints
 │   │   └── globals.css     # Global styles
-│   ├── features/           # Feature-based modules
-│   │   ├── auth/          # Authentication feature
-│   │   └── products/      # Products feature
-│   ├── lib/               # Utility functions and configurations
-│   │   ├── db/           # Database utilities
-│   │   ├── email/        # Email service utilities
-│   │   ├── stores/       # Zustand stores
-│   │   └── types/        # TypeScript types and interfaces
-│   ├── components/       # Shared UI components
-│   ├── hooks/           # Custom React hooks
-│   ├── i18n/            # Internationalization config
-│   └── messages/        # Translation messages
-├── prisma/              # Database schema and migrations
-├── public/             # Static assets
-└── styles/            # Tailwind and other style configs
+│   ├── components/         # Shared React components (UI, email templates)
+│   │   └── ui/             # Shadcn UI components
+│   ├── features/           # Feature-sliced business logic
+│   │   ├── auth/           # Authentication logic and actions
+│   │   └── product/        # Product logic, actions, and schemas
+│   ├── hooks/              # Custom React hooks
+│   ├── i18n/               # Internationalization (i18n) configuration
+│   ├── lib/                # Core libraries, utilities, and external service clients
+│   │   ├── stores/         # Zustand global state stores
+│   │   ├── types/          # Shared TypeScript types
+│   │   ├── email.ts        # Resend email client
+│   │   ├── gemini.ts       # Google Gemini AI client
+│   │   ├── prisma.ts       # Prisma client instance
+│   │   ├── translation.ts  # DeepL translation client
+│   │   └── utils.ts        # General utility functions
+│   ├── messages/           # `next-intl` translation files (en.json, es.json)
+│   └── prisma/             # Prisma schema, migrations, and seed script
+├── .env.example            # Example environment variables
+├── next.config.ts          # Next.js configuration
+├── package.json            # Project dependencies and scripts
+└── tsconfig.json           # TypeScript configuration
 ```
+
+## 📜 Available Scripts
+
+- `npm run dev` - Starts the development server with hot-reloading.
+- `npm run build` - Creates an optimized production build.
+- `npm run start` - Starts the production server.
+- `npm run lint` - Lints the codebase for errors and style issues.
+- `npm run format` - Formats all files using Prettier.
 
 ## 🔐 Security
 
-- Secure authentication with NextAuth.js
-- Environment variables for sensitive data
-- API key protection
-- Database connection pooling
-- SSL enabled database connections
-- Secure payment processing with Stripe and PayPal
-- Email verification system
+- **Authentication**: Secure, session-based authentication using NextAuth.js v5.
+- **Data Protection**: Environment variables used for all sensitive keys and secrets.
+- **Secure Payments**: PCI-compliant payment processing with Stripe and PayPal.
+- **Database**: SSL-enabled connections to the PostgreSQL database.
+- **API**: Protection against common vulnerabilities.
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1.  Fork the repository.
+2.  Create your feature branch (`git checkout -b feature/your-amazing-feature`).
+3.  Commit your changes (`git commit -m 'Add some amazing feature'`).
+4.  Push to the branch (`git push origin feature/your-amazing-feature`).
+5.  Open a Pull Request.
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👥 Authors
 
@@ -169,5 +177,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Next.js team for the amazing framework
 - Vercel for the deployment platform
 - Neon.tech for the database service
-- Cloudinary for media management
-- Google for AI and translation services
+- Google for AI services
+- DeepL for translation services
