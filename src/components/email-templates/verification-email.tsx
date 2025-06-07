@@ -1,11 +1,13 @@
 interface VerificationEmailProps {
   verificationCode: string;
   companyName: string;
+  baseUrl: string;
 }
 
 export const VerificationEmail = ({
   verificationCode,
   companyName,
+  baseUrl,
 }: VerificationEmailProps) => (
   <div
     style={{
@@ -22,7 +24,7 @@ export const VerificationEmail = ({
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://res.cloudinary.com/dx8jpo3ua/image/upload/BC%20logo"
+        src={`${baseUrl}/BC-logo-transp-120.png`}
         alt={companyName}
         width={120}
         height={120}

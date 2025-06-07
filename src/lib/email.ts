@@ -25,11 +25,16 @@ export async function sendVerificationEmail(
   email: string,
   verificationCode: string,
 ): Promise<CreateEmailResponseSuccess | null> {
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
   const { data, error } = await resend.emails.send({
     from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
     to: email,
     subject: 'Verify your email address',
-    react: VerificationEmail({ verificationCode, companyName: COMPANY_NAME }),
+    react: VerificationEmail({
+      verificationCode,
+      companyName: COMPANY_NAME,
+      baseUrl,
+    }),
   });
 
   if (error) {
@@ -67,6 +72,7 @@ export async function sendOrderConfirmationEmail({
   shippingAddress,
 }: OrderConfirmationEmailData): Promise<boolean> {
   try {
+    const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
     const { data, error } = await resend.emails.send({
       from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
       to: [customerEmail],
@@ -77,6 +83,7 @@ export async function sendOrderConfirmationEmail({
         items,
         total,
         shippingAddress,
+        baseUrl,
       }),
     });
 

@@ -19,17 +19,18 @@ interface OrderConfirmationEmailProps {
   items: OrderItem[];
   total: number;
   shippingAddress?: ShippingAddress;
+  baseUrl: string;
 }
 
 export const OrderConfirmationEmail: React.FC<
   Readonly<OrderConfirmationEmailProps>
-> = ({ orderId, customerName, items, total, shippingAddress }) => {
+> = ({ orderId, customerName, items, total, shippingAddress, baseUrl }) => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://res.cloudinary.com/dx8jpo3ua/image/upload/BC%20logo"
+          src={`${baseUrl}/BC-logo-transp-120.png`}
           alt="Breathe Coherence"
           width="120"
           height="120"
