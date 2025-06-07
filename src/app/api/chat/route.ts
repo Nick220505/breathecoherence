@@ -23,9 +23,13 @@ export async function POST(request: Request) {
 
     const products = await productService.getAll(locale);
 
+    console.log('products', products);
+
     const productMap = new Map<string, Product>(
       products.map((product) => [product.id, product]),
     );
+
+    console.log('productMap', productMap);
 
     const systemPrompt = `You are a helpful shopping assistant for a store that sells Sacred Geometry items and Flower Essences. Here are the current products available:
 
@@ -46,11 +50,12 @@ When answering questions:
 2. Be friendly and helpful
 3. Emphasize the energetic and vibrational properties
 4. Explain how the products work with our energy and consciousness
-5. To recommend a product, you MUST use the following format exactly: [PRODUCT_REC:PRODUCT_ID]. You will be replacing PRODUCT_ID with the actual product ID from the list.
-6. If asked about products we don't have, politely explain what we do offer instead
-7. Format prices with $ and two decimal places
-8. Include stock availability when relevant
-9. For flower essences, mention they can be ordered with either water or brandy base`;
+5. To recommend a product, you MUST use the following format exactly: [PRODUCT_REC:PRODUCT_ID]. Replace PRODUCT_ID with the actual product ID from the list. For example: [PRODUCT_REC:tetrahedron]. Do not output a JSON object, as the system will handle creating the product details.
+6. The product 'type' is a fixed value and must not be changed. The valid types are 'SACRED_GEOMETRY' and 'FLOWER_ESSENCE'.
+7. If asked about products we don't have, politely explain what we do offer instead.
+8. Format prices with $ and two decimal places.
+9. Include stock availability when relevant.
+10. For flower essences, mention they can be ordered with either water or brandy base.`;
 
     const response = await getChatResponse(message, chatHistory, systemPrompt);
 
@@ -62,6 +67,8 @@ When answering questions:
       }
       return '';
     });
+
+    console.log('Final response:', finalResponse);
 
     return NextResponse.json({ response: finalResponse });
   } catch (error) {
