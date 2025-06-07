@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { getLocale } from 'next-intl/server';
+import { hasLocale } from 'next-intl';
 
 import { productService } from '@/features/product/service';
-import { Locale } from '@/i18n/routing';
+import { routing } from '@/i18n/routing';
 import { getChatResponse } from '@/lib/gemini';
 
 export const runtime = 'nodejs';
@@ -16,9 +16,14 @@ interface ChatRequest {
 
 export async function POST(request: Request) {
   try {
-    const { message, chatHistory } = (await request.json()) as ChatRequest;
+    const { searchParams } = new URL(request.url);
+    const locale = searchParams.get('locale');
 
-    const locale = (await getLocale()) as Locale;
+    if (!locale || !hasLocale(routing.locales, locale)) {
+      return NextResponse.json({ error: 'Invalid locale' }, { status: 400 });
+    }
+
+    const { message, chatHistory } = (await request.json()) as ChatRequest;
 
     const products = await productService.getAll(locale);
 
