@@ -8,11 +8,7 @@ export const productService = {
   async getAll(locale: Locale): Promise<Product[]> {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: 'desc' },
-      include: {
-        translations: {
-          where: { locale },
-        },
-      },
+      include: { translations: { where: { locale } } },
     });
 
     if (locale === routing.defaultLocale) {
@@ -35,11 +31,7 @@ export const productService = {
   async getById(id: string, locale: Locale): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: { id },
-      include: {
-        translations: {
-          where: { locale },
-        },
-      },
+      include: { translations: { where: { locale } } },
     });
 
     if (!product || locale === routing.defaultLocale) {
