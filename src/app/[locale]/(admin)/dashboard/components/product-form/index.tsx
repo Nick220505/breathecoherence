@@ -33,6 +33,7 @@ export function ProductForm({
     stock: 0,
   },
 }: Readonly<ProductFormProps>) {
+  // Test
   const t = useTranslations('ProductForm');
   const tProductSchema = useTranslations('ProductSchema');
   const { toast } = useToast();
