@@ -43,22 +43,17 @@ export async function createProduct(
     const createdProduct = await productService.create(data, locale);
     revalidateTag('products');
 
-    const localizedProduct = await productService.getTranslatedProduct(
-      createdProduct,
-      locale,
-    );
-
     return {
       errors: {},
       message: t('createSuccess'),
       success: true,
-      data: localizedProduct,
+      data: createdProduct,
     };
-  } catch (error) {
+  } catch {
     return {
-      errors: {},
-      message: error instanceof Error ? error.message : t('createError'),
       success: false,
+      message: t('createError'),
+      errors: {},
     };
   }
 }
@@ -82,12 +77,11 @@ export async function updateProduct(
   }
 
   const { id } = data;
-
   if (!id) {
     return {
-      errors: {},
-      message: t('missingId'),
       success: false,
+      message: t('missingId'),
+      errors: {},
     };
   }
 
@@ -96,41 +90,36 @@ export async function updateProduct(
     revalidateTag('products');
     revalidateTag('product');
 
-    const localizedProduct = await productService.getTranslatedProduct(
-      updatedProduct,
-      locale,
-    );
-
     return {
       errors: {},
       message: t('updateSuccess'),
       success: true,
-      data: localizedProduct,
+      data: updatedProduct,
     };
-  } catch (error) {
+  } catch {
     return {
-      errors: {},
-      message: error instanceof Error ? error.message : t('updateError'),
       success: false,
+      message: t('updateError'),
+      errors: {},
     };
   }
 }
 
 export async function deleteProduct(id: string): Promise<ActionState<Product>> {
   const t = await getTranslations('ServerActions.Product');
+  const locale = (await getLocale()) as Locale;
   try {
-    const deletedProduct = await productService.delete(id);
+    const deletedProduct = await productService.delete(id, locale);
     revalidateTag('products');
-    revalidateTag('product');
     return {
       success: true,
       message: t('deleteSuccess'),
       data: deletedProduct,
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
-      message: error instanceof Error ? error.message : t('deleteError'),
+      message: t('deleteError'),
     };
   }
 }
