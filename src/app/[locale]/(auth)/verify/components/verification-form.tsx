@@ -74,10 +74,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
         return { message: ctx.defaultError };
       },
     }),
-    defaultValues: {
-      email,
-      code: '',
-    },
+    defaultValues: { email, code: '' },
   });
 
   useEffect(() => {
