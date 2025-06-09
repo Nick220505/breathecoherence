@@ -1,34 +1,23 @@
 import * as deepl from 'deepl-node';
 
-const authKey = process.env.DEEPL_API_KEY;
+import { Locale } from '@/i18n/routing';
 
-const freeApiUrl = 'https://api-free.deepl.com';
+const deeplApiKey = process.env.DEEPL_API_KEY;
 
-const translator = authKey
-  ? new deepl.Translator(authKey, {
-      serverUrl: freeApiUrl,
-    })
-  : null;
+if (!deeplApiKey) {
+  throw new Error('DEEPL_AUTH_KEY is not set in the environment variables');
+}
+
+const translator = new deepl.Translator(deeplApiKey);
 
 export async function translate(
   text: string,
-  targetLocale: 'en' | 'es',
+  targetLocale: Locale,
 ): Promise<string> {
-  const deepLTargetLang =
-    targetLocale.toUpperCase() as deepl.TargetLanguageCode;
+  const deepLTargetLang = (
+    targetLocale === 'en' ? 'en-US' : targetLocale
+  ).toUpperCase() as deepl.TargetLanguageCode;
 
-  if (!translator) {
-    console.warn(
-      'DeepL API key is missing. Using mock translation. Please set the DEEPL_API_KEY environment variable.',
-    );
-    return `${text} (${targetLocale})`;
-  }
-
-  try {
-    const result = await translator.translateText(text, 'en', deepLTargetLang);
-    return result.text;
-  } catch (error) {
-    console.error('DeepL translation process failed:', error);
-    return `${text} (${targetLocale})`;
-  }
+  const result = await translator.translateText(text, null, deepLTargetLang);
+  return result.text;
 }

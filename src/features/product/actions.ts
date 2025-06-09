@@ -26,6 +26,7 @@ export async function createProduct(
   formData: FormData,
 ): Promise<FormState<Product>> {
   const t = await getTranslations('ServerActions.Product');
+  const locale = (await getLocale()) as Locale;
   const rawData = Object.fromEntries(formData.entries());
 
   const { success, data, error } = productSchema.safeParse(rawData);
@@ -39,14 +40,19 @@ export async function createProduct(
   }
 
   try {
-    const createdProduct = await productService.create(data);
+    const createdProduct = await productService.create(data, locale);
     revalidateTag('products');
+
+    const localizedProduct = await productService.getTranslatedProduct(
+      createdProduct,
+      locale,
+    );
 
     return {
       errors: {},
       message: t('createSuccess'),
       success: true,
-      data: createdProduct,
+      data: localizedProduct,
     };
   } catch (error) {
     return {
@@ -62,6 +68,7 @@ export async function updateProduct(
   formData: FormData,
 ): Promise<FormState<Product>> {
   const t = await getTranslations('ServerActions.Product');
+  const locale = (await getLocale()) as Locale;
   const rawData = Object.fromEntries(formData.entries());
 
   const { success, data, error } = productSchema.safeParse(rawData);
@@ -85,15 +92,20 @@ export async function updateProduct(
   }
 
   try {
-    const updatedProduct = await productService.update(id, data);
+    const updatedProduct = await productService.update(id, data, locale);
     revalidateTag('products');
     revalidateTag('product');
+
+    const localizedProduct = await productService.getTranslatedProduct(
+      updatedProduct,
+      locale,
+    );
 
     return {
       errors: {},
       message: t('updateSuccess'),
       success: true,
-      data: updatedProduct,
+      data: localizedProduct,
     };
   } catch (error) {
     return {
