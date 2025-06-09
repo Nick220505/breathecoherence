@@ -7,7 +7,7 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import Form from 'next/form';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -125,52 +125,54 @@ export function ProductForm({
   };
 
   return (
-    <Form
-      action={formAction}
-      onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
-      className="space-y-6"
-    >
-      {initialData.id && <Input type="hidden" {...form.register('id')} />}
-
-      <FormFields form={form} />
-
-      <ImageUpload
-        initialImage={form.getValues('imageBase64') ?? undefined}
-        productType={form.getValues('type')}
-        onImageChange={(base64) => form.setValue('imageBase64', base64)}
-      />
-
-      {!success && message && Object.keys(errors).length > 0 && (
-        <motion.p
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
-          role="alert"
-        >
-          <AlertCircle className="h-4 w-4" />
-          {message}
-        </motion.p>
-      )}
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+    <FormProvider {...form}>
+      <Form
+        action={formAction}
+        onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
+        className="space-y-6"
       >
-        <Button
-          type="submit"
-          className="bg-primary hover:bg-primary/90 w-full"
-          disabled={isPending}
+        {initialData.id && <Input type="hidden" {...form.register('id')} />}
+
+        <FormFields />
+
+        <ImageUpload
+          initialImage={form.getValues('imageBase64') ?? undefined}
+          productType={form.getValues('type')}
+          onImageChange={(base64) => form.setValue('imageBase64', base64)}
+        />
+
+        {!success && message && Object.keys(errors).length > 0 && (
+          <motion.p
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
+            role="alert"
+          >
+            <AlertCircle className="h-4 w-4" />
+            {message}
+          </motion.p>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          {isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {initialData?.name ? t('editing') : t('adding')}
-            </>
-          ) : (
-            <>{initialData?.name ? t('edit') : t('add')}</>
-          )}
-        </Button>
-      </motion.div>
-    </Form>
+          <Button
+            type="submit"
+            className="bg-primary hover:bg-primary/90 w-full"
+            disabled={isPending}
+          >
+            {isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {initialData?.name ? t('editing') : t('adding')}
+              </>
+            ) : (
+              <>{initialData?.name ? t('edit') : t('add')}</>
+            )}
+          </Button>
+        </motion.div>
+      </Form>
+    </FormProvider>
   );
 }

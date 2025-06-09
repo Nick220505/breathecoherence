@@ -11,7 +11,7 @@ import {
   Tags,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { UseFormReturn } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 import {
@@ -26,17 +26,14 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { ProductFormData } from '@/features/product/schema';
 
-interface FormFieldsProps {
-  form: UseFormReturn<ProductFormData>;
-}
-
-export function FormFields({ form }: Readonly<FormFieldsProps>) {
+export function FormFields() {
   const t = useTranslations('FormFields');
   const {
     register,
     formState: { errors },
     setValue,
-  } = form;
+    getValues,
+  } = useFormContext<ProductFormData>();
 
   return (
     <>
@@ -104,7 +101,7 @@ export function FormFields({ form }: Readonly<FormFieldsProps>) {
           onValueChange={(value) =>
             setValue('type', value as ProductFormData['type'])
           }
-          defaultValue={form.getValues('type')}
+          defaultValue={getValues('type')}
         >
           <SelectTrigger className="focus-visible:ring-primary">
             <SelectValue placeholder={t('placeholder.type')} />
