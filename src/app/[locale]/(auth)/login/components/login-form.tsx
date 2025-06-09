@@ -92,8 +92,6 @@ export default function LoginForm() {
     startTransition(() => formAction(formData));
   };
 
-  const isLoading = form.formState.isSubmitting || isPending;
-
   return (
     <Form
       action={formAction}
@@ -117,7 +115,7 @@ export default function LoginForm() {
           type="email"
           placeholder={t('placeholder.email')}
           {...form.register('email')}
-          disabled={isLoading}
+          disabled={isPending}
           className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
         />
         {form.formState.errors.email && (
@@ -149,7 +147,7 @@ export default function LoginForm() {
           type="password"
           placeholder={t('placeholder.password')}
           {...form.register('password')}
-          disabled={isLoading}
+          disabled={isPending}
           className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
         />
         {form.formState.errors.password && (
@@ -194,10 +192,10 @@ export default function LoginForm() {
       >
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={isPending}
           className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
         >
-          {isLoading ? (
+          {isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               {t('loading')}
