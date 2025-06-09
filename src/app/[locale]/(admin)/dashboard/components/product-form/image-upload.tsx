@@ -5,52 +5,39 @@ import { Image as ImageIcon, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ProductFormData } from '@/features/product/schema';
 import { cn } from '@/lib/utils';
 
-interface ImageUploadProps {
-  initialImage?: string;
-  productType: string;
-  onImageChange: (imageData: string) => void;
-}
-
-export function ImageUpload({
-  initialImage,
-  productType,
-  onImageChange,
-}: Readonly<ImageUploadProps>) {
+export function ImageUpload() {
+  const { getValues, setValue } = useFormContext<ProductFormData>();
   const t = useTranslations('ImageUpload');
-  const [imageData, setImageData] = useState(initialImage ?? '');
+  const [imageData, setImageData] = useState(getValues('imageBase64') ?? '');
   const [uploadingImage, setUploadingImage] = useState(false);
+  const productType = getValues('type');
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return;
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
 
     setUploadingImage(true);
-    const formData = new FormData();
-    formData.append('file', e.target.files[0]);
-    formData.append('type', productType);
-
-    try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to upload image');
-      }
-
-      const data = (await response.json()) as { imageBase64: string };
-      setImageData(data.imageBase64);
-      onImageChange(data.imageBase64);
-    } catch (error) {
-      console.error('Failed to upload image:', error);
-    } finally {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      setImageData(base64String);
+      setValue('imageBase64', base64String);
       setUploadingImage(false);
-    }
+    };
+    reader.onerror = () => {
+      console.error('Error reading file');
+      setUploadingImage(false);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -99,7 +86,7 @@ export function ImageUpload({
           <Input
             type="file"
             accept="image/*"
-            onChange={(e) => void handleImageUpload(e)}
+            onChange={handleImageUpload}
             disabled={uploadingImage}
             className="hidden"
             id="image-upload"
