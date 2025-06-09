@@ -135,11 +135,7 @@ export function ProductForm({
 
         <FormFields />
 
-        <ImageUpload
-          initialImage={form.getValues('imageBase64') ?? undefined}
-          productType={form.getValues('type')}
-          onImageChange={(base64) => form.setValue('imageBase64', base64)}
-        />
+        <ImageUpload />
 
         {!success && message && Object.keys(errors).length > 0 && (
           <motion.p

@@ -27,9 +27,9 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   const { setIsDeleteDialogOpen, setProductToDelete } = useTableStore();
 
   let imageToDisplay: string;
-  const actualImageValue: unknown = product.imageBase64;
+  const actualImageValue = product.imageBase64;
 
-  if (typeof actualImageValue === 'string' && actualImageValue.trim() !== '') {
+  if (actualImageValue && actualImageValue.trim() !== '') {
     imageToDisplay = actualImageValue;
   } else if (product.type === ProductType.SACRED_GEOMETRY) {
     imageToDisplay = `/products/sacred-geometry.svg#${product.id}`;
@@ -55,15 +55,21 @@ export function ProductTableRow({ product }: Readonly<ProductTableRowProps>) {
   return (
     <TableRow>
       <TableCell>
-        <Image
-          src={imageToDisplay}
-          alt={product.name}
-          width={64}
-          height={64}
-          className="rounded-lg object-cover"
-          sizes="64px"
-          priority={false}
-        />
+        <div className="relative h-16 w-16">
+          <Image
+            src={imageToDisplay}
+            alt={product.name}
+            fill
+            className="rounded-lg object-cover"
+            sizes="64px"
+            placeholder={
+              imageToDisplay.startsWith('data:image') ? 'blur' : 'empty'
+            }
+            blurDataURL={
+              imageToDisplay.startsWith('data:image') ? imageToDisplay : ''
+            }
+          />
+        </div>
       </TableCell>
       <TableCell>{product.name}</TableCell>
       <TableCell>
