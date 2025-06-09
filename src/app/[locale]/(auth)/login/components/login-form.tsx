@@ -57,24 +57,16 @@ export default function LoginForm() {
   useEffect(() => {
     if (success) {
       const performSignIn = async () => {
-        try {
-          const { error } = await signIn('credentials', {
-            email: form.getValues('email'),
-            password: form.getValues('password'),
-            redirect: false,
-          });
+        const { error } = await signIn('credentials', {
+          email: form.getValues('email'),
+          password: form.getValues('password'),
+          redirect: false,
+        });
 
-          if (error) {
-            console.error('Error signing in:', error);
-            form.setError('root.serverError', { message: error });
-          } else {
-            router.push('/');
-          }
-        } catch (error) {
-          console.error('Sign in failed:', error);
-          form.setError('root.serverError', {
-            message: t('error.generic'),
-          });
+        if (error) {
+          form.setError('root.serverError', { message: t('error.generic') });
+        } else {
+          router.push('/');
         }
       };
 
