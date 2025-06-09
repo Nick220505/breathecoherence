@@ -124,8 +124,6 @@ export function ProductForm({
     startTransition(() => formAction(formData));
   };
 
-  const isLoading = form.formState.isSubmitting || isPending;
-
   return (
     <Form
       action={formAction}
@@ -161,9 +159,9 @@ export function ProductForm({
         <Button
           type="submit"
           className="bg-primary hover:bg-primary/90 w-full"
-          disabled={isLoading}
+          disabled={isPending}
         >
-          {isLoading ? (
+          {isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               {initialData?.name ? t('editing') : t('adding')}
