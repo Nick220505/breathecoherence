@@ -107,11 +107,6 @@ export function ImageUpload() {
               t('placeholder.choose_file')
             )}
           </Button>
-          <p className="text-muted-foreground mt-1 text-sm">
-            {imageData
-              ? t('placeholder.file_chosen')
-              : t('placeholder.no_file')}
-          </p>
         </div>
       </div>
     </div>

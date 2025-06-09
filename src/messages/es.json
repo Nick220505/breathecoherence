@@ -246,9 +246,7 @@
   "ImageUpload": {
     "label": "Imagen del Producto",
     "placeholder": {
-      "choose_file": "Elegir Archivo",
-      "no_file": "Ningún archivo seleccionado",
-      "file_chosen": "Archivo seleccionado"
+      "choose_file": "Elegir Archivo"
     },
     "alt": {
       "product": "Producto",

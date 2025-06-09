@@ -243,9 +243,7 @@
   "ImageUpload": {
     "label": "Product Image",
     "placeholder": {
-      "choose_file": "Choose File",
-      "no_file": "No file chosen",
-      "file_chosen": "File chosen"
+      "choose_file": "Choose File"
     },
     "alt": {
       "product": "Product",
