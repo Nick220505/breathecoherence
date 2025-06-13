@@ -8,13 +8,13 @@ import Form from 'next/form';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { createProduct, updateProduct } from '@/features/product/actions';
 import { ProductFormData, productSchema } from '@/features/product/schema';
-import { useToast } from '@/hooks/use-toast';
 import { useProductStore } from '@/lib/stores/use-product-store';
 
 import { FormFields } from './form-fields';
@@ -35,7 +35,6 @@ export function ProductForm({
 }: Readonly<ProductFormProps>) {
   const t = useTranslations('ProductForm');
   const tProductSchema = useTranslations('ProductSchema');
-  const { toast } = useToast();
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductStore();
 
@@ -86,12 +85,10 @@ export function ProductForm({
     if (success && !successShown.current) {
       successShown.current = true;
 
-      toast({
-        title: initialData?.id ? t('updated_title') : t('created_title'),
+      toast.success(initialData?.id ? t('updated_title') : t('created_title'), {
         description: initialData?.id
           ? t('updated_description', { name: data?.name ?? '' })
           : t('created_description', { name: data?.name ?? '' }),
-        variant: 'default',
       });
 
       if (initialData?.id) {
@@ -106,7 +103,6 @@ export function ProductForm({
     data,
     message,
     t,
-    toast,
     initialData?.id,
     setAddDialogOpen,
     setEditDialogOpen,
