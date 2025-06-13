@@ -51,6 +51,8 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
 
   const form = useForm<VerifyFormData>({
     resolver: zodResolver(verifySchema, {
+      path: [],
+      async: false,
       errorMap: (issue, ctx) => {
         const path = issue.path.join('.');
 

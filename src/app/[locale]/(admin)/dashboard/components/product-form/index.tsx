@@ -47,6 +47,8 @@ export function ProductForm({
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(productSchema, {
+      path: [],
+      async: false,
       errorMap: (issue, ctx) => {
         const path = issue.path.join('.');
 

@@ -30,6 +30,8 @@ export default function LoginForm() {
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema, {
+      path: [],
+      async: false,
       errorMap: (issue, ctx) => {
         const path = issue.path.join('.');
 

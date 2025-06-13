@@ -28,6 +28,8 @@ export default function RegisterForm() {
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema, {
+      path: [],
+      async: false,
       errorMap: (issue, ctx) => {
         const path = issue.path.join('.');
 
