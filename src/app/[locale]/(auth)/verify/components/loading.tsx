@@ -2,12 +2,14 @@
 
 import { motion } from 'framer-motion';
 
-const spinnerVariants = {
+import type { Variants } from 'framer-motion';
+
+const spinnerVariants: Variants = {
   animate: {
     rotate: 360,
     transition: {
       duration: 1,
-      ease: 'linear',
+      ease: [0, 0, 1, 1], // linear cubic-bezier
       repeat: Infinity,
     },
   },
