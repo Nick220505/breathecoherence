@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/components/ui/sonner';
 import { routing } from '@/i18n/routing';
 import { Providers } from '@/providers';
 

@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -19,7 +20,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { verify } from '@/features/auth/actions';
 import { VerifyFormData, verifySchema } from '@/features/auth/schema';
-import { useToast } from '@/hooks/use-toast';
 import { Link, useRouter } from '@/i18n/routing';
 
 interface VerificationFormProps {
@@ -42,7 +42,6 @@ const staggerContainer = {
 export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
   const tAuthSchema = useTranslations('AuthSchema');
-  const { toast } = useToast();
   const router = useRouter();
   const [state, formAction] = useActionState(verify, {
     errors: {},
@@ -79,13 +78,10 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
 
   useEffect(() => {
     if (state.success) {
-      toast({
-        title: t('success'),
-        description: state.message,
-      });
+      toast.success(t('success'), { description: state.message });
       router.push('/login');
     }
-  }, [state.success, state.message, toast, router, t]);
+  }, [state.success, state.message, router, t]);
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">

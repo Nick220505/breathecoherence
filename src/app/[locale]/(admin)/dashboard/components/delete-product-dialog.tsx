@@ -3,6 +3,7 @@
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -14,12 +15,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteProduct } from '@/features/product/actions';
-import { useToast } from '@/hooks/use-toast';
 import { useTableStore } from '@/lib/stores/use-table-store';
 
 export function DeleteProductDialog() {
   const t = useTranslations('DeleteProductDialog');
-  const { toast } = useToast();
   const {
     isDeleteDialogOpen,
     productToDelete,
@@ -37,18 +36,12 @@ export function DeleteProductDialog() {
     const { success, message, data } = await deleteProduct(productToDelete.id);
 
     if (success) {
-      toast({
-        title: t('deleted_title'),
+      toast.success(t('deleted_title'), {
         description: t('deleted_description', { name: data?.name ?? '' }),
-        variant: 'default',
       });
       resetDeleteState();
     } else {
-      toast({
-        title: t('error'),
-        description: message,
-        variant: 'destructive',
-      });
+      toast.error(t('error'), { description: message });
     }
 
     setIsLoading(false);
