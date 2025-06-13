@@ -1,7 +1,7 @@
 'use client';
 
 import { type Product, ProductType } from '@prisma/client';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
@@ -20,16 +20,15 @@ interface Message {
   products?: Partial<Product>[];
 }
 
-const chatBotVariants = {
+const chatBotVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8, y: 20 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
     transition: {
-      type: 'spring',
       duration: 0.5,
-      bounce: 0.3,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
   exit: {
@@ -38,19 +37,19 @@ const chatBotVariants = {
     y: 20,
     transition: {
       duration: 0.3,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
-const messageVariants = {
+const messageVariants: Variants = {
   hidden: { opacity: 0, x: 20 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      type: 'spring',
       duration: 0.5,
-      bounce: 0.3,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
@@ -60,7 +59,6 @@ const pulseAnimation = {
   transition: {
     duration: 1.5,
     repeat: Infinity,
-    ease: 'easeInOut',
   },
 };
 
