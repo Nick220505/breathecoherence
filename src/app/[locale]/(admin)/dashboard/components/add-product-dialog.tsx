@@ -19,7 +19,7 @@ export function AddProductDialog() {
 
   return (
     <Dialog open={isAddDialogOpen} onOpenChange={setAddDialogOpen}>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[40rem]">
         <DialogHeader>
           <DialogTitle>{t('add_product')}</DialogTitle>
           <DialogDescription className="sr-only">
