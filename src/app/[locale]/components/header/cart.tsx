@@ -19,17 +19,6 @@ import {
 import { useRouter } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 
-const cartItemVariants = {
-  initial: { opacity: 0, x: 20, scale: 0.95 },
-  animate: { opacity: 1, x: 0, scale: 1 },
-  exit: { opacity: 0, x: 20, scale: 0.95 },
-};
-
-const cartTotalVariants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
 export function CartButton() {
   const router = useRouter();
   const t = useTranslations('Navigation');
@@ -113,10 +102,9 @@ export function CartButton() {
                   {cart.map((item) => (
                     <motion.div
                       key={item.id}
-                      variants={cartItemVariants}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
+                      initial={{ opacity: 0, x: 20, scale: 0.95 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: 20, scale: 0.95 }}
                       layout
                     >
                       <Card className="bg-card/50 p-4 transition-shadow duration-300 hover:shadow-lg">
@@ -197,9 +185,8 @@ export function CartButton() {
 
           {cart.length > 0 && (
             <motion.div
-              variants={cartTotalVariants}
-              initial="initial"
-              animate="animate"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               className="mt-4 space-y-4 border-t pt-4"
             >
               <div className="flex items-center justify-between">
