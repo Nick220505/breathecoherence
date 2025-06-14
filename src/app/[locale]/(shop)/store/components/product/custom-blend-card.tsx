@@ -20,7 +20,7 @@ export function CustomBlendCard() {
   return (
     <Link href="/store/custom-blend">
       <Card className="group transform cursor-pointer overflow-hidden border-purple-500/20 bg-linear-to-br from-purple-500/10 via-blue-500/10 to-purple-500/10 shadow-lg backdrop-blur-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-        <CardHeader className="border-b border-purple-500/10 p-6">
+        <CardHeader className="border-b border-purple-500/10">
           <CardTitle className="flex items-center gap-3 bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-lg text-transparent md:text-xl dark:from-purple-400 dark:to-blue-400">
             <span className="inline-block text-2xl text-pink-500 transition-transform duration-300 group-hover:scale-110 md:text-3xl dark:text-pink-400">
               🌿
@@ -31,7 +31,7 @@ export function CustomBlendCard() {
             {t('subtitle')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4 p-6">
+        <CardContent className="space-y-4">
           <div className="relative overflow-hidden rounded-lg transition-shadow duration-300 group-hover:shadow-2xl">
             <Image
               src="/images/custom-blend.jpg"
@@ -48,7 +48,7 @@ export function CustomBlendCard() {
             {t('description')}
           </p>
         </CardContent>
-        <CardFooter className="xs:flex-row flex flex-col items-center justify-between border-t border-purple-500/10 bg-white/5 p-6">
+        <CardFooter className="xs:flex-row flex flex-col items-center justify-between border-t border-purple-500/10 bg-white/5">
           <span className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent dark:from-purple-400 dark:to-blue-400">
             {t('price')}
           </span>
