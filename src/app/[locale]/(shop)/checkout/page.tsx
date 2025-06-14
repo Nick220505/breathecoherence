@@ -14,21 +14,13 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Textarea } from '@/components/ui/textarea';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 
+import { ShippingFormFields } from './components/shipping-form-fields';
 import { StripePaymentForm } from './components/stripe-payment-form';
 
 const stripePromise = loadStripe(
@@ -36,9 +28,6 @@ const stripePromise = loadStripe(
 );
 
 const SHIPPING_COST = 13.0;
-
-const ERROR_TEXT_CLASS = 'mt-1 text-sm text-red-500';
-const ERROR_BORDER_CLASS = 'border-red-500';
 
 const checkoutSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -132,72 +121,91 @@ function PayPalPaymentButton({
 
 export default function CheckoutPage() {
   const t = useTranslations('CheckoutPage');
-  const { total, cart } = useCart();
+  const cart = useCart();
+  const { total, cart: cartItems = [] } = cart;
   const [paymentMethod, setPaymentMethod] = useState('card');
-  const [clientSecret, setClientSecret] = useState<string>();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    setValue,
-    watch,
-    trigger,
-  } = useForm<CheckoutFormData>({
+  const form = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
-    defaultValues: {},
     mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      address: '',
+      city: '',
+      state: '',
+      postalCode: '',
+      orderNotes: '',
+    },
   });
 
-  const subtotal = parseFloat(total);
+  const {
+    handleSubmit,
+    watch,
+    formState: { isValid },
+  } = form;
+
+  const subtotal = parseFloat(total || '0');
   const finalTotal = subtotal + SHIPPING_COST;
 
   useEffect(() => {
-    void trigger();
-  }, [trigger]);
+    const validateForm = async () => {
+      await form.trigger();
+    };
+    void validateForm();
+  }, [form]);
+
+  const [clientSecret, setClientSecret] = useState<string>();
 
   useEffect(() => {
     if (paymentMethod === 'card' && isValid) {
       const formData = watch();
+      const fetchClientSecret = async () => {
+        try {
+          const response = await fetch('/api/stripe/create-payment-intent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              amount: finalTotal,
+              items: cartItems.map((item) => ({
+                id: item.id,
+                name: item.name,
+                price: item.price || 0,
+                quantity: item.quantity || 1,
+              })),
+              shippingDetails: {
+                name: formData.name || '',
+                email: formData.email || '',
+                address: formData.address || '',
+                city: formData.city || '',
+                state: formData.state || '',
+                zipCode: formData.postalCode || '',
+              },
+            }),
+          });
+          const data = (await response.json()) as { clientSecret: string };
+          setClientSecret(data.clientSecret);
+        } catch (error) {
+          console.error('Error creating payment intent:', error);
+        }
+      };
 
-      fetch('/api/stripe/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: finalTotal,
-          items: cart.map((item) => ({
-            id: item.id,
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-          })),
-          shippingDetails: {
-            name: formData.name || '',
-            email: formData.email || '',
-            address: formData.address || '',
-            city: formData.city || '',
-            state: formData.state || '',
-            zipCode: formData.postalCode || '',
-          },
-        }),
-      })
-        .then((res) => res.json())
-        .then((data: { clientSecret: string }) =>
-          setClientSecret(data.clientSecret),
-        )
-        .catch((error) => console.error('Error:', error));
+      void fetchClientSecret();
     }
-  }, [paymentMethod, finalTotal, cart, watch, isValid]);
+  }, [paymentMethod, finalTotal, cartItems, watch, isValid]);
 
   const onSubmit = (data: CheckoutFormData) => {
     if (paymentMethod === 'card') {
       console.log('Form data:', data);
+      // Handle card payment submission
     } else if (paymentMethod === 'paypal') {
-      // PayPal handling is done in the PayPalButtons component
+      // PayPal submission is handled by the PayPal button component
+      console.log('PayPal submission handled by button');
     }
   };
 
-  if (!cart || cart.length === 0) {
+  // Form methods are now handled by the ShippingFormFields component
+
+  if (!cart || cartItems.length === 0) {
     return (
       <div className="container mx-auto px-4 py-24 text-center">
         <motion.div
@@ -241,168 +249,7 @@ export default function CheckoutPage() {
                 onSubmit={(e) => void handleSubmit(onSubmit)(e)}
                 className="space-y-6"
               >
-                <div className="space-y-4">
-                  <h2 className="flex items-center gap-2 text-xl font-semibold">
-                    {t('shipping_info')}
-                  </h2>
-
-                  <div>
-                    <Label htmlFor="name">{t('name')}</Label>
-                    <Input
-                      id="name"
-                      {...register('name')}
-                      className={errors.name ? ERROR_BORDER_CLASS : ''}
-                      placeholder={t('placeholder.name')}
-                    />
-                    {errors.name && (
-                      <p className={ERROR_TEXT_CLASS}>{errors.name.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="email">{t('email')}</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      {...register('email')}
-                      className={errors.email ? ERROR_BORDER_CLASS : ''}
-                      placeholder={t('placeholder.email')}
-                    />
-                    {errors.email && (
-                      <p className={ERROR_TEXT_CLASS}>{errors.email.message}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="address">{t('address')}</Label>
-                    <Input
-                      id="address"
-                      {...register('address')}
-                      className={errors.address ? ERROR_BORDER_CLASS : ''}
-                      placeholder={t('placeholder.address')}
-                    />
-                    {errors.address && (
-                      <p className={ERROR_TEXT_CLASS}>
-                        {errors.address.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <div>
-                      <Label htmlFor="city">{t('city')}</Label>
-                      <Input
-                        id="city"
-                        {...register('city')}
-                        className={errors.city ? ERROR_BORDER_CLASS : ''}
-                        placeholder={t('placeholder.city')}
-                      />
-                      {errors.city && (
-                        <p className={ERROR_TEXT_CLASS}>
-                          {errors.city.message}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <Label htmlFor="state">{t('state')}</Label>
-                      <Select
-                        onValueChange={(value) => {
-                          setValue('state', value);
-                          void trigger('state');
-                        }}
-                      >
-                        <SelectTrigger
-                          className={errors.state ? ERROR_BORDER_CLASS : ''}
-                        >
-                          <SelectValue placeholder={t('placeholder.state')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="AL">Alabama</SelectItem>
-                          <SelectItem value="AK">Alaska</SelectItem>
-                          <SelectItem value="AZ">Arizona</SelectItem>
-                          <SelectItem value="AR">Arkansas</SelectItem>
-                          <SelectItem value="CA">California</SelectItem>
-                          <SelectItem value="CO">Colorado</SelectItem>
-                          <SelectItem value="CT">Connecticut</SelectItem>
-                          <SelectItem value="DE">Delaware</SelectItem>
-                          <SelectItem value="FL">Florida</SelectItem>
-                          <SelectItem value="GA">Georgia</SelectItem>
-                          <SelectItem value="HI">Hawaii</SelectItem>
-                          <SelectItem value="ID">Idaho</SelectItem>
-                          <SelectItem value="IL">Illinois</SelectItem>
-                          <SelectItem value="IN">Indiana</SelectItem>
-                          <SelectItem value="IA">Iowa</SelectItem>
-                          <SelectItem value="KS">Kansas</SelectItem>
-                          <SelectItem value="KY">Kentucky</SelectItem>
-                          <SelectItem value="LA">Louisiana</SelectItem>
-                          <SelectItem value="ME">Maine</SelectItem>
-                          <SelectItem value="MD">Maryland</SelectItem>
-                          <SelectItem value="MA">Massachusetts</SelectItem>
-                          <SelectItem value="MI">Michigan</SelectItem>
-                          <SelectItem value="MN">Minnesota</SelectItem>
-                          <SelectItem value="MS">Mississippi</SelectItem>
-                          <SelectItem value="MO">Missouri</SelectItem>
-                          <SelectItem value="MT">Montana</SelectItem>
-                          <SelectItem value="NE">Nebraska</SelectItem>
-                          <SelectItem value="NV">Nevada</SelectItem>
-                          <SelectItem value="NH">New Hampshire</SelectItem>
-                          <SelectItem value="NJ">New Jersey</SelectItem>
-                          <SelectItem value="NM">New Mexico</SelectItem>
-                          <SelectItem value="NY">New York</SelectItem>
-                          <SelectItem value="NC">North Carolina</SelectItem>
-                          <SelectItem value="ND">North Dakota</SelectItem>
-                          <SelectItem value="OH">Ohio</SelectItem>
-                          <SelectItem value="OK">Oklahoma</SelectItem>
-                          <SelectItem value="OR">Oregon</SelectItem>
-                          <SelectItem value="PA">Pennsylvania</SelectItem>
-                          <SelectItem value="RI">Rhode Island</SelectItem>
-                          <SelectItem value="SC">South Carolina</SelectItem>
-                          <SelectItem value="SD">South Dakota</SelectItem>
-                          <SelectItem value="TN">Tennessee</SelectItem>
-                          <SelectItem value="TX">Texas</SelectItem>
-                          <SelectItem value="UT">Utah</SelectItem>
-                          <SelectItem value="VT">Vermont</SelectItem>
-                          <SelectItem value="VA">Virginia</SelectItem>
-                          <SelectItem value="WA">Washington</SelectItem>
-                          <SelectItem value="WV">West Virginia</SelectItem>
-                          <SelectItem value="WI">Wisconsin</SelectItem>
-                          <SelectItem value="WY">Wyoming</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {errors.state && (
-                        <p className={ERROR_TEXT_CLASS}>
-                          {errors.state.message}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <Label htmlFor="postalCode">{t('zip_code')}</Label>
-                      <Input
-                        id="postalCode"
-                        {...register('postalCode')}
-                        className={errors.postalCode ? ERROR_BORDER_CLASS : ''}
-                        placeholder={t('placeholder.zip_code')}
-                      />
-                      {errors.postalCode && (
-                        <p className={ERROR_TEXT_CLASS}>
-                          {errors.postalCode.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-4">
-                  <Label htmlFor="orderNotes">{t('order_notes')}</Label>
-                  <Textarea
-                    id="orderNotes"
-                    {...register('orderNotes')}
-                    className="min-h-[100px]"
-                    placeholder={t('placeholder.order_notes')}
-                  />
-                </div>
+                <ShippingFormFields form={form} />
               </form>
             </Card>
 
@@ -480,7 +327,7 @@ export default function CheckoutPage() {
                 {t('order_summary')}
               </h2>
               <div className="space-y-4">
-                {cart.map((item) => (
+                {cartItems.map((item) => (
                   <div key={item.id} className="flex gap-4">
                     <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
                       <Image
