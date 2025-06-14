@@ -110,7 +110,6 @@ export default function LoginForm() {
           placeholder={t('placeholder.email')}
           {...form.register('email')}
           disabled={isPending}
-          className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
         />
         {form.formState.errors.email && (
           <motion.p
@@ -142,7 +141,6 @@ export default function LoginForm() {
           placeholder={t('placeholder.password')}
           {...form.register('password')}
           disabled={isPending}
-          className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
         />
         {form.formState.errors.password && (
           <motion.p
