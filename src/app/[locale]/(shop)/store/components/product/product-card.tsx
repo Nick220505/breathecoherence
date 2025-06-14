@@ -37,18 +37,13 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
 
   return (
     <Link
-      href={{
-        pathname: '/store/product/[id]',
-        params: { id: product.id },
-      }}
+      href={{ pathname: '/store/product/[id]', params: { id: product.id } }}
     >
       <Card
         className="group transform cursor-pointer overflow-hidden border-purple-500/10 bg-white/5 shadow-lg backdrop-blur-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-white/5"
-        style={{
-          animationDelay: `${index * 100}ms`,
-        }}
+        style={{ animationDelay: `${index * 100}ms` }}
       >
-        <CardHeader className="border-b border-purple-500/10 p-6">
+        <CardHeader className="border-b border-purple-500/10">
           <CardTitle className="flex items-center gap-3 bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-lg text-transparent md:text-xl dark:from-purple-400 dark:to-blue-400">
             {product.type === ProductType.SACRED_GEOMETRY ? (
               <span className="rotate-slow inline-block text-2xl text-purple-600 md:text-3xl dark:text-purple-400">
@@ -67,7 +62,7 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
               : tableHeaderT('flower_essence')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4 p-6">
+        <CardContent className="space-y-4">
           <div className="relative overflow-hidden rounded-lg transition-shadow duration-300 group-hover:shadow-2xl">
             <Image
               src={imageToDisplay}
@@ -84,7 +79,7 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
             {product.description}
           </p>
         </CardContent>
-        <CardFooter className="xs:flex-row flex flex-col items-center justify-between border-t border-purple-500/10 bg-white/5 p-6 dark:bg-white/5">
+        <CardFooter className="xs:flex-row flex flex-col items-center justify-between border-t border-purple-500/10 bg-white/5 dark:bg-white/5">
           <span className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent dark:from-purple-400 dark:to-blue-400">
             ${product.price.toFixed(2)}
           </span>
