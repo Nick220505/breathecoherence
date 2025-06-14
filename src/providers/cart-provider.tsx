@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   description: string;
@@ -12,7 +12,7 @@ interface Product {
   imageUrl?: string | null;
 }
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
 }
 
