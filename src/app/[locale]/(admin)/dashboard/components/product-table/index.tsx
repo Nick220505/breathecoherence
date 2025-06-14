@@ -13,14 +13,12 @@ export async function ProductTable() {
 
   return (
     <>
-      <div className="space-y-4">
-        <Table>
-          <ProductTableHeader />
-          <ProductTableContent products={products} />
-        </Table>
+      <Table>
+        <ProductTableHeader />
+        <ProductTableContent products={products} />
+      </Table>
 
-        <TablePagination totalItems={products.length} />
-      </div>
+      <TablePagination totalItems={products.length} />
 
       <EditProductDialog />
       <DeleteProductDialog />
