@@ -195,7 +195,7 @@ export function ChatBot() {
           variants={chatBotVariants}
           className="fixed right-4 bottom-4 z-50"
         >
-          <Card className="bg-background/95 flex h-[600px] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-purple-500/20 shadow-2xl backdrop-blur-lg sm:w-[400px]">
+          <Card className="bg-background/95 flex h-[600px] w-[calc(100vw-2rem)] flex-col gap-0 overflow-hidden rounded-2xl border border-purple-500/20 py-0 shadow-2xl backdrop-blur-lg sm:w-[400px]">
             <motion.div
               className="flex items-center justify-between border-b bg-linear-to-r from-purple-600 to-blue-600 p-4 text-white"
               initial={{ opacity: 0, y: -20 }}
