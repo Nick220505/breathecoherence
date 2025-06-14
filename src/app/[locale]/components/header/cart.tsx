@@ -69,7 +69,7 @@ export function CartButton() {
           </Button>
         </motion.div>
       </SheetTrigger>
-      <SheetContent className="bg-background/95 fixed top-0 right-0 h-full w-full border-l backdrop-blur-lg sm:max-w-md">
+      <SheetContent className="bg-background/95 fixed top-0 right-0 flex h-full w-full flex-col border-l backdrop-blur-lg sm:max-w-md">
         <SheetHeader>
           <SheetTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">
             {t('store.cart.title')}
@@ -78,8 +78,8 @@ export function CartButton() {
             {t('store.cart.description')}
           </SheetDescription>
         </SheetHeader>
-        <div className="mt-8 flex h-[calc(100vh-8rem)] flex-col">
-          <div className="flex-1 overflow-y-auto pr-2">
+        <div className="flex flex-1 flex-col px-4 pb-4">
+          <div className="flex-1 overflow-y-auto">
             <AnimatePresence mode="popLayout">
               {cart.length === 0 ? (
                 <motion.div
