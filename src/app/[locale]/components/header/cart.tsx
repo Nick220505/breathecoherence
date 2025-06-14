@@ -2,7 +2,7 @@
 
 import { ProductType } from '@prisma/client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ShoppingCart, X } from 'lucide-react';
+import { ShoppingCart, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -181,7 +181,7 @@ export function CartButton() {
                                   className="h-8 w-8 text-red-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950"
                                   onClick={() => removeFromCart(item.id)}
                                 >
-                                  <X className="h-4 w-4" />
+                                  <Trash2 className="h-4 w-4" />
                                 </Button>
                               </div>
                             </div>
