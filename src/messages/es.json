@@ -412,6 +412,7 @@
     "try_again": "Intentar de Nuevo",
     "list_view": "Vista de Lista",
     "grid_view": "Vista de Cuadrícula",
+    "table_view": "Vista de Tabla",
     "order_id": "ID del Pedido",
     "date": "Fecha",
     "status": "Estado",
@@ -421,6 +422,8 @@
     "items": "Artículos",
     "more_items": "más artículos",
     "continue_shopping": "Continuar Comprando",
+    "quantity": "Cantidad",
+    "pending": "Pendiente",
     "status_pending": "Pendiente",
     "status_paid": "Pagado",
     "status_shipped": "Enviado",
@@ -454,7 +457,8 @@
     "settings": "Configuración",
     "sign_out": "Cerrar Sesión",
     "guest_redirect": "Redirigiendo a los detalles de tu pedido...",
-    "guest_order": "Pedido de Invitado"
+    "guest_order": "Pedido de Invitado",
+    "guest_order_redirect": "Redirigiendo a los detalles de tu pedido..."
   },
   "ServerActions": {
     "Auth": {

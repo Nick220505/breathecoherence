@@ -396,6 +396,7 @@
     "try_again": "Try Again",
     "list_view": "List View",
     "grid_view": "Grid View",
+    "table_view": "Table View",
     "order_id": "Order ID",
     "date": "Date",
     "status": "Status",
@@ -405,6 +406,8 @@
     "items": "Items",
     "more_items": "more items",
     "continue_shopping": "Continue Shopping",
+    "quantity": "Quantity",
+    "pending": "Pending",
     "status_pending": "Pending",
     "status_paid": "Paid",
     "status_shipped": "Shipped",
@@ -438,7 +441,8 @@
     "settings": "Settings",
     "sign_out": "Sign Out",
     "guest_redirect": "Redirecting to your order details...",
-    "guest_order": "Guest Order"
+    "guest_order": "Guest Order",
+    "guest_order_redirect": "Redirecting to your order details..."
   },
   "ServerActions": {
     "Auth": {
