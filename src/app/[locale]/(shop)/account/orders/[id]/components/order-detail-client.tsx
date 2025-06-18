@@ -56,6 +56,13 @@ export default function OrderDetailClient({
   useEffect(() => {
     async function fetchOrder() {
       try {
+        console.log('OrderDetailClient: Fetching order with ID:', orderId);
+
+        // Determine if this is a guest order based on the ID pattern
+        const isGuestOrder = orderId.startsWith('guest-');
+
+        console.log('OrderDetailClient: Is guest order:', isGuestOrder);
+
         const response = await fetch(`/api/orders/${orderId}`);
 
         if (!response.ok) {
@@ -78,7 +85,13 @@ export default function OrderDetailClient({
       }
     }
 
-    void fetchOrder();
+    if (orderId) {
+      void fetchOrder();
+    } else {
+      console.error('OrderDetailClient: No orderId provided');
+      setError('Invalid order ID');
+      setLoading(false);
+    }
   }, [orderId]);
 
   if (loading) {

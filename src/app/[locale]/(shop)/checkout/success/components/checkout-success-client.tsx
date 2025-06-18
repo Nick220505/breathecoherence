@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Check, ChevronRight, Package } from 'lucide-react';
+import NextLink from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -32,20 +33,16 @@ export default function CheckoutSuccessClient({
   const [error, setError] = useState<string | null>(null);
   const { cart, removeFromCart } = useCart();
 
-  // Create a helper function for locale-aware order URLs
   const getOrderUrl = (orderId: string) => {
     return `/${locale}/account/orders/${orderId}`;
   };
 
-  // Clear the cart on successful payment
   useEffect(() => {
     if (paymentIntentId && cart.length > 0) {
-      // Remove each item from the cart
       cart.forEach((item) => removeFromCart(item.id));
     }
   }, [paymentIntentId, cart, removeFromCart]);
 
-  // Get order details from payment intent
   useEffect(() => {
     async function fetchOrderFromPayment() {
       if (!paymentIntentId) {
@@ -73,7 +70,6 @@ export default function CheckoutSuccessClient({
     void fetchOrderFromPayment();
   }, [paymentIntentId, t]);
 
-  // Render different states based on loading/error/data
   const renderOrderDetails = () => {
     if (isLoading) {
       return (
@@ -128,9 +124,6 @@ export default function CheckoutSuccessClient({
     return <p className="text-muted-foreground">{t('no_order_details')}</p>;
   };
 
-  // Determine if this is a guest order
-  const isGuestOrder = orderDetails?.orderId?.startsWith('guest-');
-
   return (
     <div className="container mx-auto px-4 py-12">
       <motion.div
@@ -165,22 +158,16 @@ export default function CheckoutSuccessClient({
                   className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 sm:w-auto"
                   asChild
                 >
-                  <a href={getOrderUrl(orderDetails.orderId)}>
+                  <NextLink href={getOrderUrl(orderDetails.orderId)}>
                     {t('view_order')}
                     <ChevronRight className="ml-1 h-4 w-4" />
-                  </a>
+                  </NextLink>
                 </Button>
               )}
               <Button className="w-full sm:w-auto" variant="outline" asChild>
-                <a
-                  href={
-                    isGuestOrder
-                      ? `/${locale}/account/orders?guestId=${orderDetails?.orderId}`
-                      : `/${locale}/account/orders`
-                  }
-                >
+                <NextLink href={`/${locale}/account/orders`}>
                   {t('view_all_orders')}
-                </a>
+                </NextLink>
               </Button>
             </div>
           </div>
