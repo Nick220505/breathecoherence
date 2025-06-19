@@ -38,12 +38,8 @@ jobs:
       - name: Apply database migrations (prisma migrate deploy)
         run: npx prisma migrate deploy
 
-      - name: Build project locally (Next.js)
-        run: npm run build
-
       - name: Pull Vercel environment info
-        run: |
-          npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
+        run: npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
 
       - name: Build Vercel project (prebuilt output)
         run: |
