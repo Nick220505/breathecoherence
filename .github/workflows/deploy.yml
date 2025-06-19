@@ -14,8 +14,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      VERCEL_PROJECT_ID: ${{ github.ref == 'refs/heads/stg' && secrets.VERCEL_PROJECT_ID_STG || secrets.VERCEL_PROJECT_ID_PROD }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       DEPLOY_ENV: ${{ github.ref == 'refs/heads/stg' && 'preview' || 'production' }}
     steps:
