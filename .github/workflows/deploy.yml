@@ -31,7 +31,7 @@ jobs:
       - name: Pull Vercel environment info
         run: |
           npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
-          cp .vercel/.env.$DEPLOY_ENV.local .env.local
+          cp .vercel/.env.$DEPLOY_ENV.local .env
 
       - name: Install dependencies (npm ci)
         run: npm ci --ignore-scripts
