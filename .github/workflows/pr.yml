@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - stg
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci --ignore-scripts
+
+      - name: Generate Prisma client
+        run: npm run postinstall --if-present
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build (type & syntax check)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DEV }}
+        run: npm run build
