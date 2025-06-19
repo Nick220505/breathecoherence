@@ -14,7 +14,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: ${{ github.ref == 'refs/heads/stg' && secrets.DATABASE_URL_STG || secrets.DATABASE_URL_PROD }}
       VERCEL_PROJECT_ID: ${{ github.ref == 'refs/heads/stg' && secrets.VERCEL_PROJECT_ID_STG || secrets.VERCEL_PROJECT_ID_PROD }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -29,6 +28,13 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Pull Vercel environment info
+        run: npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
+
+      - name: Export DATABASE_URL
+        run: |
+          echo "DATABASE_URL=$(grep ^DATABASE_URL= .vercel/.env.$DEPLOY_ENV.local | cut -d '=' -f2-)" >> $GITHUB_ENV
+
       - name: Install dependencies (npm ci)
         run: npm ci --ignore-scripts
 
@@ -37,9 +43,6 @@ jobs:
 
       - name: Apply database migrations (prisma migrate deploy)
         run: npx prisma migrate deploy
-
-      - name: Pull Vercel environment info
-        run: npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
 
       - name: Build Vercel project (prebuilt output)
         run: |
