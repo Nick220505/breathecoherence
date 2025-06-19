@@ -34,7 +34,6 @@ jobs:
       - name: Pull Vercel environment info
         run: |
           npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
-          # Next.js only reads .env*, so copy the file Vercel created
           cp .vercel/.env.$DEPLOY_ENV.local .env.local
 
       - name: Lint
