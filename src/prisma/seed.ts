@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 const SACRED_GEOMETRY_PRICE = 29.99;
 const FLOWER_ESSENCE_PRICE = 19.99;
 
-async function main() {
+export async function main() {
   const adminPassword = await hash('admin123', 12);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@example.com' },
@@ -217,13 +217,15 @@ async function main() {
   });
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(() => {
-    prisma.$disconnect().catch((e) => {
-      console.error('Error disconnecting from database:', e);
+if (require.main === module) {
+  main()
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    })
+    .finally(() => {
+      prisma.$disconnect().catch((e) => {
+        console.error('Error disconnecting from database:', e);
+      });
     });
-  });
+}

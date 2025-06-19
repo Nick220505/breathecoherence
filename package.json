@@ -9,7 +9,10 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:seed": "prisma db seed",
+    "db:reset": "tsx src/prisma/reset.ts",
+    "db:reset:seed": "tsx src/prisma/reset.ts --seed"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma",
