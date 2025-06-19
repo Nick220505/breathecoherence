@@ -15,8 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEPLOY_ENV: ${{ github.base_ref == 'stg' && 'preview' || github.base_ref == 'main' && 'production' || 'development' }}
-      VERCEL_PROJECT_ID: ${{ github.base_ref == 'main' && secrets.VERCEL_PROJECT_ID_PROD || secrets.VERCEL_PROJECT_ID_STG }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     steps:
       - uses: actions/checkout@v4
