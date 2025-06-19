@@ -125,6 +125,16 @@
     "toggle_language": "Cambiar idioma"
   },
   "dashboard": {
+    "title": "Panel de Control",
+    "description": "Aquí hay un resumen de tu tienda.",
+    "orders": {
+      "title": "Pedidos",
+      "description": "Gestiona los pedidos de tus clientes aquí."
+    },
+    "users": {
+      "title": "Usuarios",
+      "description": "Gestiona tus usuarios aquí."
+    },
     "productTable": {
       "title": "Productos",
       "description": "Gestiona tus productos aquí.",

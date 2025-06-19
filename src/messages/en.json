@@ -312,6 +312,16 @@
     "cta": "Explore Our Flower Essences"
   },
   "dashboard": {
+    "title": "Dashboard",
+    "description": "Here is an overview of your store.",
+    "orders": {
+      "title": "Orders",
+      "description": "Manage your customer orders here."
+    },
+    "users": {
+      "title": "Users",
+      "description": "Manage your users here."
+    },
     "productTable": {
       "title": "Products",
       "description": "Manage your products here.",
