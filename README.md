@@ -77,7 +77,7 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 
 - Node.js (v18 or higher)
 - npm or yarn
-- A PostgreSQL database (we recommend Neon.tech)
+- A CockroachDB database
 - API keys for DeepL, Google Gemini, Stripe, PayPal, and Resend
 
 ### Installation & Setup
@@ -131,8 +131,8 @@ This project requires several environment variables to function properly. Create
 # Company Information
 COMPANY_NAME="your_company_name"
 
-# Database Configuration - We use Neon.tech PostgreSQL
-POSTGRES_PRISMA_URL="your_postgres_prisma_url"
+# Database Configuration
+DATABASE_URL="your_database_url"
 
 # Authentication
 NEXTAUTH_URL="your_nextauth_url"
@@ -156,10 +156,6 @@ PAYPAL_SECRET="your_paypal_secret"
 
 # Email - Resend
 RESEND_API_KEY="your_resend_api_key"
-
-# Other Services
-NEXT_PUBLIC_STACK_PROJECT_ID="your_stack_project_id"
-NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY="your_stack_publishable_client_key"
 ```
 
 ## 📁 Project Structure
@@ -240,7 +236,7 @@ breathecoherence/
 - 🛡️ **Authentication**: Secure, session-based authentication using NextAuth.js v5.
 - 🔒 **Data Protection**: Environment variables used for all sensitive keys and secrets.
 - 💳 **Secure Payments**: PCI-compliant payment processing with Stripe and PayPal.
-- 🔐 **Database**: SSL-enabled connections to the PostgreSQL database.
+- 🔐 **Database**: SSL-enabled connections to the CockroachDB database.
 - 🛠️ **API**: Protection against common vulnerabilities.
 
 ## 🛠️ Troubleshooting
@@ -295,6 +291,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Next.js team for the amazing framework
 - Vercel for the deployment platform
-- Neon.tech for the database service
+- CockroachDB for the database service
 - Google for AI services
 - DeepL for translation services
