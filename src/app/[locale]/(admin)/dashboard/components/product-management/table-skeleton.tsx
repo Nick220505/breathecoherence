@@ -4,12 +4,12 @@ import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
 import {
-  Table,
-  TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
+  Table,
+  TableBody,
 } from '@/components/ui/table';
 
 function SkeletonCell({ width }: Readonly<{ width: string }>) {

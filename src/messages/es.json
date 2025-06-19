@@ -124,8 +124,30 @@
   "LanguageToggle": {
     "toggle_language": "Cambiar idioma"
   },
-  "AdminDashboard": {
-    "title": "Panel de Administración"
+  "dashboard": {
+    "productTable": {
+      "title": "Productos",
+      "description": "Gestiona tus productos aquí.",
+      "name": "Nombre",
+      "type": "Tipo",
+      "price": "Precio",
+      "stock": "Stock",
+      "actions": "Acciones",
+      "image": "Imagen",
+      "add_product": "Agregar Producto"
+    },
+    "categoryTable": {
+      "title": "Categorías",
+      "description": "Gestiona tus categorías aquí.",
+      "name": "Nombre",
+      "createdAt": "Creado en",
+      "actions": "Acciones",
+      "add_category": "Agregar Categoría"
+    },
+    "addProduct": "Agregar Producto",
+    "addCategory": "Agregar Categoría",
+    "products": "Productos",
+    "categories": "Categorías"
   },
   "StoreHeader": {
     "title": "Nuestros Productos",
@@ -204,7 +226,11 @@
     "sort_by_type": "Ordenar por tipo",
     "all": "Todos",
     "sacred_geometry": "Geometría Sagrada",
-    "flower_essence": "Esencia Floral"
+    "flower_essence": "Esencia Floral",
+    "category": "Categoría",
+    "filter_name_placeholder": "Filtrar por nombre...",
+    "filter_type_placeholder": "Filtrar por tipo...",
+    "all_types": "Todos los tipos"
   },
   "TablePagination": {
     "previous": "Anterior",
@@ -509,5 +535,34 @@
       "codeLength": "El código de verificación debe tener 6 dígitos",
       "invalidVerificationCode": "Código de verificación inválido o caducado."
     }
+  },
+  "AddCategoryDialog": {
+    "add_category": "Agregar Categoría",
+    "form_description": "Formulario para agregar una nueva categoría"
+  },
+  "EditCategoryDialog": {
+    "edit_category": "Editar Categoría",
+    "form_description": "Formulario para editar una categoría existente"
+  },
+  "CategoryForm": {
+    "success": "Éxito",
+    "created_title": "Categoría Creada",
+    "updated_title": "Categoría Actualizada",
+    "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
+    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
+    "editing": "Editando categoría...",
+    "adding": "Agregando categoría...",
+    "edit": "Editar Categoría",
+    "add": "Agregar Categoría",
+    "name": "Nombre de la categoría",
+    "description": "Descripción de la categoría",
+    "placeholder": {
+      "name": "Ingresa el nombre de la categoría",
+      "description": "Ingresa la descripción de la categoría"
+    }
+  },
+  "CategorySchema": {
+    "nameMin": "El nombre debe tener al menos 3 caracteres",
+    "descriptionMin": "La descripción debe tener al menos 10 caracteres"
   }
 }

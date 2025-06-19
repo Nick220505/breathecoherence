@@ -5,6 +5,9 @@ import prisma from '@/lib/prisma';
 export const productRepository = {
   findMany: () => {
     return prisma.product.findMany({
+      include: {
+        category: true,
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -12,7 +15,12 @@ export const productRepository = {
   },
 
   findById: (id: string) => {
-    return prisma.product.findUnique({ where: { id } });
+    return prisma.product.findUnique({
+      where: { id },
+      include: {
+        category: true,
+      },
+    });
   },
 
   findTranslation: (productId: string, locale: string) => {
@@ -70,5 +78,27 @@ export const productRepository = {
 
   delete: (id: string) => {
     return prisma.product.delete({ where: { id } });
+  },
+
+  async getAll() {
+    return prisma.product.findMany({
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+  },
+
+  async getById(id: string) {
+    return prisma.product.findUnique({
+      where: { id },
+      include: {
+        category: true,
+      },
+    });
   },
 };

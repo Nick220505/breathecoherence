@@ -201,7 +201,11 @@
     "sort_by_type": "Sort by type",
     "all": "All",
     "sacred_geometry": "Sacred Geometry",
-    "flower_essence": "Flower Essence"
+    "flower_essence": "Flower Essence",
+    "category": "Category",
+    "filter_name_placeholder": "Filter by name...",
+    "filter_type_placeholder": "Filter by type...",
+    "all_types": "All Types"
   },
   "TablePagination": {
     "previous": "Previous",
@@ -307,8 +311,33 @@
     "benefits": "The use of flower essences is a natural and conscious way to work with our internal energies, allowing the flower's vibration to interweave with our own frequency, and guiding us towards a state of greater peace and balance.",
     "cta": "Explore Our Flower Essences"
   },
-  "AdminDashboard": {
-    "title": "Admin Dashboard"
+  "dashboard": {
+    "productTable": {
+      "title": "Products",
+      "description": "Manage your products here.",
+      "name": "Name",
+      "type": "Type",
+      "price": "Price",
+      "stock": "Stock",
+      "actions": "Actions",
+      "image": "Image",
+      "add_product": "Add Product"
+    },
+    "categoryTable": {
+      "title": "Categories",
+      "description": "Manage your categories here.",
+      "name": "Name",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "add_category": "Add Category"
+    },
+    "addProduct": "Add Product",
+    "addCategory": "Add Category",
+    "products": "Products",
+    "categories": "Categories",
+    "tabs": {
+      "products": "Products"
+    }
   },
   "CheckoutPage": {
     "title": "Secure Checkout",
@@ -493,5 +522,34 @@
       "codeLength": "Verification code must be 6 digits",
       "invalidVerificationCode": "Invalid or expired verification code."
     }
+  },
+  "AddCategoryDialog": {
+    "add_category": "Add Category",
+    "form_description": "Form to add a new category"
+  },
+  "EditCategoryDialog": {
+    "edit_category": "Edit Category",
+    "form_description": "Form to edit an existing category"
+  },
+  "CategoryForm": {
+    "success": "Success",
+    "created_title": "Category Created",
+    "updated_title": "Category Updated",
+    "created_description": "The category \"{name}\" has been created successfully.",
+    "updated_description": "The category \"{name}\" has been updated successfully.",
+    "editing": "Editing category...",
+    "adding": "Adding category...",
+    "edit": "Edit Category",
+    "add": "Add Category",
+    "name": "Category Name",
+    "description": "Description",
+    "placeholder": {
+      "name": "Enter category name",
+      "description": "Enter category description"
+    }
+  },
+  "CategorySchema": {
+    "nameMin": "Name must be at least 3 characters",
+    "descriptionMin": "Description must be at least 10 characters"
   }
 }

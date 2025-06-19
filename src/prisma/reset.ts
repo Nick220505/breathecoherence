@@ -10,6 +10,7 @@ async function main() {
 
   await prisma.order.deleteMany({});
   await prisma.product.deleteMany({});
+  await prisma.category.deleteMany({});
   await prisma.user.deleteMany({});
 
   console.log('Database has been reset successfully');

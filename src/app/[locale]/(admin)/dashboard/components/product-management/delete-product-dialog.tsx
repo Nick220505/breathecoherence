@@ -15,7 +15,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteProduct } from '@/features/product/actions';
-import { useTableStore } from '@/lib/stores/use-table-store';
+
+import { useProductManagementStore } from './store';
 
 export function DeleteProductDialog() {
   const t = useTranslations('DeleteProductDialog');
@@ -24,7 +25,7 @@ export function DeleteProductDialog() {
     productToDelete,
     setIsDeleting,
     resetDeleteState,
-  } = useTableStore();
+  } = useProductManagementStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleConfirmDelete = async () => {

@@ -9,9 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { useProductStore } from '@/lib/stores/use-product-store';
 
 import { ProductForm } from './product-form';
+import { useProductManagementStore } from './store';
 
 export function EditProductDialog() {
   const t = useTranslations('EditProductDialog');
@@ -20,7 +20,7 @@ export function EditProductDialog() {
     setEditDialogOpen,
     editingProduct,
     setEditingProduct,
-  } = useProductStore();
+  } = useProductManagementStore();
 
   if (!editingProduct) return null;
 

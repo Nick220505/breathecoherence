@@ -9,13 +9,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { useProductStore } from '@/lib/stores/use-product-store';
 
 import { ProductForm } from './product-form';
+import { useProductManagementStore } from './store';
 
 export function AddProductDialog() {
   const t = useTranslations('AddProductDialog');
-  const { isAddDialogOpen, setAddDialogOpen } = useProductStore();
+  const { isAddDialogOpen, setAddDialogOpen } = useProductManagementStore();
 
   return (
     <Dialog open={isAddDialogOpen} onOpenChange={setAddDialogOpen}>

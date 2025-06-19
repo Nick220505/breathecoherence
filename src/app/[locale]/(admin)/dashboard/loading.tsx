@@ -2,17 +2,17 @@ import { getTranslations } from 'next-intl/server';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { TableSkeleton } from './components/product-table/table-skeleton';
+import { TableSkeleton } from './components/product-management/table-skeleton';
 
 export default async function Loading() {
-  const t = await getTranslations('AdminDashboard');
+  const t = await getTranslations('dashboard');
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="space-y-6">
+      <h1 className="text-2xl font-semibold">{t('products')}</h1>
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle>{t('title')}</CardTitle>
-          <div className="bg-muted h-10 w-32 animate-pulse rounded-md" />
+        <CardHeader>
+          <CardTitle>{t('productTable.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           <TableSkeleton />
