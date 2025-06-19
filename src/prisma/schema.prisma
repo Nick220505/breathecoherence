@@ -9,8 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -92,3 +92,8 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
+
+enum crdb_internal_region {
+  aws_us_east_1 @map("aws-us-east-1")
+}
+
