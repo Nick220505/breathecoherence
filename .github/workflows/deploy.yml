@@ -29,11 +29,9 @@ jobs:
           cache: npm
 
       - name: Pull Vercel environment info
-        run: npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
-
-      - name: Export DATABASE_URL
         run: |
-          echo "DATABASE_URL=$(grep ^DATABASE_URL= .vercel/.env.$DEPLOY_ENV.local | cut -d '=' -f2-)" >> $GITHUB_ENV
+          npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
+          cp .vercel/.env.$DEPLOY_ENV.local .env
 
       - name: Install dependencies (npm ci)
         run: npm ci --ignore-scripts
