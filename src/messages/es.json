@@ -157,7 +157,10 @@
       "add_category": "Agregar Categoría"
     },
     "addProduct": "Agregar Producto",
-    "addCategory": "Agregar Categoría"
+    "addCategory": "Agregar Categoría",
+    "userTable": {
+      "title": "Gestión de Usuarios"
+    }
   },
   "StoreHeader": {
     "title": "Nuestros Productos",

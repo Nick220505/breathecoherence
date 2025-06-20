@@ -363,7 +363,10 @@
       "createdAt": "Created At",
       "actions": "Actions"
     },
-    "addCategory": "Add Category"
+    "addCategory": "Add Category",
+    "userTable": {
+      "title": "User Management"
+    }
   },
   "CheckoutPage": {
     "title": "Secure Checkout",

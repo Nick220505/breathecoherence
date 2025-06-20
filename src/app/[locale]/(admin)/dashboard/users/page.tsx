@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getAllUsers } from '@/features/user/actions';
 
@@ -9,13 +11,14 @@ import { UserTable } from './components/user-table';
 
 export default async function UsersPage() {
   const users = await getAllUsers();
+  const t = await getTranslations('dashboard');
 
   return (
     <>
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Usuarios</CardTitle>
+            <CardTitle>{t('userTable.title')}</CardTitle>
             <AddUserButton />
           </div>
         </CardHeader>

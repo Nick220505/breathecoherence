@@ -18,7 +18,7 @@ export default async function Loading() {
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>{tDashboard('users.title')}</CardTitle>
+          <CardTitle>{tDashboard('userTable.title')}</CardTitle>
           <div className="bg-muted h-8 w-32 animate-pulse rounded" />
         </div>
       </CardHeader>
