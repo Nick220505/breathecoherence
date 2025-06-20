@@ -93,7 +93,7 @@ export default function CustomBlendPage() {
           base: selectedBase,
           essences: selectedEssencesList.join(', '),
         }),
-        type: 'Flower Essence',
+        category: { name: 'Flower Essence' },
         price: 19.99,
         stock: 999,
         imageUrl: '/images/custom-blend.jpg',

@@ -1,11 +1,10 @@
-import { ProductType } from '@prisma/client';
 import { z } from 'zod';
 
 export const productSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(3),
   description: z.string().min(10),
-  type: z.nativeEnum(ProductType),
+  categoryId: z.string().min(1),
   price: z.coerce.number().min(0),
   stock: z.coerce.number().int().min(0),
   imageBase64: z

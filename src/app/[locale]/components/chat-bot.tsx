@@ -1,6 +1,5 @@
 'use client';
 
-import { type Product, ProductType } from '@prisma/client';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
 import Image from 'next/image';
@@ -13,11 +12,13 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Link } from '@/i18n/routing';
 
+import type { PartialProductWithCategory } from '@/features/product/types';
+
 interface Message {
   role: 'user' | 'assistant';
   content: string;
   id: string;
-  products?: Partial<Product>[];
+  products?: PartialProductWithCategory[];
 }
 
 const chatBotVariants: Variants = {
@@ -96,14 +97,14 @@ export function ChatBot() {
   }, [messages]);
 
   const extractProductRecs = (message: string) => {
-    const productRecs: Partial<Product>[] = [];
+    const productRecs: PartialProductWithCategory[] = [];
     const seenProductIds = new Set<string>();
     const regex = /\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
     let match;
 
     while ((match = regex.exec(message)) !== null) {
       try {
-        const product = JSON.parse(match[1]) as Partial<Product>;
+        const product = JSON.parse(match[1]) as PartialProductWithCategory;
         if (product.id && !seenProductIds.has(product.id)) {
           productRecs.push(product);
           seenProductIds.add(product.id);
@@ -256,24 +257,6 @@ export function ChatBot() {
                           {t('recommended_products')}
                         </p>
                         {message.products.map((product) => {
-                          let imageToDisplay: string;
-                          const actualImageValue = product.imageBase64;
-
-                          if (
-                            typeof actualImageValue === 'string' &&
-                            actualImageValue.trim() !== ''
-                          ) {
-                            imageToDisplay = actualImageValue;
-                          } else if (
-                            product.type === ProductType.SACRED_GEOMETRY
-                          ) {
-                            imageToDisplay = `/products/sacred-geometry.svg#${
-                              product.id ?? ''
-                            }`;
-                          } else {
-                            imageToDisplay = '/products/flower-essence.svg';
-                          }
-
                           return (
                             <div
                               key={product.id}
@@ -281,10 +264,16 @@ export function ChatBot() {
                             >
                               <div className="flex items-center space-x-2">
                                 <Image
-                                  src={imageToDisplay}
-                                  alt={product.name ?? ''}
-                                  width={40}
-                                  height={40}
+                                  src={
+                                    product.imageBase64 ??
+                                    (product.category?.name ===
+                                    'Sacred Geometry'
+                                      ? '/products/sacred-geometry.svg'
+                                      : '/products/flower-essence.svg')
+                                  }
+                                  alt={product.name ?? 'Product image'}
+                                  width={80}
+                                  height={80}
                                   className="rounded-md"
                                 />
                                 <div>

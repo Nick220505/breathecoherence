@@ -30,12 +30,12 @@ interface OrderItem {
   product: {
     id: string;
     name: string;
-    type: string;
+    type?: string;
     imageBase64?: string | null;
   };
 }
 
-interface Order {
+export interface ClientOrder {
   id: string;
   status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
   total: number;
@@ -53,62 +53,38 @@ const statusColorMap = {
 
 export default function OrderHistoryClient({
   locale,
+  initialOrders = [],
 }: Readonly<{
   locale: string;
+  initialOrders?: ClientOrder[];
 }>) {
   const t = useTranslations('OrderHistory');
   const router = useRouter();
   const searchParams = useSearchParams();
   const guestOrderId = searchParams.get('guestId');
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isGuestView, setIsGuestView] = useState(false);
 
-  // Handle direct navigation to a specific guest order ID
+  const [orders] = useState<ClientOrder[]>(initialOrders);
+  const [loading, setLoading] = useState(initialOrders.length === 0);
+
+  const error: string | null = null;
+
+  const isGuestView = Boolean(guestOrderId);
+
   useEffect(() => {
     if (guestOrderId?.startsWith('guest-')) {
-      // If we have a specific guest order ID, redirect to the order details page
       router.push(`/account/orders/${guestOrderId}`);
     }
   }, [guestOrderId, router]);
 
   useEffect(() => {
-    async function fetchOrders() {
-      try {
-        // If there's a guestId parameter, fetch just that guest order
-        let url = '/api/orders';
-        if (guestOrderId) {
-          url += `?guestId=${guestOrderId}`;
-          setIsGuestView(true);
-        }
-
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error('Failed to fetch orders');
-        }
-        const data = (await response.json()) as Order[];
-        setOrders(data);
-      } catch (err) {
-        setError('Error loading your orders. Please try again later.');
-        console.error('Error fetching orders:', err);
-      } finally {
-        setLoading(false);
-      }
+    if (orders.length === 0 && !guestOrderId?.startsWith('guest-')) {
+      setLoading(false);
     }
+  }, [guestOrderId, orders.length]);
 
-    // Only fetch orders if we're not redirecting to a specific guest order
-    if (!guestOrderId?.startsWith('guest-')) {
-      void fetchOrders();
-    }
-  }, [guestOrderId]);
+  const getOrderUrl = (orderId: string) =>
+    `/${locale}/account/orders/${orderId}`;
 
-  // Create a helper function for locale-aware order URLs
-  const getOrderUrl = (orderId: string) => {
-    return `/${locale}/account/orders/${orderId}`;
-  };
-
-  // Don't render anything if we're redirecting to a specific guest order
   if (guestOrderId?.startsWith('guest-')) {
     return (
       <div className="container mx-auto flex min-h-[50vh] items-center justify-center px-4 py-24">

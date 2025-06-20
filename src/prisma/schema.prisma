@@ -28,12 +28,23 @@ model User {
   orders            Order[]
 }
 
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  translations CategoryTranslation[]
+}
+
 model Product {
   id           String               @id @default(cuid())
   name         String
   description  String
   price        Float
-  type         ProductType
+  categoryId   String
+  category     Category             @relation(fields: [categoryId], references: [id])
   stock        Int
   imageBase64  String?
   createdAt    DateTime             @default(now())
@@ -76,14 +87,22 @@ model OrderItem {
   price     Float
 }
 
+model CategoryTranslation {
+  id          String   @id @default(cuid())
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  locale      String
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([categoryId, locale])
+}
+
 enum Role {
   USER
   ADMIN
-}
-
-enum ProductType {
-  SACRED_GEOMETRY
-  FLOWER_ESSENCE
 }
 
 enum OrderStatus {

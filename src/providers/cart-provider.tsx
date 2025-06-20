@@ -2,12 +2,16 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
+export interface Category {
+  name: string;
+}
+
 export interface Product {
   id: string;
   name: string;
   description: string;
   price: number;
-  type: string;
+  category: Category;
   stock: number;
   imageUrl?: string | null;
 }

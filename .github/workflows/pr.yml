@@ -34,6 +34,9 @@ jobs:
           npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
           cp .vercel/.env.$DEPLOY_ENV.local .env
 
+      - name: Apply database migrations (prisma migrate deploy)
+        run: npx prisma migrate deploy
+
       - name: Lint
         run: npm run lint
 
