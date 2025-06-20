@@ -633,5 +633,13 @@
     "total": "Total",
     "status": "Estado",
     "createdAt": "Creado en"
+  },
+  "AdminNav": {
+    "dashboard": "Panel de Control",
+    "products": "Productos",
+    "categories": "Categorías",
+    "orders": "Pedidos",
+    "users": "Usuarios",
+    "panel": "Panel de Admin"
   }
 }

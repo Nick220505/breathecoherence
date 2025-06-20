@@ -361,7 +361,8 @@
       "title": "Category Management",
       "name": "Name",
       "createdAt": "Created At",
-      "actions": "Actions"
+      "actions": "Actions",
+      "description": "Description"
     },
     "addCategory": "Add Category",
     "userTable": {
@@ -521,5 +522,13 @@
     "total": "Total",
     "status": "Status",
     "createdAt": "Created At"
+  },
+  "AdminNav": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "categories": "Categories",
+    "orders": "Orders",
+    "users": "Users",
+    "panel": "Admin Panel"
   }
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { Folder, Home, Package, ShoppingCart, Users } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { ComponentProps } from 'react';
 
 import { Link, usePathname } from '@/i18n/routing';
@@ -15,13 +16,14 @@ interface NavItem {
 
 function SidebarNav() {
   const pathname = usePathname();
+  const t = useTranslations('AdminNav');
 
   const navItems: NavItem[] = [
-    { href: '/dashboard', label: 'Dashboard', icon: Home, exact: true },
-    { href: '/dashboard/products', label: 'Products', icon: Package },
-    { href: '/dashboard/categories', label: 'Categories', icon: Folder },
-    { href: '/dashboard/orders', label: 'Orders', icon: ShoppingCart },
-    { href: '/dashboard/users', label: 'Users', icon: Users },
+    { href: '/dashboard', label: t('dashboard'), icon: Home, exact: true },
+    { href: '/dashboard/products', label: t('products'), icon: Package },
+    { href: '/dashboard/categories', label: t('categories'), icon: Folder },
+    { href: '/dashboard/orders', label: t('orders'), icon: ShoppingCart },
+    { href: '/dashboard/users', label: t('users'), icon: Users },
   ];
 
   return (
@@ -49,11 +51,12 @@ function SidebarNav() {
 }
 
 function SidebarHeader() {
+  const t = useTranslations('AdminNav');
   return (
     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
       <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
         <Package className="h-6 w-6" />
-        <span className="">Admin Panel</span>
+        <span>{t('panel')}</span>
       </Link>
     </div>
   );
