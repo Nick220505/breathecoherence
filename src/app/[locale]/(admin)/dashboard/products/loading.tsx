@@ -29,7 +29,7 @@ export default async function Loading() {
               <TableRow>
                 <TableHead>{tSkeleton('image')}</TableHead>
                 <TableHead>{tSkeleton('name')}</TableHead>
-                <TableHead>{tSkeleton('type')}</TableHead>
+                <TableHead>{tSkeleton('category')}</TableHead>
                 <TableHead>{tSkeleton('price')}</TableHead>
                 <TableHead>{tSkeleton('stock')}</TableHead>
                 <TableHead>{tSkeleton('actions')}</TableHead>

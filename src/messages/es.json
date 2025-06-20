@@ -293,7 +293,7 @@
   "TableSkeleton": {
     "image": "Imagen",
     "name": "Nombre",
-    "type": "Tipo",
+    "category": "Categoría",
     "price": "Precio",
     "stock": "Stock",
     "actions": "Acciones"
@@ -301,18 +301,18 @@
   "FormFields": {
     "product_name": "Nombre del Producto",
     "description": "Descripción",
-    "type": "Tipo",
+    "category": "Categoría",
     "price": "Precio",
     "stock": "Stock",
     "placeholder": {
       "name": "Ingresa el nombre del producto",
       "description": "Ingresa la descripción del producto",
-      "type": "Selecciona el tipo de producto",
+      "category": "Selecciona la categoría",
       "price": "0.00",
       "stock": "0"
     },
-    "product_types": {
-      "label": "Tipos de Productos",
+    "categories": {
+      "label": "Categorías",
       "flower_essence": "Esencia Floral",
       "sacred_geometry": "Geometría Sagrada"
     }

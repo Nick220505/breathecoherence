@@ -114,18 +114,18 @@ function FormFields({ categories }: Readonly<{ categories: Category[] }>) {
             className="flex items-center gap-2 text-sm font-medium"
           >
             <Box className="h-4 w-4" />
-            {t('type')}
+            {t('category')}
           </label>
           <Select
             onValueChange={(value) => setValue('categoryId', value)}
             defaultValue={getValues('categoryId')}
           >
             <SelectTrigger>
-              <SelectValue placeholder={t('placeholder.type')} />
+              <SelectValue placeholder={t('placeholder.category')} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>{t('product_types.label')}</SelectLabel>
+                <SelectLabel>{t('categories.label')}</SelectLabel>
                 {categories.map((category) => (
                   <SelectItem key={category.id} value={category.id}>
                     {category.name}

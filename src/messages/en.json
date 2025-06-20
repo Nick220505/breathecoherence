@@ -236,7 +236,7 @@
   "ProductTableHeader": {
     "image": "Image",
     "name": "Name",
-    "type": "Type",
+    "category": "Category",
     "price": "Price",
     "stock": "Stock",
     "actions": "Actions",
@@ -247,7 +247,6 @@
     "all": "All",
     "sacred_geometry": "Sacred Geometry",
     "flower_essence": "Flower Essence",
-    "category": "Category",
     "filter_name_placeholder": "Filter by name...",
     "filter_type_placeholder": "Filter by type...",
     "all_types": "All Types"
@@ -269,7 +268,7 @@
   "TableSkeleton": {
     "image": "Image",
     "name": "Name",
-    "type": "Type",
+    "category": "Category",
     "price": "Price",
     "stock": "Stock",
     "actions": "Actions"
@@ -277,18 +276,18 @@
   "FormFields": {
     "product_name": "Product Name",
     "description": "Description",
-    "type": "Type",
+    "category": "Category",
     "price": "Price",
     "stock": "Stock",
     "placeholder": {
       "name": "Enter product name",
       "description": "Enter product description",
-      "type": "Select product type",
+      "category": "Select category",
       "price": "0.00",
       "stock": "0"
     },
-    "product_types": {
-      "label": "Product Types",
+    "categories": {
+      "label": "Categories",
       "flower_essence": "Flower Essence",
       "sacred_geometry": "Sacred Geometry"
     }
