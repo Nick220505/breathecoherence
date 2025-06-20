@@ -1,4 +1,5 @@
 import { getLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 
 import { getAllCategories } from '@/features/category/actions';
 
@@ -13,11 +14,14 @@ export async function NavigationItems() {
   return (
     <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
       {categories.map((cat) => (
-        <NavigationCategoryButton
+        <Suspense
           key={cat.id}
-          categoryName={cat.name}
-          locale={locale}
-        />
+          fallback={
+            <div className="bg-muted h-8 w-20 animate-pulse rounded-md" />
+          }
+        >
+          <NavigationCategoryButton categoryName={cat.name} locale={locale} />
+        </Suspense>
       ))}
 
       <AdminDashboardLink />
