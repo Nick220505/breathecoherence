@@ -21,6 +21,9 @@ interface OrderItem {
     name: string;
     type: string;
     imageBase64?: string | null;
+    category?: {
+      name: string;
+    };
   };
 }
 
@@ -229,7 +232,12 @@ export default function OrderDetailClient({
                   <div>
                     <h3 className="font-medium">{item.product.name}</h3>
                     <p className="text-muted-foreground text-sm">
-                      {t('product_type')}: {item.product.type.replace('_', ' ')}
+                      {t('product_type')}:{' '}
+                      {(
+                        item.product.type ??
+                        item.product.category?.name ??
+                        ''
+                      ).replace('_', ' ')}
                     </p>
                   </div>
                   <div className="mt-2 flex items-center justify-between gap-4 sm:mt-0 sm:flex-col sm:items-end">

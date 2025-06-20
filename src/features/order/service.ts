@@ -18,4 +18,8 @@ export const orderService = {
     if (!userId) return null;
     return orderRepository.findByIdAndUser(id, userId);
   },
+
+  async getAllWithItemsByUser(userId: string): Promise<OrderDetail[]> {
+    return orderRepository.findManyWithItemsByUser(userId);
+  },
 };

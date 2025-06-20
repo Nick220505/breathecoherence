@@ -32,7 +32,11 @@ export const orderRepository = {
       include: {
         items: {
           include: {
-            product: true,
+            product: {
+              include: {
+                category: true,
+              },
+            },
           },
         },
       },
@@ -45,7 +49,11 @@ export const orderRepository = {
       include: {
         items: {
           include: {
-            product: true,
+            product: {
+              include: {
+                category: true,
+              },
+            },
           },
         },
       },
@@ -74,5 +82,23 @@ export const orderRepository = {
           userEmail: o.user.email,
         })),
       );
+  },
+
+  async findManyWithItemsByUser(userId: string): Promise<OrderDetail[]> {
+    return prisma.order.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        items: {
+          include: {
+            product: {
+              include: {
+                category: true,
+              },
+            },
+          },
+        },
+      },
+    });
   },
 };
