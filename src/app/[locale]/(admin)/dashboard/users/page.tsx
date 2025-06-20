@@ -1,11 +1,31 @@
-import { getTranslations } from 'next-intl/server';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { getAllUsers } from '@/features/user/actions';
+
+import { AddUserButton } from './components/add-user-button';
+import { AddUserDialog } from './components/add-user-dialog';
+import { DeleteUserDialog } from './components/delete-user-dialog';
+import { EditUserDialog } from './components/edit-user-dialog';
+import { UserTable } from './components/user-table';
 
 export default async function UsersPage() {
-  const t = await getTranslations('dashboard.users');
+  const users = await getAllUsers();
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold">{t('title')}</h1>
-      <p className="text-muted-foreground">{t('description')}</p>
-    </div>
+    <>
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle>Usuarios</CardTitle>
+            <AddUserButton />
+          </div>
+        </CardHeader>
+        <CardContent>
+          <UserTable users={users} />
+        </CardContent>
+      </Card>
+      <AddUserDialog />
+      <EditUserDialog />
+      <DeleteUserDialog />
+    </>
   );
 }

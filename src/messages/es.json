@@ -568,5 +568,58 @@
       "deleteError": "Error al eliminar la categoría.",
       "missingId": "Falta el ID de la categoría."
     }
+  },
+  "UserTableHeader": {
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "createdAt": "Creado en",
+    "actions": "Acciones"
+  },
+  "UserTableRow": {
+    "edit_tooltip": "Editar usuario",
+    "delete_tooltip": "Eliminar usuario"
+  },
+  "AddUserButton": {
+    "add_user": "Agregar Usuario"
+  },
+  "AddUserDialog": {
+    "add_user": "Agregar Usuario",
+    "form_description": "Formulario para agregar un nuevo usuario"
+  },
+  "EditUserDialog": {
+    "edit_user": "Editar Usuario",
+    "form_description": "Formulario para editar un usuario existente"
+  },
+  "DeleteUserDialog": {
+    "success": "Éxito",
+    "error": "Error",
+    "error_delete": "Ocurrió un error al eliminar el usuario",
+    "delete_confirm_title": "Eliminar Usuario",
+    "delete_confirm_description": "¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando...",
+    "confirm_delete": "Eliminar",
+    "deleted_title": "Usuario Eliminado",
+    "deleted_description": "El usuario \"{name}\" ha sido eliminado con éxito."
+  },
+  "UserForm": {
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "add": "Agregar Usuario",
+    "edit": "Editar Usuario",
+    "adding": "Agregando usuario...",
+    "editing": "Editando usuario...",
+    "created_title": "Usuario Creado",
+    "updated_title": "Usuario Actualizado",
+    "placeholder": {
+      "name": "Ingresa el nombre del usuario",
+      "email": "Ingresa el correo electrónico del usuario"
+    }
+  },
+  "UserSchema": {
+    "nameMin": "El nombre debe tener al menos 1 caracter",
+    "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida"
   }
 }
