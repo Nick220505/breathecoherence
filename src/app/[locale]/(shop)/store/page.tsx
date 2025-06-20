@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import { getAllCategories } from '@/features/category/actions';
 import { getAllProducts } from '@/features/product/actions';
 
 import { StoreContent } from './components/store-content';
@@ -17,38 +18,24 @@ export default async function Page(props: Readonly<PageProps>) {
   const searchParams = await props.searchParams;
   const categoryQueryParam =
     searchParams?.category ?? searchParams?.categoria ?? '';
-  const products = await getAllProducts();
+  const [products, categories] = await Promise.all([
+    getAllProducts(),
+    getAllCategories(),
+  ]);
 
-  const getCategoryFromQuery = (query: string): string | null => {
-    const lowerQuery = query.toLowerCase();
-    if (
-      lowerQuery === 'sacred geometry' ||
-      lowerQuery === 'geometría sagrada'
-    ) {
-      return 'Sacred Geometry';
-    }
-    if (lowerQuery === 'flower essence' || lowerQuery === 'esencia floral') {
-      return 'Flower Essence';
-    }
-    return null;
-  };
+  const targetCategory = categories.find(
+    (c) => c.name.toLowerCase() === categoryQueryParam.toLowerCase(),
+  );
 
-  const targetCategory = getCategoryFromQuery(categoryQueryParam);
-
-  const filteredProducts = products.filter(
-    (product) =>
-      !targetCategory ||
-      product.category.name.toLowerCase() === targetCategory.toLowerCase(),
+  const filteredProducts = products.filter((product) =>
+    targetCategory ? product.categoryId === targetCategory.id : true,
   );
 
   return (
     <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">
       <div className="container mx-auto px-4 py-12">
         <div className="space-y-12">
-          <StoreHeader
-            category={categoryQueryParam}
-            type={searchParams?.type ?? ''}
-          />
+          <StoreHeader category={targetCategory} />
 
           <Suspense
             fallback={
