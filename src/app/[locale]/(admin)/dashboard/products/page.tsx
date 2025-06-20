@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog } from '@/components/ui/dialog';
 import { getAllProducts } from '@/features/product/actions';
 
 import { AddProductButton } from './components/add-product-button';
@@ -15,7 +14,7 @@ export default async function ProductsPage() {
   const t = await getTranslations('dashboard');
 
   return (
-    <Dialog>
+    <>
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -32,6 +31,6 @@ export default async function ProductsPage() {
       <AddProductDialog />
       <EditProductDialog />
       <DeleteProductDialog />
-    </Dialog>
+    </>
   );
 }
