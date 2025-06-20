@@ -1,18 +1,10 @@
 'use client';
 
-import { ArrowUpDown, Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
 import {
   Table,
   TableBody,
@@ -28,28 +20,17 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { productSchema } from '@/features/product/schema';
-import { cn } from '@/lib/utils';
 
 import { useProductManagementStore } from './store';
 
-import type { Product } from '@prisma/client';
-
-const ITEMS_PER_PAGE = 10;
-
-interface ProductWithCategory extends Product {
-  category: {
-    id: string;
-    name: string;
-  };
-}
+import type { ProductWithCategory } from '@/features/product/types';
 
 interface ProductTableProps {
-  readonly products: ProductWithCategory[];
+  products: ProductWithCategory[];
 }
 
-export function ProductTable({ products }: ProductTableProps) {
+export function ProductTable({ products }: Readonly<ProductTableProps>) {
   const t = useTranslations('ProductTableRow');
-  const tPagination = useTranslations('TablePagination');
   const tHeader = useTranslations('ProductTableHeader');
 
   const {
@@ -57,15 +38,7 @@ export function ProductTable({ products }: ProductTableProps) {
     setEditingProduct,
     setDeleteDialogOpen,
     setProductToDelete,
-    sortConfig,
-    setSortConfig,
-    currentPage,
-    setCurrentPage,
   } = useProductManagementStore();
-
-  const onSort = (key: 'name' | 'category' | 'price' | 'stock') => {
-    setSortConfig(key);
-  };
 
   const handleEdit = (product: ProductWithCategory) => {
     const formData = {
@@ -87,39 +60,6 @@ export function ProductTable({ products }: ProductTableProps) {
     setDeleteDialogOpen(true);
   };
 
-  const sortedProducts = [...products].sort((a, b) => {
-    if (!sortConfig.key) return 0;
-
-    if (sortConfig.key === 'category') {
-      return (
-        a.category.name.localeCompare(b.category.name) *
-        (sortConfig.direction === 'asc' ? 1 : -1)
-      );
-    }
-
-    const aValue = a[sortConfig.key];
-    const bValue = b[sortConfig.key];
-
-    if (typeof aValue === 'string' && typeof bValue === 'string') {
-      return (
-        aValue.localeCompare(bValue) * (sortConfig.direction === 'asc' ? 1 : -1)
-      );
-    }
-
-    if (typeof aValue === 'number' && typeof bValue === 'number') {
-      return (aValue - bValue) * (sortConfig.direction === 'asc' ? 1 : -1);
-    }
-
-    return 0;
-  });
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedProducts = sortedProducts.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE,
-  );
-  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
-
   return (
     <div className="space-y-4">
       <TooltipProvider>
@@ -128,35 +68,15 @@ export function ProductTable({ products }: ProductTableProps) {
             <TableHeader>
               <TableRow>
                 <TableHead>{tHeader('image')}</TableHead>
-                <TableHead>
-                  <Button variant="ghost" onClick={() => onSort('name')}>
-                    {tHeader('name')}
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
-                <TableHead>
-                  <Button variant="ghost" onClick={() => onSort('category')}>
-                    {tHeader('category')}
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
-                <TableHead>
-                  <Button variant="ghost" onClick={() => onSort('price')}>
-                    {tHeader('price')}
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
-                <TableHead>
-                  <Button variant="ghost" onClick={() => onSort('stock')}>
-                    {tHeader('stock')}
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
+                <TableHead>{tHeader('name')}</TableHead>
+                <TableHead>{tHeader('category')}</TableHead>
+                <TableHead>{tHeader('price')}</TableHead>
+                <TableHead>{tHeader('stock')}</TableHead>
                 <TableHead>{tHeader('actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedProducts.map((product) => {
+              {products.map((product) => {
                 let imageToDisplay: string;
                 const actualImageValue = product.imageBase64;
                 if (actualImageValue && actualImageValue.trim() !== '') {
@@ -235,47 +155,6 @@ export function ProductTable({ products }: ProductTableProps) {
           </Table>
         </div>
       </TooltipProvider>
-
-      {totalPages > 1 && (
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => setCurrentPage(currentPage - 1)}
-                aria-disabled={currentPage <= 1}
-                className={cn(
-                  currentPage <= 1 && 'pointer-events-none opacity-50',
-                )}
-              >
-                {tPagination('previous')}
-              </PaginationPrevious>
-            </PaginationItem>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-              (pageNumber) => (
-                <PaginationItem key={pageNumber}>
-                  <PaginationLink
-                    onClick={() => setCurrentPage(pageNumber)}
-                    isActive={pageNumber === currentPage}
-                  >
-                    {pageNumber}
-                  </PaginationLink>
-                </PaginationItem>
-              ),
-            )}
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => setCurrentPage(currentPage + 1)}
-                aria-disabled={currentPage >= totalPages}
-                className={cn(
-                  currentPage >= totalPages && 'pointer-events-none opacity-50',
-                )}
-              >
-                {tPagination('next')}
-              </PaginationNext>
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      )}
     </div>
   );
 }

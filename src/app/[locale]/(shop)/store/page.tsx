@@ -1,4 +1,3 @@
-import { Product, ProductType } from '@prisma/client';
 import { Suspense } from 'react';
 
 import { getAllProducts } from '@/features/product/actions';
@@ -6,39 +5,40 @@ import { getAllProducts } from '@/features/product/actions';
 import { StoreContent } from './components/store-content';
 import { StoreHeader } from './components/store-header';
 
-export default async function Page(
-  props: Readonly<{
-    searchParams?: Promise<{
-      category?: string;
-      categoria?: string;
-      type?: string;
-    }>;
-  }>,
-) {
+interface PageProps {
+  searchParams?: Promise<{
+    category?: string;
+    categoria?: string;
+    type?: string;
+  }>;
+}
+
+export default async function Page(props: Readonly<PageProps>) {
   const searchParams = await props.searchParams;
   const categoryQueryParam =
     searchParams?.category ?? searchParams?.categoria ?? '';
   const products = await getAllProducts();
 
-  const getProductTypeFromQuery = (query: string): ProductType | null => {
+  const getCategoryFromQuery = (query: string): string | null => {
     const lowerQuery = query.toLowerCase();
     if (
       lowerQuery === 'sacred geometry' ||
       lowerQuery === 'geometría sagrada'
     ) {
-      return ProductType.SACRED_GEOMETRY;
+      return 'Sacred Geometry';
     }
     if (lowerQuery === 'flower essence' || lowerQuery === 'esencia floral') {
-      return ProductType.FLOWER_ESSENCE;
+      return 'Flower Essence';
     }
     return null;
   };
 
-  const targetProductType = getProductTypeFromQuery(categoryQueryParam);
+  const targetCategory = getCategoryFromQuery(categoryQueryParam);
 
   const filteredProducts = products.filter(
-    (product: Product) =>
-      !targetProductType || product.type === targetProductType,
+    (product) =>
+      !targetCategory ||
+      product.category.name.toLowerCase() === targetCategory.toLowerCase(),
   );
 
   return (
@@ -60,6 +60,7 @@ export default async function Page(
             <StoreContent
               products={filteredProducts}
               category={categoryQueryParam}
+              isLoading={false}
             />
           </Suspense>
         </div>

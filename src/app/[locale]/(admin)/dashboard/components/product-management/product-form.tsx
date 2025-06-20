@@ -12,10 +12,15 @@ import {
   Package2,
   Tags,
 } from 'lucide-react';
-import Form from 'next/form';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useRef, useState } from 'react';
+import {
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -313,6 +318,7 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
   const { setAddDialogOpen, setEditDialogOpen, setEditingProduct } =
     useProductManagementStore();
   const [categories, setCategories] = useState<Category[]>([]);
+  const [, startTransition] = useTransition();
 
   const action = initialData?.id ? updateProduct : createProduct;
   const [{ success, data, message, errors }, formAction, isPending] =
@@ -421,13 +427,14 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
       }
     }
 
-    formAction(payloadAsFormData);
+    startTransition(() => {
+      formAction(payloadAsFormData);
+    });
   };
 
   return (
     <FormProvider {...form}>
-      <Form
-        action={formAction}
+      <form
         onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
         className="space-y-6"
       >
@@ -466,7 +473,7 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
             )}
           </Button>
         </motion.div>
-      </Form>
+      </form>
     </FormProvider>
   );
 }

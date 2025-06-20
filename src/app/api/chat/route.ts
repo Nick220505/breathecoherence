@@ -33,7 +33,7 @@ ${products
   .map(
     (product) => `
 ### ${product.name} - $${product.price.toFixed(2)}
-- **Type:** ${product.type}
+- **Category:** ${product.category.name}
 - **Description:** ${product.description}
 - **Stock:** ${product.stock} units available
 - **ID:** ${product.id}
@@ -47,7 +47,7 @@ When answering questions:
 3. Emphasize the energetic and vibrational properties
 4. Explain how the products work with our energy and consciousness
 5. To recommend a product, you MUST use the following format exactly: [PRODUCT_REC:PRODUCT_ID]. Replace PRODUCT_ID with the actual product ID from the list. For example: [PRODUCT_REC:tetrahedron]. Do not output a JSON object, as the system will handle creating the product details.
-6. The product 'type' is a fixed value and must not be changed. The valid types are 'SACRED_GEOMETRY' and 'FLOWER_ESSENCE'.
+6. The product 'category' is a fixed value and must not be changed. The valid categories are 'Sacred Geometry' and 'Flower Essence'.
 7. If asked about products we don't have, politely explain what we do offer instead.
 8. Format prices with $ and two decimal places.
 9. Include stock availability when relevant.

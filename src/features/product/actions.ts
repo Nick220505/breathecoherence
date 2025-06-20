@@ -10,13 +10,16 @@ import { FormState } from '@/lib/types/form';
 
 import { productSchema } from './schema';
 import { productService } from './service';
+import { ProductWithCategory } from './types';
 
-export async function getAllProducts(): Promise<Product[]> {
+export async function getAllProducts(): Promise<ProductWithCategory[]> {
   const locale = (await getLocale()) as Locale;
   return productService.getAll(locale);
 }
 
-export async function getProductById(id: string): Promise<Product | null> {
+export async function getProductById(
+  id: string,
+): Promise<ProductWithCategory | null> {
   const locale = (await getLocale()) as Locale;
   return productService.getById(id, locale);
 }

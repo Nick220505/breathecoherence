@@ -18,7 +18,7 @@ export async function createCategory(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Category>> {
-  const t = await getTranslations('ServerActions.Product'); // Using Product for now
+  const t = await getTranslations('ServerActions.Category');
   const rawData = Object.fromEntries(formData.entries());
 
   const { success, data, error } = categorySchema.safeParse(rawData);
@@ -54,7 +54,7 @@ export async function updateCategory(
   _prevState: FormState,
   formData: FormData,
 ): Promise<FormState<Category>> {
-  const t = await getTranslations('ServerActions.Product'); // Using Product for now
+  const t = await getTranslations('ServerActions.Category');
   const rawData = Object.fromEntries(formData.entries());
 
   const { success, data, error } = categorySchema.safeParse(rawData);
@@ -98,7 +98,7 @@ export async function updateCategory(
 export async function deleteCategory(
   id: string,
 ): Promise<ActionState<Category>> {
-  const t = await getTranslations('ServerActions.Product'); // Using Product for now
+  const t = await getTranslations('ServerActions.Category');
   try {
     const deletedCategory = await categoryService.delete(id);
     revalidateTag('categories');

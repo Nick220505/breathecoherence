@@ -3,7 +3,9 @@
     "hero": {
       "title": "Sacred Geometry & Healing Essences",
       "subtitle": "Discover the perfect harmony between sacred geometric forms and the healing power of flower essences.",
-      "cta": "Explore Our Collection"
+      "cta": "Explore Our Collection",
+      "flower_essence": "Flower Essence",
+      "sacred_geometry": "Sacred Geometry"
     },
     "features": {
       "title": "Why Choose Us",
@@ -18,6 +20,28 @@
       "harmony": {
         "title": "Holistic Harmony",
         "description": "The perfect blend of form and essence for complete spiritual alignment."
+      }
+    },
+    "ServerActions": {
+      "Product": {
+        "fillRequiredFields": "Please fill all required fields.",
+        "createSuccess": "Product created successfully.",
+        "createError": "Failed to create product.",
+        "updateSuccess": "Product updated successfully.",
+        "updateError": "Failed to update product.",
+        "deleteSuccess": "Product deleted successfully.",
+        "deleteError": "Failed to delete product.",
+        "missingId": "Product ID is missing."
+      },
+      "Category": {
+        "fillRequiredFields": "Please fill all required fields.",
+        "createSuccess": "Category created successfully.",
+        "createError": "Failed to create category.",
+        "updateSuccess": "Category updated successfully.",
+        "updateError": "Failed to update category.",
+        "deleteSuccess": "Category deleted successfully.",
+        "deleteError": "Failed to delete category.",
+        "missingId": "Category ID is missing."
       }
     },
     "cta": {
@@ -169,6 +193,18 @@
     "deleted_title": "Product Deleted",
     "deleted_description": "The product \"{name}\" has been deleted successfully."
   },
+  "DeleteCategoryDialog": {
+    "success": "Success",
+    "error": "Error",
+    "error_delete": "An error occurred while deleting the category",
+    "delete_confirm_title": "Delete Category",
+    "delete_confirm_description": "Are you sure you want to delete this category? This action cannot be undone.",
+    "cancel": "Cancel",
+    "deleting": "Deleting...",
+    "confirm_delete": "Delete",
+    "deleted_title": "Category Deleted",
+    "deleted_description": "The category \"{name}\" has been deleted successfully."
+  },
   "AddProductDialog": {
     "add_product": "Add Product",
     "form_description": "Form to add a new product"
@@ -206,6 +242,10 @@
     "filter_name_placeholder": "Filter by name...",
     "filter_type_placeholder": "Filter by type...",
     "all_types": "All Types"
+  },
+  "CategoryTableRow": {
+    "edit_tooltip": "Edit category",
+    "delete_tooltip": "Delete category"
   },
   "TablePagination": {
     "previous": "Previous",
@@ -249,52 +289,49 @@
     "placeholder": {
       "choose_file": "Choose File"
     },
+    "loading": "Uploading...",
     "alt": {
-      "product": "Product",
-      "default": "Default Product Image"
-    },
-    "loading": "Uploading image..."
+      "product": "Product image",
+      "default": "Default product image"
+    }
   },
   "CustomBlendPage": {
-    "back_to_store": "Back to Store",
-    "image_alt": "Create Your Own Bach Remedy Blend",
-    "subtitle": "Personalized Flower Essence",
     "title": "Create Your Custom Blend",
+    "subtitle": "Personalized Flower Essence",
+    "description": "Design your own unique blend of up to 7 flower essences. Choose at least 2 essences to get started.",
     "price": "$19.99",
-    "description": "Design your own unique blend of flower essences tailored to your specific needs. Select from our curated collection to create a personalized remedy that resonates with your journey.",
-    "whatsapp_help": "Need help choosing your essences? Contact us via WhatsApp for personalized guidance.",
+    "whatsapp_help": "Need help choosing your essences? Contact us on WhatsApp for a personalized consultation.",
     "learn_more": "Learn More About Flower Essences",
     "base": {
-      "label": "Select Base",
-      "brandy": "Brandy Base (Traditional)",
-      "water": "Water Base (Alcohol-Free)"
+      "label": "Choose Your Base"
     },
     "essence": {
       "label": "Essence {number}"
     },
-    "select_option": "Select an option",
-    "skip_option": "Skip (optional)",
+    "add_to_cart": "Add Custom Blend to Cart",
     "adding_to_cart": "Adding to cart...",
-    "add_to_cart": "Add to Cart",
+    "select_option": "Select an essence",
+    "skip_option": "None (optional)",
+    "back_to_store": "Back to Store",
+    "image_alt": "Custom blend bottle with flowers",
     "cart": {
-      "name": "Custom Bach Remedy Blend ({essences})",
+      "name": "Custom Blend ({essences})",
       "description": "Base: {base}, Essences: {essences}"
     }
   },
   "ProductPage": {
     "back_to_store": "Back to Store",
-    "product_not_found": "Product not found",
     "base": {
-      "label": "Select Base",
-      "brandy": "Brandy Base (Traditional)",
-      "water": "Water Base (Alcohol-Free)"
+      "label": "Base",
+      "brandy": "Brandy",
+      "water": "Water"
     },
-    "select_option": "Select an option",
-    "adding_to_cart": "Adding to cart...",
     "add_to_cart": "Add to Cart",
+    "adding_to_cart": "Adding to cart...",
+    "select_option": "Select an option",
     "cart": {
-      "name": "{name} ({base})",
-      "description": "Base: {base}, {description}"
+      "name": "{name} (Base: {base})",
+      "description": "Base: {base}, Description: {description}"
     }
   },
   "FlowerEssencesPage": {
@@ -312,226 +349,87 @@
     "cta": "Explore Our Flower Essences"
   },
   "dashboard": {
-    "title": "Dashboard",
-    "description": "Here is an overview of your store.",
-    "orders": {
-      "title": "Orders",
-      "description": "Manage your customer orders here."
-    },
-    "users": {
-      "title": "Users",
-      "description": "Manage your users here."
-    },
+    "title": "Admin Dashboard",
     "productTable": {
-      "title": "Products",
-      "description": "Manage your products here.",
-      "name": "Name",
-      "type": "Type",
-      "price": "Price",
-      "stock": "Stock",
-      "actions": "Actions",
-      "image": "Image",
-      "add_product": "Add Product"
+      "title": "Product Management"
     },
     "categoryTable": {
-      "title": "Categories",
-      "description": "Manage your categories here.",
+      "title": "Category Management",
       "name": "Name",
+      "description": "Description",
       "createdAt": "Created At",
-      "actions": "Actions",
-      "add_category": "Add Category"
+      "actions": "Actions"
     },
-    "addProduct": "Add Product",
-    "addCategory": "Add Category",
-    "products": "Products",
-    "categories": "Categories",
-    "tabs": {
-      "products": "Products"
-    }
+    "addCategory": "Add Category"
   },
   "CheckoutPage": {
     "title": "Secure Checkout",
-    "empty_cart": "Your cart is empty",
-    "empty_cart_message": "Add some items to your cart before proceeding to checkout.",
-    "continue_shopping": "Continue Shopping",
-    "loading_paypal": "Loading PayPal...",
-    "shipping_info": "Shipping Information",
-    "order_notes": "Order Notes",
-    "payment_method": "Payment Method",
-    "card_payment": "Credit/Debit Card",
-    "paypal": "PayPal",
+    "shipping_address": "Shipping Address",
     "order_summary": "Order Summary",
+    "order_notes_label": "Order Notes (optional)",
+    "order_notes_placeholder": "Notes about your order, e.g. special notes for delivery.",
+    "payment_method": "Payment Method",
+    "pay_with_card": "Pay with Card",
+    "pay_with_paypal": "Pay with PayPal",
     "subtotal": "Subtotal",
     "shipping": "Shipping",
     "total": "Total",
-    "name": "Full Name *",
-    "email": "Email *",
-    "address": "Address *",
-    "state": "State *",
-    "city": "City *",
-    "zip_code": "ZIP Code *",
-    "complete_form": "Please complete the form to continue",
-    "loading_payment_form": "Loading payment form...",
-    "placeholder": {
-      "name": "Enter your full name",
-      "email": "Enter your email address",
-      "address": "Enter your shipping address",
-      "state": "Select your state",
-      "city": "Enter your city",
-      "zip_code": "Enter ZIP code",
-      "order_notes": "Notes about your order, e.g. special notes for delivery"
-    },
-    "countries": {},
-    "states": {}
-  },
-  "StripePaymentForm": {
-    "pay_now": "Pay Now",
+    "place_order": "Place Order",
     "processing": "Processing...",
-    "error": {
-      "unknown": "An unknown error occurred",
-      "unexpected": "An unexpected error occurred"
-    }
-  },
-  "CheckoutSuccess": {
-    "title": "Payment Complete!",
-    "subtitle": "Thank you for your purchase. Your order has been successfully processed.",
-    "order_details": "Order Details",
-    "order_id": "Order ID",
-    "confirmation_sent": "A confirmation has been sent to your email.",
-    "no_order_details": "No order details found.",
-    "view_order": "View Order",
-    "view_all_orders": "View All Orders",
-    "what_next": "What's Next?",
+    "empty_cart": "Your Cart is Empty",
+    "empty_cart_message": "You have no items in your cart. Let's find something for you.",
     "continue_shopping": "Continue Shopping",
-    "loading_details": "Loading order details...",
-    "error_fetching_order": "Error fetching order details",
-    "try_view_orders": "Try viewing your orders in your account section.",
+    "complete_form": "Please complete the form to proceed with payment",
+    "loading_paypal": "Loading PayPal..."
+  },
+  "CheckoutSuccessPage": {
+    "title": "Thank You for Your Order!",
+    "description": "We've received your order and will process it shortly.",
+    "order_number": "Order Number",
+    "order_date": "Order Date",
     "total_amount": "Total Amount",
-    "status": "Status",
-    "succeeded": "Succeeded"
-  },
-  "ChatBot": {
-    "title": "Shopping Assistant",
-    "welcome": "Welcome to Our Shopping Assistant! 👋\n\nI can help you with:\n\n1. Sacred Geometry Products\n• Information about our Platonic Solids\n• Their elemental associations\n• Metaphysical properties\n• Pricing and availability\n\n2. Bach Flower Remedies\n• Information about each essence\n• Emotional benefits\n• Personalized recommendations\n\nHow can I assist you today?",
-    "error": "Sorry, there was an error processing your message. Please try again.",
-    "typing": "Typing...",
-    "input_placeholder": "Type your message...",
-    "recommended_products": "Recommended Products:",
-    "view_details": "View Details",
-    "minimize": "Minimize chat",
-    "close": "Close chat"
-  },
-  "OrderHistory": {
-    "title": "Order History",
-    "subtitle": "View and track your orders",
-    "guest_order_title": "Your Order",
-    "guest_order_subtitle": "View details of your recent purchase",
-    "guest_order_details": "Order Details",
-    "loading": "Loading your orders...",
-    "error_title": "Order Error",
-    "no_orders_title": "No Orders Yet",
-    "no_orders_message": "You haven't placed any orders yet. Start shopping to see your orders here.",
-    "browse_products": "Browse Products",
-    "try_again": "Try Again",
-    "list_view": "List View",
-    "grid_view": "Grid View",
-    "table_view": "Table View",
-    "order_id": "Order ID",
-    "date": "Date",
-    "status": "Status",
-    "total": "Total",
-    "actions": "Actions",
-    "view_details": "View Details",
-    "items": "Items",
-    "more_items": "more items",
+    "shipping_address": "Shipping Address",
+    "billing_address": "Billing Address",
+    "order_summary": "Order Summary",
     "continue_shopping": "Continue Shopping",
-    "quantity": "Quantity",
-    "pending": "Pending",
-    "status_pending": "Pending",
-    "status_paid": "Paid",
-    "status_shipped": "Shipped",
-    "status_delivered": "Delivered",
-    "status_cancelled": "Cancelled"
+    "view_order": "View Order Details"
   },
-  "OrderDetail": {
-    "title": "Order Details",
-    "loading": "Loading order details...",
-    "error_title": "Error Loading Order",
-    "not_found_title": "Order Not Found",
-    "not_found_message": "The order you're looking for could not be found.",
-    "back_to_orders": "Back to Orders",
-    "order_details": "Order Details",
-    "product_type": "Type",
-    "quantity": "Quantity",
-    "subtotal": "Subtotal",
-    "shipping": "Shipping",
-    "tax": "Tax",
-    "total": "Total",
-    "status_pending": "Pending",
-    "status_paid": "Paid",
-    "status_shipped": "Shipped",
-    "status_delivered": "Delivered",
-    "status_cancelled": "Cancelled"
-  },
-  "Account": {
+  "AccountPage": {
     "title": "My Account",
     "orders": "Orders",
-    "profile": "Profile",
     "settings": "Settings",
-    "sign_out": "Sign Out",
-    "guest_redirect": "Redirecting to your order details...",
-    "guest_order": "Guest Order",
-    "guest_order_redirect": "Redirecting to your order details..."
+    "signout": "Sign Out",
+    "order_history": "Order History",
+    "no_orders": "You have not placed any orders yet.",
+    "order_id": "Order ID",
+    "date": "Date",
+    "total": "Total",
+    "status": "Status",
+    "actions": "Actions",
+    "view_order": "View"
   },
-  "ServerActions": {
-    "Auth": {
-      "fillRequiredFields": "Please fill in all required fields and ensure they are valid",
-      "verificationCodeSent": "Verification code sent to your email",
-      "registrationError": "Something went wrong during registration",
-      "verificationSuccess": "Email verified successfully",
-      "verificationError": "Something went wrong during verification",
-      "loginSuccess": "Logged in successfully",
-      "loginError": "Something went wrong during login"
-    },
-    "Product": {
-      "fillRequiredFields": "Please fill in all required fields.",
-      "createSuccess": "Product created successfully.",
-      "createError": "Failed to create product.",
-      "updateSuccess": "Product updated successfully.",
-      "updateError": "Failed to update product.",
-      "missingId": "Product ID is missing for update.",
-      "deleteSuccess": "Product deleted successfully.",
-      "deleteError": "Failed to delete product."
-    }
+  "OrderDetailsPage": {
+    "title": "Order Details",
+    "back_to_orders": "Back to Orders",
+    "order_id": "Order ID",
+    "order_date": "Date",
+    "order_status": "Status",
+    "total": "Total",
+    "shipping_address": "Shipping Address",
+    "order_summary": "Order Summary",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price",
+    "subtotal": "Subtotal"
   },
-  "ProductSchema": {
-    "nameMin": "Name must be at least 3 characters",
-    "descriptionMin": "Description must be at least 10 characters",
-    "typeInvalid": "Invalid product type",
-    "priceMin": "Price must be a positive number",
-    "stockInt": "Stock must be a whole number",
-    "stockMin": "Stock must be a positive integer",
-    "imageInvalid": "Image must be a valid data URL"
-  },
-  "AuthSchema": {
-    "Login": {
-      "emailInvalid": "Please enter a valid email address",
-      "passwordRequired": "Password is required",
-      "invalidCredentials": "Invalid email or password"
-    },
-    "Register": {
-      "emailInvalid": "Please enter a valid email address",
-      "passwordMinLength": "Password must be at least 6 characters",
-      "nameRequired": "Name is required",
-      "confirmPasswordMinLength": "Please confirm your password (min 6 characters)",
-      "passwordsDontMatch": "Passwords do not match",
-      "userExistsError": "User already exists with this email."
-    },
-    "Verify": {
-      "emailInvalid": "Please enter a valid email address",
-      "codeLength": "Verification code must be 6 digits",
-      "invalidVerificationCode": "Invalid or expired verification code."
-    }
+  "ChatBot": {
+    "title": "Breathe Coherence Assistant",
+    "welcome": "Hello! How can I help you find the perfect product for your spiritual journey today?",
+    "error": "I'm sorry, I'm having trouble connecting right now. Please try again later.",
+    "placeholder": "Ask about our products...",
+    "send": "Send",
+    "minimize": "Minimize",
+    "close": "Close"
   },
   "AddCategoryDialog": {
     "add_category": "Add Category",
@@ -542,6 +440,12 @@
     "form_description": "Form to edit an existing category"
   },
   "CategoryForm": {
+    "name": "Category Name",
+    "description": "Description",
+    "placeholder": {
+      "name": "Enter category name",
+      "description": "Enter category description"
+    },
     "success": "Success",
     "created_title": "Category Created",
     "updated_title": "Category Updated",
@@ -550,13 +454,7 @@
     "editing": "Editing category...",
     "adding": "Adding category...",
     "edit": "Edit Category",
-    "add": "Add Category",
-    "name": "Category Name",
-    "description": "Description",
-    "placeholder": {
-      "name": "Enter category name",
-      "description": "Enter category description"
-    }
+    "add": "Add Category"
   },
   "CategorySchema": {
     "nameMin": "Name must be at least 3 characters",

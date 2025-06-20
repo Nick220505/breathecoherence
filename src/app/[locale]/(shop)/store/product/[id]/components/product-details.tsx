@@ -1,6 +1,5 @@
 'use client';
 
-import { Product, ProductType } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
@@ -18,6 +17,8 @@ import {
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 
+import type { ProductWithCategory } from '@/features/product/types';
+
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -33,7 +34,7 @@ const fadeIn = {
 const TRANSLATION_SELECT_OPTION = 'select_option';
 
 interface ProductDetailsProps {
-  product: Product;
+  product: ProductWithCategory;
 }
 
 export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
@@ -48,7 +49,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
 
   if (typeof actualImageValue === 'string' && actualImageValue.trim() !== '') {
     imageToDisplay = actualImageValue;
-  } else if (product.type === ProductType.SACRED_GEOMETRY) {
+  } else if (product.category.name === 'Sacred Geometry') {
     imageToDisplay = `/products/sacred-geometry.svg#${product.id}`;
   } else {
     imageToDisplay = '/products/flower-essence.svg';
@@ -58,7 +59,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
     setIsAdding(true);
 
     try {
-      if (product.type === ProductType.FLOWER_ESSENCE && selectedBase) {
+      if (product.category.name === 'Flower Essence' && selectedBase) {
         addToCart({
           ...product,
           name: t('cart.name', { name: product.name, base: selectedBase }),
@@ -66,9 +67,10 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
             base: selectedBase,
             description: product.description,
           }),
+          category: { name: product.category.name },
         });
       } else {
-        addToCart(product);
+        addToCart({ ...product, category: { name: product.category.name } });
       }
     } finally {
       setIsAdding(false);
@@ -125,7 +127,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
                 transition={{ delay: 0.2 }}
                 className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium"
               >
-                {product.type === ProductType.SACRED_GEOMETRY
+                {product.category.name === 'Sacred Geometry'
                   ? storeHeaderCategoryT('sacred geometry.badge')
                   : storeHeaderCategoryT('flower essence.badge')}
               </motion.div>
@@ -158,7 +160,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
               </p>
             </motion.div>
 
-            {product.type === ProductType.FLOWER_ESSENCE && (
+            {product.category.name === 'Flower Essence' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -193,7 +195,7 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
                 className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
                 size="lg"
                 disabled={
-                  (product.type === ProductType.FLOWER_ESSENCE &&
+                  (product.category.name === 'Flower Essence' &&
                     !selectedBase) ||
                   isAdding
                 }

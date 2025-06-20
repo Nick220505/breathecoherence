@@ -2,10 +2,9 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { AlertCircle, Loader2 } from 'lucide-react';
-import Form from 'next/form';
+import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useRef } from 'react';
+import { useActionState, useEffect, useRef, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -29,6 +28,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
   const tCategorySchema = useTranslations('CategorySchema');
   const { setAddDialogOpen, setEditDialogOpen, setEditingCategory } =
     useCategoryStore();
+  const [, startTransition] = useTransition();
 
   const action = initialData?.id ? updateCategory : createCategory;
   const [{ success, data, message, errors }, formAction, isPending] =
@@ -98,31 +98,66 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
         formData.append(key, value.toString());
       }
     });
-    formAction(formData);
+    startTransition(() => {
+      formAction(formData);
+    });
   };
 
   return (
     <FormProvider {...form}>
-      <Form
-        action={formAction}
+      <form
         onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
         className="space-y-6"
       >
         {initialData?.id && <Input type="hidden" {...form.register('id')} />}
 
         <div className="space-y-2">
-          <label htmlFor="name">{t('name')}</label>
-          <Input id="name" {...form.register('name')} />
-          {errors.name && (
-            <p className="text-sm text-red-500">{errors.name[0]}</p>
+          <label
+            htmlFor="name"
+            className="flex items-center gap-2 text-sm font-medium"
+          >
+            <Tags className="h-4 w-4" />
+            {t('name')}
+          </label>
+          <Input
+            id="name"
+            {...form.register('name')}
+            placeholder={t('placeholder.name')}
+          />
+          {form.formState.errors.name && (
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-1 text-sm text-red-500"
+            >
+              <AlertCircle className="h-4 w-4" />
+              {form.formState.errors.name.message}
+            </motion.p>
           )}
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="description">{t('description')}</label>
-          <Textarea id="description" {...form.register('description')} />
-          {errors.description && (
-            <p className="text-sm text-red-500">{errors.description[0]}</p>
+          <label
+            htmlFor="description"
+            className="flex items-center gap-2 text-sm font-medium"
+          >
+            <Info className="h-4 w-4" />
+            {t('description')}
+          </label>
+          <Textarea
+            id="description"
+            {...form.register('description')}
+            placeholder={t('placeholder.description')}
+          />
+          {form.formState.errors.description && (
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-1 text-sm text-red-500"
+            >
+              <AlertCircle className="h-4 w-4" />
+              {form.formState.errors.description.message}
+            </motion.p>
           )}
         </div>
 
@@ -157,7 +192,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
             )}
           </Button>
         </motion.div>
-      </Form>
+      </form>
     </FormProvider>
   );
 }

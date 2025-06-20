@@ -136,8 +136,7 @@
       "description": "Gestiona tus usuarios aquí."
     },
     "productTable": {
-      "title": "Productos",
-      "description": "Gestiona tus productos aquí.",
+      "title": "Gestión de Productos",
       "name": "Nombre",
       "type": "Tipo",
       "price": "Precio",
@@ -147,8 +146,8 @@
       "add_product": "Agregar Producto"
     },
     "categoryTable": {
-      "title": "Categorías",
-      "description": "Gestiona tus categorías aquí.",
+      "title": "Gestión de Categorías",
+      "description": "Descripción",
       "name": "Nombre",
       "createdAt": "Creado en",
       "actions": "Acciones",
@@ -204,6 +203,35 @@
     "deleted_title": "Producto Eliminado",
     "deleted_description": "El producto \"{name}\" ha sido eliminado con éxito."
   },
+  "DeleteCategoryDialog": {
+    "success": "Éxito",
+    "error": "Error",
+    "error_delete": "Ocurrió un error al eliminar la categoría",
+    "delete_confirm_title": "Eliminar Categoría",
+    "delete_confirm_description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando...",
+    "confirm_delete": "Eliminar",
+    "deleted_title": "Categoría Eliminada",
+    "deleted_description": "La categoría \"{name}\" ha sido eliminada con éxito."
+  },
+  "CategoryForm": {
+    "name": "Nombre de la Categoría",
+    "description": "Descripción",
+    "placeholder": {
+      "name": "Ingrese el nombre de la categoría",
+      "description": "Ingrese la descripción de la categoría"
+    },
+    "success": "Éxito",
+    "created_title": "Categoría Creada",
+    "updated_title": "Categoría Actualizada",
+    "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
+    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
+    "editing": "Editando categoría...",
+    "adding": "Agregando categoría...",
+    "edit": "Editar Categoría",
+    "add": "Agregar Categoría"
+  },
   "AddProductDialog": {
     "add_product": "Agregar Producto",
     "form_description": "Formulario para agregar un nuevo producto"
@@ -241,6 +269,10 @@
     "filter_name_placeholder": "Filtrar por nombre...",
     "filter_type_placeholder": "Filtrar por tipo...",
     "all_types": "Todos los tipos"
+  },
+  "CategoryTableRow": {
+    "edit_tooltip": "Editar categoría",
+    "delete_tooltip": "Eliminar categoría"
   },
   "TablePagination": {
     "previous": "Anterior",
@@ -466,85 +498,22 @@
     "status_delivered": "Entregado",
     "status_cancelled": "Cancelado"
   },
-  "OrderDetail": {
+  "OrderDetails": {
     "title": "Detalles del Pedido",
     "loading": "Cargando detalles del pedido...",
-    "error_title": "Error al Cargar el Pedido",
-    "not_found_title": "Pedido No Encontrado",
-    "not_found_message": "El pedido que buscas no pudo ser encontrado.",
-    "back_to_orders": "Volver a Pedidos",
-    "order_details": "Detalles del Pedido",
-    "product_type": "Tipo",
-    "quantity": "Cantidad",
-    "subtotal": "Subtotal",
-    "shipping": "Envío",
-    "tax": "Impuesto",
+    "error": "Error al cargar los detalles del pedido",
+    "not_found": "Pedido no encontrado",
+    "back_to_orders": "Volver a los Pedidos",
+    "order_id": "ID del Pedido",
+    "date": "Fecha",
     "total": "Total",
-    "status_pending": "Pendiente",
-    "status_paid": "Pagado",
-    "status_shipped": "Enviado",
-    "status_delivered": "Entregado",
-    "status_cancelled": "Cancelado"
-  },
-  "Account": {
-    "title": "Mi Cuenta",
-    "orders": "Pedidos",
-    "profile": "Perfil",
-    "settings": "Configuración",
-    "sign_out": "Cerrar Sesión",
-    "guest_redirect": "Redirigiendo a los detalles de tu pedido...",
-    "guest_order": "Pedido de Invitado",
-    "guest_order_redirect": "Redirigiendo a los detalles de tu pedido..."
-  },
-  "ServerActions": {
-    "Auth": {
-      "fillRequiredFields": "Por favor completa todos los campos requeridos y asegúrate de que sean válidos",
-      "verificationCodeSent": "Código de verificación enviado a tu correo electrónico",
-      "registrationError": "Ocurrió un error durante el registro",
-      "verificationSuccess": "Correo electrónico verificado exitosamente",
-      "verificationError": "Ocurrió un error durante la verificación",
-      "loginSuccess": "Sesión iniciada exitosamente",
-      "loginError": "Ocurrió un error durante el inicio de sesión"
-    },
-    "Product": {
-      "fillRequiredFields": "Por favor, complete todos los campos obligatorios.",
-      "createSuccess": "Producto creado con éxito.",
-      "createError": "Error al crear el producto.",
-      "updateSuccess": "Producto actualizado con éxito.",
-      "updateError": "Error al actualizar el producto.",
-      "missingId": "Falta el ID del producto para la actualización.",
-      "deleteSuccess": "Producto eliminado con éxito.",
-      "deleteError": "Error al eliminar el producto."
-    }
-  },
-  "ProductSchema": {
-    "nameMin": "El nombre debe tener al menos 3 caracteres",
-    "descriptionMin": "La descripción debe tener al menos 10 caracteres",
-    "typeInvalid": "Tipo de producto inválido",
-    "priceMin": "El precio debe ser un número positivo",
-    "stockInt": "El stock debe ser un número entero",
-    "stockMin": "El stock debe ser un entero positivo",
-    "imageInvalid": "La imagen debe ser una URL de datos válida"
-  },
-  "AuthSchema": {
-    "Login": {
-      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
-      "passwordRequired": "La contraseña es obligatoria",
-      "invalidCredentials": "Correo electrónico o contraseña inválidos"
-    },
-    "Register": {
-      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
-      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
-      "nameRequired": "El nombre es obligatorio",
-      "confirmPasswordMinLength": "Por favor, confirme su contraseña (mínimo 6 caracteres)",
-      "passwordsDontMatch": "Las contraseñas no coinciden",
-      "userExistsError": "Ya existe un usuario con este correo electrónico."
-    },
-    "Verify": {
-      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
-      "codeLength": "El código de verificación debe tener 6 dígitos",
-      "invalidVerificationCode": "Código de verificación inválido o caducado."
-    }
+    "status": "Estado",
+    "items": "Artículos en este pedido",
+    "image": "Imagen",
+    "product": "Producto",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "subtotal": "Subtotal"
   },
   "AddCategoryDialog": {
     "add_category": "Agregar Categoría",
@@ -554,25 +523,49 @@
     "edit_category": "Editar Categoría",
     "form_description": "Formulario para editar una categoría existente"
   },
-  "CategoryForm": {
-    "success": "Éxito",
-    "created_title": "Categoría Creada",
-    "updated_title": "Categoría Actualizada",
-    "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
-    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
-    "editing": "Editando categoría...",
-    "adding": "Agregando categoría...",
-    "edit": "Editar Categoría",
-    "add": "Agregar Categoría",
-    "name": "Nombre de la categoría",
-    "description": "Descripción de la categoría",
-    "placeholder": {
-      "name": "Ingresa el nombre de la categoría",
-      "description": "Ingresa la descripción de la categoría"
-    }
-  },
   "CategorySchema": {
     "nameMin": "El nombre debe tener al menos 3 caracteres",
     "descriptionMin": "La descripción debe tener al menos 10 caracteres"
+  },
+  "AuthSchema": {
+    "Login": {
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "passwordRequired": "La contraseña es obligatoria",
+      "invalidCredentials": "Correo electrónico o contraseña no válidos"
+    },
+    "Register": {
+      "nameRequired": "El nombre es obligatorio",
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "confirmPasswordMinLength": "Por favor, confirma tu contraseña (mínimo 6 caracteres)",
+      "passwordsDontMatch": "Las contraseñas no coinciden"
+    },
+    "Verify": {
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "codeLength": "El código de verificación debe tener 6 dígitos",
+      "invalidVerificationCode": "Código de verificación no válido o caducado."
+    }
+  },
+  "ServerActions": {
+    "Product": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "createSuccess": "Producto creado con éxito.",
+      "createError": "Error al crear el producto.",
+      "updateSuccess": "Producto actualizado con éxito.",
+      "updateError": "Error al actualizar el producto.",
+      "deleteSuccess": "Producto eliminado con éxito.",
+      "deleteError": "Error al eliminar el producto.",
+      "missingId": "Falta el ID del producto."
+    },
+    "Category": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "createSuccess": "Categoría creada con éxito.",
+      "createError": "Error al crear la categoría.",
+      "updateSuccess": "Categoría actualizada con éxito.",
+      "updateError": "Error al actualizar la categoría.",
+      "deleteSuccess": "Categoría eliminada con éxito.",
+      "deleteError": "Error al eliminar la categoría.",
+      "missingId": "Falta el ID de la categoría."
+    }
   }
 }

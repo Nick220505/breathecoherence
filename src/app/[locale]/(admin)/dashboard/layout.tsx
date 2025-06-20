@@ -1,14 +1,20 @@
+import { type ReactNode } from 'react';
+
+import { AdminHeader } from './components/header';
 import { Sidebar } from './components/sidebar';
+
+interface DashboardLayoutProps {
+  children: ReactNode;
+}
 
 export default function DashboardLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<DashboardLayoutProps>) {
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <Sidebar />
       <div className="flex flex-col">
+        <AdminHeader />
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>

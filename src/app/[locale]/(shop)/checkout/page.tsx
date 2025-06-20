@@ -329,20 +329,21 @@ export default function CheckoutPage() {
               <div className="space-y-4">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex gap-4">
-                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
+                    <div className="relative h-16 w-16 overflow-hidden rounded-md">
                       <Image
+                        fill
+                        sizes="64px"
+                        alt={item.name}
                         src={
                           item.imageUrl ??
-                          (item.type === 'Sacred Geometry'
+                          (item.category.name === 'Sacred Geometry'
                             ? `/products/sacred-geometry.svg#${item.id}`
                             : '/products/flower-essence.svg')
                         }
-                        alt={item.name}
-                        fill
                         className="object-cover"
                       />
                     </div>
-                    <div className="min-w-0 flex-1">
+                    <div className="flex-1">
                       <h3 className="truncate leading-none font-medium">
                         {item.name}
                       </h3>
