@@ -213,18 +213,33 @@ export default function OrderDetailClient({
                 className="flex flex-col gap-4 sm:flex-row sm:items-center"
               >
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md">
-                  {item.product.imageBase64 ? (
-                    <Image
-                      src={`data:image/png;base64,${item.product.imageBase64}`}
-                      alt={item.product.name}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gray-200 text-lg font-medium">
-                      {item.product.name.charAt(0)}
-                    </div>
-                  )}
+                  {(() => {
+                    const actualImageValue: unknown = item.product.imageBase64;
+                    const categoryName =
+                      item.product.type ?? item.product.category?.name ?? '';
+
+                    let imageToDisplay: string;
+
+                    if (
+                      typeof actualImageValue === 'string' &&
+                      actualImageValue.trim() !== ''
+                    ) {
+                      imageToDisplay = actualImageValue;
+                    } else if (categoryName === 'Sacred Geometry') {
+                      imageToDisplay = `/products/sacred-geometry.svg#${item.product.id}`;
+                    } else {
+                      imageToDisplay = '/products/flower-essence.svg';
+                    }
+
+                    return (
+                      <Image
+                        src={imageToDisplay}
+                        alt={item.product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    );
+                  })()}
                 </div>
                 <div className="flex flex-1 flex-col sm:flex-row sm:items-center sm:justify-between">
                   <div>
