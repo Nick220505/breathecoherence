@@ -131,8 +131,10 @@
     "productsLabel": "Productos",
     "categoriesLabel": "Categorías",
     "orders": {
-      "title": "Pedidos",
-      "description": "Gestiona los pedidos de tus clientes aquí."
+      "title": "Gestión de Pedidos"
+    },
+    "orderTable": {
+      "title": "Gestión de Pedidos"
     },
     "users": {
       "title": "Usuarios",
@@ -624,5 +626,12 @@
   "UserSchema": {
     "nameMin": "El nombre debe tener al menos 1 caracter",
     "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida"
+  },
+  "OrderTableHeader": {
+    "id": "ID",
+    "user": "Usuario",
+    "total": "Total",
+    "status": "Estado",
+    "createdAt": "Creado en"
   }
 }

@@ -366,6 +366,9 @@
     "addCategory": "Add Category",
     "userTable": {
       "title": "User Management"
+    },
+    "orderTable": {
+      "title": "Order Management"
     }
   },
   "CheckoutPage": {
@@ -511,5 +514,12 @@
   "UserSchema": {
     "nameMin": "Name must be at least 1 character",
     "emailInvalid": "Please enter a valid email"
+  },
+  "OrderTableHeader": {
+    "id": "ID",
+    "user": "User",
+    "total": "Total",
+    "status": "Status",
+    "createdAt": "Created At"
   }
 }
