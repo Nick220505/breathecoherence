@@ -1,7 +1,9 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
+
+import { Locale } from '@/i18n/routing';
 
 import { categorySchema } from './schema';
 import { categoryService } from './service';
@@ -11,7 +13,8 @@ import type { FormState } from '@/lib/types/form';
 import type { Category } from '@prisma/client';
 
 export async function getAllCategories(): Promise<Category[]> {
-  return categoryService.getAll();
+  const locale = (await getLocale()) as Locale;
+  return categoryService.getAll(locale);
 }
 
 export async function createCategory(
@@ -32,7 +35,8 @@ export async function createCategory(
   }
 
   try {
-    const createdCategory = await categoryService.create(data);
+    const locale = (await getLocale()) as Locale;
+    const createdCategory = await categoryService.create(data, locale);
     revalidateTag('categories');
 
     return {
@@ -77,7 +81,8 @@ export async function updateCategory(
   }
 
   try {
-    const updatedCategory = await categoryService.update(id, data);
+    const locale = (await getLocale()) as Locale;
+    const updatedCategory = await categoryService.update(id, data, locale);
     revalidateTag('categories');
 
     return {
@@ -100,7 +105,8 @@ export async function deleteCategory(
 ): Promise<ActionState<Category>> {
   const t = await getTranslations('ServerActions.Category');
   try {
-    const deletedCategory = await categoryService.delete(id);
+    const locale = (await getLocale()) as Locale;
+    const deletedCategory = await categoryService.delete(id, locale);
     revalidateTag('categories');
     return {
       success: true,

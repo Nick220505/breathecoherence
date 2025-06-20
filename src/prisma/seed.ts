@@ -51,6 +51,41 @@ export async function main() {
     },
   });
 
+  await Promise.all([
+    prisma.categoryTranslation.upsert({
+      where: {
+        categoryId_locale: {
+          categoryId: sacredGeometryCategory.id,
+          locale: 'es',
+        },
+      },
+      update: {},
+      create: {
+        categoryId: sacredGeometryCategory.id,
+        locale: 'es',
+        name: 'Geometría Sagrada',
+        description:
+          'Formas geométricas artesanales que encarnan patrones universales de la creación.',
+      },
+    }),
+    prisma.categoryTranslation.upsert({
+      where: {
+        categoryId_locale: {
+          categoryId: flowerEssenceCategory.id,
+          locale: 'es',
+        },
+      },
+      update: {},
+      create: {
+        categoryId: flowerEssenceCategory.id,
+        locale: 'es',
+        name: 'Esencia Floral',
+        description:
+          'Esencias naturales puras que promueven el bienestar emocional y espiritual.',
+      },
+    }),
+  ]);
+
   const platonicSolids = await Promise.all([
     prisma.product.upsert({
       where: { id: 'tetrahedron' },
