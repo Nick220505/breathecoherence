@@ -27,7 +27,9 @@ export function EditCategoryDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('edit_category')}</DialogTitle>
-          <DialogDescription>{t('form_description')}</DialogDescription>
+          <DialogDescription className="sr-only">
+            {t('form_description')}
+          </DialogDescription>
         </DialogHeader>
         <CategoryForm initialData={editingCategory ?? undefined} />
       </DialogContent>

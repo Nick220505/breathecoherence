@@ -26,7 +26,9 @@ export function AddCategoryDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('add_category')}</DialogTitle>
-          <DialogDescription>{t('form_description')}</DialogDescription>
+          <DialogDescription className="sr-only">
+            {t('form_description')}
+          </DialogDescription>
         </DialogHeader>
         <CategoryForm />
       </DialogContent>
