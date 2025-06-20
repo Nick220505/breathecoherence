@@ -440,6 +440,26 @@
     "actions": "Actions",
     "view_order": "View"
   },
+  "OrderDetail": {
+    "loading": "Loading order details...",
+    "error_title": "Order Error",
+    "back_to_orders": "Back to Orders",
+    "not_found_title": "Order Not Found",
+    "not_found_message": "We couldn't find the order you're looking for.",
+    "title": "Order Details",
+    "order_details": "Order Details",
+    "status_pending": "Pending",
+    "status_paid": "Paid",
+    "status_shipped": "Shipped",
+    "status_delivered": "Delivered",
+    "status_cancelled": "Cancelled",
+    "items": "Items",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  },
   "OrderDetailsPage": {
     "title": "Order Details",
     "back_to_orders": "Back to Orders",

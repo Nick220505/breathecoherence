@@ -663,5 +663,25 @@
     "orders": "Pedidos",
     "users": "Usuarios",
     "panel": "Panel de Admin"
+  },
+  "OrderDetail": {
+    "loading": "Cargando detalles del pedido...",
+    "error_title": "Error de Pedido",
+    "back_to_orders": "Volver a los Pedidos",
+    "not_found_title": "Pedido No Encontrado",
+    "not_found_message": "No pudimos encontrar el pedido que buscas.",
+    "title": "Detalles del Pedido",
+    "order_details": "Detalles del Pedido",
+    "status_pending": "Pendiente",
+    "status_paid": "Pagado",
+    "status_shipped": "Enviado",
+    "status_delivered": "Entregado",
+    "status_cancelled": "Cancelado",
+    "items": "Artículos",
+    "product": "Producto",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "subtotal": "Subtotal",
+    "total": "Total"
   }
 }
