@@ -393,7 +393,26 @@
     "empty_cart_message": "You have no items in your cart. Let's find something for you.",
     "continue_shopping": "Continue Shopping",
     "complete_form": "Please complete the form to proceed with payment",
-    "loading_paypal": "Loading PayPal..."
+    "loading_paypal": "Loading PayPal...",
+    "shipping_info": "Shipping Information",
+    "order_notes": "Order Notes",
+    "name": "Full Name *",
+    "email": "Email *",
+    "address": "Address *",
+    "state": "State *",
+    "city": "City *",
+    "zip_code": "Zip Code *",
+    "placeholder": {
+      "name": "Enter your full name",
+      "email": "Enter your email address",
+      "address": "Enter your shipping address",
+      "state": "Select a State",
+      "city": "Enter your city",
+      "zip_code": "Enter the ZIP code",
+      "order_notes": "Notes about your order, e.g. special notes for delivery"
+    },
+    "card_payment": "Card Payment",
+    "paypal": "PayPal"
   },
   "CheckoutSuccessPage": {
     "title": "Thank You for Your Order!",
