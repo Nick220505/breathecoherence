@@ -350,13 +350,16 @@
   },
   "dashboard": {
     "title": "Admin Dashboard",
+    "ordersLabel": "Orders",
+    "usersLabel": "Users",
+    "productsLabel": "Products",
+    "categoriesLabel": "Categories",
     "productTable": {
       "title": "Product Management"
     },
     "categoryTable": {
       "title": "Category Management",
       "name": "Name",
-      "description": "Description",
       "createdAt": "Created At",
       "actions": "Actions"
     },

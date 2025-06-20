@@ -126,7 +126,10 @@
   },
   "dashboard": {
     "title": "Panel de Control",
-    "description": "Aquí hay un resumen de tu tienda.",
+    "ordersLabel": "Pedidos",
+    "usersLabel": "Usuarios",
+    "productsLabel": "Productos",
+    "categoriesLabel": "Categorías",
     "orders": {
       "title": "Pedidos",
       "description": "Gestiona los pedidos de tus clientes aquí."
@@ -154,9 +157,7 @@
       "add_category": "Agregar Categoría"
     },
     "addProduct": "Agregar Producto",
-    "addCategory": "Agregar Categoría",
-    "products": "Productos",
-    "categories": "Categorías"
+    "addCategory": "Agregar Categoría"
   },
   "StoreHeader": {
     "title": "Nuestros Productos",
