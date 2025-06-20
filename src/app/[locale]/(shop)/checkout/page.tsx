@@ -29,19 +29,19 @@ const stripePromise = loadStripe(
 
 const SHIPPING_COST = 13.0;
 
-const checkoutSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  address: z.string().min(5, 'Address must be at least 5 characters'),
-  city: z.string().min(2, 'City must be at least 2 characters'),
-  state: z.string().min(2, 'State must be at least 2 characters'),
-  postalCode: z
-    .string()
-    .regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code (e.g., 12345 or 12345-6789)'),
-  orderNotes: z.string().optional(),
-});
+function createCheckoutSchema(t: (key: string) => string) {
+  return z.object({
+    name: z.string().min(2, t('nameMin')),
+    email: z.string().email(t('emailInvalid')),
+    address: z.string().min(5, t('addressMin')),
+    city: z.string().min(2, t('cityMin')),
+    state: z.string().min(2, t('stateMin')),
+    postalCode: z.string().regex(/^\d{5}(-\d{4})?$/, t('zipInvalid')),
+    orderNotes: z.string().optional(),
+  });
+}
 
-type CheckoutFormData = z.infer<typeof checkoutSchema>;
+type CheckoutFormData = z.infer<ReturnType<typeof createCheckoutSchema>>;
 
 function PayPalPaymentButton({
   finalTotal,
@@ -124,6 +124,9 @@ export default function CheckoutPage() {
   const cart = useCart();
   const { total, cart: cartItems = [] } = cart;
   const [paymentMethod, setPaymentMethod] = useState('card');
+  const schemaT = useTranslations('CheckoutSchema');
+  const checkoutSchema = createCheckoutSchema(schemaT);
+
   const form = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
     mode: 'onChange',

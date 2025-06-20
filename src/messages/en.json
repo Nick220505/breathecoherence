@@ -412,7 +412,8 @@
       "order_notes": "Notes about your order, e.g. special notes for delivery"
     },
     "card_payment": "Card Payment",
-    "paypal": "PayPal"
+    "paypal": "PayPal",
+    "loading_payment_form": "Loading payment form..."
   },
   "CheckoutSuccessPage": {
     "title": "Thank You for Your Order!",
@@ -698,6 +699,22 @@
       "verificationError": "Verification failed.",
       "loginSuccess": "Signed in successfully.",
       "loginError": "Sign in failed."
+    }
+  },
+  "CheckoutSchema": {
+    "nameMin": "Name must be at least 2 characters",
+    "emailInvalid": "Invalid email address",
+    "addressMin": "Address must be at least 5 characters",
+    "cityMin": "City must be at least 2 characters",
+    "stateMin": "State must be at least 2 characters",
+    "zipInvalid": "Invalid ZIP code (e.g., 12345 or 12345-6789)"
+  },
+  "StripePaymentForm": {
+    "pay_now": "Pay Now",
+    "processing": "Processing...",
+    "error": {
+      "unknown": "An unknown error occurred",
+      "unexpected": "An unexpected error occurred"
     }
   }
 }

@@ -683,5 +683,13 @@
     "price": "Precio",
     "subtotal": "Subtotal",
     "total": "Total"
+  },
+  "CheckoutSchema": {
+    "nameMin": "El nombre debe tener al menos 2 caracteres",
+    "emailInvalid": "Correo electrónico inválido",
+    "addressMin": "La dirección debe tener al menos 5 caracteres",
+    "cityMin": "La ciudad debe tener al menos 2 caracteres",
+    "stateMin": "El estado debe tener al menos 2 caracteres",
+    "zipInvalid": "Código ZIP inválido (ej., 12345 o 12345-6789)"
   }
 }
