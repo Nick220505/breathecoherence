@@ -32,7 +32,7 @@ export function EditProductDialog() {
         if (!open) setEditingProduct(null);
       }}
     >
-      <DialogContent className="sm:max-w-[40rem]">
+      <DialogContent className="sm:max-w-[48rem]">
         <DialogHeader>
           <DialogTitle>{t('edit_product')}</DialogTitle>
           <DialogDescription className="sr-only">
