@@ -517,9 +517,10 @@
     "quantity": "Cantidad",
     "price": "Precio",
     "subtotal": "Subtotal",
-    "product_type": "Tipo de Producto",
+    "product_category": "Categoría de Producto",
     "shipping": "Envío",
-    "tax": "Impuesto"
+    "tax": "Impuesto",
+    "product_type": "Tipo de Producto"
   },
   "AddCategoryDialog": {
     "add_category": "Agregar Categoría",
@@ -679,7 +680,7 @@
     "not_found_message": "No pudimos encontrar el pedido que buscas.",
     "title": "Detalles del Pedido",
     "order_details": "Detalles del Pedido",
-    "product_type": "Tipo de Producto",
+    "product_category": "Categoría de Producto",
     "status_pending": "Pendiente",
     "status_paid": "Pagado",
     "status_shipped": "Enviado",

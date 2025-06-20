@@ -230,7 +230,7 @@ export default function OrderDetailClient({
                   <div>
                     <h3 className="font-medium">{item.product.name}</h3>
                     <p className="text-muted-foreground text-sm">
-                      {t('product_type')}:{' '}
+                      {t('product_category')}:{' '}
                       {(
                         item.product.type ??
                         item.product.category?.name ??

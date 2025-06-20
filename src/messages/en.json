@@ -449,7 +449,7 @@
     "not_found_message": "The order you are looking for could not be found.",
     "title": "Order Details",
     "order_details": "Order Details",
-    "product_type": "Product Type",
+    "product_category": "Product Category",
     "quantity": "Quantity",
     "subtotal": "Subtotal",
     "shipping": "Shipping",
@@ -473,7 +473,8 @@
     "product": "Product",
     "quantity": "Quantity",
     "price": "Price",
-    "subtotal": "Subtotal"
+    "subtotal": "Subtotal",
+    "product_category": "Product Category"
   },
   "ChatBot": {
     "title": "Breathe Coherence Assistant",
