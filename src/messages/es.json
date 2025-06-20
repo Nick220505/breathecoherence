@@ -167,7 +167,11 @@
   "StoreHeader": {
     "title": "Nuestros Productos",
     "subtitle": "Descubre nuestra colección seleccionada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
-    "category_title": "Colección de {name}"
+    "category_title": "Colección de {name}",
+    "category": {
+      "sacred geometry": { "badge": "Geometría Sagrada" },
+      "flower essence": { "badge": "Esencia Floral" }
+    }
   },
   "StoreContent": {
     "no_products": "No se encontraron productos",

@@ -160,7 +160,11 @@
   "StoreHeader": {
     "title": "Our Products",
     "subtitle": "Discover our curated collection of sacred geometric forms and healing flower essences, designed to enhance your spiritual and emotional well-being.",
-    "category_title": "{name} Collection"
+    "category_title": "{name} Collection",
+    "category": {
+      "sacred geometry": { "badge": "Sacred Geometry" },
+      "flower essence": { "badge": "Flower Essence" }
+    }
   },
   "StoreContent": {
     "no_products": "No products found",
