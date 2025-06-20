@@ -16,7 +16,10 @@ export default async function Loading() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{tDashboard('categoryTable.title')}</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle>{tDashboard('categoryTable.title')}</CardTitle>
+          <div className="bg-muted h-8 w-32 animate-pulse rounded" />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -30,25 +33,27 @@ export default async function Loading() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {Array.from({ length: 5 }).map((_, idx) => (
-                <TableRow key={idx}>
-                  <TableCell>
-                    <div className="bg-muted h-4 w-32 animate-pulse rounded" />
-                  </TableCell>
-                  <TableCell>
-                    <div className="bg-muted h-4 w-48 animate-pulse rounded" />
-                  </TableCell>
-                  <TableCell>
-                    <div className="bg-muted h-4 w-24 animate-pulse rounded" />
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center justify-end gap-2">
-                      <div className="bg-muted h-8 w-8 animate-pulse rounded" />
-                      <div className="bg-muted h-8 w-8 animate-pulse rounded" />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {Array.from({ length: 5 })
+                .map(() => ({ id: crypto.randomUUID() }))
+                .map(({ id }) => (
+                  <TableRow key={id}>
+                    <TableCell>
+                      <div className="bg-muted h-4 w-32 animate-pulse rounded" />
+                    </TableCell>
+                    <TableCell>
+                      <div className="bg-muted h-4 w-48 animate-pulse rounded" />
+                    </TableCell>
+                    <TableCell>
+                      <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center justify-end gap-2">
+                        <div className="bg-muted h-8 w-8 animate-pulse rounded" />
+                        <div className="bg-muted h-8 w-8 animate-pulse rounded" />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </div>
