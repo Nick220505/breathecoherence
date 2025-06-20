@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { TableSkeleton } from './components/product-management/table-skeleton';
+import { TableSkeleton } from './products/components/table-skeleton';
 
 export default async function Loading() {
   const t = await getTranslations('dashboard');
