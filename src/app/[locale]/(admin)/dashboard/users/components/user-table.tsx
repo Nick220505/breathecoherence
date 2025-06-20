@@ -1,7 +1,7 @@
 'use client';
 
 import { Edit, Trash2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -30,6 +30,7 @@ interface UserTableProps {
 export function UserTable({ users }: Readonly<UserTableProps>) {
   const tHeader = useTranslations('UserTableHeader');
   const tRow = useTranslations('UserTableRow');
+  const locale = useLocale();
 
   const {
     setEditDialogOpen,
@@ -68,7 +69,9 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.role}</TableCell>
                 <TableCell>
-                  {new Date(user.createdAt).toLocaleDateString()}
+                  {new Intl.DateTimeFormat(locale).format(
+                    new Date(user.createdAt),
+                  )}
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">
