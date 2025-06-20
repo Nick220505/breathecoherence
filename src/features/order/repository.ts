@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 
-import type { OrderSummary } from './types';
+import type { OrderSummary, OrderDetail } from './types';
 
 export const orderRepository = {
   async findMany(): Promise<OrderSummary[]> {
@@ -24,5 +24,31 @@ export const orderRepository = {
           userEmail: o.user.email,
         })),
       );
+  },
+
+  findById(id: string): Promise<OrderDetail | null> {
+    return prisma.order.findUnique({
+      where: { id },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+  },
+
+  findByIdAndUser(id: string, userId: string): Promise<OrderDetail | null> {
+    return prisma.order.findFirst({
+      where: { id, userId },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
   },
 };

@@ -1,4 +1,4 @@
-import { OrderStatus } from '@prisma/client';
+import { OrderStatus, Prisma } from '@prisma/client';
 
 export interface OrderSummary {
   id: string;
@@ -7,3 +7,11 @@ export interface OrderSummary {
   status: OrderStatus;
   createdAt: Date;
 }
+
+export type OrderDetail = Prisma.OrderGetPayload<{
+  include: {
+    items: {
+      include: { product: true };
+    };
+  };
+}>;
