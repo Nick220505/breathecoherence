@@ -7,10 +7,6 @@ export const orderService = {
     return orderRepository.findMany();
   },
 
-  async getAllByUser(userId: string): Promise<OrderSummary[]> {
-    return orderRepository.findManyByUser(userId);
-  },
-
   async getDetail(id: string, userId?: string): Promise<OrderDetail | null> {
     if (id.startsWith('guest-')) {
       return orderRepository.findById(id);

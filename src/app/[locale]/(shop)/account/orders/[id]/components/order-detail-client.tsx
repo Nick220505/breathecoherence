@@ -19,7 +19,7 @@ interface OrderItem {
   product: {
     id: string;
     name: string;
-    type: string;
+    type?: string;
     imageBase64?: string | null;
     category?: {
       name: string;
@@ -31,7 +31,7 @@ interface Order {
   id: string;
   status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
   total: number;
-  createdAt: string;
+  createdAt: string | Date;
   items: OrderItem[];
 }
 
@@ -46,14 +46,16 @@ const statusColorMap = {
 export default function OrderDetailClient({
   orderId,
   locale,
+  initialOrder,
 }: Readonly<{
   orderId: string;
   locale: string;
+  initialOrder?: Order | null;
 }>) {
   const t = useTranslations('OrderDetail');
   const router = useRouter();
-  const [order, setOrder] = useState<Order | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [order, setOrder] = useState<Order | null>(initialOrder ?? null);
+  const [loading, setLoading] = useState(initialOrder ? false : true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -88,14 +90,10 @@ export default function OrderDetailClient({
       }
     }
 
-    if (orderId) {
+    if (orderId && !initialOrder) {
       void fetchOrder();
-    } else {
-      console.error('OrderDetailClient: No orderId provided');
-      setError('Invalid order ID');
-      setLoading(false);
     }
-  }, [orderId]);
+  }, [orderId, initialOrder]);
 
   if (loading) {
     return (
