@@ -51,4 +51,28 @@ export const orderRepository = {
       },
     });
   },
+
+  async findManyByUser(userId: string): Promise<OrderSummary[]> {
+    return prisma.order
+      .findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          total: true,
+          status: true,
+          createdAt: true,
+          user: { select: { email: true } },
+        },
+      })
+      .then((orders) =>
+        orders.map((o) => ({
+          id: o.id,
+          total: o.total,
+          status: o.status,
+          createdAt: o.createdAt,
+          userEmail: o.user.email,
+        })),
+      );
+  },
 };

@@ -6,12 +6,20 @@ import { orderService } from './service';
 
 import type { OrderSummary, OrderDetail } from './types';
 
-export async function getUserOrders(): Promise<OrderSummary[]> {
+export async function getAllOrders(): Promise<OrderSummary[]> {
   const session = await auth();
   if (!session?.user) {
     throw new Error('Unauthorized');
   }
   return orderService.getAll();
+}
+
+export async function getUserOrders(): Promise<OrderSummary[]> {
+  const session = await auth();
+  if (!session?.user) {
+    throw new Error('Unauthorized');
+  }
+  return orderService.getAllByUser(session.user.id);
 }
 
 export async function getOrderDetail(id: string): Promise<OrderDetail | null> {
