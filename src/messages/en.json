@@ -133,7 +133,8 @@
       "dashboard": "Dashboard",
       "login": "Sign In",
       "register": "Create Account",
-      "signout": "Sign Out"
+      "signout": "Sign Out",
+      "orders": "Orders"
     },
     "store": {
       "cart": {

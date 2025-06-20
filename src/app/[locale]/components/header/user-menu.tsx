@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { LogOut, User } from 'lucide-react';
+import { LogOut, User, Package } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -51,6 +51,15 @@ export function UserMenu() {
                 <span className="font-medium">
                   {session.user.name || session.user.email}
                 </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link
+                  href={{ pathname: '/account/orders' }}
+                  className="flex w-full items-center gap-2"
+                >
+                  <Package className="h-4 w-4" />
+                  {t('nav.orders')}
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => void signOut({ redirectTo: '/' })}

@@ -55,6 +55,10 @@ export const routing = defineRouting({
       en: '/dashboard/users',
       es: '/dashboard/usuarios',
     },
+    '/account/orders': {
+      en: '/account/orders',
+      es: '/cuenta/pedidos',
+    },
   },
 });
 

@@ -100,7 +100,8 @@
       "dashboard": "Panel de Control",
       "login": "Iniciar Sesión",
       "register": "Crear Cuenta",
-      "signout": "Cerrar Sesión"
+      "signout": "Cerrar Sesión",
+      "orders": "Pedidos"
     },
     "store": {
       "cart": {
