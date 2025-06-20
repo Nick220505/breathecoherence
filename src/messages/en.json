@@ -481,6 +481,16 @@
     "nameMin": "Name must be at least 3 characters",
     "descriptionMin": "Description must be at least 10 characters"
   },
+  "ProductSchema": {
+    "nameMin": "Name must be at least 3 characters",
+    "descriptionMin": "Description must be at least 10 characters",
+    "typeInvalid": "Please select a valid category",
+    "typeRequired": "Please select a category",
+    "priceMin": "Price must be at least 0",
+    "stockInt": "Stock must be an integer",
+    "stockMin": "Stock must be at least 0",
+    "imageInvalid": "Please upload a valid image file"
+  },
   "AuthSchema": {
     "Login": {
       "emailInvalid": "Please enter a valid email address",

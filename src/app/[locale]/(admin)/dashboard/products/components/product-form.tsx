@@ -341,39 +341,47 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
     resolver: zodResolver(productSchema, {
       path: [],
       async: false,
-      errorMap: (issue, ctx) => {
-        const path = issue.path.join('.');
+      errorMap:
+        // eslint-disable-next-line sonarjs/cognitive-complexity
+        (issue, ctx) => {
+          const path = issue.path.join('.');
 
-        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
-          return { message: tProductSchema('nameMin') };
-        }
-        if (path === 'description' && issue.code === ZodIssueCode.too_small) {
-          return { message: tProductSchema('descriptionMin') };
-        }
-        if (
-          path === 'categoryId' &&
-          issue.code === ZodIssueCode.invalid_enum_value
-        ) {
-          return { message: tProductSchema('typeInvalid') };
-        }
-        if (path === 'price' && issue.code === ZodIssueCode.too_small) {
-          return { message: tProductSchema('priceMin') };
-        }
-        if (path === 'stock' && issue.code === ZodIssueCode.invalid_type) {
-          return { message: tProductSchema('stockInt') };
-        }
-        if (path === 'stock' && issue.code === ZodIssueCode.too_small) {
-          return { message: tProductSchema('stockMin') };
-        }
-        if (
-          path === 'imageBase64' &&
-          issue.code === ZodIssueCode.invalid_string
-        ) {
-          return { message: tProductSchema('imageInvalid') };
-        }
+          if (path === 'name' && issue.code === ZodIssueCode.too_small) {
+            return { message: tProductSchema('nameMin') };
+          }
+          if (path === 'description' && issue.code === ZodIssueCode.too_small) {
+            return { message: tProductSchema('descriptionMin') };
+          }
+          if (
+            path === 'categoryId' &&
+            (issue.code === ZodIssueCode.too_small ||
+              issue.code === ZodIssueCode.invalid_type ||
+              issue.code === ZodIssueCode.invalid_enum_value)
+          ) {
+            const key =
+              issue.code === ZodIssueCode.invalid_enum_value
+                ? 'typeInvalid'
+                : 'typeRequired';
+            return { message: tProductSchema(key) };
+          }
+          if (path === 'price' && issue.code === ZodIssueCode.too_small) {
+            return { message: tProductSchema('priceMin') };
+          }
+          if (path === 'stock' && issue.code === ZodIssueCode.invalid_type) {
+            return { message: tProductSchema('stockInt') };
+          }
+          if (path === 'stock' && issue.code === ZodIssueCode.too_small) {
+            return { message: tProductSchema('stockMin') };
+          }
+          if (
+            path === 'imageBase64' &&
+            issue.code === ZodIssueCode.invalid_string
+          ) {
+            return { message: tProductSchema('imageInvalid') };
+          }
 
-        return { message: ctx.defaultError };
-      },
+          return { message: ctx.defaultError };
+        },
     }),
     defaultValues: initialData ?? {
       name: '',
