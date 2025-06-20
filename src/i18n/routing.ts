@@ -39,6 +39,26 @@ export const routing = defineRouting({
       es: '/pagar',
     },
     '/dashboard': '/dashboard',
+    '/dashboard/products': {
+      en: '/dashboard/products',
+      es: '/dashboard/productos',
+    },
+    '/dashboard/categories': {
+      en: '/dashboard/categories',
+      es: '/dashboard/categorias',
+    },
+    '/dashboard/orders': {
+      en: '/dashboard/orders',
+      es: '/dashboard/ordenes',
+    },
+    '/dashboard/users': {
+      en: '/dashboard/users',
+      es: '/dashboard/usuarios',
+    },
+    '/account/orders': {
+      en: '/account/orders',
+      es: '/cuenta/pedidos',
+    },
   },
 });
 

@@ -135,3 +135,5 @@ export default function PaymentSuccessPage() {
     </Suspense>
   );
 }
+
+export const dynamic = 'force-dynamic';

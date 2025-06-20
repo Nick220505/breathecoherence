@@ -19,8 +19,11 @@ interface OrderItem {
   product: {
     id: string;
     name: string;
-    type: string;
+    type?: string;
     imageBase64?: string | null;
+    category?: {
+      name: string;
+    };
   };
 }
 
@@ -28,7 +31,7 @@ interface Order {
   id: string;
   status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
   total: number;
-  createdAt: string;
+  createdAt: string | Date;
   items: OrderItem[];
 }
 
@@ -43,14 +46,16 @@ const statusColorMap = {
 export default function OrderDetailClient({
   orderId,
   locale,
+  initialOrder,
 }: Readonly<{
   orderId: string;
   locale: string;
+  initialOrder?: Order | null;
 }>) {
   const t = useTranslations('OrderDetail');
   const router = useRouter();
-  const [order, setOrder] = useState<Order | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [order, setOrder] = useState<Order | null>(initialOrder ?? null);
+  const [loading, setLoading] = useState(initialOrder ? false : true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -85,14 +90,10 @@ export default function OrderDetailClient({
       }
     }
 
-    if (orderId) {
+    if (orderId && !initialOrder) {
       void fetchOrder();
-    } else {
-      console.error('OrderDetailClient: No orderId provided');
-      setError('Invalid order ID');
-      setLoading(false);
     }
-  }, [orderId]);
+  }, [orderId, initialOrder]);
 
   if (loading) {
     return (
@@ -212,24 +213,44 @@ export default function OrderDetailClient({
                 className="flex flex-col gap-4 sm:flex-row sm:items-center"
               >
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md">
-                  {item.product.imageBase64 ? (
-                    <Image
-                      src={`data:image/png;base64,${item.product.imageBase64}`}
-                      alt={item.product.name}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gray-200 text-lg font-medium">
-                      {item.product.name.charAt(0)}
-                    </div>
-                  )}
+                  {(() => {
+                    const actualImageValue: unknown = item.product.imageBase64;
+                    const categoryName =
+                      item.product.type ?? item.product.category?.name ?? '';
+
+                    let imageToDisplay: string;
+
+                    if (
+                      typeof actualImageValue === 'string' &&
+                      actualImageValue.trim() !== ''
+                    ) {
+                      imageToDisplay = actualImageValue;
+                    } else if (categoryName === 'Sacred Geometry') {
+                      imageToDisplay = `/products/sacred-geometry.svg#${item.product.id}`;
+                    } else {
+                      imageToDisplay = '/products/flower-essence.svg';
+                    }
+
+                    return (
+                      <Image
+                        src={imageToDisplay}
+                        alt={item.product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    );
+                  })()}
                 </div>
                 <div className="flex flex-1 flex-col sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <h3 className="font-medium">{item.product.name}</h3>
                     <p className="text-muted-foreground text-sm">
-                      {t('product_type')}: {item.product.type.replace('_', ' ')}
+                      {t('product_category')}:{' '}
+                      {(
+                        item.product.type ??
+                        item.product.category?.name ??
+                        ''
+                      ).replace('_', ' ')}
                     </p>
                   </div>
                   <div className="mt-2 flex items-center justify-between gap-4 sm:mt-0 sm:flex-col sm:items-end">

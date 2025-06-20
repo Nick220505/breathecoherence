@@ -100,7 +100,8 @@
       "dashboard": "Panel de Control",
       "login": "Iniciar Sesión",
       "register": "Crear Cuenta",
-      "signout": "Cerrar Sesión"
+      "signout": "Cerrar Sesión",
+      "orders": "Pedidos"
     },
     "store": {
       "cart": {
@@ -124,23 +125,53 @@
   "LanguageToggle": {
     "toggle_language": "Cambiar idioma"
   },
-  "AdminDashboard": {
-    "title": "Panel de Administración"
+  "dashboard": {
+    "title": "Panel de Control",
+    "ordersLabel": "Pedidos",
+    "usersLabel": "Usuarios",
+    "productsLabel": "Productos",
+    "categoriesLabel": "Categorías",
+    "orders": {
+      "title": "Gestión de Pedidos"
+    },
+    "orderTable": {
+      "title": "Gestión de Pedidos"
+    },
+    "users": {
+      "title": "Usuarios",
+      "description": "Gestiona tus usuarios aquí."
+    },
+    "productTable": {
+      "title": "Gestión de Productos",
+      "name": "Nombre",
+      "type": "Tipo",
+      "price": "Precio",
+      "stock": "Stock",
+      "actions": "Acciones",
+      "image": "Imagen",
+      "add_product": "Agregar Producto"
+    },
+    "categoryTable": {
+      "title": "Gestión de Categorías",
+      "description": "Descripción",
+      "name": "Nombre",
+      "createdAt": "Creado en",
+      "actions": "Acciones",
+      "add_category": "Agregar Categoría"
+    },
+    "addProduct": "Agregar Producto",
+    "addCategory": "Agregar Categoría",
+    "userTable": {
+      "title": "Gestión de Usuarios"
+    }
   },
   "StoreHeader": {
     "title": "Nuestros Productos",
     "subtitle": "Descubre nuestra colección seleccionada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
+    "category_title": "Colección de {name}",
     "category": {
-      "sacred geometry": {
-        "title": "Colección de Geometría Sagrada",
-        "description": "Explora nuestra colección de formas geométricas sagradas artesanales, cada una diseñada para mejorar el flujo de energía y el alineamiento espiritual.",
-        "badge": "Geometría Sagrada"
-      },
-      "flower essence": {
-        "title": "Colección de Esencias Florales",
-        "description": "Descubre nuestra gama de esencias florales naturales, cuidadosamente seleccionadas para apoyar el equilibrio emocional y el crecimiento espiritual.",
-        "badge": "Esencias Florales"
-      }
+      "sacred geometry": { "badge": "Geometría Sagrada" },
+      "flower essence": { "badge": "Esencia Floral" }
     }
   },
   "StoreContent": {
@@ -171,6 +202,35 @@
     "confirm_delete": "Eliminar",
     "deleted_title": "Producto Eliminado",
     "deleted_description": "El producto \"{name}\" ha sido eliminado con éxito."
+  },
+  "DeleteCategoryDialog": {
+    "success": "Éxito",
+    "error": "Error",
+    "error_delete": "Ocurrió un error al eliminar la categoría",
+    "delete_confirm_title": "Eliminar Categoría",
+    "delete_confirm_description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando...",
+    "confirm_delete": "Eliminar",
+    "deleted_title": "Categoría Eliminada",
+    "deleted_description": "La categoría \"{name}\" ha sido eliminada con éxito."
+  },
+  "CategoryForm": {
+    "name": "Nombre de la Categoría",
+    "description": "Descripción",
+    "placeholder": {
+      "name": "Ingrese el nombre de la categoría",
+      "description": "Ingrese la descripción de la categoría"
+    },
+    "success": "Éxito",
+    "created_title": "Categoría Creada",
+    "updated_title": "Categoría Actualizada",
+    "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
+    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
+    "editing": "Editando categoría...",
+    "adding": "Agregando categoría...",
+    "edit": "Editar Categoría",
+    "add": "Agregar Categoría"
   },
   "AddProductDialog": {
     "add_product": "Agregar Producto",
@@ -204,7 +264,15 @@
     "sort_by_type": "Ordenar por tipo",
     "all": "Todos",
     "sacred_geometry": "Geometría Sagrada",
-    "flower_essence": "Esencia Floral"
+    "flower_essence": "Esencia Floral",
+    "category": "Categoría",
+    "filter_name_placeholder": "Filtrar por nombre...",
+    "filter_type_placeholder": "Filtrar por tipo...",
+    "all_types": "Todos los tipos"
+  },
+  "CategoryTableRow": {
+    "edit_tooltip": "Editar categoría",
+    "delete_tooltip": "Eliminar categoría"
   },
   "TablePagination": {
     "previous": "Anterior",
@@ -219,7 +287,7 @@
   "TableSkeleton": {
     "image": "Imagen",
     "name": "Nombre",
-    "type": "Tipo",
+    "category": "Categoría",
     "price": "Precio",
     "stock": "Stock",
     "actions": "Acciones"
@@ -227,18 +295,18 @@
   "FormFields": {
     "product_name": "Nombre del Producto",
     "description": "Descripción",
-    "type": "Tipo",
+    "category": "Categoría",
     "price": "Precio",
     "stock": "Stock",
     "placeholder": {
       "name": "Ingresa el nombre del producto",
       "description": "Ingresa la descripción del producto",
-      "type": "Selecciona el tipo de producto",
+      "category": "Selecciona la categoría",
       "price": "0.00",
       "stock": "0"
     },
-    "product_types": {
-      "label": "Tipos de Productos",
+    "categories": {
+      "label": "Categorías",
       "flower_essence": "Esencia Floral",
       "sacred_geometry": "Geometría Sagrada"
     }
@@ -400,14 +468,14 @@
   },
   "OrderHistory": {
     "title": "Historial de Pedidos",
-    "subtitle": "Ver y seguir tus pedidos",
+    "subtitle": "Visualiza y rastrea tus pedidos",
     "guest_order_title": "Tu Pedido",
-    "guest_order_subtitle": "Ver detalles de tu compra reciente",
+    "guest_order_subtitle": "Detalles de tu compra reciente",
     "guest_order_details": "Detalles del Pedido",
     "loading": "Cargando tus pedidos...",
     "error_title": "Error de Pedido",
-    "no_orders_title": "Aún No Hay Pedidos",
-    "no_orders_message": "Aún no has realizado ningún pedido. Empieza a comprar para ver tus pedidos aquí.",
+    "no_orders_title": "Aún Sin Pedidos",
+    "no_orders_message": "Aún no has realizado pedidos. Comienza a comprar para verlos aquí.",
     "browse_products": "Explorar Productos",
     "try_again": "Intentar de Nuevo",
     "list_view": "Vista de Lista",
@@ -421,93 +489,219 @@
     "view_details": "Ver Detalles",
     "items": "Artículos",
     "more_items": "más artículos",
-    "continue_shopping": "Continuar Comprando",
+    "continue_shopping": "Seguir Comprando",
     "quantity": "Cantidad",
     "pending": "Pendiente",
+    "paid": "Pagado",
+    "shipped": "Enviado",
+    "delivered": "Entregado",
+    "cancelled": "Cancelado",
     "status_pending": "Pendiente",
     "status_paid": "Pagado",
     "status_shipped": "Enviado",
     "status_delivered": "Entregado",
     "status_cancelled": "Cancelado"
   },
-  "OrderDetail": {
+  "OrderDetails": {
     "title": "Detalles del Pedido",
     "loading": "Cargando detalles del pedido...",
-    "error_title": "Error al Cargar el Pedido",
-    "not_found_title": "Pedido No Encontrado",
-    "not_found_message": "El pedido que buscas no pudo ser encontrado.",
-    "back_to_orders": "Volver a Pedidos",
-    "order_details": "Detalles del Pedido",
-    "product_type": "Tipo",
+    "error": "Error al cargar los detalles del pedido",
+    "not_found": "Pedido no encontrado",
+    "back_to_orders": "Volver a los Pedidos",
+    "order_id": "ID del Pedido",
+    "date": "Fecha",
+    "total": "Total",
+    "status": "Estado",
+    "items": "Artículos en este pedido",
+    "image": "Imagen",
+    "product": "Producto",
     "quantity": "Cantidad",
+    "price": "Precio",
     "subtotal": "Subtotal",
+    "product_category": "Categoría de Producto",
     "shipping": "Envío",
     "tax": "Impuesto",
-    "total": "Total",
-    "status_pending": "Pendiente",
-    "status_paid": "Pagado",
-    "status_shipped": "Enviado",
-    "status_delivered": "Entregado",
-    "status_cancelled": "Cancelado"
+    "product_type": "Tipo de Producto"
   },
-  "Account": {
-    "title": "Mi Cuenta",
-    "orders": "Pedidos",
-    "profile": "Perfil",
-    "settings": "Configuración",
-    "sign_out": "Cerrar Sesión",
-    "guest_redirect": "Redirigiendo a los detalles de tu pedido...",
-    "guest_order": "Pedido de Invitado",
-    "guest_order_redirect": "Redirigiendo a los detalles de tu pedido..."
+  "AddCategoryDialog": {
+    "add_category": "Agregar Categoría",
+    "form_description": "Formulario para agregar una nueva categoría"
   },
-  "ServerActions": {
-    "Auth": {
-      "fillRequiredFields": "Por favor completa todos los campos requeridos y asegúrate de que sean válidos",
-      "verificationCodeSent": "Código de verificación enviado a tu correo electrónico",
-      "registrationError": "Ocurrió un error durante el registro",
-      "verificationSuccess": "Correo electrónico verificado exitosamente",
-      "verificationError": "Ocurrió un error durante la verificación",
-      "loginSuccess": "Sesión iniciada exitosamente",
-      "loginError": "Ocurrió un error durante el inicio de sesión"
-    },
-    "Product": {
-      "fillRequiredFields": "Por favor, complete todos los campos obligatorios.",
-      "createSuccess": "Producto creado con éxito.",
-      "createError": "Error al crear el producto.",
-      "updateSuccess": "Producto actualizado con éxito.",
-      "updateError": "Error al actualizar el producto.",
-      "missingId": "Falta el ID del producto para la actualización.",
-      "deleteSuccess": "Producto eliminado con éxito.",
-      "deleteError": "Error al eliminar el producto."
-    }
+  "EditCategoryDialog": {
+    "edit_category": "Editar Categoría",
+    "form_description": "Formulario para editar una categoría existente"
+  },
+  "CategorySchema": {
+    "nameMin": "El nombre debe tener al menos 3 caracteres",
+    "descriptionMin": "La descripción debe tener al menos 10 caracteres"
   },
   "ProductSchema": {
     "nameMin": "El nombre debe tener al menos 3 caracteres",
     "descriptionMin": "La descripción debe tener al menos 10 caracteres",
-    "typeInvalid": "Tipo de producto inválido",
-    "priceMin": "El precio debe ser un número positivo",
+    "typeInvalid": "Seleccione una categoría válida",
+    "typeRequired": "Por favor seleccione una categoría",
+    "priceMin": "El precio debe ser al menos 0",
     "stockInt": "El stock debe ser un número entero",
-    "stockMin": "El stock debe ser un entero positivo",
-    "imageInvalid": "La imagen debe ser una URL de datos válida"
+    "stockMin": "El stock debe ser al menos 0",
+    "imageInvalid": "La imagen debe ser un archivo válido"
   },
   "AuthSchema": {
     "Login": {
-      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "passwordRequired": "La contraseña es obligatoria",
-      "invalidCredentials": "Correo electrónico o contraseña inválidos"
+      "invalidCredentials": "Correo electrónico o contraseña no válidos"
     },
     "Register": {
-      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
-      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
       "nameRequired": "El nombre es obligatorio",
-      "confirmPasswordMinLength": "Por favor, confirme su contraseña (mínimo 6 caracteres)",
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "confirmPasswordMinLength": "Por favor, confirma tu contraseña (mínimo 6 caracteres)",
       "passwordsDontMatch": "Las contraseñas no coinciden",
-      "userExistsError": "Ya existe un usuario con este correo electrónico."
+      "userExistsError": "Ya existe una cuenta con este correo electrónico"
     },
     "Verify": {
-      "emailInvalid": "Por favor, ingrese una dirección de correo electrónico válida",
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "codeLength": "El código de verificación debe tener 6 dígitos",
-      "invalidVerificationCode": "Código de verificación inválido o caducado."
+      "invalidVerificationCode": "Código de verificación no válido o caducado."
+    },
+    "Auth": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",
+      "registrationError": "Registro fallido.",
+      "verificationSuccess": "Correo verificado con éxito.",
+      "verificationError": "La verificación falló.",
+      "loginSuccess": "Inicio de sesión exitoso.",
+      "loginError": "Error al iniciar sesión."
     }
+  },
+  "ServerActions": {
+    "Product": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "createSuccess": "Producto creado con éxito.",
+      "createError": "Error al crear el producto.",
+      "updateSuccess": "Producto actualizado con éxito.",
+      "updateError": "Error al actualizar el producto.",
+      "deleteSuccess": "Producto eliminado con éxito.",
+      "deleteError": "Error al eliminar el producto.",
+      "missingId": "Falta el ID del producto."
+    },
+    "Category": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "createSuccess": "Categoría creada con éxito.",
+      "createError": "Error al crear la categoría.",
+      "updateSuccess": "Categoría actualizada con éxito.",
+      "updateError": "Error al actualizar la categoría.",
+      "deleteSuccess": "Categoría eliminada con éxito.",
+      "deleteError": "Error al eliminar la categoría.",
+      "missingId": "Falta el ID de la categoría."
+    },
+    "Auth": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",
+      "registrationError": "Registro fallido.",
+      "verificationSuccess": "Correo verificado con éxito.",
+      "verificationError": "La verificación falló.",
+      "loginSuccess": "Inicio de sesión exitoso.",
+      "loginError": "Error al iniciar sesión."
+    }
+  },
+  "UserTableHeader": {
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "createdAt": "Creado en",
+    "actions": "Acciones"
+  },
+  "UserTableRow": {
+    "edit_tooltip": "Editar usuario",
+    "delete_tooltip": "Eliminar usuario"
+  },
+  "AddUserButton": {
+    "add_user": "Agregar Usuario"
+  },
+  "AddUserDialog": {
+    "add_user": "Agregar Usuario",
+    "form_description": "Formulario para agregar un nuevo usuario"
+  },
+  "EditUserDialog": {
+    "edit_user": "Editar Usuario",
+    "form_description": "Formulario para editar un usuario existente"
+  },
+  "DeleteUserDialog": {
+    "success": "Éxito",
+    "error": "Error",
+    "error_delete": "Ocurrió un error al eliminar el usuario",
+    "delete_confirm_title": "Eliminar Usuario",
+    "delete_confirm_description": "¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando...",
+    "confirm_delete": "Eliminar",
+    "deleted_title": "Usuario Eliminado",
+    "deleted_description": "El usuario \"{name}\" ha sido eliminado con éxito."
+  },
+  "UserForm": {
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "add": "Agregar Usuario",
+    "edit": "Editar Usuario",
+    "adding": "Agregando usuario...",
+    "editing": "Editando usuario...",
+    "created_title": "Usuario Creado",
+    "updated_title": "Usuario Actualizado",
+    "placeholder": {
+      "name": "Ingresa el nombre del usuario",
+      "email": "Ingresa el correo electrónico del usuario"
+    }
+  },
+  "UserSchema": {
+    "nameMin": "El nombre debe tener al menos 1 caracter",
+    "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida"
+  },
+  "OrderTableHeader": {
+    "id": "ID",
+    "user": "Usuario",
+    "total": "Total",
+    "status": "Estado",
+    "createdAt": "Creado en"
+  },
+  "AdminNav": {
+    "dashboard": "Panel de Control",
+    "products": "Productos",
+    "categories": "Categorías",
+    "orders": "Pedidos",
+    "users": "Usuarios",
+    "panel": "Panel de Admin"
+  },
+  "OrderDetail": {
+    "loading": "Cargando detalles del pedido...",
+    "error_title": "Error de Pedido",
+    "back_to_orders": "Volver a los Pedidos",
+    "not_found_title": "Pedido No Encontrado",
+    "not_found_message": "No pudimos encontrar el pedido que buscas.",
+    "title": "Detalles del Pedido",
+    "order_details": "Detalles del Pedido",
+    "product_category": "Categoría de Producto",
+    "status_pending": "Pendiente",
+    "status_paid": "Pagado",
+    "status_shipped": "Enviado",
+    "status_delivered": "Entregado",
+    "status_cancelled": "Cancelado",
+    "items": "Artículos",
+    "product": "Producto",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "tax": "Impuesto",
+    "total": "Total"
+  },
+  "CheckoutSchema": {
+    "nameMin": "El nombre debe tener al menos 2 caracteres",
+    "emailInvalid": "Correo electrónico inválido",
+    "addressMin": "La dirección debe tener al menos 5 caracteres",
+    "cityMin": "La ciudad debe tener al menos 2 caracteres",
+    "stateMin": "El estado debe tener al menos 2 caracteres",
+    "zipInvalid": "Código ZIP inválido (ej., 12345 o 12345-6789)"
   }
 }

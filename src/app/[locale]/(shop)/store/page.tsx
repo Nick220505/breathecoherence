@@ -1,54 +1,41 @@
-import { Product, ProductType } from '@prisma/client';
 import { Suspense } from 'react';
 
+import { getAllCategories } from '@/features/category/actions';
 import { getAllProducts } from '@/features/product/actions';
 
 import { StoreContent } from './components/store-content';
 import { StoreHeader } from './components/store-header';
 
-export default async function Page(
-  props: Readonly<{
-    searchParams?: Promise<{
-      category?: string;
-      categoria?: string;
-      type?: string;
-    }>;
-  }>,
-) {
+interface PageProps {
+  searchParams?: Promise<{
+    category?: string;
+    categoria?: string;
+    type?: string;
+  }>;
+}
+
+export default async function Page(props: Readonly<PageProps>) {
   const searchParams = await props.searchParams;
   const categoryQueryParam =
     searchParams?.category ?? searchParams?.categoria ?? '';
-  const products = await getAllProducts();
+  const [products, categories] = await Promise.all([
+    getAllProducts(),
+    getAllCategories(),
+  ]);
 
-  const getProductTypeFromQuery = (query: string): ProductType | null => {
-    const lowerQuery = query.toLowerCase();
-    if (
-      lowerQuery === 'sacred geometry' ||
-      lowerQuery === 'geometría sagrada'
-    ) {
-      return ProductType.SACRED_GEOMETRY;
-    }
-    if (lowerQuery === 'flower essence' || lowerQuery === 'esencia floral') {
-      return ProductType.FLOWER_ESSENCE;
-    }
-    return null;
-  };
+  const targetCategory = categories.find(
+    (c) => c.name.toLowerCase() === categoryQueryParam.toLowerCase(),
+  );
 
-  const targetProductType = getProductTypeFromQuery(categoryQueryParam);
-
-  const filteredProducts = products.filter(
-    (product: Product) =>
-      !targetProductType || product.type === targetProductType,
+  const filteredProducts = products.filter((product) =>
+    targetCategory ? product.categoryId === targetCategory.id : true,
   );
 
   return (
     <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">
       <div className="container mx-auto px-4 py-12">
         <div className="space-y-12">
-          <StoreHeader
-            category={categoryQueryParam}
-            type={searchParams?.type ?? ''}
-          />
+          <StoreHeader category={targetCategory} />
 
           <Suspense
             fallback={
@@ -60,6 +47,7 @@ export default async function Page(
             <StoreContent
               products={filteredProducts}
               category={categoryQueryParam}
+              isLoading={false}
             />
           </Suspense>
         </div>

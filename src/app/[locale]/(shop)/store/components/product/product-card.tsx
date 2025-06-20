@@ -1,6 +1,5 @@
 'use client';
 
-import { ProductType, type Product } from '@prisma/client';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -15,12 +14,19 @@ import {
 } from '@/components/ui/card';
 import { Link } from '@/i18n/routing';
 
+import type { Product } from '@prisma/client';
+
 interface ProductCardProps {
   product: Product;
   index: number;
+  categoryName: string;
 }
 
-export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
+export function ProductCard({
+  product,
+  index,
+  categoryName,
+}: Readonly<ProductCardProps>) {
   const t = useTranslations('ProductCard');
   const tableHeaderT = useTranslations('ProductTableHeader');
 
@@ -29,7 +35,7 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
 
   if (typeof actualImageValue === 'string' && actualImageValue.trim() !== '') {
     imageToDisplay = actualImageValue;
-  } else if (product.type === ProductType.SACRED_GEOMETRY) {
+  } else if (categoryName === 'Sacred Geometry') {
     imageToDisplay = `/products/sacred-geometry.svg#${product.id}`;
   } else {
     imageToDisplay = '/products/flower-essence.svg';
@@ -45,7 +51,7 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
       >
         <CardHeader className="border-b border-purple-500/10">
           <CardTitle className="flex items-center gap-3 bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-lg text-transparent md:text-xl dark:from-purple-400 dark:to-blue-400">
-            {product.type === ProductType.SACRED_GEOMETRY ? (
+            {categoryName === 'Sacred Geometry' ? (
               <span className="rotate-slow inline-block text-2xl text-purple-600 md:text-3xl dark:text-purple-400">
                 ⬡
               </span>
@@ -57,7 +63,7 @@ export function ProductCard({ product, index }: Readonly<ProductCardProps>) {
             {product.name}
           </CardTitle>
           <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
-            {product.type === ProductType.SACRED_GEOMETRY
+            {categoryName === 'Sacred Geometry'
               ? tableHeaderT('sacred_geometry')
               : tableHeaderT('flower_essence')}
           </CardDescription>

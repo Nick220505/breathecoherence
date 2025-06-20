@@ -73,3 +73,5 @@ export default function FlowerEssencesPage() {
     </div>
   );
 }
+
+export const dynamic = 'force-dynamic';

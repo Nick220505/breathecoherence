@@ -10,6 +10,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
   SheetTrigger,
 } from '@/components/ui/sheet';
 
@@ -48,6 +49,9 @@ export function MobileMenu({ navigationItems }: Readonly<MobileMenuProps>) {
           <SheetTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">
             Menu
           </SheetTitle>
+          <SheetDescription className="sr-only">
+            Navigation links
+          </SheetDescription>
         </SheetHeader>
         <div className="mt-8 flex flex-col space-y-4">
           {navigationItems}
