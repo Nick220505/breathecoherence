@@ -42,6 +42,15 @@
         "deleteSuccess": "Category deleted successfully.",
         "deleteError": "Failed to delete category.",
         "missingId": "Category ID is missing."
+      },
+      "Auth": {
+        "fillRequiredFields": "Please fill all required fields.",
+        "verificationCodeSent": "Verification code sent. Check your email.",
+        "registrationError": "Registration failed.",
+        "verificationSuccess": "Email verified successfully.",
+        "verificationError": "Verification failed.",
+        "loginSuccess": "Signed in successfully.",
+        "loginError": "Sign in failed."
       }
     },
     "cta": {
@@ -303,7 +312,9 @@
     "whatsapp_help": "Need help choosing your essences? Contact us on WhatsApp for a personalized consultation.",
     "learn_more": "Learn More About Flower Essences",
     "base": {
-      "label": "Choose Your Base"
+      "label": "Choose Your Base",
+      "brandy": "Brandy",
+      "water": "Water"
     },
     "essence": {
       "label": "Essence {number}"
@@ -470,6 +481,26 @@
     "nameMin": "Name must be at least 3 characters",
     "descriptionMin": "Description must be at least 10 characters"
   },
+  "AuthSchema": {
+    "Login": {
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "invalidCredentials": "Invalid email or password"
+    },
+    "Register": {
+      "nameRequired": "Name is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "confirmPasswordMinLength": "Please confirm your password (minimum 6 characters)",
+      "passwordsDontMatch": "Passwords do not match",
+      "userExistsError": "An account with this email already exists"
+    },
+    "Verify": {
+      "emailInvalid": "Please enter a valid email address",
+      "codeLength": "Verification code must be 6 digits",
+      "invalidVerificationCode": "Invalid or expired verification code."
+    }
+  },
   "UserTableHeader": {
     "name": "Name",
     "email": "Email",
@@ -530,5 +561,102 @@
     "orders": "Orders",
     "users": "Users",
     "panel": "Admin Panel"
+  },
+  "CheckoutSuccess": {
+    "title": "Payment Completed!",
+    "subtitle": "Thank you for your purchase. Your order has been processed successfully.",
+    "back_to_store": "Back to Store",
+    "order_details": "Order Details",
+    "order_id": "Order ID",
+    "confirmation_sent": "A confirmation has been sent to your email address.",
+    "no_order_details": "No order details found.",
+    "view_order": "View Order",
+    "view_all_orders": "View All Orders",
+    "what_next": "What's next?",
+    "continue_shopping": "Continue Shopping",
+    "loading_details": "Loading order details...",
+    "error_fetching_order": "Error fetching order details",
+    "try_view_orders": "Try viewing your orders in the account section.",
+    "total_amount": "Total Amount",
+    "status": "Status",
+    "succeeded": "Succeeded",
+    "thank_you": "Thank you!",
+    "order_received": "Your order has been received",
+    "order_number": "Order Number",
+    "date": "Date",
+    "total": "Total",
+    "payment_method": "Payment Method",
+    "card": "Card",
+    "shipping_info": "Shipping Information",
+    "contact_info": "Contact Information",
+    "email": "Email",
+    "track_order": "Track Order",
+    "error_title": "Order Error",
+    "error_no_payment": "No payment information found",
+    "error_no_order": "No order details found",
+    "error_unknown": "An unknown error occurred"
+  },
+  "OrderHistory": {
+    "title": "Order History",
+    "subtitle": "View and track your orders",
+    "guest_order_title": "Your Order",
+    "guest_order_subtitle": "View details of your recent purchase",
+    "guest_order_details": "Order Details",
+    "loading": "Loading your orders...",
+    "error_title": "Order Error",
+    "no_orders_title": "No Orders Yet",
+    "no_orders_message": "You haven't placed any orders yet. Start shopping to see your orders here.",
+    "browse_products": "Browse Products",
+    "try_again": "Try Again",
+    "list_view": "List View",
+    "grid_view": "Grid View",
+    "table_view": "Table View",
+    "order_id": "Order ID",
+    "date": "Date",
+    "status": "Status",
+    "total": "Total",
+    "actions": "Actions",
+    "view_details": "View Details",
+    "items": "Items",
+    "more_items": "more items",
+    "continue_shopping": "Continue Shopping",
+    "quantity": "Quantity",
+    "pending": "Pending",
+    "status_pending": "Pending",
+    "status_paid": "Paid",
+    "status_shipped": "Shipped",
+    "status_delivered": "Delivered",
+    "status_cancelled": "Cancelled"
+  },
+  "ServerActions": {
+    "Product": {
+      "fillRequiredFields": "Please fill all required fields.",
+      "createSuccess": "Product created successfully.",
+      "createError": "Failed to create product.",
+      "updateSuccess": "Product updated successfully.",
+      "updateError": "Failed to update product.",
+      "deleteSuccess": "Product deleted successfully.",
+      "deleteError": "Failed to delete product.",
+      "missingId": "Product ID is missing."
+    },
+    "Category": {
+      "fillRequiredFields": "Please fill all required fields.",
+      "createSuccess": "Category created successfully.",
+      "createError": "Failed to create category.",
+      "updateSuccess": "Category updated successfully.",
+      "updateError": "Failed to update category.",
+      "deleteSuccess": "Category deleted successfully.",
+      "deleteError": "Failed to delete category.",
+      "missingId": "Category ID is missing."
+    },
+    "Auth": {
+      "fillRequiredFields": "Please fill all required fields.",
+      "verificationCodeSent": "Verification code sent. Check your email.",
+      "registrationError": "Registration failed.",
+      "verificationSuccess": "Email verified successfully.",
+      "verificationError": "Verification failed.",
+      "loginSuccess": "Signed in successfully.",
+      "loginError": "Sign in failed."
+    }
   }
 }

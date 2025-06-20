@@ -544,12 +544,22 @@
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
       "confirmPasswordMinLength": "Por favor, confirma tu contraseña (mínimo 6 caracteres)",
-      "passwordsDontMatch": "Las contraseñas no coinciden"
+      "passwordsDontMatch": "Las contraseñas no coinciden",
+      "userExistsError": "Ya existe una cuenta con este correo electrónico"
     },
     "Verify": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "codeLength": "El código de verificación debe tener 6 dígitos",
       "invalidVerificationCode": "Código de verificación no válido o caducado."
+    },
+    "Auth": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",
+      "registrationError": "Registro fallido.",
+      "verificationSuccess": "Correo verificado con éxito.",
+      "verificationError": "La verificación falló.",
+      "loginSuccess": "Inicio de sesión exitoso.",
+      "loginError": "Error al iniciar sesión."
     }
   },
   "ServerActions": {
@@ -572,6 +582,15 @@
       "deleteSuccess": "Categoría eliminada con éxito.",
       "deleteError": "Error al eliminar la categoría.",
       "missingId": "Falta el ID de la categoría."
+    },
+    "Auth": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",
+      "registrationError": "Registro fallido.",
+      "verificationSuccess": "Correo verificado con éxito.",
+      "verificationError": "La verificación falló.",
+      "loginSuccess": "Inicio de sesión exitoso.",
+      "loginError": "Error al iniciar sesión."
     }
   },
   "UserTableHeader": {
