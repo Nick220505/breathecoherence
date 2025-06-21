@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 
@@ -18,15 +18,15 @@ export const userRepository = {
     });
   },
 
-  create(userData: Prisma.UserCreateInput) {
+  create(userData: Prisma.UserCreateInput): Promise<User> {
     return prisma.user.create({ data: userData });
   },
 
-  update(id: string, userData: Prisma.UserUpdateInput) {
+  update(id: string, userData: Prisma.UserUpdateInput): Promise<User> {
     return prisma.user.update({ where: { id }, data: userData });
   },
 
-  delete(id: string) {
+  delete(id: string): Promise<User> {
     return prisma.user.delete({ where: { id } });
   },
 };

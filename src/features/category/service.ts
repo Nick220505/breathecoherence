@@ -1,6 +1,6 @@
-import { Prisma, Category } from '@prisma/client';
+import { Category, Prisma } from '@prisma/client';
 
-import { routing, Locale } from '@/i18n/routing';
+import { Locale, routing } from '@/i18n/routing';
 import { translate } from '@/lib/translation';
 
 import { categoryRepository } from './repository';
@@ -20,7 +20,7 @@ async function getTranslatedCategory<T extends Category>(
       ...category,
       name: translation.name,
       description: translation.description,
-    } as T;
+    };
   }
   return category;
 }
@@ -119,7 +119,7 @@ export const categoryService = {
       name: (defaultLocaleData.name as string) ?? baseCategory.name,
       description:
         (defaultLocaleData.description as string) ?? baseCategory.description,
-    } as Category;
+    };
 
     const translationsToUpdate: {
       locale: string;

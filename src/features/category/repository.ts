@@ -1,9 +1,9 @@
-import { Prisma } from '@prisma/client';
+import { Category, CategoryTranslation, Prisma } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 
 export const categoryRepository = {
-  findMany() {
+  findMany(): Promise<Category[]> {
     return prisma.category.findMany({
       orderBy: {
         createdAt: 'desc',
@@ -11,14 +11,14 @@ export const categoryRepository = {
     });
   },
 
-  findById(id: string) {
+  findById(id: string): Promise<Category | null> {
     return prisma.category.findUnique({ where: { id } });
   },
 
   create(
     categoryData: Prisma.CategoryCreateInput,
     translations: { locale: string; name: string; description: string }[],
-  ) {
+  ): Promise<Category> {
     return prisma.$transaction(async (tx) => {
       const newCategory = await tx.category.create({ data: categoryData });
       for (const translation of translations) {
@@ -34,7 +34,7 @@ export const categoryRepository = {
     id: string,
     categoryData: Prisma.CategoryUpdateInput,
     translations: { locale: string; name: string; description: string }[],
-  ) {
+  ): Promise<Category> {
     return prisma.$transaction(async (tx) => {
       const updatedCategory = await tx.category.update({
         where: { id },
@@ -60,11 +60,14 @@ export const categoryRepository = {
     });
   },
 
-  delete(id: string) {
+  delete(id: string): Promise<Category> {
     return prisma.category.delete({ where: { id } });
   },
 
-  findTranslation(categoryId: string, locale: string) {
+  findTranslation(
+    categoryId: string,
+    locale: string,
+  ): Promise<CategoryTranslation | null> {
     return prisma.categoryTranslation.findUnique({
       where: {
         categoryId_locale: {
