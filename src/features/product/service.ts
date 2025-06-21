@@ -1,6 +1,6 @@
 import { Prisma, Product } from '@prisma/client';
 
-import { routing, Locale } from '@/i18n/routing';
+import { Locale, routing } from '@/i18n/routing';
 import { translate } from '@/lib/translation';
 
 import { productRepository } from './repository';
@@ -35,13 +35,10 @@ export const productService = {
   async getAll(locale: Locale): Promise<ProductWithCategory[]> {
     const products = await productRepository.findMany();
     if (locale === routing.defaultLocale) {
-      return products as ProductWithCategory[];
+      return products;
     }
     return Promise.all(
-      products.map(
-        (product) =>
-          getTranslatedProduct(product, locale) as Promise<ProductWithCategory>,
-      ),
+      products.map((product) => getTranslatedProduct(product, locale)),
     );
   },
 
@@ -51,10 +48,7 @@ export const productService = {
   ): Promise<ProductWithCategory | null> {
     const product = await productRepository.findById(id);
     if (!product) return null;
-    return getTranslatedProduct(
-      product,
-      locale,
-    ) as Promise<ProductWithCategory>;
+    return getTranslatedProduct(product, locale);
   },
 
   async create(data: ProductFormData, locale: Locale): Promise<Product> {
