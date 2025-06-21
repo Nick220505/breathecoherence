@@ -1,9 +1,11 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, Product, ProductTranslation } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 
+import { ProductWithCategory } from './types';
+
 export const productRepository = {
-  findMany() {
+  findMany(): Promise<ProductWithCategory[]> {
     return prisma.product.findMany({
       include: {
         category: true,
@@ -14,7 +16,7 @@ export const productRepository = {
     });
   },
 
-  findById(id: string) {
+  findById(id: string): Promise<ProductWithCategory | null> {
     return prisma.product.findUnique({
       where: { id },
       include: {
@@ -23,7 +25,10 @@ export const productRepository = {
     });
   },
 
-  findTranslation(productId: string, locale: string) {
+  findTranslation(
+    productId: string,
+    locale: string,
+  ): Promise<ProductTranslation | null> {
     return prisma.productTranslation.findUnique({
       where: {
         productId_locale: {
@@ -37,7 +42,7 @@ export const productRepository = {
   create(
     productData: Prisma.ProductCreateInput,
     translations: { locale: string; name: string; description: string }[],
-  ) {
+  ): Promise<Product> {
     return prisma.$transaction(async (tx) => {
       const newProduct = await tx.product.create({ data: productData });
       for (const t of translations) {
@@ -53,7 +58,7 @@ export const productRepository = {
     id: string,
     productData: Prisma.ProductUpdateInput,
     translations: { locale: string; name: string; description: string }[],
-  ) {
+  ): Promise<Product> {
     return prisma.$transaction(async (tx) => {
       const updatedProduct = await tx.product.update({
         where: { id },
@@ -76,7 +81,7 @@ export const productRepository = {
     });
   },
 
-  delete(id: string) {
+  delete(id: string): Promise<Product> {
     return prisma.product.delete({ where: { id } });
   },
 };
