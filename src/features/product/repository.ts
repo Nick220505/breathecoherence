@@ -79,26 +79,4 @@ export const productRepository = {
   delete(id: string) {
     return prisma.product.delete({ where: { id } });
   },
-
-  async getAll() {
-    return prisma.product.findMany({
-      include: {
-        category: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
-    });
-  },
-
-  async getById(id: string) {
-    return prisma.product.findUnique({
-      where: { id },
-      include: {
-        category: true,
-      },
-    });
-  },
 };
