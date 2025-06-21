@@ -4,11 +4,7 @@ import prisma from '@/lib/prisma';
 
 export const categoryRepository = {
   findMany(): Promise<Category[]> {
-    return prisma.category.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    return prisma.category.findMany({ orderBy: { createdAt: 'desc' } });
   },
 
   findById(id: string): Promise<Category | null> {
@@ -16,11 +12,11 @@ export const categoryRepository = {
   },
 
   create(
-    categoryData: Prisma.CategoryCreateInput,
+    data: Prisma.CategoryCreateInput,
     translations: { locale: string; name: string; description: string }[],
   ): Promise<Category> {
     return prisma.$transaction(async (tx) => {
-      const newCategory = await tx.category.create({ data: categoryData });
+      const newCategory = await tx.category.create({ data });
       for (const translation of translations) {
         await tx.categoryTranslation.create({
           data: { ...translation, categoryId: newCategory.id },
@@ -32,28 +28,18 @@ export const categoryRepository = {
 
   update(
     id: string,
-    categoryData: Prisma.CategoryUpdateInput,
+    data: Prisma.CategoryUpdateInput,
     translations: { locale: string; name: string; description: string }[],
   ): Promise<Category> {
     return prisma.$transaction(async (tx) => {
-      const updatedCategory = await tx.category.update({
-        where: { id },
-        data: categoryData,
-      });
-
-      for (const translation of translations) {
+      const updatedCategory = await tx.category.update({ where: { id }, data });
+      for (const { locale, name, description } of translations) {
         await tx.categoryTranslation.upsert({
           where: {
-            categoryId_locale: {
-              categoryId: updatedCategory.id,
-              locale: translation.locale,
-            },
+            categoryId_locale: { categoryId: updatedCategory.id, locale },
           },
-          update: {
-            name: translation.name,
-            description: translation.description,
-          },
-          create: { ...translation, categoryId: updatedCategory.id },
+          update: { name, description },
+          create: { locale, name, description, categoryId: updatedCategory.id },
         });
       }
       return updatedCategory;
@@ -69,12 +55,7 @@ export const categoryRepository = {
     locale: string,
   ): Promise<CategoryTranslation | null> {
     return prisma.categoryTranslation.findUnique({
-      where: {
-        categoryId_locale: {
-          categoryId,
-          locale,
-        },
-      },
+      where: { categoryId_locale: { categoryId, locale } },
     });
   },
 };

@@ -18,12 +18,12 @@ export const userRepository = {
     });
   },
 
-  create(userData: Prisma.UserCreateInput): Promise<User> {
-    return prisma.user.create({ data: userData });
+  create(data: Prisma.UserCreateInput): Promise<User> {
+    return prisma.user.create({ data });
   },
 
-  update(id: string, userData: Prisma.UserUpdateInput): Promise<User> {
-    return prisma.user.update({ where: { id }, data: userData });
+  update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+    return prisma.user.update({ where: { id }, data });
   },
 
   delete(id: string): Promise<User> {
