@@ -59,6 +59,11 @@ const eslintConfig: Linter.Config[] = [
         },
       ],
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
+      'object-shorthand': [
+        'error',
+        'always',
+        { avoidExplicitReturnArrows: true },
+      ],
     },
   }),
 ];

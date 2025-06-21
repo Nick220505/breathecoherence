@@ -53,7 +53,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
     resolver: zodResolver(verifySchema, {
       path: [],
       async: false,
-      errorMap: (issue, ctx) => {
+      errorMap(issue, ctx) {
         const path = issue.path.join('.');
 
         if (

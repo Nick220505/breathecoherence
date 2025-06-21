@@ -42,7 +42,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
     resolver: zodResolver(categorySchema, {
       path: [],
       async: false,
-      errorMap: (issue, ctx) => {
+      errorMap(issue, ctx) {
         const path = issue.path.join('.');
 
         if (path === 'name' && issue.code === ZodIssueCode.too_small) {

@@ -32,7 +32,7 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema, {
       path: [],
       async: false,
-      errorMap: (issue, ctx) => {
+      errorMap(issue, ctx) {
         const path = issue.path.join('.');
 
         if (

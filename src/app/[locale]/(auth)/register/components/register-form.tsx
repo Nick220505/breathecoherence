@@ -30,7 +30,7 @@ export default function RegisterForm() {
     resolver: zodResolver(registerSchema, {
       path: [],
       async: false,
-      errorMap: (issue, ctx) => {
+      errorMap(issue, ctx) {
         const path = issue.path.join('.');
 
         if (

@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 import prisma from '@/lib/prisma';
 
 export const categoryRepository = {
-  findMany: () => {
+  findMany() {
     return prisma.category.findMany({
       orderBy: {
         createdAt: 'desc',
@@ -11,7 +11,7 @@ export const categoryRepository = {
     });
   },
 
-  findById: (id: string) => {
+  findById(id: string) {
     return prisma.category.findUnique({ where: { id } });
   },
 
@@ -60,11 +60,11 @@ export const categoryRepository = {
     });
   },
 
-  delete: (id: string) => {
+  delete(id: string) {
     return prisma.category.delete({ where: { id } });
   },
 
-  findTranslation: (categoryId: string, locale: string) => {
+  findTranslation(categoryId: string, locale: string) {
     return prisma.categoryTranslation.findUnique({
       where: {
         categoryId_locale: {
