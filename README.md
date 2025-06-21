@@ -5,16 +5,16 @@
 
 <p align="center">
   <a href="https://nextjs.org/">
-    <img src="https://img.shields.io/badge/Next.js-15.3-black?logo=next.js" alt="Next.js">
+    <img src="https://img.shields.io/badge/Next.js-15.3.4-black?logo=next.js" alt="Next.js">
   </a>
   <a href="https://react.dev/">
-    <img src="https://img.shields.io/badge/React-19-blue?logo=react" alt="React">
+    <img src="https://img.shields.io/badge/React-19.1.0-blue?logo=react" alt="React">
   </a>
   <a href="https://www.typescriptlang.org/">
     <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript">
   </a>
   <a href="https://www.prisma.io/">
-    <img src="https://img.shields.io/badge/Prisma-6.9-darkblue?logo=prisma" alt="Prisma">
+    <img src="https://img.shields.io/badge/Prisma-6.10.1-darkblue?logo=prisma" alt="Prisma">
   </a>
   <a href="https://next-intl.dev/">
     <img src="https://img.shields.io/badge/i18n-next--intl-blue.svg" alt="next-intl">
