@@ -17,7 +17,19 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from '@/components/ui/input-otp';
 import { verify } from '@/features/auth/actions';
 import { VerifyFormData, verifySchema } from '@/features/auth/schema';
 import { Link, useRouter } from '@/i18n/routing';
@@ -127,49 +139,58 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form action={formAction} className="space-y-6">
-              <Input type="hidden" {...form.register('email')} />
-
-              <div className="space-y-2">
-                <Input
-                  type="text"
-                  placeholder={t('placeholder.code')}
-                  {...form.register('code')}
-                  disabled={form.formState.isSubmitting}
-                  className="border-purple-500/20 bg-white/5 transition-all focus:border-purple-500 focus:ring-purple-500/20 dark:bg-gray-950/50"
-                />
-                {form.formState.errors.code && (
-                  <p className="flex items-center gap-1 text-sm text-red-500">
-                    <AlertCircle className="h-4 w-4" />
-                    {form.formState.errors.code.message}
-                  </p>
-                )}
-
-                {!state.success &&
-                  state.message &&
-                  (state.errors.root || state.errors.code) && (
-                    <p className="flex items-center gap-1 text-sm text-red-500">
-                      <AlertCircle className="h-4 w-4" />
-                      {state.message}
-                    </p>
+            <Form {...form}>
+              <form action={formAction} className="space-y-6">
+                <Input type="hidden" {...form.register('email')} />
+                <FormField
+                  control={form.control}
+                  name="code"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col items-center justify-center">
+                      <FormControl>
+                        <InputOTP
+                          maxLength={6}
+                          {...field}
+                          disabled={form.formState.isSubmitting}
+                        >
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </FormControl>
+                      <FormMessage />
+                      {!state.success &&
+                        state.message &&
+                        (state.errors.root || state.errors.code) && (
+                          <p className="flex items-center gap-1 pt-2 text-sm text-red-500">
+                            <AlertCircle className="h-4 w-4" />
+                            {state.message}
+                          </p>
+                        )}
+                    </FormItem>
                   )}
-              </div>
-
-              <Button
-                type="submit"
-                disabled={form.formState.isSubmitting}
-                className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
-              >
-                {form.formState.isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t('loading')}
-                  </>
-                ) : (
-                  t('submit')
-                )}
-              </Button>
-            </form>
+                />
+                <Button
+                  type="submit"
+                  disabled={form.formState.isSubmitting}
+                  className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
+                >
+                  {form.formState.isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {t('loading')}
+                    </>
+                  ) : (
+                    t('submit')
+                  )}
+                </Button>
+              </form>
+            </Form>
           </CardContent>
         </motion.div>
       </motion.div>
