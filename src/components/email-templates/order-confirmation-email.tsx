@@ -22,7 +22,6 @@ interface OrderConfirmationEmailProps {
   items: OrderItem[];
   total: number;
   shippingAddress?: ShippingAddress;
-  baseUrl: string;
 }
 
 export function OrderConfirmationEmail({
@@ -31,14 +30,13 @@ export function OrderConfirmationEmail({
   items,
   total,
   shippingAddress,
-  baseUrl,
 }: Readonly<OrderConfirmationEmailProps>) {
   return (
     <Tailwind config={emailTailwindConfig}>
       <div className="mx-auto max-w-[600px] font-sans">
         <div className="mb-6 text-center">
           <Img
-            src={`${baseUrl}/BC-logo-transp-120.png`}
+            src="https://www.breathecoherence.com/images/BC-logo-transp-120.png"
             alt="Breathe Coherence"
             width="120"
             height="120"

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { CreateEmailResponseSuccess, Resend } from 'resend';
 
 import { OrderConfirmationEmail } from '@/components/email-templates/order-confirmation-email';
@@ -25,16 +24,11 @@ export async function sendVerificationEmail(
   email: string,
   verificationCode: string,
 ): Promise<CreateEmailResponseSuccess | null> {
-  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
   const { data, error } = await resend.emails.send({
     from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
     to: email,
     subject: 'Verify your email address',
-    react: VerificationEmail({
-      verificationCode,
-      companyName: COMPANY_NAME,
-      baseUrl,
-    }),
+    react: VerificationEmail({ verificationCode, companyName: COMPANY_NAME }),
   });
 
   if (error) {
@@ -72,18 +66,16 @@ export async function sendOrderConfirmationEmail({
   shippingAddress,
 }: OrderConfirmationEmailData): Promise<boolean> {
   try {
-    const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
     const { data, error } = await resend.emails.send({
       from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
       to: [customerEmail],
       subject: `Order Confirmation #${orderId}`,
-      react: React.createElement(OrderConfirmationEmail, {
+      react: OrderConfirmationEmail({
         orderId,
         customerName,
         items,
         total,
         shippingAddress,
-        baseUrl,
       }),
     });
 

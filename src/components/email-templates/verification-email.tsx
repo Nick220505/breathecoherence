@@ -5,20 +5,18 @@ import { emailTailwindConfig } from '@/lib/email-tailwind-config';
 interface VerificationEmailProps {
   verificationCode: string;
   companyName: string;
-  baseUrl: string;
 }
 
 export function VerificationEmail({
   verificationCode,
   companyName,
-  baseUrl,
 }: Readonly<VerificationEmailProps>) {
   return (
     <Tailwind config={emailTailwindConfig}>
       <div className="mx-auto max-w-[600px] font-sans">
         <div className="mb-6 text-center">
           <Img
-            src={`${baseUrl}/BC-logo-transp-120.png`}
+            src="https://www.breathecoherence.com/images/BC-logo-transp-120.png"
             alt={companyName}
             width="120"
             height="120"
