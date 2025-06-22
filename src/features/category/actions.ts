@@ -14,11 +14,13 @@ import type { Category } from '@prisma/client';
 
 export async function getAllCategories(): Promise<Category[]> {
   const locale = (await getLocale()) as Locale;
+
   return categoryService.getAll(locale);
 }
 
 export async function getCategoryById(id: string): Promise<Category> {
   const locale = (await getLocale()) as Locale;
+
   try {
     return await categoryService.getById(id, locale);
   } catch (error) {
@@ -28,6 +30,7 @@ export async function getCategoryById(id: string): Promise<Category> {
     ) {
       notFound();
     }
+
     throw error;
   }
 }
@@ -119,10 +122,12 @@ export async function deleteCategory(
   id: string,
 ): Promise<ActionState<Category>> {
   const t = await getTranslations('ServerActions.Category');
+  const locale = (await getLocale()) as Locale;
+
   try {
-    const locale = (await getLocale()) as Locale;
     const deletedCategory = await categoryService.delete(id, locale);
     revalidateTag('categories');
+
     return {
       success: true,
       message: t('deleteSuccess'),

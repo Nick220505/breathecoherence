@@ -16,6 +16,7 @@ const productTranslationConfig: TranslationConfig = {
 export const productService = {
   async getAll(locale: Locale): Promise<ProductWithCategory[]> {
     const products = await productRepository.findMany();
+
     return Promise.all(
       products.map((product) =>
         translationService.getTranslatedEntity(
@@ -29,9 +30,11 @@ export const productService = {
 
   async getById(id: string, locale: Locale): Promise<ProductWithCategory> {
     const product = await productRepository.findById(id);
+
     if (!product) {
       throw new Error(`Product not found by id: ${id}`);
     }
+
     return translationService.getTranslatedEntity(
       product,
       locale,
@@ -109,6 +112,7 @@ export const productService = {
     await translationService.deleteTranslations(id, productTranslationConfig);
 
     await productRepository.delete(id);
+
     return translatedProduct;
   },
 };

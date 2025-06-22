@@ -15,6 +15,7 @@ const categoryTranslationConfig: TranslationConfig = {
 export const categoryService = {
   async getAll(locale: Locale): Promise<Category[]> {
     const categories = await categoryRepository.findMany();
+
     return Promise.all(
       categories.map((category) =>
         translationService.getTranslatedEntity(
@@ -28,9 +29,11 @@ export const categoryService = {
 
   async getById(id: string, locale: Locale): Promise<Category> {
     const category = await categoryRepository.findById(id);
+
     if (!category) {
       throw new Error(`Category not found by id: ${id}`);
     }
+
     return translationService.getTranslatedEntity(
       category,
       locale,
@@ -102,6 +105,7 @@ export const categoryService = {
     await translationService.deleteTranslations(id, categoryTranslationConfig);
 
     await categoryRepository.delete(id);
+
     return translatedCategory;
   },
 };

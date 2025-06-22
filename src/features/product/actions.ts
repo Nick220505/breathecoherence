@@ -14,11 +14,13 @@ import { ProductWithCategory } from './types';
 
 export async function getAllProducts(): Promise<ProductWithCategory[]> {
   const locale = (await getLocale()) as Locale;
+
   return productService.getAll(locale);
 }
 
 export async function getProductById(id: string): Promise<ProductWithCategory> {
   const locale = (await getLocale()) as Locale;
+
   try {
     return await productService.getById(id, locale);
   } catch (error) {
@@ -28,6 +30,7 @@ export async function getProductById(id: string): Promise<ProductWithCategory> {
     ) {
       notFound();
     }
+
     throw error;
   }
 }
@@ -119,9 +122,11 @@ export async function updateProduct(
 export async function deleteProduct(id: string): Promise<ActionState<Product>> {
   const t = await getTranslations('ServerActions.Product');
   const locale = (await getLocale()) as Locale;
+
   try {
     const deletedProduct = await productService.delete(id, locale);
     revalidateTag('products');
+
     return {
       success: true,
       message: t('deleteSuccess'),
