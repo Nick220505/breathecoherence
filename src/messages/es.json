@@ -595,6 +595,16 @@
       "deleteError": "Error al eliminar la categoría.",
       "missingId": "Falta el ID de la categoría."
     },
+    "User": {
+      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
+      "createSuccess": "Usuario creado con éxito.",
+      "createError": "Error al crear el usuario.",
+      "updateSuccess": "Usuario actualizado con éxito.",
+      "updateError": "Error al actualizar el usuario.",
+      "deleteSuccess": "Usuario eliminado con éxito.",
+      "deleteError": "Error al eliminar el usuario.",
+      "missingId": "Falta el ID del usuario."
+    },
     "Auth": {
       "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
       "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",

@@ -697,6 +697,16 @@
       "deleteError": "Failed to delete category.",
       "missingId": "Category ID is missing."
     },
+    "User": {
+      "fillRequiredFields": "Please fill all required fields.",
+      "createSuccess": "User created successfully.",
+      "createError": "Failed to create user.",
+      "updateSuccess": "User updated successfully.",
+      "updateError": "Failed to update user.",
+      "deleteSuccess": "User deleted successfully.",
+      "deleteError": "Failed to delete user.",
+      "missingId": "User ID is missing."
+    },
     "Auth": {
       "fillRequiredFields": "Please fill all required fields.",
       "verificationCodeSent": "Verification code sent. Check your email.",
