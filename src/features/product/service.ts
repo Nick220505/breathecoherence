@@ -110,16 +110,7 @@ export const productService = {
   },
 
   async delete(id: string, locale: Locale): Promise<Product> {
-    const productToDelete = await productRepository.findById(id);
-    if (!productToDelete) {
-      throw new Error(`Product not found by id: ${id}`);
-    }
-
-    const translatedProduct = await translationService.getTranslatedEntity(
-      productToDelete,
-      locale,
-      productTranslationConfig,
-    );
+    const translatedProduct = await this.getById(id, locale);
 
     await translationService.deleteTranslations(id, productTranslationConfig);
 

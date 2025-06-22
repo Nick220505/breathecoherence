@@ -101,16 +101,7 @@ export const categoryService = {
   },
 
   async delete(id: string, locale: Locale): Promise<Category> {
-    const categoryToDelete = await categoryRepository.findById(id);
-    if (!categoryToDelete) {
-      throw new Error(`Category not found by id: ${id}`);
-    }
-
-    const translatedCategory = await translationService.getTranslatedEntity(
-      categoryToDelete,
-      locale,
-      categoryTranslationConfig,
-    );
+    const translatedCategory = await this.getById(id, locale);
 
     await translationService.deleteTranslations(id, categoryTranslationConfig);
 
