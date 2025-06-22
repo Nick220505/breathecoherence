@@ -5,8 +5,7 @@ import { revalidateTag } from 'next/cache';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Locale } from '@/i18n/routing';
-import { ActionState } from '@/lib/types/action';
-import { FormState } from '@/lib/types/form';
+import { ActionState, FormState } from '@/lib/types';
 
 import { productSchema } from './schema';
 import { productService } from './service';

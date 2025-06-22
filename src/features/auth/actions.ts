@@ -3,7 +3,7 @@
 import { User } from '@prisma/client';
 import { getTranslations } from 'next-intl/server';
 
-import { type FormState } from '@/lib/types/form';
+import { type FormState } from '@/lib/types';
 
 import {
   AuthError,

@@ -1,15 +1,14 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Locale } from '@/i18n/routing';
 
 import { categorySchema } from './schema';
 import { categoryService } from './service';
 
-import type { ActionState } from '@/lib/types/action';
-import type { FormState } from '@/lib/types/form';
+import type { ActionState, FormState } from '@/lib/types';
 import type { Category } from '@prisma/client';
 
 export async function getAllCategories(): Promise<Category[]> {

@@ -7,8 +7,7 @@ import { userSchema } from './schema';
 import { userService } from './service';
 
 import type { UserSummary } from './types';
-import type { ActionState } from '@/lib/types/action';
-import type { FormState } from '@/lib/types/form';
+import type { ActionState, FormState } from '@/lib/types';
 import type { User } from '@prisma/client';
 
 export async function getAllUsers(): Promise<UserSummary[]> {
