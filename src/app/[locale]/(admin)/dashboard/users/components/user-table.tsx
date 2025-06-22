@@ -3,6 +3,7 @@
 import { Edit, Trash2 } from 'lucide-react';
 import { useTranslations, useLocale } from 'next-intl';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -68,7 +69,13 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
               <TableRow key={user.id}>
                 <TableCell className="font-medium">{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{tRoles(user.role)}</TableCell>
+                <TableCell>
+                  <Badge
+                    variant={user.role === 'ADMIN' ? 'default' : 'secondary'}
+                  >
+                    {tRoles(user.role)}
+                  </Badge>
+                </TableCell>
                 <TableCell>
                   {new Intl.DateTimeFormat(locale).format(
                     new Date(user.createdAt),

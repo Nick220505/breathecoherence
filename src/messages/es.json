@@ -35,8 +35,8 @@
     }
   },
   "UserRoles": {
-    "ADMIN": "ADMINISTRADOR",
-    "USER": "USUARIO"
+    "ADMIN": "Administrador",
+    "USER": "Usuario"
   },
   "RegisterPage": {
     "title": "Crear Cuenta",
