@@ -2,6 +2,7 @@
 
 import { Product } from '@prisma/client';
 import { revalidateTag } from 'next/cache';
+import { notFound } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Locale } from '@/i18n/routing';
@@ -16,11 +17,19 @@ export async function getAllProducts(): Promise<ProductWithCategory[]> {
   return productService.getAll(locale);
 }
 
-export async function getProductById(
-  id: string,
-): Promise<ProductWithCategory | null> {
+export async function getProductById(id: string): Promise<ProductWithCategory> {
   const locale = (await getLocale()) as Locale;
-  return productService.getById(id, locale);
+  try {
+    return await productService.getById(id, locale);
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.includes('Product not found by id')
+    ) {
+      notFound();
+    }
+    throw error;
+  }
 }
 
 export async function createProduct(

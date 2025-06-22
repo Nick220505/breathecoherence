@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { notFound } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Locale } from '@/i18n/routing';
@@ -14,6 +15,21 @@ import type { Category } from '@prisma/client';
 export async function getAllCategories(): Promise<Category[]> {
   const locale = (await getLocale()) as Locale;
   return categoryService.getAll(locale);
+}
+
+export async function getCategoryById(id: string): Promise<Category> {
+  const locale = (await getLocale()) as Locale;
+  try {
+    return await categoryService.getById(id, locale);
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.includes('Category not found by id')
+    ) {
+      notFound();
+    }
+    throw error;
+  }
 }
 
 export async function createCategory(

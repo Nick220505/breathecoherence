@@ -25,9 +25,11 @@ export const categoryService = {
     );
   },
 
-  async getById(id: string, locale: Locale): Promise<Category | null> {
+  async getById(id: string, locale: Locale): Promise<Category> {
     const category = await categoryRepository.findById(id);
-    if (!category) return null;
+    if (!category) {
+      throw new Error(`Category not found by id: ${id}`);
+    }
     return translationService.getTranslatedEntity(
       category,
       locale,
@@ -100,7 +102,9 @@ export const categoryService = {
 
   async delete(id: string, locale: Locale): Promise<Category> {
     const categoryToDelete = await categoryRepository.findById(id);
-    if (!categoryToDelete) throw new Error('Category not found');
+    if (!categoryToDelete) {
+      throw new Error(`Category not found by id: ${id}`);
+    }
 
     const translatedCategory = await translationService.getTranslatedEntity(
       categoryToDelete,

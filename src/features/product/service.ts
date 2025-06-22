@@ -27,12 +27,11 @@ export const productService = {
     );
   },
 
-  async getById(
-    id: string,
-    locale: Locale,
-  ): Promise<ProductWithCategory | null> {
+  async getById(id: string, locale: Locale): Promise<ProductWithCategory> {
     const product = await productRepository.findById(id);
-    if (!product) return null;
+    if (!product) {
+      throw new Error(`Product not found by id: ${id}`);
+    }
     return translationService.getTranslatedEntity(
       product,
       locale,
@@ -112,7 +111,9 @@ export const productService = {
 
   async delete(id: string, locale: Locale): Promise<Product> {
     const productToDelete = await productRepository.findById(id);
-    if (!productToDelete) throw new Error('Product not found');
+    if (!productToDelete) {
+      throw new Error(`Product not found by id: ${id}`);
+    }
 
     const translatedProduct = await translationService.getTranslatedEntity(
       productToDelete,
