@@ -92,7 +92,9 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
 
   useEffect(() => {
     if (state.success) {
-      toast.success(t('success'), { description: state.message });
+      toast.success(t('success_title'), {
+        description: t('success_description'),
+      });
       router.push('/login');
     }
   }, [state.success, state.message, router, t]);

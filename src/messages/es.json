@@ -95,7 +95,8 @@
     "loading": "Verificando...",
     "backToRegister": "Volver al Registro",
     "goToRegister": "Ir al Registro",
-    "success": "¡Correo verificado exitosamente!"
+    "success_title": "Correo Verificado",
+    "success_description": "Tu correo electrónico ha sido verificado exitosamente. Ahora puedes iniciar sesión en tu cuenta."
   },
   "Navigation": {
     "nav": {

@@ -128,7 +128,8 @@
     "loading": "Verifying...",
     "backToRegister": "Back to Register",
     "goToRegister": "Go to Register",
-    "success": "Email verified successfully!"
+    "success_title": "Email Verified",
+    "success_description": "Your email has been successfully verified. You can now sign in to your account."
   },
   "Navigation": {
     "nav": {
