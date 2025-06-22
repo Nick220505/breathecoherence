@@ -25,7 +25,6 @@ function PaymentStatusCheck() {
       return;
     }
 
-    // Retrieve the "payment_intent_client_secret" query parameter
     const clientSecret = searchParams.get('payment_intent_client_secret');
 
     if (!clientSecret) {

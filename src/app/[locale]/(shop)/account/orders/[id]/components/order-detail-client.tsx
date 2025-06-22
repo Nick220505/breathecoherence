@@ -63,7 +63,6 @@ export default function OrderDetailClient({
       try {
         console.log('OrderDetailClient: Fetching order with ID:', orderId);
 
-        // Determine if this is a guest order based on the ID pattern
         const isGuestOrder = orderId.startsWith('guest-');
 
         console.log('OrderDetailClient: Is guest order:', isGuestOrder);

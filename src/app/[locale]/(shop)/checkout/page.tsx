@@ -110,7 +110,6 @@ function PayPalPaymentButton({
           if (actions.order) {
             return actions.order.capture().then((details) => {
               console.log('Payment completed:', details);
-              // Handle success
             });
           }
         }}
@@ -199,14 +198,10 @@ export default function CheckoutPage() {
   const onSubmit = (data: CheckoutFormData) => {
     if (paymentMethod === 'card') {
       console.log('Form data:', data);
-      // Handle card payment submission
     } else if (paymentMethod === 'paypal') {
-      // PayPal submission is handled by the PayPal button component
       console.log('PayPal submission handled by button');
     }
   };
-
-  // Form methods are now handled by the ShippingFormFields component
 
   if (!cart || cartItems.length === 0) {
     return (

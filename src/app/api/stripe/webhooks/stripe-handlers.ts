@@ -37,14 +37,10 @@ export async function handlePaymentIntentSucceeded(
       return false;
     }
 
-    // Check if this is a guest order (guest-123456789)
     const isGuestOrder = orderId.startsWith('guest-');
 
-    // For guest orders, we don't need to update any database record
-    // but we should still send a confirmation email
     if (!isGuestOrder) {
       try {
-        // Update order status in database for registered users
         await prisma.order.update({
           where: { id: orderId },
           data: {
@@ -55,16 +51,12 @@ export async function handlePaymentIntentSucceeded(
         console.log(`Order ${orderId} marked as paid`);
       } catch (error) {
         console.error(`Error updating order ${orderId}:`, error);
-        // Continue execution to at least try sending the email
       }
     }
 
-    // For guest orders, we'll use the payment intent data for the email
     let orderItems: OrderItemSummary[] = [];
-    let orderTotal = paymentIntent.amount / 100; // Convert from cents to dollars
+    let orderTotal = paymentIntent.amount / 100;
     let shippingAddress: ShippingAddress | undefined;
-
-    // Prepare shipping address if available
     if (customerAddress && customerCity && customerState && customerZipCode) {
       shippingAddress = {
         address: customerAddress,
@@ -75,7 +67,6 @@ export async function handlePaymentIntentSucceeded(
     }
 
     if (!isGuestOrder) {
-      // For registered users, fetch order details from the database
       const order = await prisma.order.findUnique({
         where: { id: orderId },
         include: {
@@ -96,9 +87,6 @@ export async function handlePaymentIntentSucceeded(
         orderTotal = order.total;
       }
     } else {
-      // For guest orders, we don't have the items in the database
-      // We could store them in metadata if needed
-      // For now, we'll just use a generic message
       orderItems = [
         {
           name: 'Your order',
@@ -109,7 +97,6 @@ export async function handlePaymentIntentSucceeded(
     }
 
     if (customerEmail) {
-      // Send order confirmation email
       await orderService.sendOrderConfirmationEmail({
         orderId,
         customerName: customerName || 'Valued Customer',
@@ -140,7 +127,6 @@ export async function handlePaymentIntentFailed(
       return false;
     }
 
-    // Only update database records for non-guest orders
     if (!orderId.startsWith('guest-')) {
       try {
         await prisma.order.update({

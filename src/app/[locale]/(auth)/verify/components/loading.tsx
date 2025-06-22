@@ -9,7 +9,7 @@ const spinnerVariants: Variants = {
     rotate: 360,
     transition: {
       duration: 1,
-      ease: [0, 0, 1, 1], // linear cubic-bezier
+      ease: [0, 0, 1, 1],
       repeat: Infinity,
     },
   },

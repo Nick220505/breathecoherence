@@ -9,18 +9,9 @@ export default async function OrderDetailPage({
 }>) {
   const { id, locale } = await params;
 
-  let order = null;
-  try {
-    order = await getOrderDetailServer(id);
-  } catch {
-    // ignore
-  }
+  const order = await getOrderDetailServer(id);
 
   return (
-    <OrderDetailClient
-      orderId={id}
-      locale={locale}
-      initialOrder={order ?? undefined}
-    />
+    <OrderDetailClient orderId={id} locale={locale} initialOrder={order} />
   );
 }

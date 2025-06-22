@@ -210,8 +210,6 @@ function ImageUpload() {
   const [imageData, setImageData] = useState(getValues('imageBase64') ?? '');
   const [uploadingImage, setUploadingImage] = useState(false);
   const productCategoryId = getValues('categoryId');
-  // This is a bit of a hack, we should probably get the category name from the form state
-  // but for now, this will do.
   const isSacredGeometry = productCategoryId === 'clzot3x5w000014rorc81n5jp';
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

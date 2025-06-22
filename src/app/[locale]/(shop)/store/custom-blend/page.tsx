@@ -115,7 +115,6 @@ export default function CustomBlendPage() {
         </Link>
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-          {/* Product Image */}
           <div className="lg:sticky lg:top-8">
             <div className="group relative aspect-square overflow-hidden rounded-2xl">
               <Image
@@ -130,7 +129,6 @@ export default function CustomBlendPage() {
             </div>
           </div>
 
-          {/* Product Details */}
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
@@ -164,7 +162,6 @@ export default function CustomBlendPage() {
             </div>
 
             <div className="space-y-6 rounded-xl border border-purple-500/10 bg-white/5 p-6 backdrop-blur-xs dark:bg-white/5">
-              {/* Base Selection */}
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-900 dark:text-gray-100">
                   {t('base.label')}
@@ -181,7 +178,6 @@ export default function CustomBlendPage() {
                 </Select>
               </div>
 
-              {/* Essences Grid */}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {Array.from({ length: 7 }).map((_, index) => (
                   <div key={index} className="space-y-2">

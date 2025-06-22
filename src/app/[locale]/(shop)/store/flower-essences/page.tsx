@@ -12,7 +12,6 @@ export default function FlowerEssencesPage() {
     <div className="from-background to-background/80 min-h-screen bg-linear-to-b">
       <div className="container mx-auto px-4 py-12">
         <div className="mx-auto max-w-4xl space-y-12">
-          {/* Header Section */}
           <div className="space-y-4 text-center">
             <h1 className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-4xl leading-normal font-bold text-transparent md:text-5xl lg:text-6xl dark:from-purple-400 dark:to-blue-400">
               {t('title')}
@@ -20,7 +19,6 @@ export default function FlowerEssencesPage() {
             <div className="mx-auto h-1 w-24 rounded-full bg-linear-to-r from-purple-600 to-blue-600" />
           </div>
 
-          {/* Content Section */}
           <div className="prose dark:prose-invert max-w-none space-y-8">
             <div className="rounded-lg border border-purple-500/10 bg-white/5 p-6 shadow-lg backdrop-blur-xs">
               <p className="text-lg leading-relaxed">{t('introduction')}</p>
@@ -51,7 +49,6 @@ export default function FlowerEssencesPage() {
             </div>
           </div>
 
-          {/* CTA Section */}
           <div className="flex flex-col items-center space-y-6 pt-8">
             <div className="h-px w-full max-w-xs bg-linear-to-r from-transparent via-purple-500/20 to-transparent" />
             <Link

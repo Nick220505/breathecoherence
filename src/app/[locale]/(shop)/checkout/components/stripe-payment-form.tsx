@@ -42,7 +42,6 @@ export function StripePaymentForm() {
         setError(submitError.message ?? t('error.unknown'));
         setIsLoading(false);
       }
-      // If no error, the page will redirect to return_url
     } catch (e) {
       console.error('Error:', e);
       setError(t('error.unexpected'));

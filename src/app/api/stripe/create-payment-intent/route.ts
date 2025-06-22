@@ -32,20 +32,17 @@ export async function POST(req: Request) {
     const { amount, items, shippingDetails } =
       (await req.json()) as PaymentRequest;
 
-    // Generate an order ID for guest users or retrieve from database for authenticated users
     let orderId: string;
     let userId = 'guest';
 
     if (session?.user) {
       try {
-        // Check if the user actually exists in the database
         const user = await prisma.user.findUnique({
           where: { id: session.user.id },
           select: { id: true },
         });
 
         if (user) {
-          // For authenticated users with a valid database record, create an order
           const order = await prisma.order.create({
             data: {
               userId: user.id,
@@ -63,20 +60,16 @@ export async function POST(req: Request) {
           orderId = order.id;
           userId = user.id;
         } else {
-          // User has a session but doesn't exist in the database
-          // Treat as guest checkout
           console.log(
             'User session exists but no database record found. Using guest checkout.',
           );
           orderId = `guest-${Date.now()}`;
         }
       } catch (error) {
-        // Handle database errors gracefully
         console.error('Error creating order:', error);
         orderId = `guest-${Date.now()}`;
       }
     } else {
-      // For guest users, create a temporary ID
       orderId = `guest-${Date.now()}`;
     }
 
