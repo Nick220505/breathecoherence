@@ -1,6 +1,31 @@
+import { OrderConfirmationEmail } from '@/components/email-templates/order-confirmation-email';
+import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
+
 import { orderRepository } from './repository';
 
 import type { OrderSummary, OrderDetail } from './types';
+
+interface OrderItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+interface ShippingAddress {
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+}
+
+interface OrderConfirmationEmailData {
+  orderId: string;
+  customerName: string;
+  customerEmail: string;
+  items: OrderItem[];
+  total: number;
+  shippingAddress?: ShippingAddress;
+}
 
 export const orderService = {
   async getAll(): Promise<OrderSummary[]> {
@@ -17,5 +42,31 @@ export const orderService = {
 
   async getAllWithItemsByUser(userId: string): Promise<OrderDetail[]> {
     return orderRepository.findManyWithItemsByUser(userId);
+  },
+
+  async sendOrderConfirmationEmail({
+    orderId,
+    customerName,
+    customerEmail,
+    items,
+    total,
+    shippingAddress,
+  }: OrderConfirmationEmailData): Promise<void> {
+    const { error } = await resend.emails.send({
+      from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
+      to: [customerEmail],
+      subject: `Order Confirmation #${orderId}`,
+      react: OrderConfirmationEmail({
+        orderId,
+        customerName,
+        items,
+        total,
+        shippingAddress,
+      }),
+    });
+
+    if (error) {
+      throw new Error('Failed to send order confirmation email');
+    }
   },
 };

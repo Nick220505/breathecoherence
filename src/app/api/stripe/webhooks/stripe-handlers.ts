@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 
-import { sendOrderConfirmationEmail } from '@/lib/email';
+import { orderService } from '@/features/order/service';
 import prisma from '@/lib/prisma';
 
 interface OrderItemSummary {
@@ -110,7 +110,7 @@ export async function handlePaymentIntentSucceeded(
 
     if (customerEmail) {
       // Send order confirmation email
-      await sendOrderConfirmationEmail({
+      await orderService.sendOrderConfirmationEmail({
         orderId,
         customerName: customerName || 'Valued Customer',
         customerEmail,

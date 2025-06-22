@@ -1,7 +1,4 @@
-import { CreateEmailResponseSuccess, Resend } from 'resend';
-
-import { OrderConfirmationEmail } from '@/components/email-templates/order-confirmation-email';
-import { VerificationEmail } from '@/components/email-templates/verification-email';
+import { Resend } from 'resend';
 
 if (!process.env.RESEND_API_KEY) {
   throw new Error('Missing RESEND_API_KEY environment variable');
@@ -15,79 +12,15 @@ if (!process.env.COMPANY_NAME) {
   throw new Error('Missing COMPANY_NAME environment variable');
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const globalForResend = global as unknown as {
+  resend: Resend;
+};
 
-const FROM_EMAIL = process.env.EMAIL_FROM;
-const COMPANY_NAME = process.env.COMPANY_NAME;
+const resend = globalForResend.resend ?? new Resend(process.env.RESEND_API_KEY);
 
-export async function sendVerificationEmail(
-  email: string,
-  verificationCode: string,
-): Promise<CreateEmailResponseSuccess | null> {
-  const { data, error } = await resend.emails.send({
-    from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
-    to: email,
-    subject: 'Verify your email address',
-    react: VerificationEmail({ verificationCode, companyName: COMPANY_NAME }),
-  });
+if (process.env.NODE_ENV !== 'production') globalForResend.resend = resend;
 
-  if (error) {
-    throw new Error('Failed to send verification email');
-  }
+export const FROM_EMAIL = process.env.EMAIL_FROM;
+export const COMPANY_NAME = process.env.COMPANY_NAME;
 
-  return data;
-}
-
-interface OrderItem {
-  name: string;
-  price: number;
-  quantity: number;
-}
-interface ShippingAddress {
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-}
-interface OrderConfirmationEmailData {
-  orderId: string;
-  customerName: string;
-  customerEmail: string;
-  items: OrderItem[];
-  total: number;
-  shippingAddress?: ShippingAddress;
-}
-export async function sendOrderConfirmationEmail({
-  orderId,
-  customerName,
-  customerEmail,
-  items,
-  total,
-  shippingAddress,
-}: OrderConfirmationEmailData): Promise<boolean> {
-  try {
-    const { data, error } = await resend.emails.send({
-      from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
-      to: [customerEmail],
-      subject: `Order Confirmation #${orderId}`,
-      react: OrderConfirmationEmail({
-        orderId,
-        customerName,
-        items,
-        total,
-        shippingAddress,
-      }),
-    });
-
-    if (error) {
-      console.error('Error sending order confirmation email:', error);
-      return false;
-    }
-
-    console.log('Order confirmation email sent:', data?.id);
-    return true;
-  } catch (error) {
-    console.error('Error sending order confirmation email:', error);
-    return false;
-  }
-}
+export default resend;

@@ -3,7 +3,8 @@ import crypto from 'crypto';
 import { User } from '@prisma/client';
 import { compare, hash } from 'bcryptjs';
 
-import { sendVerificationEmail } from '@/lib/email';
+import { VerificationEmail } from '@/components/email-templates/verification-email';
+import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
 import prisma from '@/lib/prisma';
 
 import {
@@ -44,7 +45,19 @@ export const authService = {
       },
     });
 
-    await sendVerificationEmail(email, verifyToken);
+    const { error } = await resend.emails.send({
+      from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
+      to: email,
+      subject: 'Verify your email address',
+      react: VerificationEmail({
+        verificationCode: verifyToken,
+        companyName: COMPANY_NAME,
+      }),
+    });
+
+    if (error) {
+      throw new Error('Failed to send verification email');
+    }
 
     return user;
   },
