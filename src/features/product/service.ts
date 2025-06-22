@@ -82,6 +82,8 @@ export const productService = {
     data: Prisma.ProductUpdateInput,
     locale: Locale,
   ): Promise<Product> {
+    await this.getById(id, locale);
+
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
