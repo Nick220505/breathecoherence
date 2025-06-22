@@ -83,6 +83,9 @@
   "VerificationForm": {
     "title": "Verifica tu correo electrónico",
     "description": "Ingresa el código enviado a",
+    "placeholder": {
+      "code": "Ingresa el código de verificación"
+    },
     "error": {
       "title": "Error",
       "description": "Enlace de verificación inválido. Por favor, intenta registrarte nuevamente.",

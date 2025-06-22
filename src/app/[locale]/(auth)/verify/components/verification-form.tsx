@@ -113,7 +113,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
 
         <motion.div
           variants={fadeInUp}
-          className="overflow-hidden rounded-2xl border border-purple-500/10 bg-white/10 shadow-xl backdrop-blur-lg dark:bg-gray-950/50"
+          className="overflow-hidden rounded-2xl border border-purple-500/10 bg-white/10 py-6 shadow-xl backdrop-blur-lg dark:bg-gray-950/50"
         >
           <CardHeader className="space-y-2 pb-6">
             <CardTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-purple-400 dark:to-blue-400">

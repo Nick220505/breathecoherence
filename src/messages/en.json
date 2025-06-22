@@ -116,6 +116,9 @@
   "VerificationForm": {
     "title": "Verify your email",
     "description": "Enter the code sent to",
+    "placeholder": {
+      "code": "Enter verification code"
+    },
     "error": {
       "title": "Error",
       "description": "Invalid verification link. Please try registering again.",
