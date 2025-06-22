@@ -37,7 +37,7 @@ export function ProductTable({ products }: Readonly<ProductTableProps>) {
     setEditDialogOpen,
     setEditingProduct,
     setDeleteDialogOpen,
-    setProductToDelete,
+    setDeletingProduct,
   } = useProductManagementStore();
 
   const handleEdit = (product: ProductWithCategory) => {
@@ -56,7 +56,7 @@ export function ProductTable({ products }: Readonly<ProductTableProps>) {
   };
 
   const handleDelete = (product: ProductWithCategory) => {
-    setProductToDelete(product);
+    setDeletingProduct(product);
     setDeleteDialogOpen(true);
   };
 

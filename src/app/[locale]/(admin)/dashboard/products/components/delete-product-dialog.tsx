@@ -2,7 +2,7 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useTransition } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -20,37 +20,32 @@ import { useProductManagementStore } from './store';
 
 export function DeleteProductDialog() {
   const t = useTranslations('DeleteProductDialog');
-  const {
-    isDeleteDialogOpen,
-    productToDelete,
-    setIsDeleting,
-    resetDeleteState,
-  } = useProductManagementStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const { isDeleteDialogOpen, setDeleteDialogOpen, deletingProduct } =
+    useProductManagementStore();
+  const [isPending, startTransition] = useTransition();
 
-  const handleConfirmDelete = async () => {
-    if (!productToDelete) return;
+  const handleDelete = () => {
+    if (!deletingProduct) return;
 
-    setIsLoading(true);
-    setIsDeleting(true);
+    startTransition(async () => {
+      const result = await deleteProduct(deletingProduct.id);
 
-    const { success, message, data } = await deleteProduct(productToDelete.id);
+      if (result.success) {
+        toast.success(t('deleted_title'), {
+          description: t('deleted_description', {
+            name: deletingProduct.name,
+          }),
+        });
+      } else {
+        toast.error(t('error'));
+      }
 
-    if (success) {
-      toast.success(t('deleted_title'), {
-        description: t('deleted_description', { name: data?.name ?? '' }),
-      });
-      resetDeleteState();
-    } else {
-      toast.error(t('error'), { description: message });
-    }
-
-    setIsLoading(false);
-    setIsDeleting(false);
+      setDeleteDialogOpen(false);
+    });
   };
 
   return (
-    <Dialog open={isDeleteDialogOpen} onOpenChange={resetDeleteState}>
+    <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
@@ -61,17 +56,17 @@ export function DeleteProductDialog() {
         <DialogFooter className="flex justify-end space-x-2">
           <Button
             variant="outline"
-            onClick={resetDeleteState}
-            disabled={isLoading}
+            onClick={() => setDeleteDialogOpen(false)}
+            disabled={isPending}
           >
             {t('cancel')}
           </Button>
           <Button
             variant="destructive"
-            onClick={() => void handleConfirmDelete()}
-            disabled={isLoading}
+            onClick={handleDelete}
+            disabled={isPending}
           >
-            {isLoading ? (
+            {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t('deleting')}
