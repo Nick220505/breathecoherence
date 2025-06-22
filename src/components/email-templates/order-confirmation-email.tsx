@@ -1,4 +1,7 @@
+import { Tailwind, Img } from '@react-email/components';
 import * as React from 'react';
+
+import { emailTailwindConfig } from '@/lib/email-tailwind-config';
 
 interface OrderItem {
   name: string;
@@ -26,178 +29,93 @@ export const OrderConfirmationEmail: React.FC<
   Readonly<OrderConfirmationEmailProps>
 > = ({ orderId, customerName, items, total, shippingAddress, baseUrl }) => {
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`${baseUrl}/BC-logo-transp-120.png`}
-          alt="Breathe Coherence"
-          width="120"
-          height="120"
-          style={styles.logo}
-        />
-      </div>
-      <h1 style={styles.title}>Order Confirmation</h1>
-      <p style={styles.text}>Dear {customerName},</p>
-      <p style={styles.text}>
-        Thank you for your order! We&apos;re pleased to confirm that your order
-        has been received and is being processed.
-      </p>
+    <Tailwind config={emailTailwindConfig}>
+      <div className="mx-auto max-w-[600px] font-sans">
+        <div className="mb-6 text-center">
+          <Img
+            src={`${baseUrl}/BC-logo-transp-120.png`}
+            alt="Breathe Coherence"
+            width="120"
+            height="120"
+            className="inline-block h-auto max-w-full"
+          />
+        </div>
+        <h1 className="text-center text-gray-800">Order Confirmation</h1>
+        <p className="text-gray-600">Dear {customerName},</p>
+        <p className="text-gray-600">
+          Thank you for your order! We&apos;re pleased to confirm that your
+          order has been received and is being processed.
+        </p>
 
-      <div style={styles.orderBox}>
-        <h2 style={styles.orderTitle}>Order #{orderId}</h2>
+        <div className="my-6 rounded-lg bg-gray-100 p-6">
+          <h2 className="mt-0 text-lg text-gray-800">Order #{orderId}</h2>
 
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.tableHeaderLeft}>Product</th>
-              <th style={styles.tableHeaderCenter}>Qty</th>
-              <th style={styles.tableHeaderRight}>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item, index) => (
-              <tr key={index}>
-                <td style={styles.tableCell}>{item.name}</td>
-                <td style={styles.tableCellCenter}>{item.quantity}</td>
-                <td style={styles.tableCellRight}>
-                  ${(item.price * item.quantity).toFixed(2)}
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="border-b border-gray-300 py-2 text-left">
+                  Product
+                </th>
+                <th className="border-b border-gray-300 py-2 text-center">
+                  Qty
+                </th>
+                <th className="border-b border-gray-300 py-2 text-right">
+                  Price
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item, index) => (
+                <tr key={`${item.name}-${index}`}>
+                  <td className="border-b border-gray-300 py-2">{item.name}</td>
+                  <td className="border-b border-gray-300 py-2 text-center">
+                    {item.quantity}
+                  </td>
+                  <td className="border-b border-gray-300 py-2 text-right">
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={2} className="py-2 text-right font-bold">
+                  Total:
+                </td>
+                <td className="py-2 text-right font-bold">
+                  ${total.toFixed(2)}
                 </td>
               </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan={2} style={styles.totalLabelCell}>
-                Total:
-              </td>
-              <td style={styles.totalValueCell}>${total.toFixed(2)}</td>
-            </tr>
-          </tfoot>
-        </table>
+            </tfoot>
+          </table>
 
-        {shippingAddress && (
-          <div style={styles.shippingContainer}>
-            <h3 style={styles.shippingTitle}>Shipping Address:</h3>
-            <p style={styles.shippingAddress}>
-              {shippingAddress.address}
-              <br />
-              {shippingAddress.city}, {shippingAddress.state}{' '}
-              {shippingAddress.zipCode}
-            </p>
-          </div>
-        )}
+          {shippingAddress && (
+            <div className="mt-6">
+              <h3 className="mb-2 text-base text-gray-800">
+                Shipping Address:
+              </h3>
+              <p className="m-0 text-gray-600">
+                {shippingAddress.address}
+                <br />
+                {shippingAddress.city}, {shippingAddress.state}{' '}
+                {shippingAddress.zipCode}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <p className="text-gray-600">
+          You can view your order status and history by visiting your account
+          page.
+        </p>
+        <p className="text-gray-600">Thank you for shopping with us!</p>
+
+        <div className="mt-6 border-t border-gray-200 pt-6 text-center text-xs text-gray-400">
+          © {new Date().getFullYear()} Breathe Coherence. All rights reserved.
+        </div>
       </div>
-
-      <p style={styles.text}>
-        You can view your order status and history by visiting your account
-        page.
-      </p>
-      <p style={styles.text}>Thank you for shopping with us!</p>
-
-      <div style={styles.footer}>
-        © {new Date().getFullYear()} Breathe Coherence. All rights reserved.
-      </div>
-    </div>
+    </Tailwind>
   );
-};
-
-const styles = {
-  container: {
-    fontFamily: 'Arial, sans-serif',
-    maxWidth: '600px',
-    margin: '0 auto',
-  },
-  header: {
-    textAlign: 'center' as const,
-    marginBottom: '24px',
-  },
-  logo: {
-    display: 'inline-block',
-    maxWidth: '100%',
-    height: 'auto',
-  },
-  title: {
-    color: '#333',
-    textAlign: 'center' as const,
-  },
-  text: {
-    color: '#666',
-  },
-  orderBox: {
-    backgroundColor: '#f3f4f6',
-    borderRadius: '8px',
-    padding: '24px',
-    margin: '24px 0',
-  },
-  orderTitle: {
-    fontSize: '18px',
-    color: '#333',
-    marginTop: '0',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse' as const,
-  },
-  tableHeaderLeft: {
-    textAlign: 'left' as const,
-    padding: '8px 0',
-    borderBottom: '1px solid #ddd',
-  },
-  tableHeaderCenter: {
-    textAlign: 'center' as const,
-    padding: '8px 0',
-    borderBottom: '1px solid #ddd',
-  },
-  tableHeaderRight: {
-    textAlign: 'right' as const,
-    padding: '8px 0',
-    borderBottom: '1px solid #ddd',
-  },
-  tableCell: {
-    padding: '8px 0',
-    borderBottom: '1px solid #ddd',
-  },
-  tableCellCenter: {
-    textAlign: 'center' as const,
-    padding: '8px 0',
-    borderBottom: '1px solid #ddd',
-  },
-  tableCellRight: {
-    textAlign: 'right' as const,
-    padding: '8px 0',
-    borderBottom: '1px solid #ddd',
-  },
-  totalLabelCell: {
-    textAlign: 'right' as const,
-    padding: '8px 0',
-    fontWeight: 'bold',
-  },
-  totalValueCell: {
-    textAlign: 'right' as const,
-    padding: '8px 0',
-    fontWeight: 'bold',
-  },
-  shippingContainer: {
-    marginTop: '24px',
-  },
-  shippingTitle: {
-    fontSize: '16px',
-    color: '#333',
-    marginBottom: '8px',
-  },
-  shippingAddress: {
-    margin: '0',
-    color: '#666',
-  },
-  footer: {
-    textAlign: 'center' as const,
-    marginTop: '24px',
-    paddingTop: '24px',
-    borderTop: '1px solid #eee',
-    fontSize: '12px',
-    color: '#999',
-  },
 };
 
 export default OrderConfirmationEmail;
