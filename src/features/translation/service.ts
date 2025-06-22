@@ -4,6 +4,22 @@ import { translate } from '@/lib/translation';
 import { translationRepository } from './repository';
 import { TranslatableFields, TranslationConfig } from './types';
 
+function extractTranslatableFields(
+  data: Record<string, unknown>,
+  config: TranslationConfig,
+): TranslatableFields {
+  const result: TranslatableFields = {};
+
+  for (const field of config.translatableFields) {
+    const fieldValue = data[field];
+    if (typeof fieldValue === 'string') {
+      result[field] = fieldValue;
+    }
+  }
+
+  return result;
+}
+
 export const translationService = {
   async getTranslatedEntity<T extends Record<string, unknown>>(
     entity: T,
@@ -38,13 +54,14 @@ export const translationService = {
 
   async createTranslations(
     entityId: string,
-    data: TranslatableFields,
+    data: Record<string, unknown>,
     sourceLocale: Locale,
     config: TranslationConfig,
   ): Promise<void> {
+    const translatableData = extractTranslatableFields(data, config);
     const translationsToCreate = await this.buildTranslations(
       entityId,
-      data,
+      translatableData,
       sourceLocale,
       config,
     );
@@ -128,19 +145,18 @@ export const translationService = {
 
   async updateTranslations(
     entityId: string,
-    data: TranslatableFields,
+    data: Record<string, unknown>,
     sourceLocale: Locale,
     config: TranslationConfig,
   ): Promise<void> {
-    const updatedFields = Object.keys(data).filter((key) =>
-      config.translatableFields.includes(key),
-    );
+    const translatableData = extractTranslatableFields(data, config);
+    const updatedFields = Object.keys(translatableData);
 
     if (updatedFields.length === 0) return;
 
     await this.processLocaleUpdates(
       entityId,
-      data,
+      translatableData,
       sourceLocale,
       config,
       updatedFields,
@@ -204,18 +220,20 @@ export const translationService = {
   },
 
   async getDefaultLocaleData(
-    data: TranslatableFields,
+    data: Record<string, unknown>,
     sourceLocale: Locale,
     config: TranslationConfig,
   ): Promise<TranslatableFields> {
+    const translatableData = extractTranslatableFields(data, config);
+
     if (sourceLocale === routing.defaultLocale) {
-      return data;
+      return translatableData;
     }
 
-    const defaultLocaleData = { ...data };
+    const defaultLocaleData = { ...translatableData };
 
     for (const field of config.translatableFields) {
-      const fieldValue = data[field];
+      const fieldValue = translatableData[field];
       if (typeof fieldValue === 'string') {
         defaultLocaleData[field] = await translate(
           fieldValue,

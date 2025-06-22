@@ -13,22 +13,6 @@ const productTranslationConfig: TranslationConfig = {
   translatableFields: ['name', 'description'],
 };
 
-function extractTranslatableFields(
-  data: Prisma.ProductUpdateInput | ProductFormData,
-): Record<string, string> {
-  const result: Record<string, string> = {};
-
-  if (typeof data.name === 'string') {
-    result.name = data.name;
-  }
-
-  if (typeof data.description === 'string') {
-    result.description = data.description;
-  }
-
-  return result;
-}
-
 export const productService = {
   async getAll(locale: Locale): Promise<ProductWithCategory[]> {
     const products = await productRepository.findMany();
@@ -59,10 +43,8 @@ export const productService = {
   async create(data: ProductFormData, locale: Locale): Promise<Product> {
     const { categoryId, ...restData } = data;
 
-    const translatableData = extractTranslatableFields(restData);
-
     const defaultLocaleData = await translationService.getDefaultLocaleData(
-      translatableData,
+      restData,
       locale,
       productTranslationConfig,
     );
@@ -84,7 +66,7 @@ export const productService = {
 
     await translationService.createTranslations(
       newProduct.id,
-      translatableData,
+      restData,
       locale,
       productTranslationConfig,
     );
@@ -101,10 +83,8 @@ export const productService = {
     data: Prisma.ProductUpdateInput,
     locale: Locale,
   ): Promise<Product> {
-    const translatableData = extractTranslatableFields(data);
-
     const defaultLocaleData = await translationService.getDefaultLocaleData(
-      translatableData,
+      data,
       locale,
       productTranslationConfig,
     );
@@ -118,7 +98,7 @@ export const productService = {
 
     await translationService.updateTranslations(
       id,
-      translatableData,
+      data,
       locale,
       productTranslationConfig,
     );

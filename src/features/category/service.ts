@@ -11,22 +11,6 @@ const categoryTranslationConfig: TranslationConfig = {
   translatableFields: ['name', 'description'],
 };
 
-function extractTranslatableFields(
-  data: Prisma.CategoryCreateInput | Prisma.CategoryUpdateInput,
-): Record<string, string> {
-  const result: Record<string, string> = {};
-
-  if (typeof data.name === 'string') {
-    result.name = data.name;
-  }
-
-  if (typeof data.description === 'string') {
-    result.description = data.description;
-  }
-
-  return result;
-}
-
 export const categoryService = {
   async getAll(locale: Locale): Promise<Category[]> {
     const categories = await categoryRepository.findMany();
@@ -55,10 +39,8 @@ export const categoryService = {
     data: Prisma.CategoryCreateInput,
     locale: Locale,
   ): Promise<Category> {
-    const translatableData = extractTranslatableFields(data);
-
     const defaultLocaleData = await translationService.getDefaultLocaleData(
-      translatableData,
+      data,
       locale,
       categoryTranslationConfig,
     );
@@ -72,7 +54,7 @@ export const categoryService = {
 
     await translationService.createTranslations(
       newCategory.id,
-      translatableData,
+      data,
       locale,
       categoryTranslationConfig,
     );
@@ -89,10 +71,8 @@ export const categoryService = {
     data: Prisma.CategoryUpdateInput,
     locale: Locale,
   ): Promise<Category> {
-    const translatableData = extractTranslatableFields(data);
-
     const defaultLocaleData = await translationService.getDefaultLocaleData(
-      translatableData,
+      data,
       locale,
       categoryTranslationConfig,
     );
@@ -106,7 +86,7 @@ export const categoryService = {
 
     await translationService.updateTranslations(
       id,
-      translatableData,
+      data,
       locale,
       categoryTranslationConfig,
     );
