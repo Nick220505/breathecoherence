@@ -1,4 +1,4 @@
-import { Prisma, Product } from '@prisma/client';
+import { Product } from '@prisma/client';
 
 import { translationService } from '@/features/translation/service';
 import { TranslationConfig } from '@/features/translation/types';
@@ -48,20 +48,14 @@ export const productService = {
       productTranslationConfig,
     );
 
-    const productData: Prisma.ProductCreateInput = {
+    const newProduct = await productRepository.create({
       name: defaultLocaleData.name,
       description: defaultLocaleData.description,
       price: restData.price,
       stock: restData.stock,
       imageBase64: restData.imageBase64,
-      category: {
-        connect: {
-          id: categoryId,
-        },
-      },
-    };
-
-    const newProduct = await productRepository.create(productData);
+      category: { connect: { id: categoryId } },
+    });
 
     await translationService.createTranslations(
       newProduct.id,
@@ -79,7 +73,7 @@ export const productService = {
 
   async update(
     id: string,
-    data: Prisma.ProductUpdateInput,
+    data: ProductFormData,
     locale: Locale,
   ): Promise<Product> {
     await this.getById(id, locale);
@@ -90,12 +84,10 @@ export const productService = {
       productTranslationConfig,
     );
 
-    const updateData: Prisma.ProductUpdateInput = { ...data };
-    if (defaultLocaleData.name) updateData.name = defaultLocaleData.name;
-    if (defaultLocaleData.description)
-      updateData.description = defaultLocaleData.description;
-
-    const updatedProduct = await productRepository.update(id, updateData);
+    const updatedProduct = await productRepository.update(id, {
+      ...data,
+      ...defaultLocaleData,
+    });
 
     await translationService.updateTranslations(
       id,

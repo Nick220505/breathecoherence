@@ -1,10 +1,11 @@
-import { Category, Prisma } from '@prisma/client';
+import { Category } from '@prisma/client';
 
 import { translationService } from '@/features/translation/service';
 import { TranslationConfig } from '@/features/translation/types';
 import { Locale } from '@/i18n/routing';
 
 import { categoryRepository } from './repository';
+import { CategoryFormData } from './schema';
 
 const categoryTranslationConfig: TranslationConfig = {
   entityType: 'Category',
@@ -37,22 +38,17 @@ export const categoryService = {
     );
   },
 
-  async create(
-    data: Prisma.CategoryCreateInput,
-    locale: Locale,
-  ): Promise<Category> {
+  async create(data: CategoryFormData, locale: Locale): Promise<Category> {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
       categoryTranslationConfig,
     );
 
-    const categoryData: Prisma.CategoryCreateInput = {
+    const newCategory = await categoryRepository.create({
       name: defaultLocaleData.name,
       description: defaultLocaleData.description,
-    };
-
-    const newCategory = await categoryRepository.create(categoryData);
+    });
 
     await translationService.createTranslations(
       newCategory.id,
@@ -70,7 +66,7 @@ export const categoryService = {
 
   async update(
     id: string,
-    data: Prisma.CategoryUpdateInput,
+    data: CategoryFormData,
     locale: Locale,
   ): Promise<Category> {
     await this.getById(id, locale);
@@ -81,12 +77,10 @@ export const categoryService = {
       categoryTranslationConfig,
     );
 
-    const updateData: Prisma.CategoryUpdateInput = { ...data };
-    if (defaultLocaleData.name) updateData.name = defaultLocaleData.name;
-    if (defaultLocaleData.description)
-      updateData.description = defaultLocaleData.description;
-
-    const updatedCategory = await categoryRepository.update(id, updateData);
+    const updatedCategory = await categoryRepository.update(id, {
+      ...data,
+      ...defaultLocaleData,
+    });
 
     await translationService.updateTranslations(
       id,
