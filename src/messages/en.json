@@ -594,6 +594,9 @@
     "editing": "Editing user...",
     "created_title": "User Created",
     "updated_title": "User Updated",
+    "created_description": "The user \"{name}\" has been created successfully.",
+    "updated_description": "The user \"{name}\" has been updated successfully.",
+    "success": "Success",
     "placeholder": { "name": "Enter user name", "email": "Enter user email" }
   },
   "UserSchema": {

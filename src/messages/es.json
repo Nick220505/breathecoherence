@@ -668,6 +668,9 @@
     "editing": "Editando usuario...",
     "created_title": "Usuario Creado",
     "updated_title": "Usuario Actualizado",
+    "created_description": "El usuario \"{name}\" ha sido creado con éxito.",
+    "updated_description": "El usuario \"{name}\" ha sido actualizado con éxito.",
+    "success": "Éxito",
     "placeholder": {
       "name": "Ingresa el nombre del usuario",
       "email": "Ingresa el correo electrónico del usuario"

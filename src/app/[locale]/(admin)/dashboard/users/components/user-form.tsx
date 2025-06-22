@@ -49,9 +49,16 @@ export function UserForm({ initialData }: Readonly<UserFormProps>) {
   useEffect(() => {
     if (success && !successShown.current) {
       successShown.current = true;
+
       toast.success(
         initialData?.id ? tForm('updated_title') : tForm('created_title'),
+        {
+          description: initialData?.id
+            ? tForm('updated_description', { name: form.getValues('name') })
+            : tForm('created_description', { name: form.getValues('name') }),
+        },
       );
+
       if (initialData?.id) {
         setEditDialogOpen(false);
         setEditingUser(null);
@@ -66,6 +73,7 @@ export function UserForm({ initialData }: Readonly<UserFormProps>) {
     setEditDialogOpen,
     setEditingUser,
     tForm,
+    form,
   ]);
 
   function onSubmit(data: UserFormData) {
