@@ -94,7 +94,8 @@
     "submit": "Verificar Correo",
     "loading": "Verificando...",
     "backToRegister": "Volver al Registro",
-    "goToRegister": "Ir al Registro"
+    "goToRegister": "Ir al Registro",
+    "success": "¡Correo verificado exitosamente!"
   },
   "Navigation": {
     "nav": {

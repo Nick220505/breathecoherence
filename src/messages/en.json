@@ -127,7 +127,8 @@
     "submit": "Verify Email",
     "loading": "Verifying...",
     "backToRegister": "Back to Register",
-    "goToRegister": "Go to Register"
+    "goToRegister": "Go to Register",
+    "success": "Email verified successfully!"
   },
   "Navigation": {
     "nav": {
