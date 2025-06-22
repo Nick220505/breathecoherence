@@ -1,44 +1,45 @@
 import { Prisma, Product } from '@prisma/client';
 
-import { Locale, routing } from '@/i18n/routing';
-import { translate } from '@/lib/translation';
+import { translationService } from '@/features/translation/service';
+import { TranslationConfig } from '@/features/translation/types';
+import { Locale } from '@/i18n/routing';
 
 import { productRepository } from './repository';
 import { ProductFormData } from './schema';
 import { ProductWithCategory } from './types';
 
-async function getTranslatedProduct<T extends Product>(
-  product: T,
-  locale: Locale,
-): Promise<T> {
-  if (locale === routing.defaultLocale) {
-    return product;
+const productTranslationConfig: TranslationConfig = {
+  entityType: 'Product',
+  translatableFields: ['name', 'description'],
+};
+
+function extractTranslatableFields(
+  data: Prisma.ProductUpdateInput | ProductFormData,
+): Record<string, string> {
+  const result: Record<string, string> = {};
+
+  if (typeof data.name === 'string') {
+    result.name = data.name;
   }
 
-  const translation = await productRepository.findTranslation(
-    product.id,
-    locale,
-  );
-
-  if (translation) {
-    return {
-      ...product,
-      name: translation.name,
-      description: translation.description,
-    };
+  if (typeof data.description === 'string') {
+    result.description = data.description;
   }
 
-  return product;
+  return result;
 }
 
 export const productService = {
   async getAll(locale: Locale): Promise<ProductWithCategory[]> {
     const products = await productRepository.findMany();
-    if (locale === routing.defaultLocale) {
-      return products;
-    }
     return Promise.all(
-      products.map((product) => getTranslatedProduct(product, locale)),
+      products.map((product) =>
+        translationService.getTranslatedEntity(
+          product,
+          locale,
+          productTranslationConfig,
+        ),
+      ),
     );
   },
 
@@ -48,61 +49,51 @@ export const productService = {
   ): Promise<ProductWithCategory | null> {
     const product = await productRepository.findById(id);
     if (!product) return null;
-    return getTranslatedProduct(product, locale);
+    return translationService.getTranslatedEntity(
+      product,
+      locale,
+      productTranslationConfig,
+    );
   },
 
   async create(data: ProductFormData, locale: Locale): Promise<Product> {
     const { categoryId, ...restData } = data;
-    const productData = {
-      ...restData,
+
+    const translatableData = extractTranslatableFields(restData);
+
+    const defaultLocaleData = await translationService.getDefaultLocaleData(
+      translatableData,
+      locale,
+      productTranslationConfig,
+    );
+
+    const productData: Prisma.ProductCreateInput = {
+      name: defaultLocaleData.name,
+      description: defaultLocaleData.description,
+      price: restData.price,
+      stock: restData.stock,
+      imageBase64: restData.imageBase64,
       category: {
         connect: {
           id: categoryId,
         },
       },
     };
-    const defaultLocaleData = { ...productData };
-    if (locale !== routing.defaultLocale) {
-      if (typeof data.name === 'string') {
-        defaultLocaleData.name = await translate(
-          data.name,
-          routing.defaultLocale,
-        );
-      }
-      if (typeof data.description === 'string') {
-        defaultLocaleData.description = await translate(
-          data.description,
-          routing.defaultLocale,
-        );
-      }
-    }
 
-    const translationsToCreate = [];
-    for (const targetLocale of routing.locales) {
-      if (targetLocale === routing.defaultLocale) continue;
-      if (targetLocale === locale) {
-        translationsToCreate.push({
-          locale: targetLocale,
-          name: data.name,
-          description: data.description,
-        });
-      } else {
-        translationsToCreate.push({
-          locale: targetLocale,
-          name: await translate(defaultLocaleData.name, targetLocale),
-          description: await translate(
-            defaultLocaleData.description,
-            targetLocale,
-          ),
-        });
-      }
-    }
+    const newProduct = await productRepository.create(productData);
 
-    const newProduct = await productRepository.create(
-      defaultLocaleData,
-      translationsToCreate,
+    await translationService.createTranslations(
+      newProduct.id,
+      translatableData,
+      locale,
+      productTranslationConfig,
     );
-    return getTranslatedProduct(newProduct, locale);
+
+    return translationService.getTranslatedEntity(
+      newProduct,
+      locale,
+      productTranslationConfig,
+    );
   },
 
   async update(
@@ -110,77 +101,47 @@ export const productService = {
     data: Prisma.ProductUpdateInput,
     locale: Locale,
   ): Promise<Product> {
-    const defaultLocaleData: Prisma.ProductUpdateInput = { ...data };
-    if (locale !== routing.defaultLocale) {
-      if (typeof data.name === 'string') {
-        defaultLocaleData.name = await translate(
-          data.name,
-          routing.defaultLocale,
-        );
-      }
-      if (typeof data.description === 'string') {
-        defaultLocaleData.description = await translate(
-          data.description,
-          routing.defaultLocale,
-        );
-      }
-    }
+    const translatableData = extractTranslatableFields(data);
 
-    const baseProduct = await productRepository.findById(id);
-    if (!baseProduct) throw new Error('Product not found');
-
-    const updatedProductInDefaultLocale = {
-      ...baseProduct,
-      name:
-        typeof defaultLocaleData.name === 'string'
-          ? defaultLocaleData.name
-          : baseProduct.name,
-      description:
-        typeof defaultLocaleData.description === 'string'
-          ? defaultLocaleData.description
-          : baseProduct.description,
-    };
-
-    const translationsToUpdate = [];
-    for (const targetLocale of routing.locales) {
-      if (targetLocale === routing.defaultLocale) continue;
-      if (targetLocale === locale) {
-        translationsToUpdate.push({
-          locale: targetLocale,
-          name: data.name as string,
-          description: data.description as string,
-        });
-      } else {
-        translationsToUpdate.push({
-          locale: targetLocale,
-          name: await translate(
-            updatedProductInDefaultLocale.name,
-            targetLocale,
-          ),
-          description: await translate(
-            updatedProductInDefaultLocale.description,
-            targetLocale,
-          ),
-        });
-      }
-    }
-
-    const updatedProduct = await productRepository.update(
-      id,
-      defaultLocaleData,
-      translationsToUpdate,
+    const defaultLocaleData = await translationService.getDefaultLocaleData(
+      translatableData,
+      locale,
+      productTranslationConfig,
     );
-    return getTranslatedProduct(updatedProduct, locale);
+
+    const updateData: Prisma.ProductUpdateInput = { ...data };
+    if (defaultLocaleData.name) updateData.name = defaultLocaleData.name;
+    if (defaultLocaleData.description)
+      updateData.description = defaultLocaleData.description;
+
+    const updatedProduct = await productRepository.update(id, updateData);
+
+    await translationService.updateTranslations(
+      id,
+      translatableData,
+      locale,
+      productTranslationConfig,
+    );
+
+    return translationService.getTranslatedEntity(
+      updatedProduct,
+      locale,
+      productTranslationConfig,
+    );
   },
 
   async delete(id: string, locale: Locale): Promise<Product> {
     const productToDelete = await productRepository.findById(id);
     if (!productToDelete) throw new Error('Product not found');
 
-    const translatedProduct = await getTranslatedProduct(
+    const translatedProduct = await translationService.getTranslatedEntity(
       productToDelete,
       locale,
+      productTranslationConfig,
     );
+
+    await translationService.deleteTranslations(id, productTranslationConfig);
+
     await productRepository.delete(id);
     return translatedProduct;
   },

@@ -52,35 +52,77 @@ export async function main() {
   });
 
   await Promise.all([
-    prisma.categoryTranslation.upsert({
+    prisma.translation.upsert({
       where: {
-        categoryId_locale: {
-          categoryId: sacredGeometryCategory.id,
+        entityType_entityId_locale_field: {
+          entityType: 'Category',
+          entityId: sacredGeometryCategory.id,
           locale: 'es',
+          field: 'name',
         },
       },
       update: {},
       create: {
-        categoryId: sacredGeometryCategory.id,
+        entityType: 'Category',
+        entityId: sacredGeometryCategory.id,
         locale: 'es',
-        name: 'Geometría Sagrada',
-        description:
+        field: 'name',
+        value: 'Geometría Sagrada',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Category',
+          entityId: sacredGeometryCategory.id,
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Category',
+        entityId: sacredGeometryCategory.id,
+        locale: 'es',
+        field: 'description',
+        value:
           'Formas geométricas artesanales que encarnan patrones universales de la creación.',
       },
     }),
-    prisma.categoryTranslation.upsert({
+    prisma.translation.upsert({
       where: {
-        categoryId_locale: {
-          categoryId: flowerEssenceCategory.id,
+        entityType_entityId_locale_field: {
+          entityType: 'Category',
+          entityId: flowerEssenceCategory.id,
           locale: 'es',
+          field: 'name',
         },
       },
       update: {},
       create: {
-        categoryId: flowerEssenceCategory.id,
+        entityType: 'Category',
+        entityId: flowerEssenceCategory.id,
         locale: 'es',
-        name: 'Esencia Floral',
-        description:
+        field: 'name',
+        value: 'Esencia Floral',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Category',
+          entityId: flowerEssenceCategory.id,
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Category',
+        entityId: flowerEssenceCategory.id,
+        locale: 'es',
+        field: 'description',
+        value:
           'Esencias naturales puras que promueven el bienestar emocional y espiritual.',
       },
     }),
@@ -182,82 +224,264 @@ export async function main() {
   ]);
 
   const platonicSolidsTranslations = await Promise.all([
-    prisma.productTranslation.upsert({
-      where: { productId_locale: { productId: 'tetrahedron', locale: 'es' } },
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'tetrahedron',
+          locale: 'es',
+          field: 'name',
+        },
+      },
       update: {},
       create: {
-        productId: 'tetrahedron',
+        entityType: 'Product',
+        entityId: 'tetrahedron',
         locale: 'es',
-        name: 'Tetraedro (Elemento Fuego)',
-        description:
+        field: 'name',
+        value: 'Tetraedro (Elemento Fuego)',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'tetrahedron',
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Product',
+        entityId: 'tetrahedron',
+        locale: 'es',
+        field: 'description',
+        value:
           'Representa la transformación, el crecimiento espiritual y el poder personal. El tetraedro está asociado con el elemento Fuego.',
       },
     }),
-    prisma.productTranslation.upsert({
-      where: { productId_locale: { productId: 'cube', locale: 'es' } },
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'cube',
+          locale: 'es',
+          field: 'name',
+        },
+      },
       update: {},
       create: {
-        productId: 'cube',
+        entityType: 'Product',
+        entityId: 'cube',
         locale: 'es',
-        name: 'Cubo (Elemento Tierra)',
-        description:
+        field: 'name',
+        value: 'Cubo (Elemento Tierra)',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'cube',
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Product',
+        entityId: 'cube',
+        locale: 'es',
+        field: 'description',
+        value:
           'Simboliza la estabilidad, el anclaje y el bienestar físico. El cubo está asociado con el elemento Tierra.',
       },
     }),
-    prisma.productTranslation.upsert({
-      where: { productId_locale: { productId: 'octahedron', locale: 'es' } },
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'octahedron',
+          locale: 'es',
+          field: 'name',
+        },
+      },
       update: {},
       create: {
-        productId: 'octahedron',
+        entityType: 'Product',
+        entityId: 'octahedron',
         locale: 'es',
-        name: 'Octaedro (Elemento Aire)',
-        description:
+        field: 'name',
+        value: 'Octaedro (Elemento Aire)',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'octahedron',
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Product',
+        entityId: 'octahedron',
+        locale: 'es',
+        field: 'description',
+        value:
           'Asociado con el amor, el perdón y la compasión. El octaedro está vinculado al elemento Aire.',
       },
     }),
-    prisma.productTranslation.upsert({
-      where: { productId_locale: { productId: 'icosahedron', locale: 'es' } },
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'icosahedron',
+          locale: 'es',
+          field: 'name',
+        },
+      },
       update: {},
       create: {
-        productId: 'icosahedron',
+        entityType: 'Product',
+        entityId: 'icosahedron',
         locale: 'es',
-        name: 'Icosaedro (Elemento Agua)',
-        description:
+        field: 'name',
+        value: 'Icosaedro (Elemento Agua)',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'icosahedron',
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Product',
+        entityId: 'icosahedron',
+        locale: 'es',
+        field: 'description',
+        value:
           'Vinculado a la alegría, el flujo emocional y la fluidez. El icosaedro está conectado con el elemento Agua.',
       },
     }),
-    prisma.productTranslation.upsert({
-      where: { productId_locale: { productId: 'dodecahedron', locale: 'es' } },
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'dodecahedron',
+          locale: 'es',
+          field: 'name',
+        },
+      },
       update: {},
       create: {
-        productId: 'dodecahedron',
+        entityType: 'Product',
+        entityId: 'dodecahedron',
         locale: 'es',
-        name: 'Dodecaedro (Elemento Éter)',
-        description:
+        field: 'name',
+        value: 'Dodecaedro (Elemento Éter)',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'dodecahedron',
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Product',
+        entityId: 'dodecahedron',
+        locale: 'es',
+        field: 'description',
+        value:
           'Representa el universo, la sabiduría y la conexión espiritual. El dodecaedro está asociado con el elemento Éter/Cosmos.',
       },
     }),
   ]);
 
   const bachFlowersTranslations = await Promise.all([
-    prisma.productTranslation.upsert({
-      where: { productId_locale: { productId: 'aspen', locale: 'es' } },
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'aspen',
+          locale: 'es',
+          field: 'name',
+        },
+      },
       update: {},
       create: {
-        productId: 'aspen',
+        entityType: 'Product',
+        entityId: 'aspen',
         locale: 'es',
-        name: 'Esencia de Álamo',
-        description: 'Para miedos vagos e inexplicables.',
+        field: 'name',
+        value: 'Esencia de Álamo',
       },
     }),
-    prisma.productTranslation.upsert({
-      where: { productId_locale: { productId: 'olive', locale: 'es' } },
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'aspen',
+          locale: 'es',
+          field: 'description',
+        },
+      },
       update: {},
       create: {
-        productId: 'olive',
+        entityType: 'Product',
+        entityId: 'aspen',
         locale: 'es',
-        name: 'Esencia de Olivo',
-        description: 'Para el agotamiento tras un esfuerzo mental o físico.',
+        field: 'description',
+        value: 'Para miedos vagos e inexplicables.',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'olive',
+          locale: 'es',
+          field: 'name',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Product',
+        entityId: 'olive',
+        locale: 'es',
+        field: 'name',
+        value: 'Esencia de Olivo',
+      },
+    }),
+    prisma.translation.upsert({
+      where: {
+        entityType_entityId_locale_field: {
+          entityType: 'Product',
+          entityId: 'olive',
+          locale: 'es',
+          field: 'description',
+        },
+      },
+      update: {},
+      create: {
+        entityType: 'Product',
+        entityId: 'olive',
+        locale: 'es',
+        field: 'description',
+        value: 'Para el agotamiento tras un esfuerzo mental o físico.',
       },
     }),
   ]);

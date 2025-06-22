@@ -1,93 +1,87 @@
 import { Category, Prisma } from '@prisma/client';
 
-import { Locale, routing } from '@/i18n/routing';
-import { translate } from '@/lib/translation';
+import { translationService } from '@/features/translation/service';
+import { TranslationConfig } from '@/features/translation/types';
+import { Locale } from '@/i18n/routing';
 
 import { categoryRepository } from './repository';
 
-async function getTranslatedCategory<T extends Category>(
-  category: T,
-  locale: Locale,
-): Promise<T> {
-  if (locale === routing.defaultLocale) return category;
+const categoryTranslationConfig: TranslationConfig = {
+  entityType: 'Category',
+  translatableFields: ['name', 'description'],
+};
 
-  const translation = await categoryRepository.findTranslation(
-    category.id,
-    locale,
-  );
-  if (translation) {
-    return {
-      ...category,
-      name: translation.name,
-      description: translation.description,
-    };
+function extractTranslatableFields(
+  data: Prisma.CategoryCreateInput | Prisma.CategoryUpdateInput,
+): Record<string, string> {
+  const result: Record<string, string> = {};
+
+  if (typeof data.name === 'string') {
+    result.name = data.name;
   }
-  return category;
+
+  if (typeof data.description === 'string') {
+    result.description = data.description;
+  }
+
+  return result;
 }
 
 export const categoryService = {
   async getAll(locale: Locale): Promise<Category[]> {
     const categories = await categoryRepository.findMany();
-    if (locale === routing.defaultLocale) return categories;
-    return Promise.all(categories.map((c) => getTranslatedCategory(c, locale)));
+    return Promise.all(
+      categories.map((category) =>
+        translationService.getTranslatedEntity(
+          category,
+          locale,
+          categoryTranslationConfig,
+        ),
+      ),
+    );
   },
 
   async getById(id: string, locale: Locale): Promise<Category | null> {
     const category = await categoryRepository.findById(id);
     if (!category) return null;
-    return getTranslatedCategory(category, locale);
+    return translationService.getTranslatedEntity(
+      category,
+      locale,
+      categoryTranslationConfig,
+    );
   },
 
   async create(
     data: Prisma.CategoryCreateInput,
     locale: Locale,
   ): Promise<Category> {
-    const defaultLocaleData = { ...data };
-    if (locale !== routing.defaultLocale) {
-      if (typeof data.name === 'string') {
-        defaultLocaleData.name = await translate(
-          data.name,
-          routing.defaultLocale,
-        );
-      }
-      if (typeof data.description === 'string') {
-        defaultLocaleData.description = await translate(
-          data.description,
-          routing.defaultLocale,
-        );
-      }
-    }
+    const translatableData = extractTranslatableFields(data);
 
-    const translationsToCreate: {
-      locale: string;
-      name: string;
-      description: string;
-    }[] = [];
-    for (const targetLocale of routing.locales) {
-      if (targetLocale === routing.defaultLocale) continue;
-      if (targetLocale === locale) {
-        translationsToCreate.push({
-          locale: targetLocale,
-          name: data.name,
-          description: data.description!,
-        });
-      } else {
-        translationsToCreate.push({
-          locale: targetLocale,
-          name: await translate(defaultLocaleData.name, targetLocale),
-          description: await translate(
-            defaultLocaleData.description!,
-            targetLocale,
-          ),
-        });
-      }
-    }
-
-    const newCategory = await categoryRepository.create(
-      defaultLocaleData,
-      translationsToCreate,
+    const defaultLocaleData = await translationService.getDefaultLocaleData(
+      translatableData,
+      locale,
+      categoryTranslationConfig,
     );
-    return getTranslatedCategory(newCategory, locale);
+
+    const categoryData: Prisma.CategoryCreateInput = {
+      name: defaultLocaleData.name,
+      description: defaultLocaleData.description,
+    };
+
+    const newCategory = await categoryRepository.create(categoryData);
+
+    await translationService.createTranslations(
+      newCategory.id,
+      translatableData,
+      locale,
+      categoryTranslationConfig,
+    );
+
+    return translationService.getTranslatedEntity(
+      newCategory,
+      locale,
+      categoryTranslationConfig,
+    );
   },
 
   async update(
@@ -95,71 +89,48 @@ export const categoryService = {
     data: Prisma.CategoryUpdateInput,
     locale: Locale,
   ): Promise<Category> {
-    const defaultLocaleData: Prisma.CategoryUpdateInput = { ...data };
-    if (locale !== routing.defaultLocale) {
-      if (typeof data.name === 'string') {
-        defaultLocaleData.name = await translate(
-          data.name,
-          routing.defaultLocale,
-        );
-      }
-      if (typeof data.description === 'string') {
-        defaultLocaleData.description = await translate(
-          data.description,
-          routing.defaultLocale,
-        );
-      }
-    }
+    const translatableData = extractTranslatableFields(data);
 
-    const baseCategory = await categoryRepository.findById(id);
-    if (!baseCategory) throw new Error('Category not found');
-
-    const updatedCategoryInDefault = {
-      ...baseCategory,
-      name: (defaultLocaleData.name as string) ?? baseCategory.name,
-      description:
-        (defaultLocaleData.description as string) ?? baseCategory.description,
-    };
-
-    const translationsToUpdate: {
-      locale: string;
-      name: string;
-      description: string;
-    }[] = [];
-    for (const targetLocale of routing.locales) {
-      if (targetLocale === routing.defaultLocale) continue;
-      if (targetLocale === locale) {
-        translationsToUpdate.push({
-          locale: targetLocale,
-          name: data.name as string,
-          description: data.description as string,
-        });
-      } else {
-        translationsToUpdate.push({
-          locale: targetLocale,
-          name: await translate(updatedCategoryInDefault.name, targetLocale),
-          description: await translate(
-            updatedCategoryInDefault.description ?? '',
-            targetLocale,
-          ),
-        });
-      }
-    }
-
-    const updatedCategory = await categoryRepository.update(
-      id,
-      defaultLocaleData,
-      translationsToUpdate,
+    const defaultLocaleData = await translationService.getDefaultLocaleData(
+      translatableData,
+      locale,
+      categoryTranslationConfig,
     );
-    return getTranslatedCategory(updatedCategory, locale);
+
+    const updateData: Prisma.CategoryUpdateInput = { ...data };
+    if (defaultLocaleData.name) updateData.name = defaultLocaleData.name;
+    if (defaultLocaleData.description)
+      updateData.description = defaultLocaleData.description;
+
+    const updatedCategory = await categoryRepository.update(id, updateData);
+
+    await translationService.updateTranslations(
+      id,
+      translatableData,
+      locale,
+      categoryTranslationConfig,
+    );
+
+    return translationService.getTranslatedEntity(
+      updatedCategory,
+      locale,
+      categoryTranslationConfig,
+    );
   },
 
   async delete(id: string, locale: Locale): Promise<Category> {
     const categoryToDelete = await categoryRepository.findById(id);
     if (!categoryToDelete) throw new Error('Category not found');
 
-    const translated = await getTranslatedCategory(categoryToDelete, locale);
+    const translatedCategory = await translationService.getTranslatedEntity(
+      categoryToDelete,
+      locale,
+      categoryTranslationConfig,
+    );
+
+    await translationService.deleteTranslations(id, categoryTranslationConfig);
+
     await categoryRepository.delete(id);
-    return translated;
+    return translatedCategory;
   },
 };

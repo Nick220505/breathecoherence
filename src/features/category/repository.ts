@@ -1,4 +1,4 @@
-import { Category, CategoryTranslation, Prisma } from '@prisma/client';
+import { Category, Prisma } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 
@@ -11,51 +11,15 @@ export const categoryRepository = {
     return prisma.category.findUnique({ where: { id } });
   },
 
-  create(
-    data: Prisma.CategoryCreateInput,
-    translations: { locale: string; name: string; description: string }[],
-  ): Promise<Category> {
-    return prisma.$transaction(async (tx) => {
-      const newCategory = await tx.category.create({ data });
-      for (const translation of translations) {
-        await tx.categoryTranslation.create({
-          data: { ...translation, categoryId: newCategory.id },
-        });
-      }
-      return newCategory;
-    });
+  create(data: Prisma.CategoryCreateInput): Promise<Category> {
+    return prisma.category.create({ data });
   },
 
-  update(
-    id: string,
-    data: Prisma.CategoryUpdateInput,
-    translations: { locale: string; name: string; description: string }[],
-  ): Promise<Category> {
-    return prisma.$transaction(async (tx) => {
-      const updatedCategory = await tx.category.update({ where: { id }, data });
-      for (const { locale, name, description } of translations) {
-        await tx.categoryTranslation.upsert({
-          where: {
-            categoryId_locale: { categoryId: updatedCategory.id, locale },
-          },
-          update: { name, description },
-          create: { locale, name, description, categoryId: updatedCategory.id },
-        });
-      }
-      return updatedCategory;
-    });
+  update(id: string, data: Prisma.CategoryUpdateInput): Promise<Category> {
+    return prisma.category.update({ where: { id }, data });
   },
 
   delete(id: string): Promise<Category> {
     return prisma.category.delete({ where: { id } });
-  },
-
-  findTranslation(
-    categoryId: string,
-    locale: string,
-  ): Promise<CategoryTranslation | null> {
-    return prisma.categoryTranslation.findUnique({
-      where: { categoryId_locale: { categoryId, locale } },
-    });
   },
 };

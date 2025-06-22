@@ -6,8 +6,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.orderItem.deleteMany({});
-  await prisma.productTranslation.deleteMany({});
-  await prisma.categoryTranslation.deleteMany({});
+  await prisma.translation.deleteMany({});
   await prisma.order.deleteMany({});
   await prisma.product.deleteMany({});
   await prisma.category.deleteMany({});

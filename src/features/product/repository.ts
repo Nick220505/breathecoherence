@@ -1,4 +1,4 @@
-import { Prisma, Product, ProductTranslation } from '@prisma/client';
+import { Prisma, Product } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 
@@ -19,46 +19,12 @@ export const productRepository = {
     });
   },
 
-  findTranslation(
-    productId: string,
-    locale: string,
-  ): Promise<ProductTranslation | null> {
-    return prisma.productTranslation.findUnique({
-      where: { productId_locale: { productId, locale } },
-    });
+  create(data: Prisma.ProductCreateInput): Promise<Product> {
+    return prisma.product.create({ data });
   },
 
-  create(
-    data: Prisma.ProductCreateInput,
-    translations: { locale: string; name: string; description: string }[],
-  ): Promise<Product> {
-    return prisma.$transaction(async (tx) => {
-      const newProduct = await tx.product.create({ data });
-      for (const translation of translations) {
-        await tx.productTranslation.create({
-          data: { ...translation, productId: newProduct.id },
-        });
-      }
-      return newProduct;
-    });
-  },
-
-  update(
-    id: string,
-    data: Prisma.ProductUpdateInput,
-    translations: { locale: string; name: string; description: string }[],
-  ): Promise<Product> {
-    return prisma.$transaction(async (tx) => {
-      const updatedProduct = await tx.product.update({ where: { id }, data });
-      for (const { locale, name, description } of translations) {
-        await tx.productTranslation.upsert({
-          where: { productId_locale: { productId: updatedProduct.id, locale } },
-          update: { name, description },
-          create: { locale, name, description, productId: updatedProduct.id },
-        });
-      }
-      return updatedProduct;
-    });
+  update(id: string, data: Prisma.ProductUpdateInput): Promise<Product> {
+    return prisma.product.update({ where: { id }, data });
   },
 
   delete(id: string): Promise<Product> {
