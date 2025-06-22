@@ -67,6 +67,10 @@
       "flower_essences": "Flower Essences"
     }
   },
+  "UserRoles": {
+    "ADMIN": "ADMIN",
+    "USER": "USER"
+  },
   "RegisterPage": {
     "title": "Create Account",
     "description": "Join our community",

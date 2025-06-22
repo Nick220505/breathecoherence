@@ -30,6 +30,7 @@ interface UserTableProps {
 export function UserTable({ users }: Readonly<UserTableProps>) {
   const tHeader = useTranslations('UserTableHeader');
   const tRow = useTranslations('UserTableRow');
+  const tRoles = useTranslations('UserRoles');
   const locale = useLocale();
 
   const {
@@ -67,7 +68,7 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
               <TableRow key={user.id}>
                 <TableCell className="font-medium">{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
+                <TableCell>{tRoles(user.role)}</TableCell>
                 <TableCell>
                   {new Intl.DateTimeFormat(locale).format(
                     new Date(user.createdAt),

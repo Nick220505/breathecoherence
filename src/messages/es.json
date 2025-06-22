@@ -34,6 +34,10 @@
       "flower_essences": "Esencias Florales"
     }
   },
+  "UserRoles": {
+    "ADMIN": "ADMINISTRADOR",
+    "USER": "USUARIO"
+  },
   "RegisterPage": {
     "title": "Crear Cuenta",
     "description": "Únete a nuestra comunidad",

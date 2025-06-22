@@ -29,6 +29,7 @@ interface UserFormProps {
 
 export function UserForm({ initialData }: Readonly<UserFormProps>) {
   const tForm = useTranslations('UserForm');
+  const tRoles = useTranslations('UserRoles');
   const [, startTransition] = useTransition();
   const { setAddDialogOpen, setEditDialogOpen, setEditingUser } =
     useUserManagementStore();
@@ -126,8 +127,8 @@ export function UserForm({ initialData }: Readonly<UserFormProps>) {
               <SelectValue placeholder={tForm('role')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="ADMIN">ADMIN</SelectItem>
-              <SelectItem value="USER">USER</SelectItem>
+              <SelectItem value="ADMIN">{tRoles('ADMIN')}</SelectItem>
+              <SelectItem value="USER">{tRoles('USER')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
