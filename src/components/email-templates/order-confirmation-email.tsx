@@ -25,9 +25,14 @@ interface OrderConfirmationEmailProps {
   baseUrl: string;
 }
 
-export const OrderConfirmationEmail: React.FC<
-  Readonly<OrderConfirmationEmailProps>
-> = ({ orderId, customerName, items, total, shippingAddress, baseUrl }) => {
+export function OrderConfirmationEmail({
+  orderId,
+  customerName,
+  items,
+  total,
+  shippingAddress,
+  baseUrl,
+}: Readonly<OrderConfirmationEmailProps>) {
   return (
     <Tailwind config={emailTailwindConfig}>
       <div className="mx-auto max-w-[600px] font-sans">
@@ -116,6 +121,6 @@ export const OrderConfirmationEmail: React.FC<
       </div>
     </Tailwind>
   );
-};
+}
 
 export default OrderConfirmationEmail;
