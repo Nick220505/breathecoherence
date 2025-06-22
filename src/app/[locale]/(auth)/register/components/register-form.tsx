@@ -75,7 +75,7 @@ export default function RegisterForm() {
     if (success) {
       router.push({
         pathname: '/verify',
-        query: { email: encodeURIComponent(form.getValues('email')) },
+        query: { email: form.getValues('email') },
       });
     }
   }, [success, router, form]);

@@ -12,7 +12,8 @@ export default async function VerifyPage(
   }>,
 ) {
   const searchParams = await props.searchParams;
-  const email = searchParams?.email;
+  const rawEmail = searchParams?.email;
+  const email = rawEmail ? decodeURIComponent(rawEmail) : undefined;
 
   if (!email) {
     redirect('/register');
