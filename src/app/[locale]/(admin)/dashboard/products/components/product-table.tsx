@@ -4,6 +4,7 @@ import { Edit, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -89,6 +90,16 @@ export function ProductTable({ products }: Readonly<ProductTableProps>) {
                 imageToDisplay = '/products/flower-essence.svg';
               }
 
+              let stockBadgeVariant = 'destructive';
+              if (product.stock > 10) {
+                stockBadgeVariant = 'default';
+              } else if (product.stock > 0) {
+                stockBadgeVariant = 'secondary';
+              }
+
+              const stockDisplay =
+                product.stock > 0 ? product.stock : 'Out of stock';
+
               return (
                 <TableRow key={product.id}>
                   <TableCell>
@@ -112,10 +123,27 @@ export function ProductTable({ products }: Readonly<ProductTableProps>) {
                       />
                     </div>
                   </TableCell>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.category.name}</TableCell>
-                  <TableCell>${product.price.toFixed(2)}</TableCell>
-                  <TableCell>{product.stock}</TableCell>
+                  <TableCell className="font-medium">{product.name}</TableCell>
+                  <TableCell>
+                    <Badge variant="secondary">{product.category.name}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="outline" className="font-semibold">
+                      ${product.price.toFixed(2)}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant={
+                        stockBadgeVariant as
+                          | 'default'
+                          | 'secondary'
+                          | 'destructive'
+                      }
+                    >
+                      {stockDisplay}
+                    </Badge>
+                  </TableCell>
                   <TableCell>
                     {new Intl.DateTimeFormat(locale, {
                       dateStyle: 'medium',

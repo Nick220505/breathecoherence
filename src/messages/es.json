@@ -268,6 +268,8 @@
     "price": "Precio",
     "stock": "Stock",
     "actions": "Acciones",
+    "createdAt": "Creado en",
+    "updatedAt": "Actualizado en",
     "filter_by_name": "Filtrar por nombre",
     "sort_by_name": "Ordenar por nombre",
     "filter_by_type": "Filtrar por tipo",
