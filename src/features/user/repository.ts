@@ -1,8 +1,7 @@
-import { Prisma, User } from '@prisma/client';
-
 import prisma from '@/lib/prisma';
 
 import type { UserSummary } from './types';
+import type { Prisma, User } from '@prisma/client';
 
 export const userRepository = {
   async findMany(): Promise<UserSummary[]> {

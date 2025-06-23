@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Role } from '@prisma/client';
 import { Loader2, Mail, User as UserIcon, Shield } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
@@ -20,8 +21,6 @@ import { createUser, updateUser } from '@/features/user/actions';
 import { userSchema, UserFormData } from '@/features/user/schema';
 
 import { useUserManagementStore } from './store';
-
-import type { Role } from '@prisma/client';
 
 interface UserFormProps {
   initialData?: UserFormData;

@@ -1,11 +1,11 @@
-import { Category } from '@prisma/client';
-
 import { translationService } from '@/features/translation/service';
-import { TranslationConfig } from '@/features/translation/types';
 import { Locale } from '@/i18n/routing';
 
 import { categoryRepository } from './repository';
 import { CategoryFormData } from './schema';
+
+import type { TranslationConfig } from '@/features/translation/types';
+import type { Category } from '@prisma/client';
 
 const categoryTranslationConfig: TranslationConfig = {
   entityType: 'Category',

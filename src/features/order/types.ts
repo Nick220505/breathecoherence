@@ -1,4 +1,4 @@
-import { Order, Prisma } from '@prisma/client';
+import type { Order, Prisma } from '@prisma/client';
 
 export interface OrderSummary
   extends Pick<Order, 'id' | 'total' | 'status' | 'createdAt'> {

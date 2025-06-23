@@ -1,16 +1,17 @@
 'use server';
 
-import { Product } from '@prisma/client';
 import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Locale } from '@/i18n/routing';
-import { ActionState, FormState } from '@/lib/types';
 
 import { productSchema } from './schema';
 import { productService } from './service';
-import { ProductWithCategory } from './types';
+
+import type { ProductWithCategory } from './types';
+import type { ActionState, FormState } from '@/lib/types';
+import type { Product } from '@prisma/client';
 
 export async function getAllProducts(): Promise<ProductWithCategory[]> {
   const locale = (await getLocale()) as Locale;

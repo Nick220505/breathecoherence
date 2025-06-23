@@ -1,6 +1,5 @@
 'use server';
 
-import { User } from '@prisma/client';
 import { getTranslations } from 'next-intl/server';
 
 import { type FormState } from '@/lib/types';
@@ -13,7 +12,9 @@ import {
 } from './errors';
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
-import { AuthUser } from './types';
+
+import type { AuthUser } from './types';
+import type { User } from '@prisma/client';
 
 export async function register(
   _prevState: FormState,
