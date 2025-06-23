@@ -39,7 +39,7 @@ export default async function LocaleLayout({
             <Footer />
           </div>
           <div className="fixed right-4 bottom-4 z-50">
-            <Toaster />
+            <Toaster closeButton richColors />
           </div>
           <ChatBot />
         </Providers>
