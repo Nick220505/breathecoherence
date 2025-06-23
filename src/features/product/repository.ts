@@ -11,6 +11,14 @@ export const productRepository = {
     });
   },
 
+  findByCategory(categoryName: string): Promise<ProductWithCategory[]> {
+    return prisma.product.findMany({
+      where: { category: { name: categoryName } },
+      include: { category: true },
+      orderBy: { createdAt: 'desc' },
+    });
+  },
+
   findById(id: string): Promise<ProductWithCategory | null> {
     return prisma.product.findUnique({
       where: { id },

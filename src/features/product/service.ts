@@ -44,6 +44,39 @@ export const productService = {
     );
   },
 
+  async getByCategory(
+    categoryName: string,
+    locale: Locale,
+  ): Promise<ProductWithCategory[]> {
+    const products = await productRepository.findByCategory(categoryName);
+
+    const categoryTranslationConfig = {
+      entityType: 'Category',
+      translatableFields: ['name', 'description'],
+    };
+
+    return Promise.all(
+      products.map(async (product) => {
+        const translatedProduct = await translationService.getTranslatedEntity(
+          product,
+          locale,
+          productTranslationConfig,
+        );
+
+        const translatedCategory = await translationService.getTranslatedEntity(
+          product.category,
+          locale,
+          categoryTranslationConfig,
+        );
+
+        return {
+          ...translatedProduct,
+          category: translatedCategory,
+        };
+      }),
+    );
+  },
+
   async getById(id: string, locale: Locale): Promise<ProductWithCategory> {
     const product = await productRepository.findById(id);
 
