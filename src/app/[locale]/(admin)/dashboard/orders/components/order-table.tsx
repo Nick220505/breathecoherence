@@ -41,9 +41,10 @@ export function OrderTable({ orders }: Readonly<OrderTableProps>) {
               <TableCell>{order.total.toFixed(2)}</TableCell>
               <TableCell>{order.status}</TableCell>
               <TableCell>
-                {new Intl.DateTimeFormat(locale).format(
-                  new Date(order.createdAt),
-                )}
+                {new Intl.DateTimeFormat(locale, {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                }).format(new Date(order.createdAt))}
               </TableCell>
             </TableRow>
           ))}

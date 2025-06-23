@@ -78,14 +78,16 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  {new Intl.DateTimeFormat(locale).format(
-                    new Date(user.createdAt),
-                  )}
+                  {new Intl.DateTimeFormat(locale, {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  }).format(new Date(user.createdAt))}
                 </TableCell>
                 <TableCell>
-                  {new Intl.DateTimeFormat(locale).format(
-                    new Date(user.updatedAt),
-                  )}
+                  {new Intl.DateTimeFormat(locale, {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  }).format(new Date(user.updatedAt))}
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">

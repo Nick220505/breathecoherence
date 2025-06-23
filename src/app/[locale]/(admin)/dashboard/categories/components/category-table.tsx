@@ -1,7 +1,7 @@
 'use client';
 
 import { Edit, Trash2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -36,6 +36,7 @@ interface CategoryTableProps {
 export function CategoryTable({ categories }: Readonly<CategoryTableProps>) {
   const t = useTranslations('dashboard');
   const tRow = useTranslations('CategoryTableRow');
+  const locale = useLocale();
   const {
     setEditDialogOpen,
     setEditingCategory,
@@ -74,10 +75,16 @@ export function CategoryTable({ categories }: Readonly<CategoryTableProps>) {
                 <TableCell className="font-medium">{category.name}</TableCell>
                 <TableCell>{category.description ?? ''}</TableCell>
                 <TableCell>
-                  {new Date(category.createdAt).toLocaleDateString()}
+                  {new Intl.DateTimeFormat(locale, {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  }).format(new Date(category.createdAt))}
                 </TableCell>
                 <TableCell>
-                  {new Date(category.updatedAt).toLocaleDateString()}
+                  {new Intl.DateTimeFormat(locale, {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  }).format(new Date(category.updatedAt))}
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">

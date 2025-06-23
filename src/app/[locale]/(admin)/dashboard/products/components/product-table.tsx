@@ -2,7 +2,7 @@
 
 import { Edit, Trash2 } from 'lucide-react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -32,6 +32,7 @@ interface ProductTableProps {
 export function ProductTable({ products }: Readonly<ProductTableProps>) {
   const t = useTranslations('ProductTableRow');
   const tHeader = useTranslations('ProductTableHeader');
+  const locale = useLocale();
 
   const {
     setEditDialogOpen,
@@ -116,10 +117,16 @@ export function ProductTable({ products }: Readonly<ProductTableProps>) {
                   <TableCell>${product.price.toFixed(2)}</TableCell>
                   <TableCell>{product.stock}</TableCell>
                   <TableCell>
-                    {new Date(product.createdAt).toLocaleDateString()}
+                    {new Intl.DateTimeFormat(locale, {
+                      dateStyle: 'medium',
+                      timeStyle: 'short',
+                    }).format(new Date(product.createdAt))}
                   </TableCell>
                   <TableCell>
-                    {new Date(product.updatedAt).toLocaleDateString()}
+                    {new Intl.DateTimeFormat(locale, {
+                      dateStyle: 'medium',
+                      timeStyle: 'short',
+                    }).format(new Date(product.updatedAt))}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
