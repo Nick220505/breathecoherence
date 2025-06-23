@@ -85,7 +85,7 @@ export function ProductCard({
             {product.description}
           </p>
         </CardContent>
-        <CardFooter className="xs:flex-row flex flex-col items-center justify-between border-t border-purple-500/10 bg-white/5 dark:bg-white/5">
+        <CardFooter className="xs:flex-row flex flex-col items-center justify-between border-t border-purple-500/10">
           <span className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent dark:from-purple-400 dark:to-blue-400">
             ${product.price.toFixed(2)}
           </span>
