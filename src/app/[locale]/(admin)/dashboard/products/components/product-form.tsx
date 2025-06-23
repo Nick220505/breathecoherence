@@ -21,11 +21,19 @@ import {
   useState,
   useTransition,
 } from 'react';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { useForm, useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -48,156 +56,129 @@ import type { Category } from '@prisma/client';
 
 function FormFields({ categories }: Readonly<{ categories: Category[] }>) {
   const t = useTranslations('FormFields');
-  const {
-    register,
-    formState: { errors },
-    setValue,
-    getValues,
-  } = useFormContext<ProductFormData>();
+  const { control } = useFormContext<ProductFormData>();
 
   return (
     <>
-      <div className="space-y-2">
-        <label
-          htmlFor="name"
-          className="flex items-center gap-2 text-sm font-medium"
-        >
-          <Tags className="h-4 w-4" />
-          {t('product_name')}
-        </label>
-        <Input
-          id="name"
-          {...register('name')}
-          placeholder={t('placeholder.name')}
-        />
-        {errors.name && (
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-1 text-sm text-red-500"
-          >
-            <AlertCircle className="h-4 w-4" />
-            {errors.name.message}
-          </motion.p>
+      <FormField
+        control={control}
+        name="name"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="flex items-center gap-2">
+              <Tags className="h-4 w-4" />
+              {t('product_name')}
+            </FormLabel>
+            <FormControl>
+              <Input placeholder={t('placeholder.name')} {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
         )}
-      </div>
+      />
 
-      <div className="space-y-2">
-        <label
-          htmlFor="description"
-          className="flex items-center gap-2 text-sm font-medium"
-        >
-          <Info className="h-4 w-4" />
-          {t('description')}
-        </label>
-        <Textarea
-          id="description"
-          {...register('description')}
-          placeholder={t('placeholder.description')}
-        />
-        {errors.description && (
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-1 text-sm text-red-500"
-          >
-            <AlertCircle className="h-4 w-4" />
-            {errors.description.message}
-          </motion.p>
+      <FormField
+        control={control}
+        name="description"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="flex items-center gap-2">
+              <Info className="h-4 w-4" />
+              {t('description')}
+            </FormLabel>
+            <FormControl>
+              <Textarea placeholder={t('placeholder.description')} {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
         )}
-      </div>
+      />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="space-y-2 sm:col-span-1">
-          <label
-            htmlFor="categoryId"
-            className="flex items-center gap-2 text-sm font-medium"
-          >
-            <Box className="h-4 w-4" />
-            {t('category')}
-          </label>
-          <Select
-            onValueChange={(value) => setValue('categoryId', value)}
-            defaultValue={getValues('categoryId')}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder={t('placeholder.category')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>{t('categories.label')}</SelectLabel>
-                {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
-                    {category.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          {errors.categoryId && (
-            <motion.p
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-1 text-sm text-red-500"
-            >
-              <AlertCircle className="h-4 w-4" />
-              {errors.categoryId.message}
-            </motion.p>
-          )}
+        <div className="sm:col-span-1">
+          <FormField
+            control={control}
+            name="categoryId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Box className="h-4 w-4" />
+                  {t('category')}
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder={t('placeholder.category')} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>{t('categories.label')}</SelectLabel>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="grid grid-cols-2 gap-4 sm:col-span-2">
-          <div className="space-y-2">
-            <label
-              htmlFor="price"
-              className="flex items-center gap-2 text-sm font-medium"
-            >
-              <DollarSign className="h-4 w-4" />
-              {t('price')}
-            </label>
-            <Input
-              id="price"
-              type="number"
-              step="0.01"
-              {...register('price')}
-              placeholder={t('placeholder.price')}
-            />
-            {errors.price && (
-              <motion.p
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-1 text-sm text-red-500"
-              >
-                <AlertCircle className="h-4 w-4" />
-                {errors.price.message}
-              </motion.p>
+          <FormField
+            control={control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <DollarSign className="h-4 w-4" />
+                  {t('price')}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    placeholder={t('placeholder.price')}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(parseFloat(e.target.value) || 0)
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-          </div>
+          />
 
-          <div className="space-y-2">
-            <label
-              htmlFor="stock"
-              className="flex items-center gap-2 text-sm font-medium"
-            >
-              <Package2 className="h-4 w-4" />
-              {t('stock')}
-            </label>
-            <Input
-              id="stock"
-              type="number"
-              {...register('stock')}
-              placeholder={t('placeholder.stock')}
-            />
-            {errors.stock && (
-              <motion.p
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-1 text-sm text-red-500"
-              >
-                <AlertCircle className="h-4 w-4" />
-                {errors.stock.message}
-              </motion.p>
+          <FormField
+            control={control}
+            name="stock"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Package2 className="h-4 w-4" />
+                  {t('stock')}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    placeholder={t('placeholder.stock')}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(parseInt(e.target.value) || 0)
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-          </div>
+          />
         </div>
       </div>
     </>
@@ -205,104 +186,114 @@ function FormFields({ categories }: Readonly<{ categories: Category[] }>) {
 }
 
 function ImageUpload() {
-  const { getValues, setValue } = useFormContext<ProductFormData>();
+  const { control, getValues } = useFormContext<ProductFormData>();
   const t = useTranslations('ImageUpload');
-  const [imageData, setImageData] = useState(getValues('imageBase64') ?? '');
   const [uploadingImage, setUploadingImage] = useState(false);
   const productCategoryId = getValues('categoryId');
   const isSacredGeometry = productCategoryId === 'clzot3x5w000014rorc81n5jp';
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      return;
-    }
-
-    setUploadingImage(true);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result as string;
-      setImageData(base64String);
-      setValue('imageBase64', base64String);
-      setUploadingImage(false);
-    };
-    reader.onerror = () => {
-      console.error('Error reading file');
-      setUploadingImage(false);
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
-    <div className="space-y-2">
-      <label className="flex items-center gap-2 text-sm font-medium">
-        <ImageIcon className="h-4 w-4" />
-        {t('label')}
-      </label>
+    <FormField
+      control={control}
+      name="imageBase64"
+      render={({ field }) => {
+        const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+          const file = e.target.files?.[0];
+          if (!file) {
+            return;
+          }
 
-      <div className="flex items-center gap-4">
-        <div
-          className={cn(
-            'relative h-24 w-24 overflow-hidden rounded-lg border-2 border-dashed',
-            uploadingImage && 'opacity-50',
-          )}
-        >
-          {uploadingImage && (
-            <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs">
-              <Loader2 className="text-primary h-6 w-6 animate-spin" />
-            </div>
-          )}
-          {imageData ? (
-            <Image
-              src={imageData}
-              alt={t('alt.product')}
-              fill
-              className="object-cover"
-              sizes="96px"
-            />
-          ) : (
-            <Image
-              src={
-                isSacredGeometry
-                  ? '/products/sacred-geometry.svg'
-                  : '/products/flower-essence.svg'
-              }
-              alt={t('alt.default')}
-              fill
-              className="object-cover"
-              sizes="96px"
-            />
-          )}
-        </div>
+          setUploadingImage(true);
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64String = reader.result as string;
+            field.onChange(base64String);
+            setUploadingImage(false);
+          };
+          reader.onerror = () => {
+            console.error('Error reading file');
+            setUploadingImage(false);
+          };
+          reader.readAsDataURL(file);
+        };
 
-        <div className="flex-1">
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            disabled={uploadingImage}
-            className="hidden"
-            id="image-upload"
-          />
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full"
-            disabled={uploadingImage}
-            onClick={() => document.getElementById('image-upload')?.click()}
-          >
-            {uploadingImage ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {t('loading')}
-              </>
-            ) : (
-              t('placeholder.choose_file')
-            )}
-          </Button>
-        </div>
-      </div>
-    </div>
+        return (
+          <FormItem>
+            <FormLabel className="flex items-center gap-2">
+              <ImageIcon className="h-4 w-4" />
+              {t('label')}
+            </FormLabel>
+            <FormControl>
+              <div className="flex items-center gap-4">
+                <div
+                  className={cn(
+                    'relative h-24 w-24 overflow-hidden rounded-lg border-2 border-dashed',
+                    uploadingImage && 'opacity-50',
+                  )}
+                >
+                  {uploadingImage && (
+                    <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs">
+                      <Loader2 className="text-primary h-6 w-6 animate-spin" />
+                    </div>
+                  )}
+                  {field.value ? (
+                    <Image
+                      src={field.value}
+                      alt={t('alt.product')}
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
+                  ) : (
+                    <Image
+                      src={
+                        isSacredGeometry
+                          ? '/products/sacred-geometry.svg'
+                          : '/products/flower-essence.svg'
+                      }
+                      alt={t('alt.default')}
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
+                  )}
+                </div>
+
+                <div className="flex-1">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={uploadingImage}
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    disabled={uploadingImage}
+                    onClick={() =>
+                      document.getElementById('image-upload')?.click()
+                    }
+                  >
+                    {uploadingImage ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        {t('loading')}
+                      </>
+                    ) : (
+                      t('placeholder.choose_file')
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
+    />
   );
 }
 
@@ -438,7 +429,7 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
   };
 
   return (
-    <FormProvider {...form}>
+    <Form {...form}>
       <form
         onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
         className="space-y-6"
@@ -479,6 +470,6 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
           </Button>
         </motion.div>
       </form>
-    </FormProvider>
+    </Form>
   );
 }

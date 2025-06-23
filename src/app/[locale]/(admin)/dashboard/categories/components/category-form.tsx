@@ -5,11 +5,19 @@ import { motion } from 'framer-motion';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useTransition } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { createCategory, updateCategory } from '@/features/category/actions';
@@ -104,62 +112,49 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
   };
 
   return (
-    <FormProvider {...form}>
+    <Form {...form}>
       <form
         onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
         className="space-y-6"
       >
         {initialData?.id && <Input type="hidden" {...form.register('id')} />}
 
-        <div className="space-y-2">
-          <label
-            htmlFor="name"
-            className="flex items-center gap-2 text-sm font-medium"
-          >
-            <Tags className="h-4 w-4" />
-            {t('name')}
-          </label>
-          <Input
-            id="name"
-            {...form.register('name')}
-            placeholder={t('placeholder.name')}
-          />
-          {form.formState.errors.name && (
-            <motion.p
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-1 text-sm text-red-500"
-            >
-              <AlertCircle className="h-4 w-4" />
-              {form.formState.errors.name.message}
-            </motion.p>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="flex items-center gap-2">
+                <Tags className="h-4 w-4" />
+                {t('name')}
+              </FormLabel>
+              <FormControl>
+                <Input placeholder={t('placeholder.name')} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </div>
+        />
 
-        <div className="space-y-2">
-          <label
-            htmlFor="description"
-            className="flex items-center gap-2 text-sm font-medium"
-          >
-            <Info className="h-4 w-4" />
-            {t('description')}
-          </label>
-          <Textarea
-            id="description"
-            {...form.register('description')}
-            placeholder={t('placeholder.description')}
-          />
-          {form.formState.errors.description && (
-            <motion.p
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-1 text-sm text-red-500"
-            >
-              <AlertCircle className="h-4 w-4" />
-              {form.formState.errors.description.message}
-            </motion.p>
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="flex items-center gap-2">
+                <Info className="h-4 w-4" />
+                {t('description')}
+              </FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder={t('placeholder.description')}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </div>
+        />
 
         {!success && message && Object.keys(errors).length > 0 && (
           <motion.p
@@ -193,6 +188,6 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
           </Button>
         </motion.div>
       </form>
-    </FormProvider>
+    </Form>
   );
 }
