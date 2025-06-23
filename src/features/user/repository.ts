@@ -14,6 +14,7 @@ export const userRepository = {
         email: true,
         role: true,
         createdAt: true,
+        updatedAt: true,
       },
     });
   },

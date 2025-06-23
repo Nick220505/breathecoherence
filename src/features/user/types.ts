@@ -6,4 +6,5 @@ export interface UserSummary {
   email: string;
   role: Role;
   createdAt: Date;
+  updatedAt: Date;
 }

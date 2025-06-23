@@ -71,6 +71,8 @@ export function ProductTable({ products }: Readonly<ProductTableProps>) {
               <TableHead>{tHeader('category')}</TableHead>
               <TableHead>{tHeader('price')}</TableHead>
               <TableHead>{tHeader('stock')}</TableHead>
+              <TableHead>{tHeader('createdAt')}</TableHead>
+              <TableHead>{tHeader('updatedAt')}</TableHead>
               <TableHead>{tHeader('actions')}</TableHead>
             </TableRow>
           </TableHeader>
@@ -113,6 +115,12 @@ export function ProductTable({ products }: Readonly<ProductTableProps>) {
                   <TableCell>{product.category.name}</TableCell>
                   <TableCell>${product.price.toFixed(2)}</TableCell>
                   <TableCell>{product.stock}</TableCell>
+                  <TableCell>
+                    {new Date(product.createdAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(product.updatedAt).toLocaleDateString()}
+                  </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Tooltip>

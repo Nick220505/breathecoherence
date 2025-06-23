@@ -242,6 +242,8 @@
     "category": "Category",
     "price": "Price",
     "stock": "Stock",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
     "actions": "Actions",
     "filter_by_name": "Filter by name",
     "sort_by_name": "Sort by name",
@@ -374,6 +376,7 @@
       "title": "Category Management",
       "name": "Name",
       "createdAt": "Created At",
+      "updatedAt": "Updated At",
       "actions": "Actions",
       "description": "Description"
     },
@@ -559,6 +562,7 @@
     "email": "Email",
     "role": "Role",
     "createdAt": "Created At",
+    "updatedAt": "Updated At",
     "actions": "Actions"
   },
   "UserTableRow": {

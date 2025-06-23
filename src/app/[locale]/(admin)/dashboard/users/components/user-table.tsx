@@ -61,6 +61,7 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
               <TableHead>{tHeader('email')}</TableHead>
               <TableHead>{tHeader('role')}</TableHead>
               <TableHead>{tHeader('createdAt')}</TableHead>
+              <TableHead>{tHeader('updatedAt')}</TableHead>
               <TableHead className="text-right">{tHeader('actions')}</TableHead>
             </TableRow>
           </TableHeader>
@@ -79,6 +80,11 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
                 <TableCell>
                   {new Intl.DateTimeFormat(locale).format(
                     new Date(user.createdAt),
+                  )}
+                </TableCell>
+                <TableCell>
+                  {new Intl.DateTimeFormat(locale).format(
+                    new Date(user.updatedAt),
                   )}
                 </TableCell>
                 <TableCell className="text-right">

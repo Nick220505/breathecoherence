@@ -26,6 +26,7 @@ export interface Category {
   name: string;
   description: string | null;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 interface CategoryTableProps {
@@ -61,6 +62,7 @@ export function CategoryTable({ categories }: Readonly<CategoryTableProps>) {
               <TableHead>{t('categoryTable.name')}</TableHead>
               <TableHead>{t('categoryTable.description')}</TableHead>
               <TableHead>{t('categoryTable.createdAt')}</TableHead>
+              <TableHead>{t('categoryTable.updatedAt')}</TableHead>
               <TableHead className="text-right">
                 {t('categoryTable.actions')}
               </TableHead>
@@ -73,6 +75,9 @@ export function CategoryTable({ categories }: Readonly<CategoryTableProps>) {
                 <TableCell>{category.description ?? ''}</TableCell>
                 <TableCell>
                   {new Date(category.createdAt).toLocaleDateString()}
+                </TableCell>
+                <TableCell>
+                  {new Date(category.updatedAt).toLocaleDateString()}
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">

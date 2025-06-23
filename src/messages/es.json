@@ -165,6 +165,7 @@
       "description": "Descripción",
       "name": "Nombre",
       "createdAt": "Creado en",
+      "updatedAt": "Actualizado en",
       "actions": "Acciones",
       "add_category": "Agregar Categoría"
     },
@@ -629,6 +630,7 @@
     "email": "Correo",
     "role": "Rol",
     "createdAt": "Creado en",
+    "updatedAt": "Actualizado en",
     "actions": "Acciones"
   },
   "UserTableRow": {
