@@ -17,14 +17,30 @@ export const productService = {
   async getAll(locale: Locale): Promise<ProductWithCategory[]> {
     const products = await productRepository.findMany();
 
+    const categoryTranslationConfig = {
+      entityType: 'Category',
+      translatableFields: ['name', 'description'],
+    };
+
     return Promise.all(
-      products.map((product) =>
-        translationService.getTranslatedEntity(
+      products.map(async (product) => {
+        const translatedProduct = await translationService.getTranslatedEntity(
           product,
           locale,
           productTranslationConfig,
-        ),
-      ),
+        );
+
+        const translatedCategory = await translationService.getTranslatedEntity(
+          product.category,
+          locale,
+          categoryTranslationConfig,
+        );
+
+        return {
+          ...translatedProduct,
+          category: translatedCategory,
+        };
+      }),
     );
   },
 
@@ -35,11 +51,27 @@ export const productService = {
       throw new Error(`Product not found by id: ${id}`);
     }
 
-    return translationService.getTranslatedEntity(
+    const categoryTranslationConfig = {
+      entityType: 'Category',
+      translatableFields: ['name', 'description'],
+    };
+
+    const translatedProduct = await translationService.getTranslatedEntity(
       product,
       locale,
       productTranslationConfig,
     );
+
+    const translatedCategory = await translationService.getTranslatedEntity(
+      product.category,
+      locale,
+      categoryTranslationConfig,
+    );
+
+    return {
+      ...translatedProduct,
+      category: translatedCategory,
+    };
   },
 
   async create(data: ProductFormData, locale: Locale): Promise<Product> {
