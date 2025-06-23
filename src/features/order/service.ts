@@ -3,29 +3,11 @@ import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
 
 import { orderRepository } from './repository';
 
-import type { OrderSummary, OrderDetail } from './types';
-
-interface OrderItem {
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface ShippingAddress {
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-}
-
-interface OrderConfirmationEmailData {
-  orderId: string;
-  customerName: string;
-  customerEmail: string;
-  items: OrderItem[];
-  total: number;
-  shippingAddress?: ShippingAddress;
-}
+import type {
+  OrderSummary,
+  OrderDetail,
+  OrderConfirmationEmailData,
+} from './types';
 
 export const orderService = {
   async getAll(): Promise<OrderSummary[]> {

@@ -1,20 +1,8 @@
 import Stripe from 'stripe';
 
 import { orderService } from '@/features/order/service';
+import { EmailOrderItem, ShippingAddress } from '@/features/order/types';
 import prisma from '@/lib/prisma';
-
-interface OrderItemSummary {
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface ShippingAddress {
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-}
 
 export async function handlePaymentIntentSucceeded(
   paymentIntent: Stripe.PaymentIntent,
@@ -54,7 +42,7 @@ export async function handlePaymentIntentSucceeded(
       }
     }
 
-    let orderItems: OrderItemSummary[] = [];
+    let orderItems: EmailOrderItem[] = [];
     let orderTotal = paymentIntent.amount / 100;
     let shippingAddress: ShippingAddress | undefined;
     if (customerAddress && customerCity && customerState && customerZipCode) {

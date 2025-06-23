@@ -1,25 +1,13 @@
 import { Tailwind, Img } from '@react-email/components';
 import * as React from 'react';
 
+import { EmailOrderItem, ShippingAddress } from '@/features/order/types';
 import { emailTailwindConfig } from '@/lib/email-tailwind-config';
-
-interface OrderItem {
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface ShippingAddress {
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-}
 
 interface OrderConfirmationEmailProps {
   orderId: string;
   customerName: string;
-  items: OrderItem[];
+  items: EmailOrderItem[];
   total: number;
   shippingAddress?: ShippingAddress;
 }
