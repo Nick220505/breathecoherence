@@ -34,10 +34,13 @@ export function ProductFormFields({
   categories,
 }: Readonly<ProductFormFieldsProps>) {
   const t = useTranslations('FormFields');
-  const { control } = useFormContext<ProductFormData>();
+  const { control, register, getValues } = useFormContext<ProductFormData>();
+  const initialData = getValues();
 
   return (
     <>
+      {initialData?.id && <Input type="hidden" {...register('id')} />}
+
       <FormField
         control={control}
         name="name"

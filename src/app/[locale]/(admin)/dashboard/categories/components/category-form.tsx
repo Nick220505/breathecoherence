@@ -72,6 +72,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
 
       if (success) {
         successShown.current = true;
+        form.clearErrors();
         toast.success(
           initialData?.id ? t('updated_title') : t('created_title'),
           {

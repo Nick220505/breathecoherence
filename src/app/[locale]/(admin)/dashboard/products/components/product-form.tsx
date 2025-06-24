@@ -88,13 +88,14 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
         return { message: ctx.defaultError };
       },
     }),
-    defaultValues: initialData ?? {
-      name: '',
-      description: '',
-      price: 0,
-      stock: 0,
-      categoryId: '',
-      imageBase64: '',
+    defaultValues: {
+      id: initialData?.id,
+      name: initialData?.name ?? '',
+      description: initialData?.description ?? '',
+      price: initialData?.price ?? 0,
+      stock: initialData?.stock ?? 0,
+      categoryId: initialData?.categoryId ?? '',
+      imageBase64: initialData?.imageBase64 ?? '',
     },
   });
 
@@ -103,15 +104,11 @@ export function ProductForm({ initialData }: Readonly<ProductFormProps>) {
 
     startTransition(async () => {
       const action = initialData?.id ? updateProduct : createProduct;
-      const { success, message, errors, data } = await action({
-        ...values,
-        id: initialData?.id,
-      });
+      const { success, message, errors, data } = await action(values);
 
       if (success) {
         successShown.current = true;
         form.clearErrors();
-
         toast.success(
           initialData?.id ? t('updated_title') : t('created_title'),
           {
