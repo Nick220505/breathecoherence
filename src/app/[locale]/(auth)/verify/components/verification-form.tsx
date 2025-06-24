@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect } from 'react';
+import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -24,7 +24,6 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import {
   InputOTP,
   InputOTPGroup,
@@ -42,11 +41,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
   const tAuthSchema = useTranslations('AuthSchema');
   const router = useRouter();
-  const [state, formAction] = useActionState(verify, {
-    errors: {},
-    message: '',
-    success: false,
-  });
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<VerifyFormData>({
     resolver: zodResolver(verifySchema, {
@@ -77,14 +72,31 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
     defaultValues: { email, code: '' },
   });
 
-  useEffect(() => {
-    if (state.success) {
-      toast.success(t('success_title'), {
-        description: t('success_description'),
-      });
-      router.push('/login');
-    }
-  }, [state.success, state.message, router, t]);
+  const onSubmit = (values: VerifyFormData) => {
+    startTransition(async () => {
+      const { success, message, errors } = await verify(values);
+
+      if (success) {
+        form.clearErrors();
+        toast.success(t('success_title'), {
+          description: t('success_description'),
+        });
+        router.push('/login');
+      } else {
+        form.setError('root.serverError', { message });
+
+        if (errors) {
+          Object.entries(errors).forEach(([field, messages]) => {
+            if (messages.length > 0) {
+              form.setError(field as keyof VerifyFormData, {
+                message: messages[0],
+              });
+            }
+          });
+        }
+      }
+    });
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
@@ -133,19 +145,18 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form action={formAction} className="space-y-6">
-                <Input type="hidden" {...form.register('email')} />
+              <form
+                onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
+                className="space-y-6"
+              >
+                <input type="hidden" {...form.register('email')} />
                 <FormField
                   control={form.control}
                   name="code"
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-center justify-center">
                       <FormControl>
-                        <InputOTP
-                          maxLength={6}
-                          {...field}
-                          disabled={form.formState.isSubmitting}
-                        >
+                        <InputOTP maxLength={6} {...field} disabled={isPending}>
                           <InputOTPGroup>
                             <InputOTPSlot index={0} />
                             <InputOTPSlot index={1} />
@@ -157,23 +168,21 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
                         </InputOTP>
                       </FormControl>
                       <FormMessage />
-                      {!state.success &&
-                        state.message &&
-                        (state.errors.root || state.errors.code) && (
-                          <p className="flex items-center gap-1 pt-2 text-sm text-red-500">
-                            <AlertCircle className="h-4 w-4" />
-                            {state.message}
-                          </p>
-                        )}
+                      {form.formState.errors.root?.serverError && (
+                        <p className="flex items-center gap-1 pt-2 text-sm text-red-500">
+                          <AlertCircle className="h-4 w-4" />
+                          {form.formState.errors.root.serverError.message}
+                        </p>
+                      )}
                     </FormItem>
                   )}
                 />
                 <Button
                   type="submit"
-                  disabled={form.formState.isSubmitting}
+                  disabled={isPending}
                   className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
                 >
-                  {form.formState.isSubmitting ? (
+                  {isPending ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       {t('loading')}

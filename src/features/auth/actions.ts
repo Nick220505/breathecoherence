@@ -2,8 +2,6 @@
 
 import { getTranslations } from 'next-intl/server';
 
-import { type FormState } from '@/lib/types';
-
 import {
   AuthError,
   InvalidCredentialsError,
@@ -13,8 +11,7 @@ import {
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
 
-import type { LoginFormData, RegisterFormData } from './schema';
-import type { User } from '@prisma/client';
+import type { LoginFormData, RegisterFormData, VerifyFormData } from './schema';
 
 export async function register(values: RegisterFormData) {
   const tServerActionsAuth = await getTranslations('ServerActions.Auth');
@@ -57,37 +54,33 @@ export async function register(values: RegisterFormData) {
   }
 }
 
-export async function verify(
-  _prevState: FormState,
-  formData: FormData,
-): Promise<FormState<User>> {
+export async function verify(values: VerifyFormData) {
   const tServerActionsAuth = await getTranslations('ServerActions.Auth');
-  const tAuthSchema = await getTranslations('AuthSchema');
-  const rawData = Object.fromEntries(formData.entries());
-  const { success, data, error } = verifySchema.safeParse(rawData);
+  const { success, data, error } = verifySchema.safeParse(values);
 
   if (!success) {
     return {
-      errors: error.flatten().fieldErrors,
-      message: tServerActionsAuth('fillRequiredFields'),
       success: false,
+      message: tServerActionsAuth('fillRequiredFields'),
+      errors: error.flatten().fieldErrors,
     };
   }
 
   try {
     const user = await authService.verify(data);
     return {
-      errors: {},
-      message: tServerActionsAuth('verificationSuccess'),
       success: true,
+      message: tServerActionsAuth('verificationSuccess'),
       data: user,
     };
   } catch (error) {
+    const tAuthSchema = await getTranslations('AuthSchema');
+
     if (error instanceof InvalidVerificationError) {
       return {
-        errors: { code: [tAuthSchema('Verify.invalidVerificationCode')] },
-        message: tAuthSchema('Verify.invalidVerificationCode'),
         success: false,
+        message: tAuthSchema('Verify.invalidVerificationCode'),
+        errors: { code: [tAuthSchema('Verify.invalidVerificationCode')] },
       };
     }
     const errorMessage =
@@ -95,9 +88,9 @@ export async function verify(
         ? error.message
         : tServerActionsAuth('verificationError');
     return {
-      errors: { root: [errorMessage] },
-      message: errorMessage,
       success: false,
+      message: errorMessage,
+      errors: { root: [errorMessage] },
     };
   }
 }
