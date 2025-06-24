@@ -92,7 +92,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
 
         if (errors) {
           Object.entries(errors).forEach(([field, messages]) => {
-            if (messages && messages.length > 0) {
+            if (messages.length > 0) {
               form.setError(field as keyof CategoryFormData, {
                 message: messages[0],
               });

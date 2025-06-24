@@ -9,8 +9,9 @@ import { Locale } from '@/i18n/routing';
 import { productSchema } from './schema';
 import { productService } from './service';
 
+import type { ProductFormData } from './schema';
 import type { ProductWithCategory } from './types';
-import type { ActionState, FormState } from '@/lib/types';
+import type { ActionState } from '@/lib/types';
 import type { Product } from '@prisma/client';
 
 export async function getAllProducts(): Promise<ProductWithCategory[]> {
@@ -36,95 +37,73 @@ export async function getProductById(id: string): Promise<ProductWithCategory> {
   }
 }
 
-export async function createProduct(
-  _prevState: FormState,
-  formData: FormData,
-): Promise<FormState<Product>> {
+export async function createProduct(values: ProductFormData) {
   const t = await getTranslations('ServerActions.Product');
-  const locale = (await getLocale()) as Locale;
-  const rawData = Object.fromEntries(formData.entries());
 
-  const { success, data, error } = productSchema.safeParse(rawData);
+  const { success, data, error } = productSchema.safeParse(values);
 
   if (!success) {
     return {
-      errors: error.flatten().fieldErrors,
-      message: t('fillRequiredFields'),
       success: false,
+      message: t('fillRequiredFields'),
+      errors: error.flatten().fieldErrors,
     };
   }
 
   try {
+    const locale = (await getLocale()) as Locale;
     const createdProduct = await productService.create(data, locale);
     revalidateTag('products');
 
     return {
-      errors: {},
-      message: t('createSuccess'),
       success: true,
+      message: t('createSuccess'),
       data: createdProduct,
     };
   } catch {
-    return {
-      success: false,
-      message: t('createError'),
-      errors: {},
-    };
+    return { success: false, message: t('createError') };
   }
 }
 
-export async function updateProduct(
-  _prevState: FormState,
-  formData: FormData,
-): Promise<FormState<Product>> {
+export async function updateProduct(values: ProductFormData) {
   const t = await getTranslations('ServerActions.Product');
-  const locale = (await getLocale()) as Locale;
-  const rawData = Object.fromEntries(formData.entries());
 
-  const { success, data, error } = productSchema.safeParse(rawData);
+  const { success, data, error } = productSchema.safeParse(values);
 
   if (!success) {
     return {
-      errors: error.flatten().fieldErrors,
-      message: t('fillRequiredFields'),
       success: false,
+      message: t('fillRequiredFields'),
+      errors: error.flatten().fieldErrors,
     };
   }
 
   const { id } = data;
   if (!id) {
-    return {
-      success: false,
-      message: t('missingId'),
-      errors: {},
-    };
+    return { success: false, message: t('missingId') };
   }
 
   try {
+    const locale = (await getLocale()) as Locale;
     const updatedProduct = await productService.update(id, data, locale);
     revalidateTag('products');
     revalidateTag('product');
 
     return {
-      errors: {},
-      message: t('updateSuccess'),
       success: true,
+      message: t('updateSuccess'),
       data: updatedProduct,
     };
   } catch {
-    return {
-      success: false,
-      message: t('updateError'),
-      errors: {},
-    };
+    return { success: false, message: t('updateError') };
   }
 }
 
 export async function deleteProduct(id: string): Promise<ActionState<Product>> {
   const t = await getTranslations('ServerActions.Product');
-  const locale = (await getLocale()) as Locale;
 
   try {
+    const locale = (await getLocale()) as Locale;
     const deletedProduct = await productService.delete(id, locale);
     revalidateTag('products');
 
@@ -134,9 +113,6 @@ export async function deleteProduct(id: string): Promise<ActionState<Product>> {
       data: deletedProduct,
     };
   } catch {
-    return {
-      success: false,
-      message: t('deleteError'),
-    };
+    return { success: false, message: t('deleteError') };
   }
 }

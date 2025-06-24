@@ -38,6 +38,7 @@ export async function getCategoryById(id: string): Promise<Category> {
 
 export async function createCategory(values: CategoryFormData) {
   const t = await getTranslations('ServerActions.Category');
+
   const { success, data, error } = categorySchema.safeParse(values);
 
   if (!success) {
@@ -65,6 +66,7 @@ export async function createCategory(values: CategoryFormData) {
 
 export async function updateCategory(values: CategoryFormData) {
   const t = await getTranslations('ServerActions.Category');
+
   const { success, data, error } = categorySchema.safeParse(values);
 
   if (!success) {
@@ -84,6 +86,7 @@ export async function updateCategory(values: CategoryFormData) {
     const locale = (await getLocale()) as Locale;
     const updatedCategory = await categoryService.update(id, data, locale);
     revalidateTag('categories');
+    revalidateTag('category');
 
     return {
       success: true,
@@ -99,9 +102,9 @@ export async function deleteCategory(
   id: string,
 ): Promise<ActionState<Category>> {
   const t = await getTranslations('ServerActions.Category');
-  const locale = (await getLocale()) as Locale;
 
   try {
+    const locale = (await getLocale()) as Locale;
     const deletedCategory = await categoryService.delete(id, locale);
     revalidateTag('categories');
 
