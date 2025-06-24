@@ -9,7 +9,8 @@ import { Locale } from '@/i18n/routing';
 import { categorySchema } from './schema';
 import { categoryService } from './service';
 
-import type { ActionState, FormState } from '@/lib/types';
+import type { CategoryFormData } from './schema';
+import type { ActionState } from '@/lib/types';
 import type { Category } from '@prisma/client';
 
 export async function getAllCategories(): Promise<Category[]> {
@@ -35,20 +36,15 @@ export async function getCategoryById(id: string): Promise<Category> {
   }
 }
 
-export async function createCategory(
-  _prevState: FormState,
-  formData: FormData,
-): Promise<FormState<Category>> {
+export async function createCategory(values: CategoryFormData) {
   const t = await getTranslations('ServerActions.Category');
-  const rawData = Object.fromEntries(formData.entries());
-
-  const { success, data, error } = categorySchema.safeParse(rawData);
+  const { success, data, error } = categorySchema.safeParse(values);
 
   if (!success) {
     return {
-      errors: error.flatten().fieldErrors,
-      message: t('fillRequiredFields'),
       success: false,
+      message: t('fillRequiredFields'),
+      errors: error.flatten().fieldErrors,
     };
   }
 
@@ -58,44 +54,30 @@ export async function createCategory(
     revalidateTag('categories');
 
     return {
-      errors: {},
-      message: t('createSuccess'),
       success: true,
+      message: t('createSuccess'),
       data: createdCategory,
     };
   } catch {
-    return {
-      success: false,
-      message: t('createError'),
-      errors: {},
-    };
+    return { success: false, message: t('createError') };
   }
 }
 
-export async function updateCategory(
-  _prevState: FormState,
-  formData: FormData,
-): Promise<FormState<Category>> {
+export async function updateCategory(values: CategoryFormData) {
   const t = await getTranslations('ServerActions.Category');
-  const rawData = Object.fromEntries(formData.entries());
-
-  const { success, data, error } = categorySchema.safeParse(rawData);
+  const { success, data, error } = categorySchema.safeParse(values);
 
   if (!success) {
     return {
-      errors: error.flatten().fieldErrors,
-      message: t('fillRequiredFields'),
       success: false,
+      message: t('fillRequiredFields'),
+      errors: error.flatten().fieldErrors,
     };
   }
 
   const { id } = data;
   if (!id) {
-    return {
-      success: false,
-      message: t('missingId'),
-      errors: {},
-    };
+    return { success: false, message: t('missingId') };
   }
 
   try {
@@ -104,17 +86,12 @@ export async function updateCategory(
     revalidateTag('categories');
 
     return {
-      errors: {},
-      message: t('updateSuccess'),
       success: true,
+      message: t('updateSuccess'),
       data: updatedCategory,
     };
   } catch {
-    return {
-      success: false,
-      message: t('updateError'),
-      errors: {},
-    };
+    return { success: false, message: t('updateError') };
   }
 }
 
@@ -134,9 +111,6 @@ export async function deleteCategory(
       data: deletedCategory,
     };
   } catch {
-    return {
-      success: false,
-      message: t('deleteError'),
-    };
+    return { success: false, message: t('deleteError') };
   }
 }

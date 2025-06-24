@@ -6,7 +6,7 @@ import { AlertCircle, AtSign, Loader2, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useTransition } from 'react';
+import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
 
@@ -28,11 +28,6 @@ export default function LoginForm() {
   const t = useTranslations('LoginPage');
   const tAuthSchema = useTranslations('AuthSchema.Login');
   const router = useRouter();
-  const [{ success, message, errors }, formAction] = useActionState(login, {
-    errors: {},
-    message: '',
-    success: false,
-  });
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<LoginFormData>({
@@ -63,12 +58,16 @@ export default function LoginForm() {
     defaultValues: { email: '', password: '' },
   });
 
-  useEffect(() => {
-    if (success) {
-      const performSignIn = async () => {
+  const onSubmit = (values: LoginFormData) => {
+    startTransition(async () => {
+      const { success, message, errors } = await login(values);
+
+      if (success) {
+        form.clearErrors();
+
         const { error } = await signIn('credentials', {
-          email: form.getValues('email'),
-          password: form.getValues('password'),
+          email: values.email,
+          password: values.password,
           redirect: false,
         });
 
@@ -77,20 +76,20 @@ export default function LoginForm() {
         } else {
           router.push('/');
         }
-      };
+      } else {
+        form.setError('root.serverError', { message });
 
-      void performSignIn();
-    }
-  }, [success, router, form, t]);
-
-  const onSubmit = (data: LoginFormData) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (value != null) {
-        formData.append(key, value.toString());
+        if (errors) {
+          Object.entries(errors).forEach(([field, messages]) => {
+            if (messages.length > 0) {
+              form.setError(field as keyof LoginFormData, {
+                message: messages[0],
+              });
+            }
+          });
+        }
       }
     });
-    startTransition(() => formAction(formData));
   };
 
   return (
@@ -108,7 +107,7 @@ export default function LoginForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <FormLabel className="flex items-center gap-2">
                   <AtSign className="h-4 w-4" />
                   {t('email')}
                 </FormLabel>
@@ -135,7 +134,7 @@ export default function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <FormLabel className="flex items-center gap-2">
                   <Lock className="h-4 w-4" />
                   {t('password')}
                 </FormLabel>
@@ -153,19 +152,6 @@ export default function LoginForm() {
           />
         </motion.div>
 
-        {!success &&
-          message &&
-          (errors.root ||
-            Object.keys(errors).filter((k) => k !== 'root').length === 0) && (
-            <motion.p
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
-            >
-              <AlertCircle className="h-4 w-4" />
-              {message}
-            </motion.p>
-          )}
         {form.formState.errors.root?.serverError && (
           <motion.p
             initial={{ opacity: 0, scale: 0.95 }}

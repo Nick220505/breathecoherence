@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useRef, useTransition } from 'react';
+import { useRef, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -36,14 +36,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
   const tCategorySchema = useTranslations('CategorySchema');
   const { setAddDialogOpen, setEditDialogOpen, setEditingCategory } =
     useCategoryStore();
-  const [, startTransition] = useTransition();
-
-  const action = initialData?.id ? updateCategory : createCategory;
-  const [{ success, data, message, errors }, formAction, isPending] =
-    useActionState(action, {
-      errors: {},
-      message: '',
-    });
+  const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
   const form = useForm<CategoryFormData>({
@@ -70,44 +63,43 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
     },
   });
 
-  useEffect(() => {
-    if (success && !successShown.current) {
-      successShown.current = true;
+  const onSubmit = (values: CategoryFormData) => {
+    if (successShown.current) return;
 
-      toast.success(initialData?.id ? t('updated_title') : t('created_title'), {
-        description: initialData?.id
-          ? t('updated_description', { name: data?.name ?? '' })
-          : t('created_description', { name: data?.name ?? '' }),
-      });
+    startTransition(async () => {
+      const action = initialData?.id ? updateCategory : createCategory;
+      const { success, data, message, errors } = await action(values);
 
-      if (initialData?.id) {
-        setEditDialogOpen(false);
-        setEditingCategory(null);
+      if (success) {
+        successShown.current = true;
+        toast.success(
+          initialData?.id ? t('updated_title') : t('created_title'),
+          {
+            description: initialData?.id
+              ? t('updated_description', { name: data?.name ?? '' })
+              : t('created_description', { name: data?.name ?? '' }),
+          },
+        );
+
+        if (initialData?.id) {
+          setEditDialogOpen(false);
+          setEditingCategory(null);
+        } else {
+          setAddDialogOpen(false);
+        }
       } else {
-        setAddDialogOpen(false);
-      }
-    }
-  }, [
-    success,
-    data,
-    message,
-    t,
-    initialData?.id,
-    setAddDialogOpen,
-    setEditDialogOpen,
-    setEditingCategory,
-    form,
-  ]);
+        form.setError('root.serverError', { message });
 
-  const onSubmit = (data: CategoryFormData) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (value != null) {
-        formData.append(key, value.toString());
+        if (errors) {
+          Object.entries(errors).forEach(([field, messages]) => {
+            if (messages && messages.length > 0) {
+              form.setError(field as keyof CategoryFormData, {
+                message: messages[0],
+              });
+            }
+          });
+        }
       }
-    });
-    startTransition(() => {
-      formAction(formData);
     });
   };
 
@@ -156,7 +148,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
           )}
         />
 
-        {!success && message && Object.keys(errors).length > 0 && (
+        {form.formState.errors.root?.serverError && (
           <motion.p
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -164,7 +156,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
             role="alert"
           >
             <AlertCircle className="h-4 w-4" />
-            {message}
+            {form.formState.errors.root.serverError.message}
           </motion.p>
         )}
 

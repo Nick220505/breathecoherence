@@ -38,19 +38,6 @@ interface VerificationFormProps {
   email: string;
 }
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
 export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
   const tAuthSchema = useTranslations('AuthSchema');
@@ -104,10 +91,13 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
       <motion.div
         initial="initial"
         animate="animate"
-        variants={staggerContainer}
+        variants={{ animate: { transition: { staggerChildren: 0.1 } } }}
         className="w-full max-w-[450px]"
       >
-        <motion.div variants={fadeInUp}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
           <Link
             href="/"
             className="mb-8 flex items-center justify-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
@@ -126,7 +116,8 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
         </motion.div>
 
         <motion.div
-          variants={fadeInUp}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           className="overflow-hidden rounded-2xl border border-purple-500/10 bg-white/10 py-6 shadow-xl backdrop-blur-lg dark:bg-gray-950/50"
         >
           <CardHeader className="space-y-2 pb-6">

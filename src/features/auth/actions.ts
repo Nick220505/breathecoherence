@@ -13,6 +13,7 @@ import {
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
 
+import type { LoginFormData } from './schema';
 import type { AuthUser } from './types';
 import type { User } from '@prisma/client';
 
@@ -106,37 +107,33 @@ export async function verify(
   }
 }
 
-export async function login(
-  _prevState: FormState,
-  formData: FormData,
-): Promise<FormState<AuthUser>> {
+export async function login(values: LoginFormData) {
   const tServerActionsAuth = await getTranslations('ServerActions.Auth');
-  const tAuthSchema = await getTranslations('AuthSchema');
-  const rawData = Object.fromEntries(formData.entries());
-  const { success, data, error } = loginSchema.safeParse(rawData);
+  const { success, data, error } = loginSchema.safeParse(values);
 
   if (!success) {
     return {
-      errors: error.flatten().fieldErrors,
-      message: tServerActionsAuth('fillRequiredFields'),
       success: false,
+      message: tServerActionsAuth('fillRequiredFields'),
+      errors: error.flatten().fieldErrors,
     };
   }
 
   try {
     const user = await authService.login(data);
     return {
-      errors: {},
-      message: tServerActionsAuth('loginSuccess'),
       success: true,
+      message: tServerActionsAuth('loginSuccess'),
       data: user,
     };
   } catch (error) {
+    const tAuthSchema = await getTranslations('AuthSchema');
+
     if (error instanceof InvalidCredentialsError) {
       return {
-        errors: { root: [tAuthSchema('Login.invalidCredentials')] },
-        message: tAuthSchema('Login.invalidCredentials'),
         success: false,
+        message: tAuthSchema('Login.invalidCredentials'),
+        errors: { root: [tAuthSchema('Login.invalidCredentials')] },
       };
     }
     const errorMessage =
@@ -144,9 +141,9 @@ export async function login(
         ? error.message
         : tServerActionsAuth('loginError');
     return {
-      errors: { root: [errorMessage] },
-      message: errorMessage,
       success: false,
+      message: errorMessage,
+      errors: { root: [errorMessage] },
     };
   }
 }

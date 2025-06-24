@@ -112,7 +112,7 @@ export default function RegisterForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <FormLabel className="flex items-center gap-2">
                   <User className="h-4 w-4" />
                   {t('name')}
                 </FormLabel>
@@ -139,7 +139,7 @@ export default function RegisterForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <FormLabel className="flex items-center gap-2">
                   <AtSign className="h-4 w-4" />
                   {t('email')}
                 </FormLabel>
@@ -166,7 +166,7 @@ export default function RegisterForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <FormLabel className="flex items-center gap-2">
                   <Lock className="h-4 w-4" />
                   {t('password')}
                 </FormLabel>
@@ -193,7 +193,7 @@ export default function RegisterForm() {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <FormLabel className="flex items-center gap-2">
                   <Shield className="h-4 w-4" />
                   {t('confirmPassword')}
                 </FormLabel>
