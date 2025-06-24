@@ -1,6 +1,6 @@
 import * as deepl from 'deepl-node';
 
-import { Locale } from '@/i18n/routing';
+import type { Locale } from '@/i18n/routing';
 
 const deeplApiKey = process.env.DEEPL_API_KEY;
 

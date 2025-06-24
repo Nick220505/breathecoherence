@@ -1,11 +1,11 @@
 import { translationService } from '@/features/translation/service';
-import { Locale } from '@/i18n/routing';
 
 import { productRepository } from './repository';
 import { ProductFormData } from './schema';
 
 import type { ProductWithCategory } from './types';
 import type { TranslationConfig } from '@/features/translation/types';
+import type { Locale } from '@/i18n/routing';
 import type { Product } from '@prisma/client';
 
 const productTranslationConfig: TranslationConfig = {

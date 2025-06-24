@@ -1,12 +1,6 @@
-export interface ActionState<T = unknown> {
+export interface ActionResult<T> {
   success: boolean;
   message: string;
   data?: T;
-}
-
-export interface FormState<T = unknown> {
-  errors: Record<string, string[]>;
-  message: string;
-  success?: boolean;
-  data?: T;
+  errors?: Record<string, string[]>;
 }

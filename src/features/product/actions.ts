@@ -4,14 +4,13 @@ import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { Locale } from '@/i18n/routing';
-
 import { productSchema } from './schema';
 import { productService } from './service';
 
 import type { ProductFormData } from './schema';
 import type { ProductWithCategory } from './types';
-import type { ActionState } from '@/lib/types';
+import type { Locale } from '@/i18n/routing';
+import type { ActionResult } from '@/lib/types';
 import type { Product } from '@prisma/client';
 
 export async function getAllProducts(): Promise<ProductWithCategory[]> {
@@ -37,7 +36,9 @@ export async function getProductById(id: string): Promise<ProductWithCategory> {
   }
 }
 
-export async function createProduct(values: ProductFormData) {
+export async function createProduct(
+  values: ProductFormData,
+): Promise<ActionResult<Product>> {
   const t = await getTranslations('ServerActions.Product');
 
   const { success, data, error } = productSchema.safeParse(values);
@@ -65,7 +66,9 @@ export async function createProduct(values: ProductFormData) {
   }
 }
 
-export async function updateProduct(values: ProductFormData) {
+export async function updateProduct(
+  values: ProductFormData,
+): Promise<ActionResult<Product>> {
   const t = await getTranslations('ServerActions.Product');
 
   const { success, data, error } = productSchema.safeParse(values);
@@ -99,7 +102,9 @@ export async function updateProduct(values: ProductFormData) {
   }
 }
 
-export async function deleteProduct(id: string): Promise<ActionState<Product>> {
+export async function deleteProduct(
+  id: string,
+): Promise<ActionResult<Product>> {
   const t = await getTranslations('ServerActions.Product');
 
   try {

@@ -12,8 +12,12 @@ import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
 
 import type { LoginFormData, RegisterFormData, VerifyFormData } from './schema';
+import type { AuthUser } from './types';
+import type { ActionResult } from '@/lib/types';
 
-export async function register(values: RegisterFormData) {
+export async function register(
+  values: RegisterFormData,
+): Promise<ActionResult<AuthUser>> {
   const tServerActionsAuth = await getTranslations('ServerActions.Auth');
   const { success, data, error } = registerSchema.safeParse(values);
 
@@ -54,7 +58,9 @@ export async function register(values: RegisterFormData) {
   }
 }
 
-export async function verify(values: VerifyFormData) {
+export async function verify(
+  values: VerifyFormData,
+): Promise<ActionResult<AuthUser>> {
   const tServerActionsAuth = await getTranslations('ServerActions.Auth');
   const { success, data, error } = verifySchema.safeParse(values);
 
@@ -95,7 +101,9 @@ export async function verify(values: VerifyFormData) {
   }
 }
 
-export async function login(values: LoginFormData) {
+export async function login(
+  values: LoginFormData,
+): Promise<ActionResult<AuthUser>> {
   const tServerActionsAuth = await getTranslations('ServerActions.Auth');
   const { success, data, error } = loginSchema.safeParse(values);
 

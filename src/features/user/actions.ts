@@ -8,14 +8,16 @@ import { userService } from './service';
 
 import type { UserFormData } from './schema';
 import type { UserSummary } from './types';
-import type { ActionState } from '@/lib/types';
+import type { ActionResult } from '@/lib/types';
 import type { User } from '@prisma/client';
 
 export async function getAllUsers(): Promise<UserSummary[]> {
   return userService.getAll();
 }
 
-export async function createUser(values: UserFormData) {
+export async function createUser(
+  values: UserFormData,
+): Promise<ActionResult<User>> {
   const t = await getTranslations('ServerActions.User');
 
   const { success, data, error } = userSchema.safeParse(values);
@@ -42,7 +44,9 @@ export async function createUser(values: UserFormData) {
   }
 }
 
-export async function updateUser(values: UserFormData) {
+export async function updateUser(
+  values: UserFormData,
+): Promise<ActionResult<User>> {
   const t = await getTranslations('ServerActions.User');
 
   const { success, data, error } = userSchema.safeParse(values);
@@ -74,7 +78,7 @@ export async function updateUser(values: UserFormData) {
   }
 }
 
-export async function deleteUser(id: string): Promise<ActionState<User>> {
+export async function deleteUser(id: string): Promise<ActionResult<User>> {
   const t = await getTranslations('ServerActions.User');
   try {
     const user = await userService.delete(id);

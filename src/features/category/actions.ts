@@ -4,13 +4,12 @@ import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { Locale } from '@/i18n/routing';
-
 import { categorySchema } from './schema';
 import { categoryService } from './service';
 
 import type { CategoryFormData } from './schema';
-import type { ActionState } from '@/lib/types';
+import type { Locale } from '@/i18n/routing';
+import type { ActionResult } from '@/lib/types';
 import type { Category } from '@prisma/client';
 
 export async function getAllCategories(): Promise<Category[]> {
@@ -36,7 +35,9 @@ export async function getCategoryById(id: string): Promise<Category> {
   }
 }
 
-export async function createCategory(values: CategoryFormData) {
+export async function createCategory(
+  values: CategoryFormData,
+): Promise<ActionResult<Category>> {
   const t = await getTranslations('ServerActions.Category');
 
   const { success, data, error } = categorySchema.safeParse(values);
@@ -64,7 +65,9 @@ export async function createCategory(values: CategoryFormData) {
   }
 }
 
-export async function updateCategory(values: CategoryFormData) {
+export async function updateCategory(
+  values: CategoryFormData,
+): Promise<ActionResult<Category>> {
   const t = await getTranslations('ServerActions.Category');
 
   const { success, data, error } = categorySchema.safeParse(values);
@@ -100,7 +103,7 @@ export async function updateCategory(values: CategoryFormData) {
 
 export async function deleteCategory(
   id: string,
-): Promise<ActionState<Category>> {
+): Promise<ActionResult<Category>> {
   const t = await getTranslations('ServerActions.Category');
 
   try {
