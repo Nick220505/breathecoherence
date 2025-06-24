@@ -13,41 +13,36 @@ import {
 import { loginSchema, registerSchema, verifySchema } from './schema';
 import { authService } from './service';
 
-import type { LoginFormData } from './schema';
-import type { AuthUser } from './types';
+import type { LoginFormData, RegisterFormData } from './schema';
 import type { User } from '@prisma/client';
 
-export async function register(
-  _prevState: FormState,
-  formData: FormData,
-): Promise<FormState<AuthUser>> {
+export async function register(values: RegisterFormData) {
   const tServerActionsAuth = await getTranslations('ServerActions.Auth');
-  const tAuthSchema = await getTranslations('AuthSchema');
-  const rawData = Object.fromEntries(formData.entries());
-  const { success, data, error } = registerSchema.safeParse(rawData);
+  const { success, data, error } = registerSchema.safeParse(values);
 
   if (!success) {
     return {
-      errors: error.flatten().fieldErrors,
-      message: tServerActionsAuth('fillRequiredFields'),
       success: false,
+      message: tServerActionsAuth('fillRequiredFields'),
+      errors: error.flatten().fieldErrors,
     };
   }
 
   try {
     const user = await authService.register(data);
     return {
-      errors: {},
-      message: tServerActionsAuth('verificationCodeSent'),
       success: true,
+      message: tServerActionsAuth('verificationCodeSent'),
       data: user,
     };
   } catch (error) {
+    const tAuthSchema = await getTranslations('AuthSchema');
+
     if (error instanceof UserExistsError) {
       return {
-        errors: { email: [tAuthSchema('Register.userExistsError')] },
-        message: tAuthSchema('Register.userExistsError'),
         success: false,
+        message: tAuthSchema('Register.userExistsError'),
+        errors: { email: [tAuthSchema('Register.userExistsError')] },
       };
     }
     const errorMessage =
@@ -55,9 +50,9 @@ export async function register(
         ? error.message
         : tServerActionsAuth('registrationError');
     return {
-      errors: { root: [errorMessage] },
-      message: errorMessage,
       success: false,
+      message: errorMessage,
+      errors: { root: [errorMessage] },
     };
   }
 }

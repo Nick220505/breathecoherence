@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { AlertCircle, AtSign, Loader2, Lock, Shield, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useTransition } from 'react';
+import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
 
@@ -26,11 +26,6 @@ export default function RegisterForm() {
   const t = useTranslations('RegisterPage');
   const tAuthSchema = useTranslations('AuthSchema.Register');
   const router = useRouter();
-  const [{ success, message, errors }, formAction] = useActionState(register, {
-    errors: {},
-    message: '',
-    success: false,
-  });
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<RegisterFormData>({
@@ -78,23 +73,27 @@ export default function RegisterForm() {
     defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
   });
 
-  useEffect(() => {
-    if (success) {
-      router.push({
-        pathname: '/verify',
-        query: { email: form.getValues('email') },
-      });
-    }
-  }, [success, router, form]);
+  const onSubmit = (values: RegisterFormData) => {
+    startTransition(async () => {
+      const { success, message, errors } = await register(values);
 
-  const onSubmit = (data: RegisterFormData) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (value != null) {
-        formData.append(key, value.toString());
+      if (success) {
+        form.clearErrors();
+        router.push({ pathname: '/verify', query: { email: values.email } });
+      } else {
+        form.setError('root.serverError', { message });
+
+        if (errors) {
+          Object.entries(errors).forEach(([field, messages]) => {
+            if (messages.length > 0) {
+              form.setError(field as keyof RegisterFormData, {
+                message: messages[0],
+              });
+            }
+          });
+        }
       }
     });
-    startTransition(() => formAction(formData));
   };
 
   return (
@@ -211,14 +210,14 @@ export default function RegisterForm() {
           />
         </motion.div>
 
-        {!success && message && (errors.root || errors.email) && (
+        {form.formState.errors.root?.serverError && (
           <motion.p
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex items-center justify-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
           >
             <AlertCircle className="h-4 w-4" />
-            {message}
+            {form.formState.errors.root.serverError.message}
           </motion.p>
         )}
 
