@@ -1,11 +1,19 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2, Mail, User as UserIcon, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
+import {
+  AlertCircle,
+  Loader2,
+  Mail,
+  User as UserIcon,
+  Shield,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useRef, useTransition } from 'react';
+import { useRef, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -34,63 +42,86 @@ interface UserFormProps {
 }
 
 export function UserForm({ initialData }: Readonly<UserFormProps>) {
-  const tForm = useTranslations('UserForm');
+  const t = useTranslations('UserForm');
+  const tUserSchema = useTranslations('UserSchema');
   const tRoles = useTranslations('UserRoles');
-  const [, startTransition] = useTransition();
   const { setAddDialogOpen, setEditDialogOpen, setEditingUser } =
     useUserManagementStore();
-
-  const action = initialData?.id ? updateUser : createUser;
-  const [{ success }, formAction, isPending] = useActionState(action, {
-    errors: {},
-    message: '',
-  });
+  const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
   const form = useForm<UserFormData>({
-    resolver: zodResolver(userSchema),
-    defaultValues: initialData ?? { name: '', email: '', role: 'USER' },
+    resolver: zodResolver(userSchema, {
+      path: [],
+      async: false,
+      errorMap(issue, ctx) {
+        const path = issue.path.join('.');
+
+        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
+          return { message: tUserSchema('nameMin') };
+        }
+        if (
+          path === 'email' &&
+          issue.code === ZodIssueCode.invalid_string &&
+          issue.validation === 'email'
+        ) {
+          return { message: tUserSchema('emailInvalid') };
+        }
+        if (path === 'role' && issue.code === ZodIssueCode.invalid_enum_value) {
+          return { message: tUserSchema('roleInvalid') };
+        }
+
+        return { message: ctx.defaultError };
+      },
+    }),
+    defaultValues: {
+      id: initialData?.id,
+      name: initialData?.name ?? '',
+      email: initialData?.email ?? '',
+      role: initialData?.role ?? 'USER',
+    },
   });
 
-  useEffect(() => {
-    if (success && !successShown.current) {
-      successShown.current = true;
+  const onSubmit = (values: UserFormData) => {
+    if (successShown.current) return;
 
-      toast.success(
-        initialData?.id ? tForm('updated_title') : tForm('created_title'),
-        {
-          description: initialData?.id
-            ? tForm('updated_description', { name: form.getValues('name') })
-            : tForm('created_description', { name: form.getValues('name') }),
-        },
-      );
+    startTransition(async () => {
+      const action = initialData?.id ? updateUser : createUser;
+      const { success, data, message, errors } = await action(values);
 
-      if (initialData?.id) {
-        setEditDialogOpen(false);
-        setEditingUser(null);
+      if (success) {
+        successShown.current = true;
+        form.clearErrors();
+        toast.success(
+          initialData?.id ? t('updated_title') : t('created_title'),
+          {
+            description: initialData?.id
+              ? t('updated_description', { name: data?.name ?? '' })
+              : t('created_description', { name: data?.name ?? '' }),
+          },
+        );
+
+        if (initialData?.id) {
+          setEditDialogOpen(false);
+          setEditingUser(null);
+        } else {
+          setAddDialogOpen(false);
+        }
       } else {
-        setAddDialogOpen(false);
-      }
-    }
-  }, [
-    success,
-    initialData?.id,
-    setAddDialogOpen,
-    setEditDialogOpen,
-    setEditingUser,
-    tForm,
-    form,
-  ]);
+        form.setError('root.serverError', { message });
 
-  function onSubmit(data: UserFormData) {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, String(value));
+        if (errors) {
+          Object.entries(errors).forEach(([field, messages]) => {
+            if (messages.length > 0) {
+              form.setError(field as keyof UserFormData, {
+                message: messages[0],
+              });
+            }
+          });
+        }
+      }
     });
-    startTransition(() => {
-      formAction(formData);
-    });
-  }
+  };
 
   return (
     <Form {...form}>
@@ -107,10 +138,10 @@ export function UserForm({ initialData }: Readonly<UserFormProps>) {
             <FormItem>
               <FormLabel className="flex items-center gap-2">
                 <UserIcon className="h-4 w-4" />
-                {tForm('name')}
+                {t('name')}
               </FormLabel>
               <FormControl>
-                <Input placeholder={tForm('placeholder.name')} {...field} />
+                <Input placeholder={t('placeholder.name')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -124,12 +155,12 @@ export function UserForm({ initialData }: Readonly<UserFormProps>) {
             <FormItem>
               <FormLabel className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                {tForm('email')}
+                {t('email')}
               </FormLabel>
               <FormControl>
                 <Input
                   type="email"
-                  placeholder={tForm('placeholder.email')}
+                  placeholder={t('placeholder.email')}
                   {...field}
                 />
               </FormControl>
@@ -145,12 +176,12 @@ export function UserForm({ initialData }: Readonly<UserFormProps>) {
             <FormItem>
               <FormLabel className="flex items-center gap-2">
                 <Shield className="h-4 w-4" />
-                {tForm('role')}
+                {t('role')}
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder={tForm('role')} />
+                    <SelectValue placeholder={t('role')} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -163,20 +194,37 @@ export function UserForm({ initialData }: Readonly<UserFormProps>) {
           )}
         />
 
-        <Button
-          type="submit"
-          className="bg-primary hover:bg-primary/90 w-full"
-          disabled={isPending}
+        {form.formState.errors.root?.serverError && (
+          <motion.p
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
+            role="alert"
+          >
+            <AlertCircle className="h-4 w-4" />
+            {form.formState.errors.root.serverError.message}
+          </motion.p>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          {isPending ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {initialData?.id ? tForm('editing') : tForm('adding')}
-            </>
-          ) : (
-            <>{initialData?.id ? tForm('edit') : tForm('add')}</>
-          )}
-        </Button>
+          <Button
+            type="submit"
+            className="bg-primary hover:bg-primary/90 w-full"
+            disabled={isPending}
+          >
+            {isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {initialData?.id ? t('editing') : t('adding')}
+              </>
+            ) : (
+              <>{initialData?.id ? t('edit') : t('add')}</>
+            )}
+          </Button>
+        </motion.div>
       </form>
     </Form>
   );

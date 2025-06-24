@@ -6,21 +6,20 @@ import { getTranslations } from 'next-intl/server';
 import { userSchema } from './schema';
 import { userService } from './service';
 
+import type { UserFormData } from './schema';
 import type { UserSummary } from './types';
-import type { ActionState, FormState } from '@/lib/types';
+import type { ActionState } from '@/lib/types';
 import type { User } from '@prisma/client';
 
 export async function getAllUsers(): Promise<UserSummary[]> {
   return userService.getAll();
 }
 
-export async function createUser(
-  _prev: FormState,
-  formData: FormData,
-): Promise<FormState<User>> {
+export async function createUser(values: UserFormData) {
   const t = await getTranslations('ServerActions.User');
-  const raw = Object.fromEntries(formData.entries());
-  const { success, data, error } = userSchema.safeParse(raw);
+
+  const { success, data, error } = userSchema.safeParse(values);
+
   if (!success) {
     return {
       success: false,
@@ -28,27 +27,26 @@ export async function createUser(
       errors: error.flatten().fieldErrors,
     };
   }
+
   try {
-    const user = await userService.create(data);
+    const createdUser = await userService.create(data);
     revalidateTag('users');
+
     return {
       success: true,
       message: t('createSuccess'),
-      data: user,
-      errors: {},
+      data: createdUser,
     };
   } catch {
-    return { success: false, message: t('createError'), errors: {} };
+    return { success: false, message: t('createError') };
   }
 }
 
-export async function updateUser(
-  _prev: FormState,
-  formData: FormData,
-): Promise<FormState<User>> {
+export async function updateUser(values: UserFormData) {
   const t = await getTranslations('ServerActions.User');
-  const raw = Object.fromEntries(formData.entries());
-  const { success, data, error } = userSchema.safeParse(raw);
+
+  const { success, data, error } = userSchema.safeParse(values);
+
   if (!success) {
     return {
       success: false,
@@ -56,20 +54,23 @@ export async function updateUser(
       errors: error.flatten().fieldErrors,
     };
   }
-  if (!data.id) {
-    return { success: false, message: t('missingId'), errors: {} };
+
+  const { id } = data;
+  if (!id) {
+    return { success: false, message: t('missingId') };
   }
+
   try {
-    const user = await userService.update(data.id, data);
+    const updatedUser = await userService.update(id, data);
     revalidateTag('users');
+
     return {
       success: true,
       message: t('updateSuccess'),
-      data: user,
-      errors: {},
+      data: updatedUser,
     };
   } catch {
-    return { success: false, message: t('updateError'), errors: {} };
+    return { success: false, message: t('updateError') };
   }
 }
 
