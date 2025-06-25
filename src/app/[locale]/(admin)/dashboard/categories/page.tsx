@@ -1,11 +1,13 @@
 import { Plus } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { CategoryDialog } from './components/category-dialog';
 import { CategoryTable } from './components/category-table';
+import { CategoryTableSkeleton } from './components/category-table-skeleton';
 
 export default async function CategoriesPage() {
   const t = await getTranslations('CategoriesPage');
@@ -24,7 +26,9 @@ export default async function CategoriesPage() {
         </div>
       </CardHeader>
       <CardContent>
-        <CategoryTable />
+        <Suspense fallback={<CategoryTableSkeleton />}>
+          <CategoryTable />
+        </Suspense>
       </CardContent>
     </Card>
   );

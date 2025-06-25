@@ -1,5 +1,3 @@
-'use client';
-
 export default function Loading() {
   return (
     <div className="container mx-auto animate-pulse space-y-8 py-10">

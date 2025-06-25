@@ -33,7 +33,7 @@ export function DeleteCategoryDialog({
   const [isPending, startTransition] = useTransition();
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const handleDelete = () => {
+  const handleDelete = (): void => {
     startTransition(async () => {
       const { success } = await deleteCategory(category.id);
 

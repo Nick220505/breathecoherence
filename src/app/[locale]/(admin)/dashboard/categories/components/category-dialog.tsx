@@ -73,7 +73,7 @@ export function CategoryDialog({
     },
   });
 
-  const onSubmit = (values: CategoryFormData) => {
+  const onSubmit = (values: CategoryFormData): void => {
     startTransition(async () => {
       const action = isEdit ? updateCategory : createCategory;
       const { success, data, message, errors } = await action(values);
