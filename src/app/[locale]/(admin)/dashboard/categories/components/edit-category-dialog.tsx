@@ -18,12 +18,8 @@ export function EditCategoryDialog() {
   const { isEditDialogOpen, setEditDialogOpen, editingCategory } =
     useCategoryStore();
 
-  const handleOpenChange = (open: boolean) => {
-    setEditDialogOpen(open);
-  };
-
   return (
-    <Dialog open={isEditDialogOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('edit_category')}</DialogTitle>

@@ -15,23 +15,11 @@ import { useProductManagementStore } from './store';
 
 export function EditProductDialog() {
   const t = useTranslations('EditProductDialog');
-  const {
-    isEditDialogOpen,
-    setEditDialogOpen,
-    editingProduct,
-    setEditingProduct,
-  } = useProductManagementStore();
-
-  if (!editingProduct) return null;
+  const { isEditDialogOpen, setEditDialogOpen, editingProduct } =
+    useProductManagementStore();
 
   return (
-    <Dialog
-      open={isEditDialogOpen}
-      onOpenChange={(open) => {
-        setEditDialogOpen(open);
-        if (!open) setEditingProduct(null);
-      }}
-    >
+    <Dialog open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
       <DialogContent className="sm:max-w-[48rem]">
         <DialogHeader>
           <DialogTitle>{t('edit_product')}</DialogTitle>
@@ -39,7 +27,7 @@ export function EditProductDialog() {
             {t('form_description')}
           </DialogDescription>
         </DialogHeader>
-        <ProductForm initialData={editingProduct} />
+        <ProductForm initialData={editingProduct ?? undefined} />
       </DialogContent>
     </Dialog>
   );

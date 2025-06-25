@@ -15,19 +15,11 @@ import { UserForm } from './user-form';
 
 export function EditUserDialog() {
   const t = useTranslations('EditUserDialog');
-  const { isEditDialogOpen, setEditDialogOpen, editingUser, setEditingUser } =
+  const { isEditDialogOpen, setEditDialogOpen, editingUser } =
     useUserManagementStore();
 
-  if (!editingUser) return null;
-
   return (
-    <Dialog
-      open={isEditDialogOpen}
-      onOpenChange={(open) => {
-        setEditDialogOpen(open);
-        if (!open) setEditingUser(null);
-      }}
-    >
+    <Dialog open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
       <DialogContent className="sm:max-w-[32rem]">
         <DialogHeader>
           <DialogTitle>{t('edit_user')}</DialogTitle>
@@ -35,7 +27,7 @@ export function EditUserDialog() {
             {t('form_description')}
           </DialogDescription>
         </DialogHeader>
-        <UserForm initialData={editingUser} />
+        <UserForm initialData={editingUser ?? undefined} />
       </DialogContent>
     </Dialog>
   );
