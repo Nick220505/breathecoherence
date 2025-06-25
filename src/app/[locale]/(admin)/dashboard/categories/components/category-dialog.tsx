@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, useState, useTransition, type ReactNode } from 'react';
+import { useState, useTransition, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -12,8 +12,10 @@ import { ZodIssueCode } from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -50,7 +52,6 @@ export function CategoryDialog({
   const tCategorySchema = useTranslations('CategorySchema');
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const successShown = useRef(false);
 
   const form = useForm<CategoryFormData>({
     resolver: zodResolver(categorySchema, {
@@ -77,14 +78,11 @@ export function CategoryDialog({
   });
 
   const onSubmit = (values: CategoryFormData) => {
-    if (successShown.current) return;
-
     startTransition(async () => {
       const action = category?.id ? updateCategory : createCategory;
       const { success, data, message, errors } = await action(values);
 
       if (success) {
-        successShown.current = true;
         form.clearErrors();
         toast.success(category?.id ? t('updated_title') : t('created_title'), {
           description: category?.id
@@ -113,79 +111,77 @@ export function CategoryDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>
-            {isEdit ? tDialog('edit_category') : tDialog('add_category')}
-          </DialogTitle>
-          <DialogDescription className="sr-only">
-            {tDialog('form_description')}
-          </DialogDescription>
-        </DialogHeader>
         <Form {...form}>
-          <form
-            onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
-            className="space-y-6"
-          >
-            {category?.id && <Input type="hidden" {...form.register('id')} />}
+          <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
+            <DialogHeader>
+              <DialogTitle>
+                {isEdit ? tDialog('edit_category') : tDialog('add_category')}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                {tDialog('form_description')}
+              </DialogDescription>
+            </DialogHeader>
 
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">
-                    <Tags className="h-4 w-4" />
-                    {t('name')}
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('placeholder.name')} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+            <div className="grid gap-4 py-4">
+              {category?.id && <Input type="hidden" {...form.register('id')} />}
+
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Tags className="h-4 w-4" />
+                      {t('name')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder={t('placeholder.name')} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Info className="h-4 w-4" />
+                      {t('description')}
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder={t('placeholder.description')}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {form.formState.errors.root?.serverError && (
+                <motion.p
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
+                  role="alert"
+                >
+                  <AlertCircle className="h-4 w-4" />
+                  {form.formState.errors.root.serverError.message}
+                </motion.p>
               )}
-            />
+            </div>
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">
-                    <Info className="h-4 w-4" />
-                    {t('description')}
-                  </FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder={t('placeholder.description')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {form.formState.errors.root?.serverError && (
-              <motion.p
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-1 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500"
-                role="alert"
-              >
-                <AlertCircle className="h-4 w-4" />
-                {form.formState.errors.root.serverError.message}
-              </motion.p>
-            )}
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <Button
-                type="submit"
-                className="bg-primary hover:bg-primary/90 w-full"
-                disabled={isPending}
-              >
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline" type="button">
+                  {t('cancel')}
+                </Button>
+              </DialogClose>
+              <Button type="submit" disabled={isPending}>
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -195,7 +191,7 @@ export function CategoryDialog({
                   <>{category?.id ? t('edit') : t('add')}</>
                 )}
               </Button>
-            </motion.div>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

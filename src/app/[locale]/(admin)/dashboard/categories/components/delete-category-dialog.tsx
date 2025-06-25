@@ -1,8 +1,8 @@
 'use client';
 
-import { Loader2, Trash2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState, useTransition } from 'react';
+import { useState, useTransition, type ReactNode } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -19,13 +19,15 @@ import { deleteCategory } from '@/features/category/actions';
 
 import type { Category } from '@prisma/client';
 
-interface DeleteCategoryButtonProps {
+interface DeleteCategoryDialogProps {
+  children: ReactNode;
   category: Category;
 }
 
-export function DeleteCategoryButton({
+export function DeleteCategoryDialog({
+  children,
   category,
-}: Readonly<DeleteCategoryButtonProps>) {
+}: Readonly<DeleteCategoryDialogProps>) {
   const t = useTranslations('DeleteCategoryDialog');
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -50,15 +52,7 @@ export function DeleteCategoryButton({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 text-red-500 hover:bg-red-50 hover:text-red-600"
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>

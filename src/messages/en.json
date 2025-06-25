@@ -518,10 +518,11 @@
     "updated_title": "Category Updated",
     "created_description": "The category \"{name}\" has been created successfully.",
     "updated_description": "The category \"{name}\" has been updated successfully.",
-    "editing": "Editing category...",
-    "adding": "Adding category...",
-    "edit": "Edit Category",
-    "add": "Add Category"
+    "editing": "Saving changes...",
+    "adding": "Creating category...",
+    "edit": "Save Changes",
+    "add": "Create",
+    "cancel": "Cancel"
   },
   "CategorySchema": {
     "nameMin": "Name must be at least 3 characters",

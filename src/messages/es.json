@@ -237,10 +237,11 @@
     "updated_title": "Categoría Actualizada",
     "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
     "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
-    "editing": "Editando categoría...",
-    "adding": "Agregando categoría...",
-    "edit": "Editar Categoría",
-    "add": "Agregar Categoría"
+    "editing": "Guardando cambios...",
+    "adding": "Creando categoría...",
+    "edit": "Guardar Cambios",
+    "add": "Crear",
+    "cancel": "Cancelar"
   },
   "AddProductDialog": {
     "add_product": "Agregar Producto",

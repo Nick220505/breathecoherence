@@ -1,5 +1,7 @@
+import { Edit, Trash2 } from 'lucide-react';
 import { getTranslations, getLocale } from 'next-intl/server';
 
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -10,8 +12,8 @@ import {
 } from '@/components/ui/table';
 import { getAllCategories } from '@/features/category/actions';
 
-import { DeleteCategoryButton } from './delete-category-button';
-import { EditCategoryButton } from './edit-category-button';
+import { CategoryDialog } from './category-dialog';
+import { DeleteCategoryDialog } from './delete-category-dialog';
 
 export async function CategoryTable() {
   const t = await getTranslations('dashboard');
@@ -50,8 +52,16 @@ export async function CategoryTable() {
             </TableCell>
             <TableCell className="text-right">
               <div className="flex items-center justify-end gap-2">
-                <EditCategoryButton category={category} />
-                <DeleteCategoryButton category={category} />
+                <CategoryDialog category={category}>
+                  <Button size="icon">
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </CategoryDialog>
+                <DeleteCategoryDialog category={category}>
+                  <Button variant="destructive" size="icon">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </DeleteCategoryDialog>
               </div>
             </TableCell>
           </TableRow>

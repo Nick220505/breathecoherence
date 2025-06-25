@@ -1,8 +1,10 @@
+import { Plus } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { AddCategoryButton } from './components/add-category-button';
+import { CategoryDialog } from './components/category-dialog';
 import { CategoryTable } from './components/category-table';
 
 export default async function CategoriesPage() {
@@ -13,7 +15,12 @@ export default async function CategoriesPage() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>{t('categoryTable.title')}</CardTitle>
-          <AddCategoryButton />
+          <CategoryDialog>
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              {t('addCategory')}
+            </Button>
+          </CategoryDialog>
         </div>
       </CardHeader>
       <CardContent>
