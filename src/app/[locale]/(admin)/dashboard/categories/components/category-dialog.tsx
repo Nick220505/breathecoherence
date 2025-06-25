@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState, useTransition, type ReactNode } from 'react';
+import { useRef, useTransition, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -50,8 +50,8 @@ export function CategoryDialog({
     isEdit ? 'EditCategoryDialog' : 'AddCategoryDialog',
   );
   const tCategorySchema = useTranslations('CategorySchema');
-  const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const form = useForm<CategoryFormData>({
     resolver: zodResolver(categorySchema, {
@@ -90,7 +90,7 @@ export function CategoryDialog({
             : t('created_description', { name: data?.name ?? '' }),
         });
 
-        setOpen(false);
+        closeRef.current?.click();
       } else {
         form.setError('root.serverError', { message });
 
@@ -108,7 +108,7 @@ export function CategoryDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <Form {...form}>
@@ -177,7 +177,7 @@ export function CategoryDialog({
 
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="outline" type="button">
+                <Button ref={closeRef} variant="outline" type="button">
                   {t('cancel')}
                 </Button>
               </DialogClose>
