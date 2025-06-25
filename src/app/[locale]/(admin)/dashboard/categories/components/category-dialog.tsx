@@ -45,11 +45,7 @@ export function CategoryDialog({
   category,
 }: Readonly<CategoryDialogProps>) {
   const isEdit = !!category;
-  const t = useTranslations('CategoryForm');
-  const tDialog = useTranslations(
-    isEdit ? 'EditCategoryDialog' : 'AddCategoryDialog',
-  );
-  const tCategorySchema = useTranslations('CategorySchema');
+  const t = useTranslations('CategoryDialog');
   const [isPending, startTransition] = useTransition();
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -61,10 +57,10 @@ export function CategoryDialog({
         const path = issue.path.join('.');
 
         if (path === 'name' && issue.code === ZodIssueCode.too_small) {
-          return { message: tCategorySchema('nameMin') };
+          return { message: t('validation.name_min') };
         }
         if (path === 'description' && issue.code === ZodIssueCode.too_small) {
-          return { message: tCategorySchema('descriptionMin') };
+          return { message: t('validation.description_min') };
         }
 
         return { message: ctx.defaultError };
@@ -115,10 +111,10 @@ export function CategoryDialog({
           <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
             <DialogHeader>
               <DialogTitle>
-                {isEdit ? tDialog('edit_category') : tDialog('add_category')}
+                {isEdit ? t('edit_category') : t('add_category')}
               </DialogTitle>
               <DialogDescription className="sr-only">
-                {tDialog('form_description')}
+                {isEdit ? t('edit_form_description') : t('form_description')}
               </DialogDescription>
             </DialogHeader>
 

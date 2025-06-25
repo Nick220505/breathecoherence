@@ -206,8 +206,6 @@
     "deleted_description": "The product \"{name}\" has been deleted successfully."
   },
   "DeleteCategoryDialog": {
-    "success": "Success",
-    "error": "Error",
     "error_delete": "An error occurred while deleting the category",
     "delete_confirm_title": "Delete Category",
     "delete_confirm_description": "Are you sure you want to delete this category? This action cannot be undone.",
@@ -256,10 +254,7 @@
     "filter_type_placeholder": "Filter by type...",
     "all_types": "All Types"
   },
-  "CategoryTableRow": {
-    "edit_tooltip": "Edit category",
-    "delete_tooltip": "Delete category"
-  },
+
   "TablePagination": {
     "previous": "Previous",
     "next": "Next"
@@ -372,15 +367,6 @@
     "productTable": {
       "title": "Product Management"
     },
-    "categoryTable": {
-      "title": "Category Management",
-      "name": "Name",
-      "createdAt": "Created At",
-      "updatedAt": "Updated At",
-      "actions": "Actions",
-      "description": "Description"
-    },
-    "addCategory": "Add Category",
     "userTable": {
       "title": "User Management"
     },
@@ -498,22 +484,29 @@
     "minimize": "Minimize",
     "close": "Close"
   },
-  "AddCategoryDialog": {
+
+  "CategoriesPage": {
+    "title": "Category Management",
+    "add_category": "Add Category"
+  },
+  "CategoryTable": {
+    "name": "Name",
+    "description": "Description",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "actions": "Actions"
+  },
+  "CategoryDialog": {
     "add_category": "Add Category",
-    "form_description": "Form to add a new category"
-  },
-  "EditCategoryDialog": {
     "edit_category": "Edit Category",
-    "form_description": "Form to edit an existing category"
-  },
-  "CategoryForm": {
+    "form_description": "Form to add a new category",
+    "edit_form_description": "Form to edit an existing category",
     "name": "Category Name",
     "description": "Description",
     "placeholder": {
       "name": "Enter category name",
       "description": "Enter category description"
     },
-    "success": "Success",
     "created_title": "Category Created",
     "updated_title": "Category Updated",
     "created_description": "The category \"{name}\" has been created successfully.",
@@ -522,11 +515,11 @@
     "adding": "Creating category...",
     "edit": "Save Changes",
     "add": "Create",
-    "cancel": "Cancel"
-  },
-  "CategorySchema": {
-    "nameMin": "Name must be at least 3 characters",
-    "descriptionMin": "Description must be at least 10 characters"
+    "cancel": "Cancel",
+    "validation": {
+      "name_min": "Name must be at least 3 characters",
+      "description_min": "Description must be at least 10 characters"
+    }
   },
   "ProductSchema": {
     "nameMin": "Name must be at least 3 characters",

@@ -3,12 +3,15 @@
 import { AlertTriangle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-interface ErrorProps {
-  readonly error: Error & { digest?: string };
-  readonly reset: () => void;
+interface CategoriesErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
 }
 
-export default function CategoriesError({ error, reset }: ErrorProps) {
+export default function CategoriesError({
+  error,
+  reset,
+}: Readonly<CategoriesErrorProps>) {
   const t = useTranslations('ErrorBoundary');
 
   return (

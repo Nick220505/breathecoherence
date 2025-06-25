@@ -8,17 +8,17 @@ import { CategoryDialog } from './components/category-dialog';
 import { CategoryTable } from './components/category-table';
 
 export default async function CategoriesPage() {
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('CategoriesPage');
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>{t('categoryTable.title')}</CardTitle>
+          <CardTitle>{t('title')}</CardTitle>
           <CategoryDialog>
             <Button>
               <Plus className="mr-2 h-4 w-4" />
-              {t('addCategory')}
+              {t('add_category')}
             </Button>
           </CategoryDialog>
         </div>

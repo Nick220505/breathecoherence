@@ -16,7 +16,7 @@ import { CategoryDialog } from './category-dialog';
 import { DeleteCategoryDialog } from './delete-category-dialog';
 
 export async function CategoryTable() {
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('CategoryTable');
   const locale = await getLocale();
   const categories = await getAllCategories();
 
@@ -24,13 +24,11 @@ export async function CategoryTable() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{t('categoryTable.name')}</TableHead>
-          <TableHead>{t('categoryTable.description')}</TableHead>
-          <TableHead>{t('categoryTable.createdAt')}</TableHead>
-          <TableHead>{t('categoryTable.updatedAt')}</TableHead>
-          <TableHead className="text-right">
-            {t('categoryTable.actions')}
-          </TableHead>
+          <TableHead>{t('name')}</TableHead>
+          <TableHead>{t('description')}</TableHead>
+          <TableHead>{t('created_at')}</TableHead>
+          <TableHead>{t('updated_at')}</TableHead>
+          <TableHead className="text-right">{t('actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

@@ -10,14 +10,15 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export default async function Loading() {
-  const tDashboard = await getTranslations('dashboard');
+export default async function CategoriesLoading() {
+  const tPage = await getTranslations('CategoriesPage');
+  const tTable = await getTranslations('CategoryTable');
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>{tDashboard('categoryTable.title')}</CardTitle>
+          <CardTitle>{tPage('title')}</CardTitle>
           <div className="bg-muted h-8 w-32 animate-pulse rounded" />
         </div>
       </CardHeader>
@@ -25,12 +26,11 @@ export default async function Loading() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{tDashboard('categoryTable.name')}</TableHead>
-              <TableHead>{tDashboard('categoryTable.description')}</TableHead>
-              <TableHead>{tDashboard('categoryTable.createdAt')}</TableHead>
-              <TableHead className="text-right">
-                {tDashboard('categoryTable.actions')}
-              </TableHead>
+              <TableHead>{tTable('name')}</TableHead>
+              <TableHead>{tTable('description')}</TableHead>
+              <TableHead>{tTable('created_at')}</TableHead>
+              <TableHead>{tTable('updated_at')}</TableHead>
+              <TableHead className="text-right">{tTable('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -43,6 +43,9 @@ export default async function Loading() {
                   </TableCell>
                   <TableCell>
                     <div className="bg-muted h-4 w-48 animate-pulse rounded" />
+                  </TableCell>
+                  <TableCell>
+                    <div className="bg-muted h-4 w-24 animate-pulse rounded" />
                   </TableCell>
                   <TableCell>
                     <div className="bg-muted h-4 w-24 animate-pulse rounded" />

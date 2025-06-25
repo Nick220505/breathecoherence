@@ -160,17 +160,7 @@
       "image": "Imagen",
       "add_product": "Agregar Producto"
     },
-    "categoryTable": {
-      "title": "Gestión de Categorías",
-      "description": "Descripción",
-      "name": "Nombre",
-      "createdAt": "Creado en",
-      "updatedAt": "Actualizado en",
-      "actions": "Acciones",
-      "add_category": "Agregar Categoría"
-    },
     "addProduct": "Agregar Producto",
-    "addCategory": "Agregar Categoría",
     "userTable": {
       "title": "Gestión de Usuarios"
     }
@@ -214,8 +204,6 @@
     "deleted_description": "El producto \"{name}\" ha sido eliminado con éxito."
   },
   "DeleteCategoryDialog": {
-    "success": "Éxito",
-    "error": "Error",
     "error_delete": "Ocurrió un error al eliminar la categoría",
     "delete_confirm_title": "Eliminar Categoría",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
@@ -225,14 +213,28 @@
     "deleted_title": "Categoría Eliminada",
     "deleted_description": "La categoría \"{name}\" ha sido eliminada con éxito."
   },
-  "CategoryForm": {
+  "CategoriesPage": {
+    "title": "Gestión de Categorías",
+    "add_category": "Agregar Categoría"
+  },
+  "CategoryTable": {
+    "name": "Nombre",
+    "description": "Descripción",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones"
+  },
+  "CategoryDialog": {
+    "add_category": "Agregar Categoría",
+    "edit_category": "Editar Categoría",
+    "form_description": "Formulario para agregar una nueva categoría",
+    "edit_form_description": "Formulario para editar una categoría existente",
     "name": "Nombre de la Categoría",
     "description": "Descripción",
     "placeholder": {
       "name": "Ingrese el nombre de la categoría",
       "description": "Ingrese la descripción de la categoría"
     },
-    "success": "Éxito",
     "created_title": "Categoría Creada",
     "updated_title": "Categoría Actualizada",
     "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
@@ -241,7 +243,11 @@
     "adding": "Creando categoría...",
     "edit": "Guardar Cambios",
     "add": "Crear",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "validation": {
+      "name_min": "El nombre debe tener al menos 3 caracteres",
+      "description_min": "La descripción debe tener al menos 10 caracteres"
+    }
   },
   "AddProductDialog": {
     "add_product": "Agregar Producto",
@@ -283,10 +289,7 @@
     "filter_type_placeholder": "Filtrar por tipo...",
     "all_types": "Todos los tipos"
   },
-  "CategoryTableRow": {
-    "edit_tooltip": "Editar categoría",
-    "delete_tooltip": "Eliminar categoría"
-  },
+
   "TablePagination": {
     "previous": "Anterior",
     "next": "Siguiente"
@@ -536,18 +539,7 @@
     "tax": "Impuesto",
     "product_type": "Tipo de Producto"
   },
-  "AddCategoryDialog": {
-    "add_category": "Agregar Categoría",
-    "form_description": "Formulario para agregar una nueva categoría"
-  },
-  "EditCategoryDialog": {
-    "edit_category": "Editar Categoría",
-    "form_description": "Formulario para editar una categoría existente"
-  },
-  "CategorySchema": {
-    "nameMin": "El nombre debe tener al menos 3 caracteres",
-    "descriptionMin": "La descripción debe tener al menos 10 caracteres"
-  },
+
   "ProductSchema": {
     "nameMin": "El nombre debe tener al menos 3 caracteres",
     "descriptionMin": "La descripción debe tener al menos 10 caracteres",
