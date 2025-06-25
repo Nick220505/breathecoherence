@@ -20,38 +20,32 @@ import { useUserManagementStore } from './store';
 
 export function DeleteUserDialog() {
   const t = useTranslations('DeleteUserDialog');
-  const { isDeleteDialogOpen, resetDeleteState, userToDelete } =
+  const { isDeleteDialogOpen, setDeleteDialogOpen, deletingUser } =
     useUserManagementStore();
   const [isPending, startTransition] = useTransition();
 
-  const handleOpenChange = (open: boolean) => {
-    if (!open) {
-      resetDeleteState();
-    }
-  };
-
   const handleDelete = () => {
-    if (!userToDelete) return;
+    if (!deletingUser) return;
 
     startTransition(async () => {
-      const { success } = await deleteUser(userToDelete.id);
+      const { success } = await deleteUser(deletingUser.id);
 
       if (success) {
         toast.success(t('deleted_title'), {
           description: t('deleted_description', {
-            name: userToDelete.name,
+            name: deletingUser.name,
           }),
         });
       } else {
         toast.error(t('error_delete'));
       }
 
-      resetDeleteState();
+      setDeleteDialogOpen(false);
     });
   };
 
   return (
-    <Dialog open={isDeleteDialogOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
@@ -62,7 +56,7 @@ export function DeleteUserDialog() {
         <DialogFooter>
           <Button
             variant="outline"
-            onClick={() => resetDeleteState()}
+            onClick={() => setDeleteDialogOpen(false)}
             disabled={isPending}
           >
             {t('cancel')}

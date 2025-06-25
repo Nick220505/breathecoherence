@@ -8,15 +8,13 @@ interface UserManagementStore {
   isEditDialogOpen: boolean;
   isDeleteDialogOpen: boolean;
   editingUser: UserFormData | null;
-  userToDelete: UserSummary | null;
-  isDeleting: boolean;
+  deletingUser: UserSummary | null;
   setAddDialogOpen: (open: boolean) => void;
   setEditDialogOpen: (open: boolean) => void;
   setDeleteDialogOpen: (open: boolean) => void;
   setEditingUser: (user: UserFormData | null) => void;
-  setUserToDelete: (user: UserSummary | null) => void;
-  resetDeleteState: () => void;
-  setIsDeleting?: (loading: boolean) => void;
+  setDeletingUser: (user: UserSummary | null) => void;
+  resetState: () => void;
 }
 
 export const useUserManagementStore = create<UserManagementStore>()((set) => ({
@@ -24,14 +22,18 @@ export const useUserManagementStore = create<UserManagementStore>()((set) => ({
   isEditDialogOpen: false,
   isDeleteDialogOpen: false,
   editingUser: null,
-  userToDelete: null,
-  isDeleting: false,
+  deletingUser: null,
   setAddDialogOpen: (open) => set({ isAddDialogOpen: open }),
   setEditDialogOpen: (open) => set({ isEditDialogOpen: open }),
   setDeleteDialogOpen: (open) => set({ isDeleteDialogOpen: open }),
   setEditingUser: (user) => set({ editingUser: user }),
-  setUserToDelete: (user) => set({ userToDelete: user }),
-  resetDeleteState: () =>
-    set({ isDeleteDialogOpen: false, userToDelete: null, isDeleting: false }),
-  setIsDeleting: (loading) => set({ isDeleting: loading }),
+  setDeletingUser: (user) => set({ deletingUser: user }),
+  resetState: () =>
+    set({
+      isAddDialogOpen: false,
+      isEditDialogOpen: false,
+      isDeleteDialogOpen: false,
+      editingUser: null,
+      deletingUser: null,
+    }),
 }));
