@@ -205,6 +205,11 @@
     "deleted_title": "Product Deleted",
     "deleted_description": "The product \"{name}\" has been deleted successfully."
   },
+  "CategoriesError": {
+    "title": "Something went wrong",
+    "message": "An error occurred while loading categories",
+    "retry": "Try again"
+  },
   "DeleteCategoryDialog": {
     "error_delete": "An error occurred while deleting the category",
     "delete_confirm_title": "Delete Category",

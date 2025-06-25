@@ -203,6 +203,11 @@
     "deleted_title": "Producto Eliminado",
     "deleted_description": "El producto \"{name}\" ha sido eliminado con éxito."
   },
+  "CategoriesError": {
+    "title": "Algo salió mal",
+    "message": "Ocurrió un error al cargar las categorías",
+    "retry": "Intentar de nuevo"
+  },
   "DeleteCategoryDialog": {
     "error_delete": "Ocurrió un error al eliminar la categoría",
     "delete_confirm_title": "Eliminar Categoría",
