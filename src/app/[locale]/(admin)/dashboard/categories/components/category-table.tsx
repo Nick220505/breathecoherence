@@ -40,13 +40,13 @@ export async function CategoryTable() {
               {new Intl.DateTimeFormat(locale, {
                 dateStyle: 'medium',
                 timeStyle: 'short',
-              }).format(new Date(category.createdAt))}
+              }).format(category.createdAt)}
             </TableCell>
             <TableCell>
               {new Intl.DateTimeFormat(locale, {
                 dateStyle: 'medium',
                 timeStyle: 'short',
-              }).format(new Date(category.updatedAt))}
+              }).format(category.updatedAt)}
             </TableCell>
             <TableCell className="text-right">
               <div className="flex items-center justify-end gap-2">
