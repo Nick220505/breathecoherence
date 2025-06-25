@@ -1,6 +1,5 @@
 'use client';
 
-import { Category } from '@prisma/client';
 import { Edit, Trash2 } from 'lucide-react';
 import { useTranslations, useLocale } from 'next-intl';
 
@@ -21,6 +20,8 @@ import {
 } from '@/components/ui/tooltip';
 
 import { useCategoryStore } from './store';
+
+import type { Category } from '@prisma/client';
 
 interface CategoryTableProps {
   categories: Category[];
