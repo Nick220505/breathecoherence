@@ -79,13 +79,13 @@ export function CategoryDialog({
 
   const onSubmit = (values: CategoryFormData) => {
     startTransition(async () => {
-      const action = category?.id ? updateCategory : createCategory;
+      const action = isEdit ? updateCategory : createCategory;
       const { success, data, message, errors } = await action(values);
 
       if (success) {
         form.clearErrors();
-        toast.success(category?.id ? t('updated_title') : t('created_title'), {
-          description: category?.id
+        toast.success(isEdit ? t('updated_title') : t('created_title'), {
+          description: isEdit
             ? t('updated_description', { name: data?.name ?? '' })
             : t('created_description', { name: data?.name ?? '' }),
         });
@@ -123,7 +123,7 @@ export function CategoryDialog({
             </DialogHeader>
 
             <div className="grid gap-4 py-4">
-              {category?.id && <Input type="hidden" {...form.register('id')} />}
+              {isEdit && <Input type="hidden" {...form.register('id')} />}
 
               <FormField
                 control={form.control}
@@ -185,10 +185,10 @@ export function CategoryDialog({
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {category?.id ? t('editing') : t('adding')}
+                    {isEdit ? t('editing') : t('adding')}
                   </>
                 ) : (
-                  <>{category?.id ? t('edit') : t('add')}</>
+                  <>{isEdit ? t('edit') : t('add')}</>
                 )}
               </Button>
             </DialogFooter>
