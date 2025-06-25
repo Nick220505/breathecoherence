@@ -1,25 +1,40 @@
 'use client';
 
+import { Edit } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 
 import { CategoryForm } from './category-form';
-import { useCategoryStore } from './store';
 
-export function EditCategoryDialog() {
+import type { Category } from '@prisma/client';
+
+interface EditCategoryDialogProps {
+  category: Category;
+}
+
+export function EditCategoryDialog({
+  category,
+}: Readonly<EditCategoryDialogProps>) {
   const t = useTranslations('EditCategoryDialog');
-  const { isEditDialogOpen, setEditDialogOpen, editingCategory } =
-    useCategoryStore();
+  const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="ghost" size="icon" className="h-8 w-8">
+          <Edit className="h-4 w-4" />
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('edit_category')}</DialogTitle>
@@ -27,7 +42,7 @@ export function EditCategoryDialog() {
             {t('form_description')}
           </DialogDescription>
         </DialogHeader>
-        <CategoryForm initialData={editingCategory ?? undefined} />
+        <CategoryForm initialData={category} onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   );

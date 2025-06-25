@@ -23,8 +23,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { createCategory, updateCategory } from '@/features/category/actions';
 import { CategoryFormData, categorySchema } from '@/features/category/schema';
 
-import { useCategoryStore } from './store';
-
 interface CategoryFormProps {
   initialData?: Omit<CategoryFormData, 'description'> & {
     description?: string | null;
@@ -38,7 +36,6 @@ export function CategoryForm({
 }: Readonly<CategoryFormProps>) {
   const t = useTranslations('CategoryForm');
   const tCategorySchema = useTranslations('CategorySchema');
-  const { setEditDialogOpen, setEditingCategory } = useCategoryStore();
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
@@ -85,12 +82,7 @@ export function CategoryForm({
           },
         );
 
-        if (initialData?.id) {
-          setEditDialogOpen(false);
-          setEditingCategory(null);
-        } else {
-          onSuccess?.();
-        }
+        onSuccess?.();
       } else {
         form.setError('root.serverError', { message });
 
