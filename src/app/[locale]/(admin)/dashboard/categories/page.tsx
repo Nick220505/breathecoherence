@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getAllCategories } from '@/features/category/actions';
 
-import { AddCategoryButton } from './components/add-category-button';
 import { AddCategoryDialog } from './components/add-category-dialog';
 import { CategoryTable } from './components/category-table';
 import { DeleteCategoryDialog } from './components/delete-category-dialog';
@@ -19,14 +18,13 @@ export default async function CategoriesPage() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>{t('categoryTable.title')}</CardTitle>
-            <AddCategoryButton />
+            <AddCategoryDialog />
           </div>
         </CardHeader>
         <CardContent>
           <CategoryTable categories={categories} />
         </CardContent>
       </Card>
-      <AddCategoryDialog />
       <EditCategoryDialog />
       <DeleteCategoryDialog />
     </>

@@ -29,13 +29,16 @@ interface CategoryFormProps {
   initialData?: Omit<CategoryFormData, 'description'> & {
     description?: string | null;
   };
+  onSuccess?: () => void;
 }
 
-export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
+export function CategoryForm({
+  initialData,
+  onSuccess,
+}: Readonly<CategoryFormProps>) {
   const t = useTranslations('CategoryForm');
   const tCategorySchema = useTranslations('CategorySchema');
-  const { setAddDialogOpen, setEditDialogOpen, setEditingCategory } =
-    useCategoryStore();
+  const { setEditDialogOpen, setEditingCategory } = useCategoryStore();
   const [isPending, startTransition] = useTransition();
   const successShown = useRef(false);
 
@@ -86,7 +89,7 @@ export function CategoryForm({ initialData }: Readonly<CategoryFormProps>) {
           setEditDialogOpen(false);
           setEditingCategory(null);
         } else {
-          setAddDialogOpen(false);
+          onSuccess?.();
         }
       } else {
         form.setError('root.serverError', { message });
