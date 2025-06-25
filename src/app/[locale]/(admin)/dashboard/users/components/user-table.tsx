@@ -33,12 +33,11 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
   const tRow = useTranslations('UserTableRow');
   const tRoles = useTranslations('UserRoles');
   const locale = useLocale();
-
   const {
     setEditDialogOpen,
     setEditingUser,
     setDeleteDialogOpen,
-    setUserToDelete,
+    setDeletingUser,
   } = useUserManagementStore();
 
   const handleEdit = (user: UserSummary) => {
@@ -47,7 +46,7 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
   };
 
   const handleDelete = (user: UserSummary) => {
-    setUserToDelete(user);
+    setDeletingUser(user);
     setDeleteDialogOpen(true);
   };
 
@@ -94,10 +93,10 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button
+                          onClick={() => handleEdit(user)}
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8"
-                          onClick={() => handleEdit(user)}
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -109,10 +108,10 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button
+                          onClick={() => handleDelete(user)}
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8 text-red-500 hover:bg-red-50 hover:text-red-600"
-                          onClick={() => handleDelete(user)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
