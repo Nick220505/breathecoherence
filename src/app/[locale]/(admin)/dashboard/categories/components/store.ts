@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import type { Category } from './category-table';
+import type { Category } from '@prisma/client';
 
 interface CategoryStore {
   isAddDialogOpen: boolean;
