@@ -2,12 +2,13 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState, useTransition, type ReactNode } from 'react';
+import { useRef, useTransition, type ReactNode } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -29,8 +30,8 @@ export function DeleteCategoryDialog({
   category,
 }: Readonly<DeleteCategoryDialogProps>) {
   const t = useTranslations('DeleteCategoryDialog');
-  const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const handleDelete = () => {
     startTransition(async () => {
@@ -42,16 +43,15 @@ export function DeleteCategoryDialog({
             name: category.name,
           }),
         });
+        closeRef.current?.click();
       } else {
         toast.error(t('error_delete'));
       }
-
-      setOpen(false);
     });
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -61,13 +61,11 @@ export function DeleteCategoryDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => setOpen(false)}
-            disabled={isPending}
-          >
-            {t('cancel')}
-          </Button>
+          <DialogClose asChild>
+            <Button ref={closeRef} variant="outline" disabled={isPending}>
+              {t('cancel')}
+            </Button>
+          </DialogClose>
           <Button
             variant="destructive"
             onClick={handleDelete}
