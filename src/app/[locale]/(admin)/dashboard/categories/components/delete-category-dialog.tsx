@@ -32,9 +32,9 @@ export function DeleteCategoryDialog() {
     if (!deletingCategory) return;
 
     startTransition(async () => {
-      const result = await deleteCategory(deletingCategory.id);
+      const { success } = await deleteCategory(deletingCategory.id);
 
-      if (result.success) {
+      if (success) {
         toast.success(t('deleted_title'), {
           description: t('deleted_description', {
             name: deletingCategory.name,

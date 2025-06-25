@@ -28,9 +28,9 @@ export function DeleteProductDialog() {
     if (!deletingProduct) return;
 
     startTransition(async () => {
-      const result = await deleteProduct(deletingProduct.id);
+      const { success } = await deleteProduct(deletingProduct.id);
 
-      if (result.success) {
+      if (success) {
         toast.success(t('deleted_title'), {
           description: t('deleted_description', {
             name: deletingProduct.name,
