@@ -11,14 +11,13 @@ import {
 } from '@/components/ui/table';
 
 export default async function CategoriesLoading() {
-  const tPage = await getTranslations('CategoriesPage');
-  const tTable = await getTranslations('CategoryTable');
+  const t = await getTranslations('CategoriesLoading');
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>{tPage('title')}</CardTitle>
+          <CardTitle>{t('title')}</CardTitle>
           <div className="bg-muted h-8 w-32 animate-pulse rounded" />
         </div>
       </CardHeader>
@@ -26,11 +25,11 @@ export default async function CategoriesLoading() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{tTable('name')}</TableHead>
-              <TableHead>{tTable('description')}</TableHead>
-              <TableHead>{tTable('created_at')}</TableHead>
-              <TableHead>{tTable('updated_at')}</TableHead>
-              <TableHead className="text-right">{tTable('actions')}</TableHead>
+              <TableHead>{t('name')}</TableHead>
+              <TableHead>{t('description')}</TableHead>
+              <TableHead>{t('created_at')}</TableHead>
+              <TableHead>{t('updated_at')}</TableHead>
+              <TableHead className="text-right">{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

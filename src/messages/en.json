@@ -494,6 +494,15 @@
     "title": "Category Management",
     "add_category": "Add Category"
   },
+  "CategoriesLoading": {
+    "title": "Category Management",
+    "add_category": "Add Category",
+    "name": "Name",
+    "description": "Description",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "actions": "Actions"
+  },
   "CategoryTable": {
     "name": "Name",
     "description": "Description",

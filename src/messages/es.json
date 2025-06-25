@@ -222,6 +222,15 @@
     "title": "Gestión de Categorías",
     "add_category": "Agregar Categoría"
   },
+  "CategoriesLoading": {
+    "title": "Gestión de Categorías",
+    "add_category": "Agregar Categoría",
+    "name": "Nombre",
+    "description": "Descripción",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones"
+  },
   "CategoryTable": {
     "name": "Nombre",
     "description": "Descripción",
