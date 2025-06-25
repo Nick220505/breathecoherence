@@ -24,10 +24,6 @@ export function DeleteCategoryDialog() {
     useCategoryStore();
   const [isPending, startTransition] = useTransition();
 
-  const handleOpenChange = (open: boolean) => {
-    setDeleteDialogOpen(open);
-  };
-
   const handleDelete = () => {
     if (!deletingCategory) return;
 
@@ -49,7 +45,7 @@ export function DeleteCategoryDialog() {
   };
 
   return (
-    <Dialog open={isDeleteDialogOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
