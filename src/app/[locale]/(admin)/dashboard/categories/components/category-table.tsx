@@ -10,8 +10,8 @@ import {
 } from '@/components/ui/table';
 import { getAllCategories } from '@/features/category/actions';
 
-import { DeleteCategoryDialog } from './delete-category-dialog';
-import { EditCategoryDialog } from './edit-category-dialog';
+import { DeleteCategoryButton } from './delete-category-button';
+import { EditCategoryButton } from './edit-category-button';
 
 export async function CategoryTable() {
   const t = await getTranslations('dashboard');
@@ -50,8 +50,8 @@ export async function CategoryTable() {
             </TableCell>
             <TableCell className="text-right">
               <div className="flex items-center justify-end gap-2">
-                <EditCategoryDialog category={category} />
-                <DeleteCategoryDialog category={category} />
+                <EditCategoryButton category={category} />
+                <DeleteCategoryButton category={category} />
               </div>
             </TableCell>
           </TableRow>

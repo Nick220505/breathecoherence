@@ -16,7 +16,7 @@ import {
 
 import { CategoryForm } from './category-form';
 
-export function AddCategoryDialog() {
+export function AddCategoryButton() {
   const t = useTranslations('dashboard');
   const tDialog = useTranslations('AddCategoryDialog');
   const [open, setOpen] = useState(false);

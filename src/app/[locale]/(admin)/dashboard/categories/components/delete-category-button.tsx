@@ -19,13 +19,13 @@ import { deleteCategory } from '@/features/category/actions';
 
 import type { Category } from '@prisma/client';
 
-interface DeleteCategoryDialogProps {
+interface DeleteCategoryButtonProps {
   category: Category;
 }
 
-export function DeleteCategoryDialog({
+export function DeleteCategoryButton({
   category,
-}: Readonly<DeleteCategoryDialogProps>) {
+}: Readonly<DeleteCategoryButtonProps>) {
   const t = useTranslations('DeleteCategoryDialog');
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();

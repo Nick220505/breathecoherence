@@ -18,13 +18,13 @@ import { CategoryForm } from './category-form';
 
 import type { Category } from '@prisma/client';
 
-interface EditCategoryDialogProps {
+interface EditCategoryButtonProps {
   category: Category;
 }
 
-export function EditCategoryDialog({
+export function EditCategoryButton({
   category,
-}: Readonly<EditCategoryDialogProps>) {
+}: Readonly<EditCategoryButtonProps>) {
   const t = useTranslations('EditCategoryDialog');
   const [open, setOpen] = useState(false);
 
