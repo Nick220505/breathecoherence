@@ -220,7 +220,7 @@
     "delete_confirm_title": "Eliminar Categoría",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",
-    "deleting": "Eliminando...",
+    "deleting": "Eliminando Categoría...",
     "confirm_delete": "Eliminar",
     "deleted_title": "Categoría Eliminada",
     "deleted_description": "La categoría \"{name}\" ha sido eliminada con éxito."
