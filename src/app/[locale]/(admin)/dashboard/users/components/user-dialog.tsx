@@ -45,11 +45,11 @@ import {
 import { createUser, updateUser } from '@/features/user/actions';
 import { UserFormData, userSchema } from '@/features/user/schema';
 
-import type { User } from '@prisma/client';
+import type { UserSummary } from '@/features/user/types';
 
 interface UserDialogProps {
   children: ReactNode;
-  user?: User;
+  user?: UserSummary;
 }
 
 export function UserDialog({ children, user }: Readonly<UserDialogProps>) {

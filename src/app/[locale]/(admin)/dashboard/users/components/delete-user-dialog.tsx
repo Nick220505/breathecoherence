@@ -18,11 +18,11 @@ import {
 } from '@/components/ui/dialog';
 import { deleteUser } from '@/features/user/actions';
 
-import type { User } from '@prisma/client';
+import type { UserSummary } from '@/features/user/types';
 
 interface DeleteUserDialogProps {
   children: ReactNode;
-  user: User;
+  user: UserSummary;
 }
 
 export function DeleteUserDialog({
