@@ -1,34 +1,35 @@
+import { Plus } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getAllUsers } from '@/features/user/actions';
 
-import { AddUserButton } from './components/add-user-button';
-import { AddUserDialog } from './components/add-user-dialog';
-import { DeleteUserDialog } from './components/delete-user-dialog';
-import { EditUserDialog } from './components/edit-user-dialog';
+import { UserDialog } from './components/user-dialog';
 import { UserTable } from './components/user-table';
+import { UserTableSkeleton } from './components/user-table-skeleton';
 
 export default async function UsersPage() {
-  const users = await getAllUsers();
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('UsersPage');
 
   return (
-    <>
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle>{t('userTable.title')}</CardTitle>
-            <AddUserButton />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <UserTable users={users} />
-        </CardContent>
-      </Card>
-      <AddUserDialog />
-      <EditUserDialog />
-      <DeleteUserDialog />
-    </>
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle>{t('title')}</CardTitle>
+          <UserDialog>
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              {t('add_user')}
+            </Button>
+          </UserDialog>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Suspense fallback={<UserTableSkeleton />}>
+          <UserTable />
+        </Suspense>
+      </CardContent>
+    </Card>
   );
 }

@@ -34,10 +34,6 @@
       "flower_essences": "Esencias Florales"
     }
   },
-  "UserRoles": {
-    "ADMIN": "Administrador",
-    "USER": "Usuario"
-  },
   "RegisterPage": {
     "title": "Crear Cuenta",
     "description": "Únete a nuestra comunidad",
@@ -633,62 +629,71 @@
       "loginError": "Error al iniciar sesión."
     }
   },
-  "UserTableHeader": {
-    "name": "Nombre",
-    "email": "Correo",
-    "role": "Rol",
-    "createdAt": "Creado en",
-    "updatedAt": "Actualizado en",
-    "actions": "Acciones"
-  },
-  "UserTableRow": {
-    "edit_tooltip": "Editar usuario",
-    "delete_tooltip": "Eliminar usuario"
-  },
-  "AddUserButton": {
+  "UsersPage": {
+    "title": "Gestión de Usuarios",
     "add_user": "Agregar Usuario"
   },
-  "AddUserDialog": {
-    "add_user": "Agregar Usuario",
-    "form_description": "Formulario para agregar un nuevo usuario"
-  },
-  "EditUserDialog": {
-    "edit_user": "Editar Usuario",
-    "form_description": "Formulario para editar un usuario existente"
-  },
-  "DeleteUserDialog": {
-    "success": "Éxito",
-    "error": "Error",
-    "error_delete": "Ocurrió un error al eliminar el usuario",
-    "delete_confirm_title": "Eliminar Usuario",
-    "delete_confirm_description": "¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.",
-    "cancel": "Cancelar",
-    "deleting": "Eliminando...",
-    "confirm_delete": "Eliminar",
-    "deleted_title": "Usuario Eliminado",
-    "deleted_description": "El usuario \"{name}\" ha sido eliminado con éxito."
-  },
-  "UserForm": {
+  "UserTable": {
     "name": "Nombre",
     "email": "Correo",
     "role": "Rol",
-    "add": "Agregar Usuario",
-    "edit": "Editar Usuario",
-    "adding": "Agregando usuario...",
-    "editing": "Editando usuario...",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones",
+    "roles": {
+      "admin": "Administrador",
+      "user": "Usuario"
+    }
+  },
+  "UserTableSkeleton": {
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones"
+  },
+  "UserDialog": {
+    "add_user": "Agregar Usuario",
+    "edit_user": "Editar Usuario",
+    "form_description": "Formulario para agregar un nuevo usuario",
+    "edit_form_description": "Formulario para editar un usuario existente",
+    "name": "Nombre del Usuario",
+    "email": "Correo",
+    "role": "Rol",
+    "placeholder": {
+      "name": "Ingresa el nombre del usuario",
+      "email": "Ingresa el correo electrónico del usuario",
+      "role": "Selecciona el rol"
+    },
     "created_title": "Usuario Creado",
     "updated_title": "Usuario Actualizado",
     "created_description": "El usuario \"{name}\" ha sido creado con éxito.",
     "updated_description": "El usuario \"{name}\" ha sido actualizado con éxito.",
-    "success": "Éxito",
-    "placeholder": {
-      "name": "Ingresa el nombre del usuario",
-      "email": "Ingresa el correo electrónico del usuario"
+    "editing": "Guardando cambios...",
+    "adding": "Creando usuario...",
+    "edit": "Guardar Cambios",
+    "add": "Crear",
+    "cancel": "Cancelar",
+    "roles": {
+      "admin": "Administrador",
+      "user": "Usuario"
+    },
+    "validation": {
+      "name_min": "El nombre debe tener al menos 1 carácter",
+      "email_invalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "role_invalid": "Por favor, selecciona un rol válido"
     }
   },
-  "UserSchema": {
-    "nameMin": "El nombre debe tener al menos 1 caracter",
-    "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida"
+  "DeleteUserDialog": {
+    "error_delete": "Ocurrió un error al eliminar el usuario",
+    "delete_confirm_title": "Eliminar Usuario",
+    "delete_confirm_description": "¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando Usuario...",
+    "confirm_delete": "Eliminar",
+    "deleted_title": "Usuario Eliminado",
+    "deleted_description": "El usuario \"{name}\" ha sido eliminado con éxito."
   },
   "OrderTableHeader": {
     "id": "ID",

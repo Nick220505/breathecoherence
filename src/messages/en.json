@@ -67,10 +67,6 @@
       "flower_essences": "Flower Essences"
     }
   },
-  "UserRoles": {
-    "ADMIN": "Admin",
-    "USER": "User"
-  },
   "RegisterPage": {
     "title": "Create Account",
     "description": "Join our community",
@@ -564,55 +560,71 @@
       "invalidVerificationCode": "Invalid or expired verification code."
     }
   },
-  "UserTableHeader": {
+  "UsersPage": {
+    "title": "User Management",
+    "add_user": "Add User"
+  },
+  "UserTable": {
     "name": "Name",
     "email": "Email",
     "role": "Role",
-    "createdAt": "Created At",
-    "updatedAt": "Updated At",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "actions": "Actions",
+    "roles": {
+      "admin": "Admin",
+      "user": "User"
+    }
+  },
+  "UserTableSkeleton": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
     "actions": "Actions"
   },
-  "UserTableRow": {
-    "edit_tooltip": "Edit user",
-    "delete_tooltip": "Delete user"
-  },
-  "AddUserButton": { "add_user": "Add User" },
-  "AddUserDialog": {
+  "UserDialog": {
     "add_user": "Add User",
-    "form_description": "Form to add a new user"
-  },
-  "EditUserDialog": {
     "edit_user": "Edit User",
-    "form_description": "Form to edit an existing user"
-  },
-  "DeleteUserDialog": {
-    "delete_confirm_title": "Delete User",
-    "delete_confirm_description": "Are you sure you want to delete this user? This action cannot be undone.",
-    "cancel": "Cancel",
-    "confirm_delete": "Delete",
-    "deleting": "Deleting...",
-    "deleted_title": "User Deleted",
-    "deleted_description": "The user \"{name}\" has been deleted successfully.",
-    "error_delete": "An error occurred while deleting the user"
-  },
-  "UserForm": {
-    "name": "Name",
+    "form_description": "Form to add a new user",
+    "edit_form_description": "Form to edit an existing user",
+    "name": "User Name",
     "email": "Email",
     "role": "Role",
-    "add": "Add User",
-    "edit": "Edit User",
-    "adding": "Adding user...",
-    "editing": "Editing user...",
+    "placeholder": {
+      "name": "Enter user name",
+      "email": "Enter user email",
+      "role": "Select role"
+    },
     "created_title": "User Created",
     "updated_title": "User Updated",
     "created_description": "The user \"{name}\" has been created successfully.",
     "updated_description": "The user \"{name}\" has been updated successfully.",
-    "success": "Success",
-    "placeholder": { "name": "Enter user name", "email": "Enter user email" }
+    "editing": "Saving changes...",
+    "adding": "Creating user...",
+    "edit": "Save Changes",
+    "add": "Create",
+    "cancel": "Cancel",
+    "roles": {
+      "admin": "Admin",
+      "user": "User"
+    },
+    "validation": {
+      "name_min": "Name must be at least 1 character",
+      "email_invalid": "Please enter a valid email",
+      "role_invalid": "Please select a valid role"
+    }
   },
-  "UserSchema": {
-    "nameMin": "Name must be at least 1 character",
-    "emailInvalid": "Please enter a valid email"
+  "DeleteUserDialog": {
+    "error_delete": "An error occurred while deleting the user",
+    "delete_confirm_title": "Delete User",
+    "delete_confirm_description": "Are you sure you want to delete this user? This action cannot be undone.",
+    "cancel": "Cancel",
+    "deleting": "Deleting User...",
+    "confirm_delete": "Delete",
+    "deleted_title": "User Deleted",
+    "deleted_description": "The user \"{name}\" has been deleted successfully."
   },
   "OrderTableHeader": {
     "id": "ID",

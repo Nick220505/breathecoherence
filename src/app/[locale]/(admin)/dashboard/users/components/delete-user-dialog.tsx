@@ -2,50 +2,57 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useTransition } from 'react';
+import { useRef, useTransition, type ReactNode } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { deleteUser } from '@/features/user/actions';
 
-import { useUserManagementStore } from './store';
+import type { User } from '@prisma/client';
 
-export function DeleteUserDialog() {
+interface DeleteUserDialogProps {
+  children: ReactNode;
+  user: User;
+}
+
+export function DeleteUserDialog({
+  children,
+  user,
+}: Readonly<DeleteUserDialogProps>) {
   const t = useTranslations('DeleteUserDialog');
-  const { isDeleteDialogOpen, setDeleteDialogOpen, deletingUser } =
-    useUserManagementStore();
   const [isPending, startTransition] = useTransition();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  const handleDelete = () => {
-    if (!deletingUser) return;
-
+  const handleDelete = (): void => {
     startTransition(async () => {
-      const { success } = await deleteUser(deletingUser.id);
+      const { success } = await deleteUser(user.id);
 
       if (success) {
         toast.success(t('deleted_title'), {
           description: t('deleted_description', {
-            name: deletingUser.name,
+            name: user.name,
           }),
         });
+        closeRef.current?.click();
       } else {
         toast.error(t('error_delete'));
       }
-
-      setDeleteDialogOpen(false);
     });
   };
 
   return (
-    <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
@@ -54,13 +61,11 @@ export function DeleteUserDialog() {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => setDeleteDialogOpen(false)}
-            disabled={isPending}
-          >
-            {t('cancel')}
-          </Button>
+          <DialogClose asChild>
+            <Button ref={closeRef} variant="outline" disabled={isPending}>
+              {t('cancel')}
+            </Button>
+          </DialogClose>
           <Button
             variant="destructive"
             onClick={handleDelete}

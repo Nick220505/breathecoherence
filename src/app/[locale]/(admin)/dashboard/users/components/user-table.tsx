@@ -1,7 +1,5 @@
-'use client';
-
 import { Edit, Trash2 } from 'lucide-react';
-import { useTranslations, useLocale } from 'next-intl';
+import { getTranslations, getLocale } from 'next-intl/server';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -13,120 +11,67 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { getAllUsers } from '@/features/user/actions';
 
-import { useUserManagementStore } from './store';
+import { DeleteUserDialog } from './delete-user-dialog';
+import { UserDialog } from './user-dialog';
 
-import type { UserSummary } from '@/features/user/types';
-
-interface UserTableProps {
-  users: UserSummary[];
-}
-
-export function UserTable({ users }: Readonly<UserTableProps>) {
-  const tHeader = useTranslations('UserTableHeader');
-  const tRow = useTranslations('UserTableRow');
-  const tRoles = useTranslations('UserRoles');
-  const locale = useLocale();
-  const {
-    setEditDialogOpen,
-    setEditingUser,
-    setDeleteDialogOpen,
-    setDeletingUser,
-  } = useUserManagementStore();
-
-  const handleEdit = (user: UserSummary) => {
-    setEditingUser(user);
-    setEditDialogOpen(true);
-  };
-
-  const handleDelete = (user: UserSummary) => {
-    setDeletingUser(user);
-    setDeleteDialogOpen(true);
-  };
+export async function UserTable() {
+  const t = await getTranslations('UserTable');
+  const locale = await getLocale();
+  const users = await getAllUsers();
 
   return (
-    <div className="space-y-4">
-      <TooltipProvider>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>{tHeader('name')}</TableHead>
-              <TableHead>{tHeader('email')}</TableHead>
-              <TableHead>{tHeader('role')}</TableHead>
-              <TableHead>{tHeader('createdAt')}</TableHead>
-              <TableHead>{tHeader('updatedAt')}</TableHead>
-              <TableHead className="text-right">{tHeader('actions')}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell className="font-medium">{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  <Badge
-                    variant={user.role === 'ADMIN' ? 'default' : 'secondary'}
-                  >
-                    {tRoles(user.role)}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  {new Intl.DateTimeFormat(locale, {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                  }).format(new Date(user.createdAt))}
-                </TableCell>
-                <TableCell>
-                  {new Intl.DateTimeFormat(locale, {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                  }).format(new Date(user.updatedAt))}
-                </TableCell>
-                <TableCell className="text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          onClick={() => handleEdit(user)}
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{tRow('edit_tooltip')}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          onClick={() => handleDelete(user)}
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-red-500 hover:bg-red-50 hover:text-red-600"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{tRow('delete_tooltip')}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TooltipProvider>
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>{t('name')}</TableHead>
+          <TableHead>{t('email')}</TableHead>
+          <TableHead>{t('role')}</TableHead>
+          <TableHead>{t('created_at')}</TableHead>
+          <TableHead>{t('updated_at')}</TableHead>
+          <TableHead className="text-right">{t('actions')}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {users.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell className="font-medium">{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>
+              <Badge variant={user.role === 'ADMIN' ? 'default' : 'secondary'}>
+                {t(`roles.${user.role.toLowerCase()}`)}
+              </Badge>
+            </TableCell>
+            <TableCell>
+              {new Intl.DateTimeFormat(locale, {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+              }).format(user.createdAt)}
+            </TableCell>
+            <TableCell>
+              {new Intl.DateTimeFormat(locale, {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+              }).format(user.updatedAt)}
+            </TableCell>
+            <TableCell className="text-right">
+              <div className="flex items-center justify-end gap-2">
+                <UserDialog user={user}>
+                  <Button size="icon">
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </UserDialog>
+                <DeleteUserDialog user={user}>
+                  <Button variant="destructive" size="icon">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </DeleteUserDialog>
+              </div>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }
