@@ -107,6 +107,10 @@ export const productService = {
     };
   },
 
+  getCount(): Promise<number> {
+    return productRepository.count();
+  },
+
   async create(data: ProductFormData, locale: Locale): Promise<Product> {
     const { categoryId, ...restData } = data;
 

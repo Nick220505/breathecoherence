@@ -4,7 +4,7 @@ import type { UserSummary } from './types';
 import type { Prisma, User } from '@prisma/client';
 
 export const userRepository = {
-  async findMany(): Promise<UserSummary[]> {
+  findMany(): Promise<UserSummary[]> {
     return prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
       select: {
@@ -16,6 +16,10 @@ export const userRepository = {
         updatedAt: true,
       },
     });
+  },
+
+  count(): Promise<number> {
+    return prisma.user.count();
   },
 
   create(data: Prisma.UserCreateInput): Promise<User> {

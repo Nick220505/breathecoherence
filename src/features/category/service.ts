@@ -41,6 +41,10 @@ export const categoryService = {
     );
   },
 
+  getCount(): Promise<number> {
+    return categoryRepository.count();
+  },
+
   async create(data: CategoryFormData, locale: Locale): Promise<Category> {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,

@@ -15,6 +15,10 @@ export async function getAllUsers(): Promise<UserSummary[]> {
   return userService.getAll();
 }
 
+export async function getUserCount(): Promise<number> {
+  return userService.getCount();
+}
+
 export async function createUser(
   values: UserFormData,
 ): Promise<ActionResult<User>> {

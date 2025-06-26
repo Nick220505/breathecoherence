@@ -36,6 +36,10 @@ export async function getProductById(id: string): Promise<ProductWithCategory> {
   }
 }
 
+export async function getProductCount(): Promise<number> {
+  return productService.getCount();
+}
+
 export async function createProduct(
   values: ProductFormData,
 ): Promise<ActionResult<Product>> {

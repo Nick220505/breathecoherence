@@ -11,6 +11,10 @@ export const categoryRepository = {
     return prisma.category.findUnique({ where: { id } });
   },
 
+  count(): Promise<number> {
+    return prisma.category.count();
+  },
+
   create(data: Prisma.CategoryCreateInput): Promise<Category> {
     return prisma.category.create({ data });
   },

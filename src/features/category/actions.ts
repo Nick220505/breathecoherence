@@ -35,6 +35,10 @@ export async function getCategoryById(id: string): Promise<Category> {
   }
 }
 
+export async function getCategoryCount(): Promise<number> {
+  return categoryService.getCount();
+}
+
 export async function createCategory(
   values: CategoryFormData,
 ): Promise<ActionResult<Category>> {

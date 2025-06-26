@@ -10,7 +10,7 @@ import type {
 } from './types';
 
 export const orderService = {
-  async getAll(): Promise<OrderSummary[]> {
+  getAll(): Promise<OrderSummary[]> {
     return orderRepository.findMany();
   },
 
@@ -22,8 +22,12 @@ export const orderService = {
     return orderRepository.findByIdAndUser(id, userId);
   },
 
-  async getAllWithItemsByUser(userId: string): Promise<OrderDetail[]> {
+  getAllWithItemsByUser(userId: string): Promise<OrderDetail[]> {
     return orderRepository.findManyWithItemsByUser(userId);
+  },
+
+  getCount(): Promise<number> {
+    return orderRepository.count();
   },
 
   async sendOrderConfirmationEmail({

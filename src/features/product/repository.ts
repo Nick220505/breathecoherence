@@ -26,6 +26,10 @@ export const productRepository = {
     });
   },
 
+  count(): Promise<number> {
+    return prisma.product.count();
+  },
+
   create(data: Prisma.ProductCreateInput): Promise<Product> {
     return prisma.product.create({ data });
   },

@@ -26,3 +26,7 @@ export async function getAllOrders(): Promise<OrderSummary[]> {
   if (!session?.user) throw new Error('Unauthorized');
   return orderService.getAll();
 }
+
+export async function getOrderCount(): Promise<number> {
+  return orderService.getCount();
+}

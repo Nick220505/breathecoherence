@@ -4,26 +4,24 @@ import type { OrderSummary, OrderDetail } from './types';
 
 export const orderRepository = {
   async findMany(): Promise<OrderSummary[]> {
-    return prisma.order
-      .findMany({
-        orderBy: { createdAt: 'desc' },
-        select: {
-          id: true,
-          total: true,
-          status: true,
-          createdAt: true,
-          user: { select: { email: true } },
-        },
-      })
-      .then((orders) =>
-        orders.map((o) => ({
-          id: o.id,
-          total: o.total,
-          status: o.status,
-          createdAt: o.createdAt,
-          userEmail: o.user.email,
-        })),
-      );
+    const orders = await prisma.order.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        total: true,
+        status: true,
+        createdAt: true,
+        user: { select: { email: true } },
+      },
+    });
+
+    return orders.map(({ id, total, status, createdAt, user }) => ({
+      id,
+      total,
+      status,
+      createdAt,
+      userEmail: user.email,
+    }));
   },
 
   findById(id: string): Promise<OrderDetail | null> {
@@ -60,7 +58,7 @@ export const orderRepository = {
     });
   },
 
-  async findManyWithItemsByUser(userId: string): Promise<OrderDetail[]> {
+  findManyWithItemsByUser(userId: string): Promise<OrderDetail[]> {
     return prisma.order.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
@@ -76,5 +74,9 @@ export const orderRepository = {
         },
       },
     });
+  },
+
+  count(): Promise<number> {
+    return prisma.order.count();
   },
 };

@@ -1,11 +1,11 @@
 import { Package } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
-import prisma from '@/lib/prisma';
+import { getProductCount } from '@/features/product/actions';
 
 export async function ProductsCard() {
   const t = await getTranslations('dashboard');
-  const productCount = await prisma.product.count();
+  const productCount = await getProductCount();
 
   return (
     <div className="bg-card flex items-center justify-center gap-6 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md max-[475px]:flex-col max-[475px]:gap-3">
