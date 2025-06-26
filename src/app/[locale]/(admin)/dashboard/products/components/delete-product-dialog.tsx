@@ -2,50 +2,57 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useTransition } from 'react';
+import { useRef, useTransition, type ReactNode } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { deleteProduct } from '@/features/product/actions';
 
-import { useProductManagementStore } from './store';
+import type { Product } from '@prisma/client';
 
-export function DeleteProductDialog() {
+interface DeleteProductDialogProps {
+  children: ReactNode;
+  product: Product;
+}
+
+export function DeleteProductDialog({
+  children,
+  product,
+}: Readonly<DeleteProductDialogProps>) {
   const t = useTranslations('DeleteProductDialog');
-  const { isDeleteDialogOpen, setDeleteDialogOpen, deletingProduct } =
-    useProductManagementStore();
   const [isPending, startTransition] = useTransition();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  const handleDelete = () => {
-    if (!deletingProduct) return;
-
+  const handleDelete = (): void => {
     startTransition(async () => {
-      const { success } = await deleteProduct(deletingProduct.id);
+      const { success } = await deleteProduct(product.id);
 
       if (success) {
         toast.success(t('deleted_title'), {
           description: t('deleted_description', {
-            name: deletingProduct.name,
+            name: product.name,
           }),
         });
+        closeRef.current?.click();
       } else {
-        toast.error(t('error'));
+        toast.error(t('error_delete'));
       }
-
-      setDeleteDialogOpen(false);
     });
   };
 
   return (
-    <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
@@ -53,14 +60,12 @@ export function DeleteProductDialog() {
             {t('delete_confirm_description')}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex justify-end space-x-2">
-          <Button
-            variant="outline"
-            onClick={() => setDeleteDialogOpen(false)}
-            disabled={isPending}
-          >
-            {t('cancel')}
-          </Button>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button ref={closeRef} variant="outline" disabled={isPending}>
+              {t('cancel')}
+            </Button>
+          </DialogClose>
           <Button
             variant="destructive"
             onClick={handleDelete}

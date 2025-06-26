@@ -184,19 +184,20 @@
     "cta": "Create Your Blend"
   },
   "ProductCard": {
-    "view_details": "View Details"
+    "view_details": "View Details",
+    "sacred_geometry": "Sacred Geometry",
+    "flower_essence": "Flower Essence"
   },
-  "AddProductButton": {
+  "ProductsPage": {
+    "title": "Product Management",
     "add_product": "Add Product"
   },
   "DeleteProductDialog": {
-    "success": "Success",
-    "error": "Error",
     "error_delete": "An error occurred while deleting the product",
     "delete_confirm_title": "Delete Product",
     "delete_confirm_description": "Are you sure you want to delete this product? This action cannot be undone.",
     "cancel": "Cancel",
-    "deleting": "Deleting...",
+    "deleting": "Deleting Product...",
     "confirm_delete": "Delete",
     "deleted_title": "Product Deleted",
     "deleted_description": "The product \"{name}\" has been deleted successfully."
@@ -216,70 +217,18 @@
     "deleted_title": "Category Deleted",
     "deleted_description": "The category \"{name}\" has been deleted successfully."
   },
-  "AddProductDialog": {
+  "ProductDialog": {
     "add_product": "Add Product",
-    "form_description": "Form to add a new product"
-  },
-  "EditProductDialog": {
     "edit_product": "Edit Product",
-    "form_description": "Form to edit an existing product"
-  },
-  "ProductForm": {
-    "success": "Success",
-    "created_title": "Product Created",
-    "updated_title": "Product Updated",
-    "created_description": "The product \"{name}\" has been created successfully.",
-    "updated_description": "The product \"{name}\" has been updated successfully.",
-    "editing": "Editing product...",
-    "adding": "Adding product...",
-    "edit": "Edit Product",
-    "add": "Add Product"
-  },
-  "ProductTableHeader": {
-    "image": "Image",
-    "name": "Name",
-    "category": "Category",
-    "price": "Price",
-    "stock": "Stock",
-    "createdAt": "Created At",
-    "updatedAt": "Updated At",
-    "actions": "Actions",
-    "filter_by_name": "Filter by name",
-    "sort_by_name": "Sort by name",
-    "filter_by_type": "Filter by type",
-    "sort_by_type": "Sort by type",
-    "all": "All",
-    "sacred_geometry": "Sacred Geometry",
-    "flower_essence": "Flower Essence",
-    "filter_name_placeholder": "Filter by name...",
-    "filter_type_placeholder": "Filter by type...",
-    "all_types": "All Types"
-  },
-
-  "TablePagination": {
-    "previous": "Previous",
-    "next": "Next"
-  },
-  "ProductTableRow": {
-    "edit_tooltip": "Edit product",
-    "delete_tooltip": "Delete product",
-    "sacred_geometry": "Sacred Geometry",
-    "flower_essence": "Flower Essence"
-  },
-  "TableSkeleton": {
-    "image": "Image",
-    "name": "Name",
-    "category": "Category",
-    "price": "Price",
-    "stock": "Stock",
-    "actions": "Actions"
-  },
-  "FormFields": {
-    "product_name": "Product Name",
+    "form_description": "Form to add a new product",
+    "edit_form_description": "Form to edit an existing product",
+    "name": "Product Name",
     "description": "Description",
     "category": "Category",
     "price": "Price",
     "stock": "Stock",
+    "image": "Product Image",
+    "categories_label": "Categories",
     "placeholder": {
       "name": "Enter product name",
       "description": "Enter product description",
@@ -287,22 +236,50 @@
       "price": "0.00",
       "stock": "0"
     },
-    "categories": {
-      "label": "Categories",
-      "flower_essence": "Flower Essence",
-      "sacred_geometry": "Sacred Geometry"
+    "image_alt": "Product image",
+    "default_image_alt": "Default product image",
+    "uploading": "Uploading...",
+    "choose_file": "Choose File",
+    "created_title": "Product Created",
+    "updated_title": "Product Updated",
+    "created_description": "The product \"{name}\" has been created successfully.",
+    "updated_description": "The product \"{name}\" has been updated successfully.",
+    "editing": "Saving changes...",
+    "adding": "Creating product...",
+    "edit": "Save Changes",
+    "add": "Create",
+    "cancel": "Cancel",
+    "validation": {
+      "name_min": "Name must be at least 3 characters",
+      "description_min": "Description must be at least 10 characters",
+      "type_invalid": "Please select a valid category",
+      "type_required": "Please select a category",
+      "price_min": "Price must be at least 0",
+      "stock_int": "Stock must be an integer",
+      "stock_min": "Stock must be at least 0",
+      "image_invalid": "Please upload a valid image file"
     }
   },
-  "ImageUpload": {
-    "label": "Product Image",
-    "placeholder": {
-      "choose_file": "Choose File"
-    },
-    "loading": "Uploading...",
-    "alt": {
-      "product": "Product image",
-      "default": "Default product image"
-    }
+  "ProductTable": {
+    "image": "Image",
+    "name": "Name",
+    "category": "Category",
+    "price": "Price",
+    "stock": "Stock",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "actions": "Actions",
+    "out_of_stock": "Out of stock"
+  },
+  "ProductTableSkeleton": {
+    "image": "Image",
+    "name": "Name",
+    "category": "Category",
+    "price": "Price",
+    "stock": "Stock",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "actions": "Actions"
   },
   "CustomBlendPage": {
     "title": "Create Your Custom Blend",
@@ -529,16 +506,6 @@
       "name_min": "Name must be at least 3 characters",
       "description_min": "Description must be at least 10 characters"
     }
-  },
-  "ProductSchema": {
-    "nameMin": "Name must be at least 3 characters",
-    "descriptionMin": "Description must be at least 10 characters",
-    "typeInvalid": "Please select a valid category",
-    "typeRequired": "Please select a category",
-    "priceMin": "Price must be at least 0",
-    "stockInt": "Stock must be an integer",
-    "stockMin": "Stock must be at least 0",
-    "imageInvalid": "Please upload a valid image file"
   },
   "AuthSchema": {
     "Login": {

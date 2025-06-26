@@ -1,36 +1,35 @@
+import { Plus } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getAllProducts } from '@/features/product/actions';
 
-import { AddProductButton } from './components/add-product-button';
-import { AddProductDialog } from './components/add-product-dialog';
-import { DeleteProductDialog } from './components/delete-product-dialog';
-import { EditProductDialog } from './components/edit-product-dialog';
+import { ProductDialog } from './components/product-dialog';
 import { ProductTable } from './components/product-table';
+import { ProductTableSkeleton } from './components/product-table-skeleton';
 
 export default async function ProductsPage() {
-  const products = await getAllProducts();
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('ProductsPage');
 
   return (
-    <>
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle>{t('productTable.title')}</CardTitle>
-            </div>
-            <AddProductButton />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <ProductTable products={products} />
-        </CardContent>
-      </Card>
-      <AddProductDialog />
-      <EditProductDialog />
-      <DeleteProductDialog />
-    </>
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle>{t('title')}</CardTitle>
+          <ProductDialog>
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              {t('add_product')}
+            </Button>
+          </ProductDialog>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Suspense fallback={<ProductTableSkeleton />}>
+          <ProductTable />
+        </Suspense>
+      </CardContent>
+    </Card>
   );
 }

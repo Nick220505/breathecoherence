@@ -28,7 +28,6 @@ export function ProductCard({
   categoryName,
 }: Readonly<ProductCardProps>) {
   const t = useTranslations('ProductCard');
-  const tableHeaderT = useTranslations('ProductTableHeader');
 
   let imageToDisplay: string;
   const actualImageValue: unknown = product.imageBase64;
@@ -64,8 +63,8 @@ export function ProductCard({
           </CardTitle>
           <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
             {categoryName === 'Sacred Geometry'
-              ? tableHeaderT('sacred_geometry')
-              : tableHeaderT('flower_essence')}
+              ? t('sacred_geometry')
+              : t('flower_essence')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

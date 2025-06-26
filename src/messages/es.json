@@ -182,19 +182,20 @@
     "cta": "Crear Tu Mezcla"
   },
   "ProductCard": {
-    "view_details": "Ver Detalles"
+    "view_details": "Ver Detalles",
+    "sacred_geometry": "Geometr�a Sagrada",
+    "flower_essence": "Esencia Floral"
   },
-  "AddProductButton": {
+  "ProductsPage": {
+    "title": "Gestión de Productos",
     "add_product": "Agregar Producto"
   },
   "DeleteProductDialog": {
-    "success": "Éxito",
-    "error": "Error",
     "error_delete": "Ocurrió un error al eliminar el producto",
     "delete_confirm_title": "Eliminar Producto",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",
-    "deleting": "Eliminando...",
+    "deleting": "Eliminando Producto...",
     "confirm_delete": "Eliminar",
     "deleted_title": "Producto Eliminado",
     "deleted_description": "El producto \"{name}\" ha sido eliminado con éxito."
@@ -258,71 +259,18 @@
       "description_min": "La descripción debe tener al menos 10 caracteres"
     }
   },
-  "AddProductDialog": {
+  "ProductDialog": {
     "add_product": "Agregar Producto",
-    "form_description": "Formulario para agregar un nuevo producto"
-  },
-  "EditProductDialog": {
     "edit_product": "Editar Producto",
-    "form_description": "Formulario para editar un producto existente"
-  },
-  "ProductForm": {
-    "success": "Éxito",
-    "created_title": "Producto Creado",
-    "updated_title": "Producto Actualizado",
-    "created_description": "El producto \"{name}\" ha sido creado con éxito.",
-    "updated_description": "El producto \"{name}\" ha sido actualizado con éxito.",
-    "editing": "Editando producto...",
-    "adding": "Agregando producto...",
-    "edit": "Editar Producto",
-    "add": "Agregar Producto"
-  },
-  "ProductTableHeader": {
-    "image": "Imagen",
-    "name": "Nombre",
-    "type": "Tipo",
-    "price": "Precio",
-    "stock": "Stock",
-    "actions": "Acciones",
-    "createdAt": "Creado en",
-    "updatedAt": "Actualizado en",
-    "filter_by_name": "Filtrar por nombre",
-    "sort_by_name": "Ordenar por nombre",
-    "filter_by_type": "Filtrar por tipo",
-    "sort_by_type": "Ordenar por tipo",
-    "all": "Todos",
-    "sacred_geometry": "Geometría Sagrada",
-    "flower_essence": "Esencia Floral",
-    "category": "Categoría",
-    "filter_name_placeholder": "Filtrar por nombre...",
-    "filter_type_placeholder": "Filtrar por tipo...",
-    "all_types": "Todos los tipos"
-  },
-
-  "TablePagination": {
-    "previous": "Anterior",
-    "next": "Siguiente"
-  },
-  "ProductTableRow": {
-    "edit_tooltip": "Editar producto",
-    "delete_tooltip": "Eliminar producto",
-    "sacred_geometry": "Geometría Sagrada",
-    "flower_essence": "Esencia Floral"
-  },
-  "TableSkeleton": {
-    "image": "Imagen",
-    "name": "Nombre",
-    "category": "Categoría",
-    "price": "Precio",
-    "stock": "Stock",
-    "actions": "Acciones"
-  },
-  "FormFields": {
-    "product_name": "Nombre del Producto",
+    "form_description": "Formulario para agregar un nuevo producto",
+    "edit_form_description": "Formulario para editar un producto existente",
+    "name": "Nombre del Producto",
     "description": "Descripción",
     "category": "Categoría",
     "price": "Precio",
     "stock": "Stock",
+    "image": "Imagen del Producto",
+    "categories_label": "Categorías",
     "placeholder": {
       "name": "Ingresa el nombre del producto",
       "description": "Ingresa la descripción del producto",
@@ -330,22 +278,50 @@
       "price": "0.00",
       "stock": "0"
     },
-    "categories": {
-      "label": "Categorías",
-      "flower_essence": "Esencia Floral",
-      "sacred_geometry": "Geometría Sagrada"
+    "image_alt": "Imagen del producto",
+    "default_image_alt": "Imagen predeterminada del producto",
+    "uploading": "Subiendo...",
+    "choose_file": "Elegir Archivo",
+    "created_title": "Producto Creado",
+    "updated_title": "Producto Actualizado",
+    "created_description": "El producto \"{name}\" ha sido creado con éxito.",
+    "updated_description": "El producto \"{name}\" ha sido actualizado con éxito.",
+    "editing": "Guardando cambios...",
+    "adding": "Creando producto...",
+    "edit": "Guardar Cambios",
+    "add": "Crear",
+    "cancel": "Cancelar",
+    "validation": {
+      "name_min": "El nombre debe tener al menos 3 caracteres",
+      "description_min": "La descripción debe tener al menos 10 caracteres",
+      "type_invalid": "Seleccione una categoría válida",
+      "type_required": "Por favor seleccione una categoría",
+      "price_min": "El precio debe ser al menos 0",
+      "stock_int": "El stock debe ser un número entero",
+      "stock_min": "El stock debe ser al menos 0",
+      "image_invalid": "La imagen debe ser un archivo válido"
     }
   },
-  "ImageUpload": {
-    "label": "Imagen del Producto",
-    "placeholder": {
-      "choose_file": "Elegir Archivo"
-    },
-    "alt": {
-      "product": "Producto",
-      "default": "Imagen Predeterminada del Producto"
-    },
-    "loading": "Subiendo imagen..."
+  "ProductTable": {
+    "image": "Imagen",
+    "name": "Nombre",
+    "category": "Categoría",
+    "price": "Precio",
+    "stock": "Stock",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones",
+    "out_of_stock": "Sin stock"
+  },
+  "ProductTableSkeleton": {
+    "image": "Imagen",
+    "name": "Nombre",
+    "category": "Categoría",
+    "price": "Precio",
+    "stock": "Stock",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones"
   },
   "CustomBlendPage": {
     "back_to_store": "Volver a la Tienda",
@@ -549,16 +525,6 @@
     "product_type": "Tipo de Producto"
   },
 
-  "ProductSchema": {
-    "nameMin": "El nombre debe tener al menos 3 caracteres",
-    "descriptionMin": "La descripción debe tener al menos 10 caracteres",
-    "typeInvalid": "Seleccione una categoría válida",
-    "typeRequired": "Por favor seleccione una categoría",
-    "priceMin": "El precio debe ser al menos 0",
-    "stockInt": "El stock debe ser un número entero",
-    "stockMin": "El stock debe ser al menos 0",
-    "imageInvalid": "La imagen debe ser un archivo válido"
-  },
   "AuthSchema": {
     "Login": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
