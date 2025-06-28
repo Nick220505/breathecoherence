@@ -132,7 +132,6 @@ export function ProductDialog({
     resolver: zodResolver(productSchema, {
       path: [],
       async: false,
-      // eslint-disable-next-line sonarjs/cognitive-complexity
       errorMap(issue, ctx) {
         const path = issue.path.join('.');
 
