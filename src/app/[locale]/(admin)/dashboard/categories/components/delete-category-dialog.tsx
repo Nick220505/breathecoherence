@@ -2,8 +2,9 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, useTransition, type ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { toast } from 'sonner';
+import { useServerAction } from 'zsa-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -30,25 +31,19 @@ export function DeleteCategoryDialog({
   category,
 }: Readonly<DeleteCategoryDialogProps>) {
   const t = useTranslations('DeleteCategoryDialog');
-  const [isPending, startTransition] = useTransition();
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const handleDelete = (): void => {
-    startTransition(async () => {
-      const { success } = await deleteCategory(category.id);
-
-      if (success) {
-        toast.success(t('deleted_title'), {
-          description: t('deleted_description', {
-            name: category.name,
-          }),
-        });
-        closeRef.current?.click();
-      } else {
-        toast.error(t('error_delete'));
-      }
-    });
-  };
+  const { execute, isPending } = useServerAction(deleteCategory, {
+    onSuccess: ({ data: { name } }) => {
+      toast.success(t('deleted_title'), {
+        description: t('deleted_description', { name }),
+      });
+      closeRef.current?.click();
+    },
+    onError: ({ err: { message } }) => {
+      toast.error(message ?? t('error_delete'));
+    },
+  });
 
   return (
     <Dialog>
@@ -68,7 +63,7 @@ export function DeleteCategoryDialog({
           </DialogClose>
           <Button
             variant="destructive"
-            onClick={handleDelete}
+            onClick={() => execute({ id: category.id })}
             disabled={isPending}
           >
             {isPending ? (

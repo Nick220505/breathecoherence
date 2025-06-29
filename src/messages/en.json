@@ -689,16 +689,7 @@
       "deleteError": "Failed to delete product.",
       "missingId": "Product ID is missing."
     },
-    "Category": {
-      "fillRequiredFields": "Please fill all required fields.",
-      "createSuccess": "Category created successfully.",
-      "createError": "Failed to create category.",
-      "updateSuccess": "Category updated successfully.",
-      "updateError": "Failed to update category.",
-      "deleteSuccess": "Category deleted successfully.",
-      "deleteError": "Failed to delete category.",
-      "missingId": "Category ID is missing."
-    },
+
     "User": {
       "fillRequiredFields": "Please fill all required fields.",
       "createSuccess": "User created successfully.",

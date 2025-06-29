@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, useTransition, type ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -32,6 +32,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { createCategory, updateCategory } from '@/features/category/actions';
 import { CategoryFormData, categorySchema } from '@/features/category/schema';
+import { useServerAction } from 'zsa-react';
 
 import type { Category } from '@prisma/client';
 
@@ -46,8 +47,41 @@ export function CategoryDialog({
 }: Readonly<CategoryDialogProps>) {
   const isEdit = !!category;
   const t = useTranslations('CategoryDialog');
-  const [isPending, startTransition] = useTransition();
   const closeRef = useRef<HTMLButtonElement>(null);
+
+  const { execute: executeCreate, isPending: isCreatePending } =
+    useServerAction(createCategory, {
+      onSuccess: ({ data: { name } }) => {
+        form.clearErrors();
+        toast.success(t('created_title'), {
+          description: t('created_description', { name }),
+        });
+        closeRef.current?.click();
+      },
+      onError: ({ err: { message } }) => {
+        form.setError('root.serverError', {
+          message: message ?? 'An error occurred',
+        });
+      },
+    });
+
+  const { execute: executeUpdate, isPending: isUpdatePending } =
+    useServerAction(updateCategory, {
+      onSuccess: ({ data: { name } }) => {
+        form.clearErrors();
+        toast.success(t('updated_title'), {
+          description: t('updated_description', { name }),
+        });
+        closeRef.current?.click();
+      },
+      onError: ({ err: { message } }) => {
+        form.setError('root.serverError', {
+          message: message ?? 'An error occurred',
+        });
+      },
+    });
+
+  const isPending = isCreatePending || isUpdatePending;
 
   const form = useForm<CategoryFormData>({
     resolver: zodResolver(categorySchema, {
@@ -73,42 +107,22 @@ export function CategoryDialog({
     },
   });
 
-  const onSubmit = (values: CategoryFormData): void => {
-    startTransition(async () => {
-      const action = isEdit ? updateCategory : createCategory;
-      const { success, data, message, errors } = await action(values);
-
-      if (success) {
-        form.clearErrors();
-        toast.success(isEdit ? t('updated_title') : t('created_title'), {
-          description: isEdit
-            ? t('updated_description', { name: data?.name ?? '' })
-            : t('created_description', { name: data?.name ?? '' }),
-        });
-
-        closeRef.current?.click();
-      } else {
-        form.setError('root.serverError', { message });
-
-        if (errors) {
-          Object.entries(errors).forEach(([field, messages]) => {
-            if (messages.length > 0) {
-              form.setError(field as keyof CategoryFormData, {
-                message: messages[0],
-              });
-            }
-          });
-        }
-      }
-    });
-  };
-
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
+          <form
+            onSubmit={(e) =>
+              void form.handleSubmit((values: CategoryFormData) => {
+                if (isEdit) {
+                  executeUpdate(values);
+                } else {
+                  executeCreate(values);
+                }
+              })(e)
+            }
+          >
             <DialogHeader>
               <DialogTitle>
                 {isEdit ? t('edit_category') : t('add_category')}

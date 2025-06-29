@@ -565,16 +565,7 @@
       "deleteError": "Error al eliminar el producto.",
       "missingId": "Falta el ID del producto."
     },
-    "Category": {
-      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
-      "createSuccess": "Categoría creada con éxito.",
-      "createError": "Error al crear la categoría.",
-      "updateSuccess": "Categoría actualizada con éxito.",
-      "updateError": "Error al actualizar la categoría.",
-      "deleteSuccess": "Categoría eliminada con éxito.",
-      "deleteError": "Error al eliminar la categoría.",
-      "missingId": "Falta el ID de la categoría."
-    },
+
     "User": {
       "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
       "createSuccess": "Usuario creado con éxito.",

@@ -2,14 +2,14 @@
 
 import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
+import { z } from 'zod';
 
 import { categorySchema } from './schema';
 import { categoryService } from './service';
+import { createServerAction } from 'zsa';
 
-import type { CategoryFormData } from './schema';
 import type { Locale } from '@/i18n/routing';
-import type { ActionResult } from '@/lib/types';
 import type { Category } from '@prisma/client';
 
 export async function getAllCategories(): Promise<Category[]> {
@@ -39,88 +39,41 @@ export async function getCategoryCount(): Promise<number> {
   return categoryService.getCount();
 }
 
-export async function createCategory(
-  values: CategoryFormData,
-): Promise<ActionResult<Category>> {
-  const t = await getTranslations('ServerActions.Category');
-
-  const { success, data, error } = categorySchema.safeParse(values);
-
-  if (!success) {
-    return {
-      success: false,
-      message: t('fillRequiredFields'),
-      errors: error.flatten().fieldErrors,
-    };
-  }
-
-  try {
+export const createCategory = createServerAction()
+  .input(categorySchema)
+  .handler(async ({ input: data }) => {
     const locale = (await getLocale()) as Locale;
     const createdCategory = await categoryService.create(data, locale);
     revalidateTag('categories');
 
-    return {
-      success: true,
-      message: t('createSuccess'),
-      data: createdCategory,
-    };
-  } catch {
-    return { success: false, message: t('createError') };
-  }
-}
+    return createdCategory;
+  });
 
-export async function updateCategory(
-  values: CategoryFormData,
-): Promise<ActionResult<Category>> {
-  const t = await getTranslations('ServerActions.Category');
-
-  const { success, data, error } = categorySchema.safeParse(values);
-
-  if (!success) {
-    return {
-      success: false,
-      message: t('fillRequiredFields'),
-      errors: error.flatten().fieldErrors,
-    };
-  }
-
-  const { id } = data;
-  if (!id) {
-    return { success: false, message: t('missingId') };
-  }
-
-  try {
+export const updateCategory = createServerAction()
+  .input(categorySchema)
+  .handler(async ({ input: data }) => {
     const locale = (await getLocale()) as Locale;
-    const updatedCategory = await categoryService.update(id, data, locale);
+    const updatedCategory = await categoryService.update(
+      data.id!,
+      data,
+      locale,
+    );
     revalidateTag('categories');
     revalidateTag('category');
 
-    return {
-      success: true,
-      message: t('updateSuccess'),
-      data: updatedCategory,
-    };
-  } catch {
-    return { success: false, message: t('updateError') };
-  }
-}
+    return updatedCategory;
+  });
 
-export async function deleteCategory(
-  id: string,
-): Promise<ActionResult<Category>> {
-  const t = await getTranslations('ServerActions.Category');
+const deleteCategorySchema = z.object({
+  id: z.string().min(1),
+});
 
-  try {
+export const deleteCategory = createServerAction()
+  .input(deleteCategorySchema)
+  .handler(async ({ input: { id } }) => {
     const locale = (await getLocale()) as Locale;
     const deletedCategory = await categoryService.delete(id, locale);
     revalidateTag('categories');
 
-    return {
-      success: true,
-      message: t('deleteSuccess'),
-      data: deletedCategory,
-    };
-  } catch {
-    return { success: false, message: t('deleteError') };
-  }
-}
+    return deletedCategory;
+  });
