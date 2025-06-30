@@ -1,0 +1,32 @@
+import { z } from 'zod';
+
+export const orderSchema = z.object({
+  id: z.string(),
+  userId: z.string().nullable(),
+  userEmail: z.string().email(),
+  total: z.number().positive(),
+  status: z.enum(['PENDING', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const createOrderSchema = orderSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const updateOrderSchema = orderSchema
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
+  .partial()
+  .required({
+    id: true,
+  });
+
+export const orderStatusUpdateSchema = z.object({
+  id: z.string(),
+  status: z.enum(['PENDING', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']),
+});

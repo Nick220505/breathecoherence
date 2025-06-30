@@ -6,15 +6,19 @@ import { getAllOrders } from '@/features/order/actions';
 import { OrderTable } from './components/order-table';
 
 export default async function OrdersPage() {
-  const tDashboard = await getTranslations('dashboard');
-  const orders = await getAllOrders();
+  const t = await getTranslations('OrdersPage');
+  const [orders, ordersErr] = await getAllOrders();
+
+  if (ordersErr) {
+    throw new Error(t('error.loadOrders'));
+  }
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>{tDashboard('orderTable.title')}</CardTitle>
+            <CardTitle>{t('title')}</CardTitle>
           </div>
         </div>
       </CardHeader>

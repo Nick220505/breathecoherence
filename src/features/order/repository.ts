@@ -79,4 +79,27 @@ export const orderRepository = {
   count(): Promise<number> {
     return prisma.order.count();
   },
+
+  async updateStatus(
+    id: string,
+    status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED',
+  ): Promise<OrderDetail> {
+    const updatedOrder = await prisma.order.update({
+      where: { id },
+      data: { status },
+      include: {
+        items: {
+          include: {
+            product: {
+              include: {
+                category: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return updatedOrder;
+  },
 };

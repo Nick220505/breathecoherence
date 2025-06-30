@@ -1,4 +1,17 @@
 import type { Order, Prisma } from '@prisma/client';
+import type { z } from 'zod';
+
+import type {
+  orderSchema,
+  createOrderSchema,
+  updateOrderSchema,
+  orderStatusUpdateSchema,
+} from './schemas';
+
+export type OrderFormData = z.infer<typeof orderSchema>;
+export type CreateOrderFormData = z.infer<typeof createOrderSchema>;
+export type UpdateOrderFormData = z.infer<typeof updateOrderSchema>;
+export type OrderStatusUpdateFormData = z.infer<typeof orderStatusUpdateSchema>;
 
 export interface OrderSummary
   extends Pick<Order, 'id' | 'total' | 'status' | 'createdAt'> {

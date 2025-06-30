@@ -1,32 +1,46 @@
 'use server';
 
-import { auth } from '@/auth';
+import { revalidateTag } from 'next/cache';
+import { z } from 'zod';
+import { createServerAction } from 'zsa';
 
+import { withAuthProcedure } from '@/lib/zsa';
+
+import { orderStatusUpdateSchema } from './schemas';
 import { orderService } from './service';
 
-import type { OrderDetail, OrderSummary } from './types';
+export const getUserOrdersWithItems = withAuthProcedure
+  .createServerAction()
+  .handler(async ({ ctx }) => {
+    return orderService.getAllWithItemsByUser(ctx.user.id);
+  });
 
-export async function getUserOrdersWithItems(): Promise<OrderDetail[]> {
-  const session = await auth();
-  if (!session?.user) {
-    throw new Error('Unauthorized');
-  }
-  return orderService.getAllWithItemsByUser(session.user.id);
-}
+export const getOrderDetailServer = withAuthProcedure
+  .createServerAction()
+  .input(z.object({ id: z.string() }))
+  .handler(async ({ input, ctx }) => {
+    return orderService.getDetail(input.id, ctx.user.id);
+  });
 
-export async function getOrderDetailServer(
-  id: string,
-): Promise<OrderDetail | null> {
-  const session = await auth();
-  return orderService.getDetail(id, session?.user?.id);
-}
+export const getAllOrders = withAuthProcedure
+  .createServerAction()
+  .handler(async () => {
+    return orderService.getAll();
+  });
 
-export async function getAllOrders(): Promise<OrderSummary[]> {
-  const session = await auth();
-  if (!session?.user) throw new Error('Unauthorized');
-  return orderService.getAll();
-}
-
-export async function getOrderCount(): Promise<number> {
+export const getOrderCount = createServerAction().handler(async () => {
   return orderService.getCount();
-}
+});
+
+export const updateOrderStatus = withAuthProcedure
+  .createServerAction()
+  .input(orderStatusUpdateSchema)
+  .handler(async ({ input }) => {
+    const updatedOrder = await orderService.updateStatus(
+      input.id,
+      input.status,
+    );
+    revalidateTag('orders');
+
+    return updatedOrder;
+  });

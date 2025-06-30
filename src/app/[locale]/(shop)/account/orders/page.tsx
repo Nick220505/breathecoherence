@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { getTranslations } from 'next-intl/server';
 
 import { getUserOrdersWithItems } from '@/features/order/actions';
 
@@ -11,7 +12,14 @@ export default async function OrderHistoryPage({
 }: Readonly<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
 
-  const orders: ClientOrder[] = (await getUserOrdersWithItems()).map((o) => ({
+  const [orders, ordersErr] = await getUserOrdersWithItems();
+
+  if (ordersErr) {
+    const t = await getTranslations('OrderHistory');
+    throw new Error(t('error.loadOrders'));
+  }
+
+  const clientOrders: ClientOrder[] = orders.map((o) => ({
     id: o.id,
     status: o.status,
     total: o.total,
@@ -33,7 +41,7 @@ export default async function OrderHistoryPage({
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <OrderHistoryClient locale={locale} initialOrders={orders} />
+      <OrderHistoryClient locale={locale} initialOrders={clientOrders} />
     </Suspense>
   );
 }

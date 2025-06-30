@@ -1,15 +1,21 @@
 'use client';
 
+import { Edit } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
 
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
-  TableBody,
-  TableCell,
 } from '@/components/ui/table';
+
+import { UpdateOrderStatusDialog } from './update-order-status-dialog';
 
 import type { OrderSummary } from '@/features/order/types';
 
@@ -18,19 +24,38 @@ interface OrderTableProps {
 }
 
 export function OrderTable({ orders }: Readonly<OrderTableProps>) {
-  const tHeader = useTranslations('OrderTableHeader');
+  const t = useTranslations('OrderTable');
   const locale = useLocale();
+  const [updatingOrder, setUpdatingOrder] = useState<OrderSummary | null>(null);
+
+  const getStatusBadgeVariant = (status: string) => {
+    switch (status) {
+      case 'PENDING':
+        return 'secondary';
+      case 'PAID':
+        return 'default';
+      case 'SHIPPED':
+        return 'outline';
+      case 'DELIVERED':
+        return 'default';
+      case 'CANCELLED':
+        return 'destructive';
+      default:
+        return 'secondary';
+    }
+  };
 
   return (
-    <div className="space-y-4">
+    <>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>{tHeader('id')}</TableHead>
-            <TableHead>{tHeader('user')}</TableHead>
-            <TableHead>{tHeader('total')}</TableHead>
-            <TableHead>{tHeader('status')}</TableHead>
-            <TableHead>{tHeader('createdAt')}</TableHead>
+            <TableHead>{t('id')}</TableHead>
+            <TableHead>{t('user')}</TableHead>
+            <TableHead>{t('total')}</TableHead>
+            <TableHead>{t('status_label')}</TableHead>
+            <TableHead>{t('created_at')}</TableHead>
+            <TableHead className="text-right">{t('actions')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -38,18 +63,37 @@ export function OrderTable({ orders }: Readonly<OrderTableProps>) {
             <TableRow key={order.id}>
               <TableCell className="font-medium">{order.id}</TableCell>
               <TableCell>{order.userEmail}</TableCell>
-              <TableCell>{order.total.toFixed(2)}</TableCell>
-              <TableCell>{order.status}</TableCell>
+              <TableCell>${order.total.toFixed(2)}</TableCell>
+              <TableCell>
+                <Badge variant={getStatusBadgeVariant(order.status)}>
+                  {t(`status.${order.status.toLowerCase()}`)}
+                </Badge>
+              </TableCell>
               <TableCell>
                 {new Intl.DateTimeFormat(locale, {
                   dateStyle: 'medium',
                   timeStyle: 'short',
                 }).format(new Date(order.createdAt))}
               </TableCell>
+              <TableCell className="text-right">
+                <div className="flex items-center justify-end gap-2">
+                  <Button size="icon" onClick={() => setUpdatingOrder(order)}>
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </div>
+
+      {updatingOrder && (
+        <UpdateOrderStatusDialog
+          order={updatingOrder}
+          open={!!updatingOrder}
+          onOpenChange={(open) => !open && setUpdatingOrder(null)}
+        />
+      )}
+    </>
   );
 }

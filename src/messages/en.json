@@ -368,9 +368,6 @@
       "loadCategoryCount": "Failed to load category count",
       "loadUserCount": "Failed to load user count",
       "loadProductCount": "Failed to load product count"
-    },
-    "orderTable": {
-      "title": "Order Management"
     }
   },
   "CheckoutPage": {
@@ -457,7 +454,10 @@
     "status_paid": "Paid",
     "status_shipped": "Shipped",
     "status_delivered": "Delivered",
-    "status_cancelled": "Cancelled"
+    "status_cancelled": "Cancelled",
+    "error": {
+      "loadOrder": "Failed to load order details"
+    }
   },
   "OrderDetailsPage": {
     "title": "Order Details",
@@ -628,12 +628,47 @@
     "deleted_title": "User Deleted",
     "deleted_description": "The user \"{name}\" has been deleted successfully."
   },
-  "OrderTableHeader": {
+  "OrderTable": {
     "id": "ID",
     "user": "User",
     "total": "Total",
-    "status": "Status",
-    "createdAt": "Created At"
+    "status_label": "Status",
+    "created_at": "Created At",
+    "actions": "Actions",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "error": {
+      "loadOrders": "Failed to load orders"
+    }
+  },
+  "UpdateOrderStatusDialog": {
+    "title": "Update Order Status",
+    "description": "Update the status for order #{id}",
+    "status_label": "Status",
+    "status_placeholder": "Select status",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "cancel": "Cancel",
+    "update": "Update Status",
+    "updating": "Updating...",
+    "updated_title": "Order Status Updated",
+    "updated_description": "Order #{id} status has been updated successfully."
+  },
+  "OrdersPage": {
+    "title": "Order Management",
+    "error": {
+      "loadOrders": "Failed to load orders"
+    }
   },
   "AdminNav": {
     "dashboard": "Dashboard",
@@ -711,7 +746,10 @@
     "status_paid": "Paid",
     "status_shipped": "Shipped",
     "status_delivered": "Delivered",
-    "status_cancelled": "Cancelled"
+    "status_cancelled": "Cancelled",
+    "error": {
+      "loadOrders": "Failed to load orders"
+    }
   },
   "ServerActions": {
     "Auth": {

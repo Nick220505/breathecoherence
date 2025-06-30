@@ -143,9 +143,6 @@
     "orders": {
       "title": "Gestión de Pedidos"
     },
-    "orderTable": {
-      "title": "Gestión de Pedidos"
-    },
     "error": {
       "loadCategoryCount": "Error al cargar el conteo de categorías",
       "loadUserCount": "Error al cargar el conteo de usuarios",
@@ -537,7 +534,10 @@
     "status_paid": "Pagado",
     "status_shipped": "Enviado",
     "status_delivered": "Entregado",
-    "status_cancelled": "Cancelado"
+    "status_cancelled": "Cancelado",
+    "error": {
+      "loadOrders": "Error al cargar pedidos"
+    }
   },
   "OrderDetails": {
     "title": "Detalles del Pedido",
@@ -676,12 +676,47 @@
     "deleted_title": "Usuario Eliminado",
     "deleted_description": "El usuario \"{name}\" ha sido eliminado con éxito."
   },
-  "OrderTableHeader": {
+  "OrderTable": {
     "id": "ID",
     "user": "Usuario",
     "total": "Total",
-    "status": "Estado",
-    "createdAt": "Creado en"
+    "status_label": "Estado",
+    "created_at": "Creado en",
+    "actions": "Acciones",
+    "status": {
+      "pending": "Pendiente",
+      "paid": "Pagado",
+      "shipped": "Enviado",
+      "delivered": "Entregado",
+      "cancelled": "Cancelado"
+    },
+    "error": {
+      "loadOrders": "Error al cargar pedidos"
+    }
+  },
+  "UpdateOrderStatusDialog": {
+    "title": "Actualizar Estado del Pedido",
+    "description": "Actualizar el estado del pedido #{id}",
+    "status_label": "Estado",
+    "status_placeholder": "Seleccionar estado",
+    "status": {
+      "pending": "Pendiente",
+      "paid": "Pagado",
+      "shipped": "Enviado",
+      "delivered": "Entregado",
+      "cancelled": "Cancelado"
+    },
+    "cancel": "Cancelar",
+    "update": "Actualizar Estado",
+    "updating": "Actualizando...",
+    "updated_title": "Estado del Pedido Actualizado",
+    "updated_description": "El estado del pedido #{id} ha sido actualizado con éxito."
+  },
+  "OrdersPage": {
+    "title": "Gestión de Pedidos",
+    "error": {
+      "loadOrders": "Error al cargar pedidos"
+    }
   },
   "AdminNav": {
     "dashboard": "Panel de Control",
@@ -712,7 +747,10 @@
     "subtotal": "Subtotal",
     "shipping": "Envío",
     "tax": "Impuesto",
-    "total": "Total"
+    "total": "Total",
+    "error": {
+      "loadOrder": "Error al cargar detalles del pedido"
+    }
   },
   "CheckoutSchema": {
     "nameMin": "El nombre debe tener al menos 2 caracteres",

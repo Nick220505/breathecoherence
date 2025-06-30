@@ -30,6 +30,13 @@ export const orderService = {
     return orderRepository.count();
   },
 
+  async updateStatus(
+    id: string,
+    status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED',
+  ): Promise<OrderDetail> {
+    return orderRepository.updateStatus(id, status);
+  },
+
   async sendOrderConfirmationEmail({
     orderId,
     customerName,
