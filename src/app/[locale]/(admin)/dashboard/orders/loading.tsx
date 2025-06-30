@@ -11,14 +11,13 @@ import {
 } from '@/components/ui/table';
 
 export default async function Loading() {
-  const tDashboard = await getTranslations('dashboard');
-  const tHeader = await getTranslations('OrderTableHeader');
+  const t = await getTranslations('OrdersLoading');
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>{tDashboard('orderTable.title')}</CardTitle>
+          <CardTitle>{t('title')}</CardTitle>
           <div className="bg-muted h-8 w-32 animate-pulse rounded" />
         </div>
       </CardHeader>
@@ -27,11 +26,11 @@ export default async function Loading() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{tHeader('id')}</TableHead>
-                <TableHead>{tHeader('user')}</TableHead>
-                <TableHead>{tHeader('total')}</TableHead>
-                <TableHead>{tHeader('status')}</TableHead>
-                <TableHead>{tHeader('createdAt')}</TableHead>
+                <TableHead>{t('id')}</TableHead>
+                <TableHead>{t('user')}</TableHead>
+                <TableHead>{t('total')}</TableHead>
+                <TableHead>{t('status')}</TableHead>
+                <TableHead>{t('createdAt')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

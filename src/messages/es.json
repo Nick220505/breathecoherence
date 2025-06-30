@@ -719,6 +719,14 @@
       "loadOrders": "Error al cargar pedidos"
     }
   },
+  "OrdersLoading": {
+    "title": "Gestión de Pedidos",
+    "id": "ID",
+    "user": "Usuario",
+    "total": "Total",
+    "status": "Estado",
+    "createdAt": "Creado en"
+  },
   "ErrorBoundary": {
     "title": "Algo salió mal",
     "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",

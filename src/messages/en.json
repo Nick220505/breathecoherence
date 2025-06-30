@@ -671,6 +671,14 @@
       "loadOrders": "Failed to load orders"
     }
   },
+  "OrdersLoading": {
+    "title": "Order Management",
+    "id": "ID",
+    "user": "User",
+    "total": "Total",
+    "status": "Status",
+    "createdAt": "Created At"
+  },
   "ErrorBoundary": {
     "title": "Something went wrong",
     "message": "An unexpected error occurred. Please try again.",
