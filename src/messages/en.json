@@ -670,6 +670,11 @@
       "loadOrders": "Failed to load orders"
     }
   },
+  "ErrorBoundary": {
+    "title": "Something went wrong",
+    "message": "An unexpected error occurred. Please try again.",
+    "retry": "Try Again"
+  },
   "AdminNav": {
     "dashboard": "Dashboard",
     "products": "Products",

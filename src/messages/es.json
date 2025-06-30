@@ -718,6 +718,11 @@
       "loadOrders": "Error al cargar pedidos"
     }
   },
+  "ErrorBoundary": {
+    "title": "Algo salió mal",
+    "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "retry": "Intentar de Nuevo"
+  },
   "AdminNav": {
     "dashboard": "Panel de Control",
     "products": "Productos",
