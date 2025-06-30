@@ -7,7 +7,7 @@ import type {
   OrderSummary,
   OrderDetail,
   OrderConfirmationEmailData,
-  ClientOrder,
+  OrderWithItems,
 } from './types';
 
 export const orderService = {
@@ -23,8 +23,8 @@ export const orderService = {
     return orderRepository.findByIdAndUser(id, userId);
   },
 
-  getAllClientOrdersByUser(userId: string): Promise<ClientOrder[]> {
-    return orderRepository.findManyClientOrdersByUser(userId);
+  getOrdersByUser(userId: string): Promise<OrderWithItems[]> {
+    return orderRepository.findManyByUser(userId);
   },
 
   getCount(): Promise<number> {

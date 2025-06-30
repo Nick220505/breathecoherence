@@ -9,13 +9,13 @@ import { withAuthProcedure } from '@/lib/zsa';
 import { orderStatusUpdateSchema } from './schemas';
 import { orderService } from './service';
 
-export const getUserClientOrders = withAuthProcedure
+export const getOrdersByUser = withAuthProcedure
   .createServerAction()
   .handler(async ({ ctx: { user } }) => {
-    return orderService.getAllClientOrdersByUser(user.id);
+    return orderService.getOrdersByUser(user.id);
   });
 
-export const getOrderDetailServer = withAuthProcedure
+export const getOrderDetail = withAuthProcedure
   .createServerAction()
   .input(z.object({ id: z.string() }))
   .handler(async ({ input: { id }, ctx: { user } }) => {

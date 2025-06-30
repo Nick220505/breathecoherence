@@ -26,7 +26,7 @@ export type OrderDetail = Prisma.OrderGetPayload<{
   };
 }>;
 
-export interface ClientOrderItem {
+export interface OrderItem {
   id: string;
   productId: string;
   quantity: number;
@@ -39,12 +39,12 @@ export interface ClientOrderItem {
   };
 }
 
-export interface ClientOrder {
+export interface OrderWithItems {
   id: string;
   status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
   total: number;
   createdAt: string;
-  items: ClientOrderItem[];
+  items: OrderItem[];
 }
 
 export interface EmailOrderItem {

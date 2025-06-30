@@ -22,7 +22,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 
-import type { ClientOrder } from '@/features/order/types';
+import type { OrderWithItems } from '@/features/order/types';
 
 const statusColorMap = {
   PENDING: 'bg-yellow-100 text-yellow-800',
@@ -37,14 +37,14 @@ export default function OrderHistoryClient({
   initialOrders = [],
 }: Readonly<{
   locale: string;
-  initialOrders?: ClientOrder[];
+  initialOrders?: OrderWithItems[];
 }>) {
   const t = useTranslations('OrderHistory');
   const router = useRouter();
   const searchParams = useSearchParams();
   const guestOrderId = searchParams.get('guestId');
 
-  const [orders] = useState<ClientOrder[]>(initialOrders);
+  const [orders] = useState<OrderWithItems[]>(initialOrders);
   const [loading, setLoading] = useState(initialOrders.length === 0);
 
   const error: string | null = null;

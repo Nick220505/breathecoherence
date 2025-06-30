@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 
-import type { OrderSummary, OrderDetail, ClientOrder } from './types';
+import type { OrderSummary, OrderDetail, OrderWithItems } from './types';
 
 export const orderRepository = {
   async findMany(): Promise<OrderSummary[]> {
@@ -58,7 +58,7 @@ export const orderRepository = {
     });
   },
 
-  async findManyClientOrdersByUser(userId: string): Promise<ClientOrder[]> {
+  async findManyByUser(userId: string): Promise<OrderWithItems[]> {
     const orders = await prisma.order.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
