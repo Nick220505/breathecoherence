@@ -79,7 +79,7 @@ export const orderRepository = {
       id: order.id,
       status: order.status,
       total: order.total,
-      createdAt: order.createdAt.toISOString(),
+      createdAt: order.createdAt,
       items: order.items.map((item) => ({
         id: item.id,
         productId: item.productId,

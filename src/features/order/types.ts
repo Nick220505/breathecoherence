@@ -43,7 +43,7 @@ export interface OrderWithItems {
   id: string;
   status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
   total: number;
-  createdAt: string;
+  createdAt: Date;
   items: OrderItem[];
 }
 

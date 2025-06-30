@@ -178,7 +178,9 @@ export default function OrderHistoryClient({
                           {t('date')}:
                         </span>{' '}
                         <span className="font-medium">
-                          {new Date(order.createdAt).toLocaleDateString()}
+                          {new Intl.DateTimeFormat(locale, {
+                            dateStyle: 'medium',
+                          }).format(order.createdAt)}
                         </span>
                       </p>
                     </div>
@@ -266,7 +268,9 @@ export default function OrderHistoryClient({
                         #{order.id.slice(0, 8)}
                       </TableCell>
                       <TableCell>
-                        {new Date(order.createdAt).toLocaleDateString()}
+                        {new Intl.DateTimeFormat(locale, {
+                          dateStyle: 'medium',
+                        }).format(order.createdAt)}
                       </TableCell>
                       <TableCell>
                         <span
