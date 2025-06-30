@@ -54,7 +54,7 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 - 🤖 **AI-Powered Chat**: Enhanced user interaction with Google's Gemini AI.
 - 💳 **Comprehensive Payments**: Seamless checkout with Stripe and PayPal.
 - ✨ **Responsive UI**: Beautiful, accessible components built with Radix UI and Shadcn.
-- 📝 **Advanced Form Handling**: Type-safe forms with React Hook Form and Zod.
+- 📝 **Advanced Form Handling**: Type-safe forms with React Hook Form, Zod validation, and ZSA server actions.
 - 📧 **Transactional Emails**: Reliable email delivery using Resend.
 
 ## 🛠️ Tech Stack
@@ -158,32 +158,53 @@ RESEND_API_KEY="your_resend_api_key"
 
 ```
 breathecoherence/
-├── public/                 # Static assets (images, fonts)
+├── public/                 # Static assets (images, fonts, product images)
 ├── src/
 │   ├── app/                # Next.js 15 App Router
 │   │   ├── [locale]/       # Internationalized routes
-│   │   │   ├── (admin)/    # Admin-only routes (e.g., dashboard)
-│   │   │   ├── (auth)/     # Auth routes (login, register)
-│   │   │   ├── (shop)/     # Main shop routes (store, checkout)
+│   │   │   ├── (admin)/    # Admin-only routes
+│   │   │   │   └── dashboard/  # Admin dashboard
+│   │   │   │       ├── categories/  # Category management
+│   │   │   │       ├── orders/      # Order management
+│   │   │   │       ├── products/    # Product management
+│   │   │   │       └── users/       # User management
+│   │   │   ├── (auth)/     # Authentication routes
+│   │   │   │   ├── login/      # Login page
+│   │   │   │   ├── register/   # Registration page
+│   │   │   │   └── verify/     # Email verification
+│   │   │   ├── (shop)/     # Main shop routes
+│   │   │   │   ├── account/    # User account pages
+│   │   │   │   │   └── orders/ # Order history & details
+│   │   │   │   ├── checkout/   # Checkout process
+│   │   │   │   └── store/      # Product catalog & details
 │   │   │   └── page.tsx    # Home page
 │   │   ├── api/            # API endpoints
+│   │   │   ├── auth/       # NextAuth.js endpoints
+│   │   │   ├── chat/       # AI chat endpoint
+│   │   │   ├── payments/   # Payment processing
+│   │   │   └── stripe/     # Stripe webhooks
 │   │   └── globals.css     # Global styles
-│   ├── components/         # Shared React components (UI, email templates)
-│   │   └── ui/             # Shadcn UI components
+│   ├── components/         # Shared React components
+│   │   ├── ui/             # Shadcn UI components
+│   │   └── email/          # Email templates
 │   ├── features/           # Feature-sliced business logic
-│   │   ├── auth/           # Authentication logic and actions
-│   │   └── product/        # Product logic, actions, and schemas
+│   │   ├── auth/           # Authentication (actions, schemas, types)
+│   │   ├── category/       # Category management
+│   │   ├── order/          # Order processing & management
+│   │   ├── product/        # Product catalog & management
+│   │   └── user/           # User management
 │   ├── hooks/              # Custom React hooks
-│   ├── i18n/               # Internationalization (i18n) configuration
-│   ├── lib/                # Core libraries, utilities, and external service clients
+│   ├── i18n/               # Internationalization configuration
+│   ├── lib/                # Core libraries & utilities
 │   │   ├── types/          # Shared TypeScript types
 │   │   ├── email.ts        # Resend email client
 │   │   ├── gemini.ts       # Google Gemini AI client
 │   │   ├── prisma.ts       # Prisma client instance
 │   │   ├── translation.ts  # DeepL translation client
-│   │   └── utils.ts        # General utility functions
-│   ├── messages/           # `next-intl` translation files (en.json, es.json)
-│   └── prisma/             # Prisma schema, migrations, and seed script
+│   │   ├── utils.ts        # General utility functions
+│   │   └── zsa.ts          # ZSA procedures for server actions
+│   ├── messages/           # Translation files (en.json, es.json)
+│   └── prisma/             # Database schema, migrations, and seed
 ├── .env.example            # Example environment variables
 ├── next.config.ts          # Next.js configuration
 ├── package.json            # Project dependencies and scripts
