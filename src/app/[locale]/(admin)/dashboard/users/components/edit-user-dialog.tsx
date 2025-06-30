@@ -45,8 +45,7 @@ import { updateUser } from '@/features/user/actions';
 import { updateUserSchema } from '@/features/user/schemas';
 import { useServerAction } from 'zsa-react';
 
-import type { UpdateUserData } from '@/features/user/types';
-import type { UserSummary } from '@/features/user/types';
+import type { UpdateUserData, UserSummary } from '@/features/user/types';
 
 interface EditUserDialogProps {
   user: UserSummary;

@@ -562,14 +562,7 @@
       "user": "User"
     }
   },
-  "UserTableSkeleton": {
-    "name": "Name",
-    "email": "Email",
-    "role": "Role",
-    "created_at": "Created At",
-    "updated_at": "Updated At",
-    "actions": "Actions"
-  },
+
   "UsersLoading": {
     "title": "User Management",
     "add_user": "Add User",

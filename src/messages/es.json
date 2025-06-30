@@ -610,14 +610,7 @@
       "user": "Usuario"
     }
   },
-  "UserTableSkeleton": {
-    "name": "Nombre",
-    "email": "Correo",
-    "role": "Rol",
-    "created_at": "Creado en",
-    "updated_at": "Actualizado en",
-    "actions": "Acciones"
-  },
+
   "UsersLoading": {
     "title": "Gestión de Usuarios",
     "add_user": "Agregar Usuario",
