@@ -31,11 +31,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { createCategory } from '@/features/category/actions';
-import {
-  CategoryFormData,
-  createCategorySchema,
-} from '@/features/category/schemas';
+import { createCategorySchema } from '@/features/category/schemas';
 import { useServerAction } from 'zsa-react';
+
+import type { CreateCategoryData } from '@/features/category/types';
 
 interface CreateCategoryDialogProps {
   children: ReactNode;
@@ -47,26 +46,23 @@ export function CreateCategoryDialog({
   const t = useTranslations('CategoryDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const { execute: executeCreate, isPending } = useServerAction(
-    createCategory,
-    {
-      onSuccess: ({ data: { name } }) => {
-        form.reset();
-        form.clearErrors();
-        toast.success(t('created_title'), {
-          description: t('created_description', { name }),
-        });
-        closeRef.current?.click();
-      },
-      onError: ({ err: { message } }) => {
-        form.setError('root.serverError', {
-          message: message ?? 'An error occurred',
-        });
-      },
+  const { execute, isPending } = useServerAction(createCategory, {
+    onSuccess: ({ data: { name } }) => {
+      form.reset();
+      form.clearErrors();
+      toast.success(t('created_title'), {
+        description: t('created_description', { name }),
+      });
+      closeRef.current?.click();
     },
-  );
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? 'An error occurred',
+      });
+    },
+  });
 
-  const form = useForm<CategoryFormData>({
+  const form = useForm<CreateCategoryData>({
     resolver: zodResolver(createCategorySchema, {
       path: [],
       async: false,
@@ -91,7 +87,7 @@ export function CreateCategoryDialog({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(executeCreate)}>
+          <form onSubmit={form.handleSubmit(execute)}>
             <DialogHeader>
               <DialogTitle>{t('add_category')}</DialogTitle>
               <DialogDescription className="sr-only">

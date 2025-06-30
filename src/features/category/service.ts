@@ -1,8 +1,8 @@
 import { translationService } from '@/features/translation/service';
 
 import { categoryRepository } from './repository';
-import { CategoryFormData } from './schemas';
 
+import type { CreateCategoryData, UpdateCategoryData } from './types';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 import type { Category } from '@prisma/client';
@@ -45,7 +45,7 @@ export const categoryService = {
     return categoryRepository.count();
   },
 
-  async create(data: CategoryFormData, locale: Locale): Promise<Category> {
+  async create(data: CreateCategoryData, locale: Locale): Promise<Category> {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
@@ -73,7 +73,7 @@ export const categoryService = {
 
   async update(
     id: string,
-    data: CategoryFormData,
+    data: UpdateCategoryData,
     locale: Locale,
   ): Promise<Category> {
     await this.getById(id, locale);

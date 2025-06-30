@@ -30,12 +30,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { updateCategory } from '@/features/category/actions';
-import {
-  CategoryFormData,
-  createCategorySchema,
-} from '@/features/category/schemas';
+import { updateCategorySchema } from '@/features/category/schemas';
 import { useServerAction } from 'zsa-react';
 
+import type { UpdateCategoryData } from '@/features/category/types';
 import type { Category } from '@prisma/client';
 
 interface EditCategoryDialogProps {
@@ -52,26 +50,23 @@ export function EditCategoryDialog({
   const t = useTranslations('CategoryDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const { execute: executeUpdate, isPending } = useServerAction(
-    updateCategory,
-    {
-      onSuccess: ({ data: { name } }) => {
-        form.clearErrors();
-        toast.success(t('updated_title'), {
-          description: t('updated_description', { name }),
-        });
-        onOpenChange(false);
-      },
-      onError: ({ err: { message } }) => {
-        form.setError('root.serverError', {
-          message: message ?? 'An error occurred',
-        });
-      },
+  const { execute, isPending } = useServerAction(updateCategory, {
+    onSuccess: ({ data: { name } }) => {
+      form.clearErrors();
+      toast.success(t('updated_title'), {
+        description: t('updated_description', { name }),
+      });
+      onOpenChange(false);
     },
-  );
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? 'An error occurred',
+      });
+    },
+  });
 
-  const form = useForm<CategoryFormData>({
-    resolver: zodResolver(createCategorySchema, {
+  const form = useForm<UpdateCategoryData>({
+    resolver: zodResolver(updateCategorySchema, {
       path: [],
       async: false,
       errorMap(issue, ctx) {
@@ -88,20 +83,17 @@ export function EditCategoryDialog({
       },
     }),
     defaultValues: {
+      id: category.id,
       name: category.name,
       description: category.description ?? '',
     },
   });
 
-  const handleSubmit = (values: CategoryFormData) => {
-    executeUpdate({ ...values, id: category.id });
-  };
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
+          <form onSubmit={form.handleSubmit(execute)}>
             <DialogHeader>
               <DialogTitle>{t('edit_category')}</DialogTitle>
               <DialogDescription className="sr-only">
@@ -110,6 +102,16 @@ export function EditCategoryDialog({
             </DialogHeader>
 
             <div className="grid gap-4 py-4">
+              {/* Hidden id field */}
+              <FormField
+                control={form.control}
+                name="id"
+                render={({ field }) => (
+                  <FormControl>
+                    <Input type="hidden" {...field} />
+                  </FormControl>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="name"
