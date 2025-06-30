@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 
-import type { OrderSummary, OrderDetail } from './types';
+import type { OrderSummary, OrderDetail, ClientOrder } from './types';
 
 export const orderRepository = {
   async findMany(): Promise<OrderSummary[]> {
@@ -74,6 +74,43 @@ export const orderRepository = {
         },
       },
     });
+  },
+
+  async findManyClientOrdersByUser(userId: string): Promise<ClientOrder[]> {
+    const orders = await prisma.order.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        items: {
+          include: {
+            product: {
+              include: {
+                category: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return orders.map((order) => ({
+      id: order.id,
+      status: order.status,
+      total: order.total,
+      createdAt: order.createdAt.toISOString(),
+      items: order.items.map((item) => ({
+        id: item.id,
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price,
+        product: {
+          id: item.product.id,
+          name: item.product.name,
+          type: (item.product as { type?: string }).type,
+          imageBase64: item.product.imageBase64 ?? undefined,
+        },
+      })),
+    }));
   },
 
   count(): Promise<number> {

@@ -11,15 +11,21 @@ import { orderService } from './service';
 
 export const getUserOrdersWithItems = withAuthProcedure
   .createServerAction()
-  .handler(async ({ ctx }) => {
-    return orderService.getAllWithItemsByUser(ctx.user.id);
+  .handler(async ({ ctx: { user } }) => {
+    return orderService.getAllWithItemsByUser(user.id);
+  });
+
+export const getUserClientOrders = withAuthProcedure
+  .createServerAction()
+  .handler(async ({ ctx: { user } }) => {
+    return orderService.getAllClientOrdersByUser(user.id);
   });
 
 export const getOrderDetailServer = withAuthProcedure
   .createServerAction()
   .input(z.object({ id: z.string() }))
-  .handler(async ({ input, ctx }) => {
-    return orderService.getDetail(input.id, ctx.user.id);
+  .handler(async ({ input: { id }, ctx: { user } }) => {
+    return orderService.getDetail(id, user.id);
   });
 
 export const getAllOrders = withAuthProcedure
@@ -35,11 +41,8 @@ export const getOrderCount = createServerAction().handler(async () => {
 export const updateOrderStatus = withAuthProcedure
   .createServerAction()
   .input(orderStatusUpdateSchema)
-  .handler(async ({ input }) => {
-    const updatedOrder = await orderService.updateStatus(
-      input.id,
-      input.status,
-    );
+  .handler(async ({ input: { id, status } }) => {
+    const updatedOrder = await orderService.updateStatus(id, status);
     revalidateTag('orders');
 
     return updatedOrder;

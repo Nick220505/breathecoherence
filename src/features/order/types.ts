@@ -26,6 +26,27 @@ export type OrderDetail = Prisma.OrderGetPayload<{
   };
 }>;
 
+export interface ClientOrderItem {
+  id: string;
+  productId: string;
+  quantity: number;
+  price: number;
+  product: {
+    id: string;
+    name: string;
+    type?: string;
+    imageBase64?: string;
+  };
+}
+
+export interface ClientOrder {
+  id: string;
+  status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
+  total: number;
+  createdAt: string;
+  items: ClientOrderItem[];
+}
+
 export interface EmailOrderItem {
   name: string;
   price: number;

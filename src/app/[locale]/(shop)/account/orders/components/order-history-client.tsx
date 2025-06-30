@@ -22,26 +22,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 
-interface OrderItem {
-  id: string;
-  productId: string;
-  quantity: number;
-  price: number;
-  product: {
-    id: string;
-    name: string;
-    type?: string;
-    imageBase64?: string | null;
-  };
-}
-
-export interface ClientOrder {
-  id: string;
-  status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
-  total: number;
-  createdAt: string;
-  items: OrderItem[];
-}
+import type { ClientOrder } from '@/features/order/types';
 
 const statusColorMap = {
   PENDING: 'bg-yellow-100 text-yellow-800',
