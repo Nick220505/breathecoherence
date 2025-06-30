@@ -55,7 +55,7 @@ export default function OrderDetailClient({
   const t = useTranslations('OrderDetail');
   const router = useRouter();
   const [order, setOrder] = useState<Order | null>(initialOrder ?? null);
-  const [loading, setLoading] = useState(initialOrder ? false : true);
+  const [loading, setLoading] = useState(!initialOrder);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
