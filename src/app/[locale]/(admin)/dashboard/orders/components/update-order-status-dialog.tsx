@@ -62,14 +62,16 @@ export function UpdateOrderStatusDialog({
   });
 
   const { execute, isPending } = useServerAction(updateOrderStatus, {
-    onSuccess: () => {
+    onSuccess: ({ data: { id } }) => {
       toast.success(t('updated_title'), {
-        description: t('updated_description', { id: order.id }),
+        description: t('updated_description', { id }),
       });
       onOpenChange(false);
     },
-    onError: ({ err }) => {
-      form.setError('root.serverError', { message: err.message });
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? 'An error occurred',
+      });
     },
   });
 

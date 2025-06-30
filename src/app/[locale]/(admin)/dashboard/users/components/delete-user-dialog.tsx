@@ -35,22 +35,16 @@ export function DeleteUserDialog({
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(deleteUser, {
-    onSuccess: () => {
+    onSuccess: ({ data: { name } }) => {
       toast.success(t('deleted_title'), {
-        description: t('deleted_description', {
-          name: user.name,
-        }),
+        description: t('deleted_description', { name }),
       });
       onOpenChange(false);
     },
-    onError: () => {
-      toast.error(t('error_delete'));
+    onError: ({ err: { message } }) => {
+      toast.error(message ?? t('error_delete'));
     },
   });
-
-  const handleDelete = () => {
-    execute({ id: user.id });
-  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -69,7 +63,7 @@ export function DeleteUserDialog({
           </DialogClose>
           <Button
             variant="destructive"
-            onClick={handleDelete}
+            onClick={() => execute({ id: user.id })}
             disabled={isPending}
           >
             {isPending ? (
