@@ -268,19 +268,6 @@ export default function OrderDetailClient({
           <Separator className="my-6" />
 
           <div className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{t('subtotal')}</span>
-              <span>${order.total.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{t('shipping')}</span>
-              <span>$0.00</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{t('tax')}</span>
-              <span>$0.00</span>
-            </div>
-            <Separator className="my-2" />
             <div className="flex justify-between text-lg font-bold">
               <span>{t('total')}</span>
               <span>${order.total.toFixed(2)}</span>

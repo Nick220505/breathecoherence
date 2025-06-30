@@ -473,8 +473,6 @@
     "card_payment": "Tarjeta de Crédito/Débito",
     "paypal": "PayPal",
     "order_summary": "Resumen del Pedido",
-    "subtotal": "Subtotal",
-    "shipping": "Envío",
     "total": "Total",
     "name": "Nombre Completo *",
     "email": "Correo Electrónico *",
@@ -765,9 +763,6 @@
     "product": "Producto",
     "quantity": "Cantidad",
     "price": "Precio",
-    "subtotal": "Subtotal",
-    "shipping": "Envío",
-    "tax": "Impuesto",
     "total": "Total",
     "error": {
       "loadOrder": "Error al cargar detalles del pedido"

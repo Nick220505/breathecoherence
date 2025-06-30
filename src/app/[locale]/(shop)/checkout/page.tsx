@@ -27,8 +27,6 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 
-const SHIPPING_COST = 13.0;
-
 function createCheckoutSchema(t: (key: string) => string) {
   return z.object({
     name: z.string().min(2, t('nameMin')),
@@ -147,7 +145,7 @@ export default function CheckoutPage() {
   } = form;
 
   const subtotal = parseFloat(total || '0');
-  const finalTotal = subtotal + SHIPPING_COST;
+  const finalTotal = subtotal;
 
   useEffect(() => {
     const validateForm = async () => {
@@ -358,19 +356,6 @@ export default function CheckoutPage() {
                 <Separator />
 
                 <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">
-                      {t('subtotal')}
-                    </span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">
-                      {t('shipping')}
-                    </span>
-                    <span>${SHIPPING_COST.toFixed(2)}</span>
-                  </div>
-                  <Separator />
                   <div className="flex justify-between text-lg font-bold">
                     <span>{t('total')}</span>
                     <span>${finalTotal.toFixed(2)}</span>
