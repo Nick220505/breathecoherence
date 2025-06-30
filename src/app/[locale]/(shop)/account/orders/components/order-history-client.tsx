@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { LayoutGrid, Package2 } from 'lucide-react';
-import Image from 'next/image';
+import { Package2 } from 'lucide-react';
 import NextLink from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -12,7 +11,6 @@ import type { OrderStatus } from '@prisma/client';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import {
   Table,
   TableBody,
@@ -21,7 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 
 import type { OrderWithItems } from '@/features/order/types';
@@ -147,157 +144,52 @@ export default function OrderHistoryClient({
           </p>
         </div>
 
-        <Tabs defaultValue="list" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="list">
-              <LayoutGrid className="mr-2 h-4 w-4" />
-              {t('list_view')}
-            </TabsTrigger>
-            <TabsTrigger value="table">
-              <Package2 className="mr-2 h-4 w-4" />
-              {t('table_view')}
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="list" className="space-y-6">
-            {orders.map((order) => (
-              <Card key={order.id} className="overflow-hidden">
-                <div className="p-6">
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm">
-                        <span className="text-muted-foreground">
-                          {t('order_id')}:
-                        </span>{' '}
-                        <span className="font-medium">
-                          #{order.id.slice(0, 8)}
-                        </span>
-                      </p>
-                      <p className="text-sm">
-                        <span className="text-muted-foreground">
-                          {t('date')}:
-                        </span>{' '}
-                        <span className="font-medium">
-                          {new Intl.DateTimeFormat(locale, {
-                            dateStyle: 'medium',
-                          }).format(order.createdAt)}
-                        </span>
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm">
-                        <span className="text-muted-foreground">
-                          {t('total')}:
-                        </span>{' '}
-                        <span className="font-medium">
-                          ${order.total.toFixed(2)}
-                        </span>
-                      </p>
-                      <span
-                        className={`mt-1 inline-block rounded-full px-2 py-1 text-xs font-medium ${
-                          statusColorMap[order.status]
-                        }`}
-                      >
-                        {t(order.status.toLowerCase())}
-                      </span>
-                    </div>
-                  </div>
-
-                  <Separator className="my-4" />
-
-                  <div className="space-y-4">
-                    {order.items.map((item) => (
-                      <div
-                        key={item.id}
-                        className="flex items-center justify-between"
-                      >
-                        <div className="flex items-center space-x-4">
-                          {item.product.imageBase64 && (
-                            <div className="relative h-16 w-16 overflow-hidden rounded-lg">
-                              <Image
-                                src={item.product.imageBase64}
-                                alt={item.product.name}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-                          )}
-                          <div>
-                            <p className="font-medium">{item.product.name}</p>
-                            <p className="text-muted-foreground text-sm">
-                              {t('quantity')}: {item.quantity} × $
-                              {item.price.toFixed(2)}
-                            </p>
-                          </div>
-                        </div>
-                        <p className="font-medium">
-                          ${(item.quantity * item.price).toFixed(2)}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-6 flex justify-end">
-                    <Button variant="outline" asChild>
+        <Card>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>{t('order_id')}</TableHead>
+                <TableHead>{t('date')}</TableHead>
+                <TableHead>{t('status')}</TableHead>
+                <TableHead className="text-right">{t('total')}</TableHead>
+                <TableHead className="text-right">{t('actions')}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {orders.map((order) => (
+                <TableRow key={order.id}>
+                  <TableCell className="font-medium">
+                    #{order.id.slice(0, 8)}
+                  </TableCell>
+                  <TableCell>
+                    {new Intl.DateTimeFormat(locale, {
+                      dateStyle: 'medium',
+                    }).format(order.createdAt)}
+                  </TableCell>
+                  <TableCell>
+                    <span
+                      className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
+                        statusColorMap[order.status]
+                      }`}
+                    >
+                      {t(order.status.toLowerCase())}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    ${order.total.toFixed(2)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="outline" size="sm" asChild>
                       <NextLink href={getOrderUrl(order.id)}>
                         {t('view_details')}
                       </NextLink>
                     </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </TabsContent>
-
-          <TabsContent value="table">
-            <Card>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t('order_id')}</TableHead>
-                    <TableHead>{t('date')}</TableHead>
-                    <TableHead>{t('status')}</TableHead>
-                    <TableHead className="text-right">{t('total')}</TableHead>
-                    <TableHead className="text-right">{t('actions')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {orders.map((order) => (
-                    <TableRow key={order.id}>
-                      <TableCell className="font-medium">
-                        #{order.id.slice(0, 8)}
-                      </TableCell>
-                      <TableCell>
-                        {new Intl.DateTimeFormat(locale, {
-                          dateStyle: 'medium',
-                        }).format(order.createdAt)}
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
-                            statusColorMap[order.status]
-                          }`}
-                        >
-                          {t(order.status.toLowerCase())}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        ${order.total.toFixed(2)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button variant="outline" size="sm" asChild>
-                          <NextLink href={getOrderUrl(order.id)}>
-                            {t('view_details')}
-                          </NextLink>
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Card>
       </motion.div>
     </div>
   );

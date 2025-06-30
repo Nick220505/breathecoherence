@@ -559,9 +559,7 @@
     "no_orders_message": "Aún no has realizado pedidos. Comienza a comprar para verlos aquí.",
     "browse_products": "Explorar Productos",
     "try_again": "Intentar de Nuevo",
-    "list_view": "Vista de Lista",
-    "grid_view": "Vista de Cuadrícula",
-    "table_view": "Vista de Tabla",
+
     "order_id": "ID del Pedido",
     "date": "Fecha",
     "status": "Estado",

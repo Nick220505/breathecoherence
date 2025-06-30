@@ -718,9 +718,7 @@
     "no_orders_message": "You haven't placed any orders yet. Start shopping to see your orders here.",
     "browse_products": "Browse Products",
     "try_again": "Try Again",
-    "list_view": "List View",
-    "grid_view": "Grid View",
-    "table_view": "Table View",
+
     "order_id": "Order ID",
     "date": "Date",
     "status": "Status",
