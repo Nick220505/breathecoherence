@@ -83,6 +83,20 @@
     "tryAgain": "Try again"
   },
   "RegisterForm": {
+    "submit": "Create Account",
+    "creating": "Creating Account...",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "haveAccount": "Already have an account?",
+    "login": "Sign in",
+    "placeholder": {
+      "name": "Enter your full name",
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "confirmPassword": "Confirm your password"
+    },
     "error": {
       "generic": "Registration failed. Please try again."
     },
@@ -95,6 +109,16 @@
     }
   },
   "LoginForm": {
+    "submit": "Sign In",
+    "loading": "Signing In...",
+    "email": "Email",
+    "password": "Password",
+    "noAccount": "Don't have an account?",
+    "register": "Sign up",
+    "placeholder": {
+      "email": "Enter your email",
+      "password": "Enter your password"
+    },
     "error": {
       "generic": "Sign in failed. Please try again."
     },

@@ -81,6 +81,20 @@
     "tryAgain": "Intentar de nuevo"
   },
   "RegisterForm": {
+    "submit": "Crear Cuenta",
+    "creating": "Creando Cuenta...",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "login": "Iniciar sesión",
+    "placeholder": {
+      "name": "Ingresa tu nombre completo",
+      "email": "Ingresa tu correo electrónico",
+      "password": "Ingresa tu contraseña",
+      "confirmPassword": "Confirma tu contraseña"
+    },
     "error": {
       "generic": "El registro falló. Por favor, inténtalo de nuevo."
     },
@@ -93,6 +107,16 @@
     }
   },
   "LoginForm": {
+    "submit": "Iniciar Sesión",
+    "loading": "Iniciando Sesión...",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Regístrate",
+    "placeholder": {
+      "email": "Ingresa tu correo electrónico",
+      "password": "Ingresa tu contraseña"
+    },
     "error": {
       "generic": "Error al iniciar sesión. Por favor, inténtalo de nuevo."
     },
