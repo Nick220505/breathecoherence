@@ -80,6 +80,27 @@
     "tryAgainLater": "Por favor intenta más tarde",
     "tryAgain": "Intentar de nuevo"
   },
+  "RegisterForm": {
+    "error": {
+      "generic": "El registro falló. Por favor, inténtalo de nuevo."
+    },
+    "validation": {
+      "nameRequired": "El nombre es obligatorio",
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "confirmPasswordMinLength": "Por favor, confirma tu contraseña (mínimo 6 caracteres)",
+      "passwordsDontMatch": "Las contraseñas no coinciden"
+    }
+  },
+  "LoginForm": {
+    "error": {
+      "generic": "Error al iniciar sesión. Por favor, inténtalo de nuevo."
+    },
+    "validation": {
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "passwordRequired": "La contraseña es obligatoria"
+    }
+  },
   "VerificationForm": {
     "title": "Verifica tu correo electrónico",
     "description": "Ingresa el código enviado a",
@@ -89,14 +110,17 @@
     "error": {
       "title": "Error",
       "description": "Enlace de verificación inválido. Por favor, intenta registrarte nuevamente.",
-      "codeFormat": "El código debe contener solo números"
+      "codeFormat": "El código debe contener solo números",
+      "generic": "La verificación falló. Por favor, inténtalo de nuevo."
     },
     "submit": "Verificar Correo",
     "loading": "Verificando...",
     "backToRegister": "Volver al Registro",
     "goToRegister": "Ir al Registro",
-    "success_title": "Correo Verificado",
-    "success_description": "Tu correo electrónico ha sido verificado exitosamente. Ahora puedes iniciar sesión en tu cuenta."
+    "validation": {
+      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "codeLength": "El código de verificación debe tener 6 dígitos"
+    }
   },
   "Navigation": {
     "nav": {
@@ -581,17 +605,6 @@
       "codeLength": "El código de verificación debe tener 6 dígitos",
       "invalidVerificationCode": "Código de verificación no válido o caducado."
     },
-    "Auth": {
-      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
-      "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",
-      "registrationError": "Registro fallido.",
-      "verificationSuccess": "Correo verificado con éxito.",
-      "verificationError": "La verificación falló.",
-      "loginSuccess": "Inicio de sesión exitoso.",
-      "loginError": "Error al iniciar sesión."
-    }
-  },
-  "ServerActions": {
     "Auth": {
       "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
       "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",

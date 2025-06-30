@@ -22,27 +22,6 @@
         "description": "The perfect blend of form and essence for complete spiritual alignment."
       }
     },
-    "ServerActions": {
-      "Category": {
-        "fillRequiredFields": "Please fill all required fields.",
-        "createSuccess": "Category created successfully.",
-        "createError": "Failed to create category.",
-        "updateSuccess": "Category updated successfully.",
-        "updateError": "Failed to update category.",
-        "deleteSuccess": "Category deleted successfully.",
-        "deleteError": "Failed to delete category.",
-        "missingId": "Category ID is missing."
-      },
-      "Auth": {
-        "fillRequiredFields": "Please fill all required fields.",
-        "verificationCodeSent": "Verification code sent. Check your email.",
-        "registrationError": "Registration failed.",
-        "verificationSuccess": "Email verified successfully.",
-        "verificationError": "Verification failed.",
-        "loginSuccess": "Signed in successfully.",
-        "loginError": "Sign in failed."
-      }
-    },
     "cta": {
       "title": "Ready to Begin Your Journey?",
       "description": "Join us in exploring the intersection of sacred geometry and natural healing.",
@@ -103,6 +82,27 @@
     "tryAgainLater": "Please try again later",
     "tryAgain": "Try again"
   },
+  "RegisterForm": {
+    "error": {
+      "generic": "Registration failed. Please try again."
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "confirmPasswordMinLength": "Please confirm your password (minimum 6 characters)",
+      "passwordsDontMatch": "Passwords do not match"
+    }
+  },
+  "LoginForm": {
+    "error": {
+      "generic": "Sign in failed. Please try again."
+    },
+    "validation": {
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required"
+    }
+  },
   "VerificationForm": {
     "title": "Verify your email",
     "description": "Enter the code sent to",
@@ -112,14 +112,17 @@
     "error": {
       "title": "Error",
       "description": "Invalid verification link. Please try registering again.",
-      "codeFormat": "Code must contain only numbers"
+      "codeFormat": "Code must contain only numbers",
+      "generic": "Verification failed. Please try again."
     },
     "submit": "Verify Email",
     "loading": "Verifying...",
     "backToRegister": "Back to Register",
     "goToRegister": "Go to Register",
-    "success_title": "Email Verified",
-    "success_description": "Your email has been successfully verified. You can now sign in to your account."
+    "validation": {
+      "emailInvalid": "Please enter a valid email address",
+      "codeLength": "Verification code must be 6 digits"
+    }
   },
   "Navigation": {
     "nav": {
@@ -479,10 +482,12 @@
     "title": "Breathe Coherence Assistant",
     "welcome": "Hello! How can I help you find the perfect product for your spiritual journey today?",
     "error": "I'm sorry, I'm having trouble connecting right now. Please try again later.",
-    "placeholder": "Ask about our products...",
-    "send": "Send",
-    "minimize": "Minimize",
-    "close": "Close"
+    "typing": "Typing...",
+    "input_placeholder": "Type your message...",
+    "recommended_products": "Recommended Products:",
+    "view_details": "View Details",
+    "minimize": "Minimize chat",
+    "close": "Close chat"
   },
 
   "CategoriesPage": {
@@ -764,17 +769,6 @@
     "status_cancelled": "Cancelled",
     "error": {
       "loadOrders": "Failed to load orders"
-    }
-  },
-  "ServerActions": {
-    "Auth": {
-      "fillRequiredFields": "Please fill all required fields.",
-      "verificationCodeSent": "Verification code sent. Check your email.",
-      "registrationError": "Registration failed.",
-      "verificationSuccess": "Email verified successfully.",
-      "verificationError": "Verification failed.",
-      "loginSuccess": "Signed in successfully.",
-      "loginError": "Sign in failed."
     }
   },
   "CheckoutSchema": {

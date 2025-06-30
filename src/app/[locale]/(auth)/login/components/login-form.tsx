@@ -3,12 +3,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { AlertCircle, AtSign, Loader2, Lock } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
+import { useServerAction } from 'zsa-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -21,16 +20,39 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
-import { LoginFormData, loginSchema } from '@/features/auth/schema';
-import { Link } from '@/i18n/routing';
+import { loginSchema } from '@/features/auth/schemas';
+import { Link, useRouter } from '@/i18n/routing';
+
+import type { LoginData } from '@/features/auth/types';
 
 export default function LoginForm() {
-  const t = useTranslations('LoginPage');
-  const tAuthSchema = useTranslations('AuthSchema.Login');
+  const t = useTranslations('LoginForm');
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
 
-  const form = useForm<LoginFormData>({
+  const { execute, isPending } = useServerAction(login, {
+    onSuccess: () => {
+      form.clearErrors();
+
+      signIn('credentials', {
+        email: form.getValues('email'),
+        password: form.getValues('password'),
+        redirect: false,
+      }).then(({ error }) => {
+        if (error) {
+          form.setError('root.serverError', { message: t('error.generic') });
+        } else {
+          router.push('/');
+        }
+      });
+    },
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? t('error.generic'),
+      });
+    },
+  });
+
+  const form = useForm<LoginData>({
     resolver: zodResolver(loginSchema, {
       path: [],
       async: false,
@@ -42,14 +64,14 @@ export default function LoginForm() {
           issue.code === ZodIssueCode.invalid_string &&
           issue.validation === 'email'
         ) {
-          return { message: tAuthSchema('emailInvalid') };
+          return { message: t('validation.emailInvalid') };
         }
         if (
           path === 'password' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 1
         ) {
-          return { message: tAuthSchema('passwordRequired') };
+          return { message: t('validation.passwordRequired') };
         }
 
         return { message: ctx.defaultError };
@@ -58,46 +80,9 @@ export default function LoginForm() {
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = (values: LoginFormData) => {
-    startTransition(async () => {
-      const { success, message, errors } = await login(values);
-
-      if (success) {
-        form.clearErrors();
-
-        const { error } = await signIn('credentials', {
-          email: values.email,
-          password: values.password,
-          redirect: false,
-        });
-
-        if (error) {
-          form.setError('root.serverError', { message: t('error.generic') });
-        } else {
-          router.push('/');
-        }
-      } else {
-        form.setError('root.serverError', { message });
-
-        if (errors) {
-          Object.entries(errors).forEach(([field, messages]) => {
-            if (messages.length > 0) {
-              form.setError(field as keyof LoginFormData, {
-                message: messages[0],
-              });
-            }
-          });
-        }
-      }
-    });
-  };
-
   return (
     <Form {...form}>
-      <form
-        onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
-        className="space-y-6"
-      >
+      <form onSubmit={form.handleSubmit(execute)} className="space-y-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -11,17 +11,12 @@ import {
   InvalidVerificationError,
   UserExistsError,
 } from './errors';
-import { LoginFormData, RegisterFormData, VerifyFormData } from './schema';
 
-import type { AuthUser } from './types';
+import type { AuthUser, LoginData, RegisterData, VerifyData } from './types';
 import type { User } from '@prisma/client';
 
 export const authService = {
-  async register({
-    name,
-    email,
-    password,
-  }: RegisterFormData): Promise<AuthUser> {
+  async register({ name, email, password }: RegisterData): Promise<AuthUser> {
     const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
@@ -63,7 +58,7 @@ export const authService = {
     return user;
   },
 
-  async verify({ email, code }: VerifyFormData): Promise<User> {
+  async verify({ email, code }: VerifyData): Promise<User> {
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -82,7 +77,7 @@ export const authService = {
     });
   },
 
-  async login({ email, password }: LoginFormData): Promise<AuthUser> {
+  async login({ email, password }: LoginData): Promise<AuthUser> {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {

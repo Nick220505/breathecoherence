@@ -5,10 +5,9 @@ import { motion } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
+import { useServerAction } from 'zsa-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -30,8 +29,10 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { verify } from '@/features/auth/actions';
-import { VerifyFormData, verifySchema } from '@/features/auth/schema';
+import { verifySchema } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
+
+import type { VerifyData } from '@/features/auth/types';
 
 interface VerificationFormProps {
   email: string;
@@ -39,11 +40,21 @@ interface VerificationFormProps {
 
 export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
-  const tAuthSchema = useTranslations('AuthSchema');
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
 
-  const form = useForm<VerifyFormData>({
+  const { execute, isPending } = useServerAction(verify, {
+    onSuccess: () => {
+      form.clearErrors();
+      router.push('/login');
+    },
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? t('error.generic'),
+      });
+    },
+  });
+
+  const form = useForm<VerifyData>({
     resolver: zodResolver(verifySchema, {
       path: [],
       async: false,
@@ -55,7 +66,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
           issue.code === ZodIssueCode.invalid_string &&
           issue.validation === 'email'
         ) {
-          return { message: tAuthSchema('Verify.emailInvalid') };
+          return { message: t('validation.emailInvalid') };
         }
         if (
           path === 'code' &&
@@ -63,7 +74,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
             (issue.code === ZodIssueCode.too_big && issue.maximum === 6) ||
             issue.code === ZodIssueCode.invalid_string)
         ) {
-          return { message: tAuthSchema('Verify.codeLength') };
+          return { message: t('validation.codeLength') };
         }
 
         return { message: ctx.defaultError };
@@ -71,32 +82,6 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
     }),
     defaultValues: { email, code: '' },
   });
-
-  const onSubmit = (values: VerifyFormData) => {
-    startTransition(async () => {
-      const { success, message, errors } = await verify(values);
-
-      if (success) {
-        form.clearErrors();
-        toast.success(t('success_title'), {
-          description: t('success_description'),
-        });
-        router.push('/login');
-      } else {
-        form.setError('root.serverError', { message });
-
-        if (errors) {
-          Object.entries(errors).forEach(([field, messages]) => {
-            if (messages.length > 0) {
-              form.setError(field as keyof VerifyFormData, {
-                message: messages[0],
-              });
-            }
-          });
-        }
-      }
-    });
-  };
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
@@ -145,10 +130,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form
-                onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
-                className="space-y-6"
-              >
+              <form onSubmit={form.handleSubmit(execute)} className="space-y-6">
                 <input type="hidden" {...form.register('email')} />
                 <FormField
                   control={form.control}

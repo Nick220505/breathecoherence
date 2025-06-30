@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { AlertCircle, AtSign, Loader2, Lock, Shield, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
+import { useServerAction } from 'zsa-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,16 +19,31 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
-import { RegisterFormData, registerSchema } from '@/features/auth/schema';
+import { registerSchema } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
-export default function RegisterForm() {
-  const t = useTranslations('RegisterPage');
-  const tAuthSchema = useTranslations('AuthSchema.Register');
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+import type { RegisterData } from '@/features/auth/types';
 
-  const form = useForm<RegisterFormData>({
+export default function RegisterForm() {
+  const t = useTranslations('RegisterForm');
+  const router = useRouter();
+
+  const { execute, isPending } = useServerAction(register, {
+    onSuccess: () => {
+      form.clearErrors();
+      router.push({
+        pathname: '/verify',
+        query: { email: form.getValues('email') },
+      });
+    },
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? t('error.generic'),
+      });
+    },
+  });
+
+  const form = useForm<RegisterData>({
     resolver: zodResolver(registerSchema, {
       path: [],
       async: false,
@@ -40,31 +55,31 @@ export default function RegisterForm() {
           issue.code === ZodIssueCode.invalid_string &&
           issue.validation === 'email'
         ) {
-          return { message: tAuthSchema('emailInvalid') };
+          return { message: t('validation.emailInvalid') };
         }
         if (
           path === 'password' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 6
         ) {
-          return { message: tAuthSchema('passwordMinLength') };
+          return { message: t('validation.passwordMinLength') };
         }
         if (
           path === 'name' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 1
         ) {
-          return { message: tAuthSchema('nameRequired') };
+          return { message: t('validation.nameRequired') };
         }
         if (
           path === 'confirmPassword' &&
           issue.code === ZodIssueCode.too_small &&
           issue.minimum === 6
         ) {
-          return { message: tAuthSchema('confirmPasswordMinLength') };
+          return { message: t('validation.confirmPasswordMinLength') };
         }
         if (path === 'confirmPassword' && issue.code === ZodIssueCode.custom) {
-          return { message: tAuthSchema('passwordsDontMatch') };
+          return { message: t('validation.passwordsDontMatch') };
         }
 
         return { message: ctx.defaultError };
@@ -73,35 +88,9 @@ export default function RegisterForm() {
     defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
   });
 
-  const onSubmit = (values: RegisterFormData) => {
-    startTransition(async () => {
-      const { success, message, errors } = await register(values);
-
-      if (success) {
-        form.clearErrors();
-        router.push({ pathname: '/verify', query: { email: values.email } });
-      } else {
-        form.setError('root.serverError', { message });
-
-        if (errors) {
-          Object.entries(errors).forEach(([field, messages]) => {
-            if (messages.length > 0) {
-              form.setError(field as keyof RegisterFormData, {
-                message: messages[0],
-              });
-            }
-          });
-        }
-      }
-    });
-  };
-
   return (
     <Form {...form}>
-      <form
-        onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
-        className="space-y-6"
-      >
+      <form onSubmit={form.handleSubmit(execute)} className="space-y-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
