@@ -69,7 +69,6 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 - 🧠 **AI**: Google Gemini
 - 💰 **Payments**: Stripe, PayPal
 - 📨 **Emails**: Resend
-- 📊 **State Management**: Zustand
 
 ## ⚙️ Getting Started
 
@@ -96,12 +95,10 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
     ```
 
 3.  **Set up environment variables:** 🔐
-
     - Copy the `.env.example` file to a new file named `.env`.
     - Fill in the required API keys and database URLs.
 
 4.  **Initialize the database:** 🛢️
-
     - This command syncs your Prisma schema with your database.
 
     ```bash
@@ -109,7 +106,6 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
     ```
 
 5.  **Seed the database:** 🌱
-
     - This command populates the database with initial data.
 
     ```bash
@@ -180,7 +176,6 @@ breathecoherence/
 │   ├── hooks/              # Custom React hooks
 │   ├── i18n/               # Internationalization (i18n) configuration
 │   ├── lib/                # Core libraries, utilities, and external service clients
-│   │   ├── stores/         # Zustand global state stores
 │   │   ├── types/          # Shared TypeScript types
 │   │   ├── email.ts        # Resend email client
 │   │   ├── gemini.ts       # Google Gemini AI client
