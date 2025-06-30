@@ -58,24 +58,6 @@ export const orderRepository = {
     });
   },
 
-  findManyWithItemsByUser(userId: string): Promise<OrderDetail[]> {
-    return prisma.order.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        items: {
-          include: {
-            product: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
-      },
-    });
-  },
-
   async findManyClientOrdersByUser(userId: string): Promise<ClientOrder[]> {
     const orders = await prisma.order.findMany({
       where: { userId },

@@ -9,12 +9,6 @@ import { withAuthProcedure } from '@/lib/zsa';
 import { orderStatusUpdateSchema } from './schemas';
 import { orderService } from './service';
 
-export const getUserOrdersWithItems = withAuthProcedure
-  .createServerAction()
-  .handler(async ({ ctx: { user } }) => {
-    return orderService.getAllWithItemsByUser(user.id);
-  });
-
 export const getUserClientOrders = withAuthProcedure
   .createServerAction()
   .handler(async ({ ctx: { user } }) => {

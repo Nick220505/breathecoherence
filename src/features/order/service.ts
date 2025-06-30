@@ -23,10 +23,6 @@ export const orderService = {
     return orderRepository.findByIdAndUser(id, userId);
   },
 
-  getAllWithItemsByUser(userId: string): Promise<OrderDetail[]> {
-    return orderRepository.findManyWithItemsByUser(userId);
-  },
-
   getAllClientOrdersByUser(userId: string): Promise<ClientOrder[]> {
     return orderRepository.findManyClientOrdersByUser(userId);
   },
