@@ -146,7 +146,8 @@
     "error": {
       "loadCategoryCount": "Error al cargar el conteo de categorías",
       "loadUserCount": "Error al cargar el conteo de usuarios",
-      "loadProductCount": "Error al cargar el conteo de productos"
+      "loadProductCount": "Error al cargar el conteo de productos",
+      "loadOrderCount": "Error al cargar el conteo de pedidos"
     },
     "users": {
       "title": "Usuarios",

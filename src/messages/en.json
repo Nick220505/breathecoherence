@@ -367,7 +367,8 @@
     "error": {
       "loadCategoryCount": "Failed to load category count",
       "loadUserCount": "Failed to load user count",
-      "loadProductCount": "Failed to load product count"
+      "loadProductCount": "Failed to load product count",
+      "loadOrderCount": "Failed to load order count"
     }
   },
   "CheckoutPage": {
