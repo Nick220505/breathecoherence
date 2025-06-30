@@ -441,7 +441,7 @@
 
   "ChatBot": {
     "title": "Breathe Coherence Assistant",
-    "welcome": "Hello! How can I help you find the perfect product for your spiritual journey today?",
+    "welcome": "Welcome to our Shopping Assistant! 👋\n\nI can help you with:\n\n1. Sacred Geometry Products\n• Information about our Platonic Solids\n• Their elemental associations\n• Metaphysical properties\n• Prices and availability\n\n2. Bach Flower Remedies\n• Information about each essence\n• Emotional benefits\n• Personalized recommendations\n\nHow can I help you today?",
     "error": "I'm sorry, I'm having trouble connecting right now. Please try again later.",
     "typing": "Typing...",
     "input_placeholder": "Type your message...",
