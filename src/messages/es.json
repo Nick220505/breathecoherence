@@ -147,7 +147,8 @@
       "title": "Gestión de Pedidos"
     },
     "error": {
-      "loadCategoryCount": "Error al cargar el conteo de categorías"
+      "loadCategoryCount": "Error al cargar el conteo de categorías",
+      "loadUserCount": "Error al cargar el conteo de usuarios"
     },
     "users": {
       "title": "Usuarios",
@@ -580,17 +581,6 @@
       "deleteError": "Error al eliminar el producto.",
       "missingId": "Falta el ID del producto."
     },
-
-    "User": {
-      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
-      "createSuccess": "Usuario creado con éxito.",
-      "createError": "Error al crear el usuario.",
-      "updateSuccess": "Usuario actualizado con éxito.",
-      "updateError": "Error al actualizar el usuario.",
-      "deleteSuccess": "Usuario eliminado con éxito.",
-      "deleteError": "Error al eliminar el usuario.",
-      "missingId": "Falta el ID del usuario."
-    },
     "Auth": {
       "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
       "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",
@@ -603,7 +593,10 @@
   },
   "UsersPage": {
     "title": "Gestión de Usuarios",
-    "add_user": "Agregar Usuario"
+    "add_user": "Agregar Usuario",
+    "error": {
+      "loadUsers": "Error al cargar usuarios"
+    }
   },
   "UserTable": {
     "name": "Nombre",
@@ -625,6 +618,16 @@
     "updated_at": "Actualizado en",
     "actions": "Acciones"
   },
+  "UsersLoading": {
+    "title": "Gestión de Usuarios",
+    "add_user": "Agregar Usuario",
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones"
+  },
   "UserDialog": {
     "add_user": "Agregar Usuario",
     "edit_user": "Editar Usuario",
@@ -632,10 +635,12 @@
     "edit_form_description": "Formulario para editar un usuario existente",
     "name": "Nombre del Usuario",
     "email": "Correo",
+    "password": "Contraseña",
     "role": "Rol",
     "placeholder": {
       "name": "Ingresa el nombre del usuario",
       "email": "Ingresa el correo electrónico del usuario",
+      "password": "Ingresa la contraseña",
       "role": "Selecciona el rol"
     },
     "created_title": "Usuario Creado",
@@ -654,6 +659,7 @@
     "validation": {
       "name_min": "El nombre debe tener al menos 1 carácter",
       "email_invalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "password_min": "La contraseña debe tener al menos 6 caracteres",
       "role_invalid": "Por favor, selecciona un rol válido"
     }
   },

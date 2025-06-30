@@ -1,94 +1,43 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { getTranslations } from 'next-intl/server';
 
-import { userSchema } from './schema';
+import { createUserSchema, updateUserSchema } from './schemas';
 import { userService } from './service';
+import { z } from 'zod';
+import { createServerAction } from 'zsa';
 
-import type { UserFormData } from './schema';
-import type { UserSummary } from './types';
-import type { ActionResult } from '@/lib/types';
-import type { User } from '@prisma/client';
-
-export async function getAllUsers(): Promise<UserSummary[]> {
+export const getAllUsers = createServerAction().handler(async () => {
   return userService.getAll();
-}
+});
 
-export async function getUserCount(): Promise<number> {
+export const getUserCount = createServerAction().handler(async () => {
   return userService.getCount();
-}
+});
 
-export async function createUser(
-  values: UserFormData,
-): Promise<ActionResult<User>> {
-  const t = await getTranslations('ServerActions.User');
-
-  const { success, data, error } = userSchema.safeParse(values);
-
-  if (!success) {
-    return {
-      success: false,
-      message: t('fillRequiredFields'),
-      errors: error.flatten().fieldErrors,
-    };
-  }
-
-  try {
+export const createUser = createServerAction()
+  .input(createUserSchema)
+  .handler(async ({ input: data }) => {
     const createdUser = await userService.create(data);
     revalidateTag('users');
 
-    return {
-      success: true,
-      message: t('createSuccess'),
-      data: createdUser,
-    };
-  } catch {
-    return { success: false, message: t('createError') };
-  }
-}
+    return createdUser;
+  });
 
-export async function updateUser(
-  values: UserFormData,
-): Promise<ActionResult<User>> {
-  const t = await getTranslations('ServerActions.User');
-
-  const { success, data, error } = userSchema.safeParse(values);
-
-  if (!success) {
-    return {
-      success: false,
-      message: t('fillRequiredFields'),
-      errors: error.flatten().fieldErrors,
-    };
-  }
-
-  const { id } = data;
-  if (!id) {
-    return { success: false, message: t('missingId') };
-  }
-
-  try {
-    const updatedUser = await userService.update(id, data);
+export const updateUser = createServerAction()
+  .input(updateUserSchema)
+  .handler(async ({ input: data }) => {
+    const updatedUser = await userService.update(data.id, data);
     revalidateTag('users');
 
-    return {
-      success: true,
-      message: t('updateSuccess'),
-      data: updatedUser,
-    };
-  } catch {
-    return { success: false, message: t('updateError') };
-  }
-}
+    return updatedUser;
+  });
 
-export async function deleteUser(id: string): Promise<ActionResult<User>> {
-  const t = await getTranslations('ServerActions.User');
-  try {
-    const user = await userService.delete(id);
+export const deleteUser = createServerAction()
+  .input(z.object({ id: z.string() }))
+  .handler(async ({ input: { id } }) => {
+    const deletedUser = await userService.delete(id);
     revalidateTag('users');
-    return { success: true, message: t('deleteSuccess'), data: user };
-  } catch {
-    return { success: false, message: t('deleteError') };
-  }
-}
+
+    return deletedUser;
+  });

@@ -7,9 +7,10 @@ import {
   Mail,
   User as UserIcon,
   Shield,
+  Lock,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, useTransition, type ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -42,24 +43,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { createUser, updateUser } from '@/features/user/actions';
-import { UserFormData, userSchema } from '@/features/user/schema';
+import { createUser } from '@/features/user/actions';
+import { createUserSchema } from '@/features/user/schemas';
+import { useServerAction } from 'zsa-react';
 
-import type { UserSummary } from '@/features/user/types';
+import type { CreateUserData } from '@/features/user/types';
 
-interface UserDialogProps {
+interface CreateUserDialogProps {
   children: ReactNode;
-  user?: UserSummary;
 }
 
-export function UserDialog({ children, user }: Readonly<UserDialogProps>) {
-  const isEdit = !!user;
+export function CreateUserDialog({
+  children,
+}: Readonly<CreateUserDialogProps>) {
   const t = useTranslations('UserDialog');
-  const [isPending, startTransition] = useTransition();
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const form = useForm<UserFormData>({
-    resolver: zodResolver(userSchema, {
+  const { execute, isPending } = useServerAction(createUser, {
+    onSuccess: ({ data: { name } }) => {
+      form.reset();
+      form.clearErrors();
+      toast.success(t('created_title'), {
+        description: t('created_description', { name }),
+      });
+      closeRef.current?.click();
+    },
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? 'An error occurred',
+      });
+    },
+  });
+
+  const form = useForm<CreateUserData>({
+    resolver: zodResolver(createUserSchema, {
       path: [],
       async: false,
       errorMap(issue, ctx) {
@@ -68,76 +85,41 @@ export function UserDialog({ children, user }: Readonly<UserDialogProps>) {
         if (path === 'name' && issue.code === ZodIssueCode.too_small) {
           return { message: t('validation.name_min') };
         }
-        if (
-          path === 'email' &&
-          issue.code === ZodIssueCode.invalid_string &&
-          issue.validation === 'email'
-        ) {
+        if (path === 'email' && issue.code === ZodIssueCode.invalid_string) {
           return { message: t('validation.email_invalid') };
         }
         if (path === 'role' && issue.code === ZodIssueCode.invalid_enum_value) {
           return { message: t('validation.role_invalid') };
+        }
+        if (path === 'password' && issue.code === ZodIssueCode.too_small) {
+          return { message: t('validation.password_min') };
         }
 
         return { message: ctx.defaultError };
       },
     }),
     defaultValues: {
-      id: user?.id,
-      name: user?.name ?? '',
-      email: user?.email ?? '',
-      role: user?.role ?? 'USER',
+      name: '',
+      email: '',
+      password: '',
+      role: 'USER',
     },
   });
-
-  const onSubmit = (values: UserFormData): void => {
-    startTransition(async () => {
-      const action = isEdit ? updateUser : createUser;
-      const { success, data, message, errors } = await action(values);
-
-      if (success) {
-        form.clearErrors();
-        toast.success(isEdit ? t('updated_title') : t('created_title'), {
-          description: isEdit
-            ? t('updated_description', { name: data?.name ?? '' })
-            : t('created_description', { name: data?.name ?? '' }),
-        });
-
-        closeRef.current?.click();
-      } else {
-        form.setError('root.serverError', { message });
-
-        if (errors) {
-          Object.entries(errors).forEach(([field, messages]) => {
-            if (messages.length > 0) {
-              form.setError(field as keyof UserFormData, {
-                message: messages[0],
-              });
-            }
-          });
-        }
-      }
-    });
-  };
 
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
+          <form onSubmit={form.handleSubmit(execute)}>
             <DialogHeader>
-              <DialogTitle>
-                {isEdit ? t('edit_user') : t('add_user')}
-              </DialogTitle>
+              <DialogTitle>{t('add_user')}</DialogTitle>
               <DialogDescription className="sr-only">
-                {isEdit ? t('edit_form_description') : t('form_description')}
+                {t('form_description')}
               </DialogDescription>
             </DialogHeader>
 
             <div className="grid gap-4 py-4">
-              {isEdit && <Input type="hidden" {...form.register('id')} />}
-
               <FormField
                 control={form.control}
                 name="name"
@@ -178,6 +160,27 @@ export function UserDialog({ children, user }: Readonly<UserDialogProps>) {
 
               <FormField
                 control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Lock className="h-4 w-4" />
+                      {t('password')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder={t('placeholder.password')}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="role"
                 render={({ field }) => (
                   <FormItem>
@@ -195,10 +198,10 @@ export function UserDialog({ children, user }: Readonly<UserDialogProps>) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
+                        <SelectItem value="USER">{t('roles.user')}</SelectItem>
                         <SelectItem value="ADMIN">
                           {t('roles.admin')}
                         </SelectItem>
-                        <SelectItem value="USER">{t('roles.user')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -226,10 +229,10 @@ export function UserDialog({ children, user }: Readonly<UserDialogProps>) {
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {isEdit ? t('editing') : t('adding')}
+                    {t('adding')}
                   </>
                 ) : (
-                  <>{isEdit ? t('edit') : t('add')}</>
+                  <>{t('add')}</>
                 )}
               </Button>
             </DialogFooter>

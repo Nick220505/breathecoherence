@@ -356,7 +356,8 @@
       "title": "User Management"
     },
     "error": {
-      "loadCategoryCount": "Failed to load category count"
+      "loadCategoryCount": "Failed to load category count",
+      "loadUserCount": "Failed to load user count"
     },
     "orderTable": {
       "title": "Order Management"
@@ -544,7 +545,10 @@
   },
   "UsersPage": {
     "title": "User Management",
-    "add_user": "Add User"
+    "add_user": "Add User",
+    "error": {
+      "loadUsers": "Failed to load users"
+    }
   },
   "UserTable": {
     "name": "Name",
@@ -566,6 +570,16 @@
     "updated_at": "Updated At",
     "actions": "Actions"
   },
+  "UsersLoading": {
+    "title": "User Management",
+    "add_user": "Add User",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "actions": "Actions"
+  },
   "UserDialog": {
     "add_user": "Add User",
     "edit_user": "Edit User",
@@ -573,10 +587,12 @@
     "edit_form_description": "Form to edit an existing user",
     "name": "User Name",
     "email": "Email",
+    "password": "Password",
     "role": "Role",
     "placeholder": {
       "name": "Enter user name",
       "email": "Enter user email",
+      "password": "Enter password",
       "role": "Select role"
     },
     "created_title": "User Created",
@@ -595,6 +611,7 @@
     "validation": {
       "name_min": "Name must be at least 1 character",
       "email_invalid": "Please enter a valid email",
+      "password_min": "Password must be at least 6 characters",
       "role_invalid": "Please select a valid role"
     }
   },
@@ -703,17 +720,6 @@
       "deleteSuccess": "Product deleted successfully.",
       "deleteError": "Failed to delete product.",
       "missingId": "Product ID is missing."
-    },
-
-    "User": {
-      "fillRequiredFields": "Please fill all required fields.",
-      "createSuccess": "User created successfully.",
-      "createError": "Failed to create user.",
-      "updateSuccess": "User updated successfully.",
-      "updateError": "Failed to update user.",
-      "deleteSuccess": "User deleted successfully.",
-      "deleteError": "Failed to delete user.",
-      "missingId": "User ID is missing."
     },
     "Auth": {
       "fillRequiredFields": "Please fill all required fields.",

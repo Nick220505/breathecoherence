@@ -5,7 +5,11 @@ import { getUserCount } from '@/features/user/actions';
 
 export async function UsersCard() {
   const t = await getTranslations('dashboard');
-  const userCount = await getUserCount();
+  const [userCount, err] = await getUserCount();
+
+  if (err) {
+    throw new Error(t('error.loadUserCount'));
+  }
 
   return (
     <div className="bg-card flex items-center justify-center gap-6 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md max-[475px]:flex-col max-[475px]:gap-3">

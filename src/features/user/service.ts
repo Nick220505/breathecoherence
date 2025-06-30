@@ -1,8 +1,9 @@
+import { hash } from 'bcryptjs';
+
 import { userRepository } from './repository';
 
-import type { UserFormData } from './schema';
-import type { UserSummary } from './types';
-import type { Prisma, User } from '@prisma/client';
+import type { CreateUserData, UpdateUserData, UserSummary } from './types';
+import type { User } from '@prisma/client';
 
 export const userService = {
   getAll(): Promise<UserSummary[]> {
@@ -13,11 +14,15 @@ export const userService = {
     return userRepository.count();
   },
 
-  create(data: UserFormData): Promise<User> {
-    return userRepository.create(data as Prisma.UserCreateInput);
+  async create(data: CreateUserData): Promise<User> {
+    const hashedPassword = await hash(data.password, 12);
+    return userRepository.create({
+      ...data,
+      password: hashedPassword,
+    });
   },
 
-  update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+  update(id: string, data: UpdateUserData): Promise<User> {
     return userRepository.update(id, data);
   },
 
