@@ -725,7 +725,8 @@
     "user": "Usuario",
     "total": "Total",
     "status": "Estado",
-    "createdAt": "Creado en"
+    "createdAt": "Creado en",
+    "actions": "Acciones"
   },
   "ErrorBoundary": {
     "title": "Algo salió mal",

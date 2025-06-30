@@ -677,7 +677,8 @@
     "user": "User",
     "total": "Total",
     "status": "Status",
-    "createdAt": "Created At"
+    "createdAt": "Created At",
+    "actions": "Actions"
   },
   "ErrorBoundary": {
     "title": "Something went wrong",
