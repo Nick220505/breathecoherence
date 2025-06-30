@@ -196,7 +196,6 @@ breathecoherence/
 │   ├── hooks/              # Custom React hooks
 │   ├── i18n/               # Internationalization configuration
 │   ├── lib/                # Core libraries & utilities
-│   │   ├── types/          # Shared TypeScript types
 │   │   ├── email.ts        # Resend email client
 │   │   ├── gemini.ts       # Google Gemini AI client
 │   │   ├── prisma.ts       # Prisma client instance
