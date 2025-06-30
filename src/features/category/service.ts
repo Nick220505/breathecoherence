@@ -7,7 +7,7 @@ import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 import type { Category } from '@prisma/client';
 
-const categoryTranslationConfig: TranslationConfig = {
+export const categoryTranslationConfig: TranslationConfig = {
   entityType: 'Category',
   translatableFields: ['name', 'description'],
 };

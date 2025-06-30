@@ -1,4 +1,5 @@
 import { translationService } from '@/features/translation/service';
+import { categoryTranslationConfig } from '@/features/category/service';
 
 import { productRepository } from './repository';
 import { ProductFormData } from './schema';
@@ -16,11 +17,6 @@ const productTranslationConfig: TranslationConfig = {
 export const productService = {
   async getAll(locale: Locale): Promise<ProductWithCategory[]> {
     const products = await productRepository.findMany();
-
-    const categoryTranslationConfig = {
-      entityType: 'Category',
-      translatableFields: ['name', 'description'],
-    };
 
     return Promise.all(
       products.map(async (product) => {
@@ -50,11 +46,6 @@ export const productService = {
   ): Promise<ProductWithCategory[]> {
     const products = await productRepository.findByCategory(categoryName);
 
-    const categoryTranslationConfig = {
-      entityType: 'Category',
-      translatableFields: ['name', 'description'],
-    };
-
     return Promise.all(
       products.map(async (product) => {
         const translatedProduct = await translationService.getTranslatedEntity(
@@ -83,11 +74,6 @@ export const productService = {
     if (!product) {
       throw new Error(`Product not found by id: ${id}`);
     }
-
-    const categoryTranslationConfig = {
-      entityType: 'Category',
-      translatableFields: ['name', 'description'],
-    };
 
     const translatedProduct = await translationService.getTranslatedEntity(
       product,
