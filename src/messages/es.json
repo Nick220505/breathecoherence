@@ -553,13 +553,9 @@
     "pending": "Pendiente",
     "paid": "Pagado",
     "shipped": "Enviado",
-    "delivered": "Entregado",
-    "cancelled": "Cancelado",
     "status_pending": "Pendiente",
     "status_paid": "Pagado",
     "status_shipped": "Enviado",
-    "status_delivered": "Entregado",
-    "status_cancelled": "Cancelado",
     "error": {
       "loadOrders": "Error al cargar pedidos"
     }
@@ -679,9 +675,7 @@
     "status": {
       "pending": "Pendiente",
       "paid": "Pagado",
-      "shipped": "Enviado",
-      "delivered": "Entregado",
-      "cancelled": "Cancelado"
+      "shipped": "Enviado"
     },
     "error": {
       "loadOrders": "Error al cargar pedidos"
@@ -695,9 +689,7 @@
     "status": {
       "pending": "Pendiente",
       "paid": "Pagado",
-      "shipped": "Enviado",
-      "delivered": "Entregado",
-      "cancelled": "Cancelado"
+      "shipped": "Enviado"
     },
     "cancel": "Cancelar",
     "update": "Actualizar Estado",
@@ -745,8 +737,6 @@
     "status_pending": "Pendiente",
     "status_paid": "Pagado",
     "status_shipped": "Enviado",
-    "status_delivered": "Entregado",
-    "status_cancelled": "Cancelado",
     "items": "Artículos",
     "product": "Producto",
     "quantity": "Cantidad",

@@ -432,8 +432,6 @@
     "status_pending": "Pending",
     "status_paid": "Paid",
     "status_shipped": "Shipped",
-    "status_delivered": "Delivered",
-    "status_cancelled": "Cancelled",
     "error": {
       "loadOrder": "Failed to load order details"
     }
@@ -605,9 +603,7 @@
     "status": {
       "pending": "Pending",
       "paid": "Paid",
-      "shipped": "Shipped",
-      "delivered": "Delivered",
-      "cancelled": "Cancelled"
+      "shipped": "Shipped"
     },
     "error": {
       "loadOrders": "Failed to load orders"
@@ -621,9 +617,7 @@
     "status": {
       "pending": "Pending",
       "paid": "Paid",
-      "shipped": "Shipped",
-      "delivered": "Delivered",
-      "cancelled": "Cancelled"
+      "shipped": "Shipped"
     },
     "cancel": "Cancel",
     "update": "Update Status",
@@ -721,13 +715,9 @@
     "pending": "Pending",
     "paid": "Paid",
     "shipped": "Shipped",
-    "delivered": "Delivered",
-    "cancelled": "Cancelled",
     "status_pending": "Pending",
     "status_paid": "Paid",
     "status_shipped": "Shipped",
-    "status_delivered": "Delivered",
-    "status_cancelled": "Cancelled",
     "error": {
       "loadOrders": "Failed to load orders"
     }

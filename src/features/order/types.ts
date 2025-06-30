@@ -1,4 +1,4 @@
-import type { Order, Prisma } from '@prisma/client';
+import type { Order, OrderStatus, Prisma } from '@prisma/client';
 import type { z } from 'zod';
 
 import type {
@@ -41,7 +41,7 @@ export interface OrderItem {
 
 export interface OrderWithItems {
   id: string;
-  status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
+  status: OrderStatus;
   total: number;
   createdAt: Date;
   items: OrderItem[];

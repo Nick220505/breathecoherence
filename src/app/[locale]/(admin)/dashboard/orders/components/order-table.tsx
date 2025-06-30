@@ -36,10 +36,6 @@ export function OrderTable({ orders }: Readonly<OrderTableProps>) {
         return 'default';
       case 'SHIPPED':
         return 'outline';
-      case 'DELIVERED':
-        return 'default';
-      case 'CANCELLED':
-        return 'destructive';
       default:
         return 'secondary';
     }

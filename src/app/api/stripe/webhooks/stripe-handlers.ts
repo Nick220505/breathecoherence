@@ -121,12 +121,12 @@ export async function handlePaymentIntentFailed(
         await prisma.order.update({
           where: { id: orderId },
           data: {
-            status: 'CANCELLED',
+            status: 'PENDING',
             updatedAt: new Date(),
           },
         });
         console.log(
-          `Order ${orderId} marked as cancelled due to payment failure`,
+          `Order ${orderId} marked as pending due to payment failure`,
         );
       } catch (error) {
         console.error(`Error updating failed order ${orderId}:`, error);

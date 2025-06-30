@@ -79,8 +79,6 @@ export function UpdateOrderStatusDialog({
     { value: 'PENDING', label: t('status.pending') },
     { value: 'PAID', label: t('status.paid') },
     { value: 'SHIPPED', label: t('status.shipped') },
-    { value: 'DELIVERED', label: t('status.delivered') },
-    { value: 'CANCELLED', label: t('status.cancelled') },
   ] as const;
 
   return (

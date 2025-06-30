@@ -95,11 +95,8 @@ enum OrderStatus {
   PENDING
   PAID
   SHIPPED
-  DELIVERED
-  CANCELLED
 }
 
 enum crdb_internal_region {
   aws_us_east_1 @map("aws-us-east-1")
 }
-

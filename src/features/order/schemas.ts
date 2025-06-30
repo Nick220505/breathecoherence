@@ -1,3 +1,4 @@
+import { OrderStatus } from '@prisma/client';
 import { z } from 'zod';
 
 export const orderSchema = z.object({
@@ -5,7 +6,7 @@ export const orderSchema = z.object({
   userId: z.string().nullable(),
   userEmail: z.string().email(),
   total: z.number().positive(),
-  status: z.enum(['PENDING', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']),
+  status: z.nativeEnum(OrderStatus),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -28,5 +29,5 @@ export const updateOrderSchema = orderSchema
 
 export const orderStatusUpdateSchema = z.object({
   id: z.string(),
-  status: z.enum(['PENDING', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']),
+  status: z.nativeEnum(OrderStatus),
 });

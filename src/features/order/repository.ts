@@ -1,3 +1,5 @@
+import type { OrderStatus } from '@prisma/client';
+
 import prisma from '@/lib/prisma';
 
 import type { OrderSummary, OrderDetail, OrderWithItems } from './types';
@@ -99,10 +101,7 @@ export const orderRepository = {
     return prisma.order.count();
   },
 
-  async updateStatus(
-    id: string,
-    status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED',
-  ): Promise<OrderDetail> {
+  async updateStatus(id: string, status: OrderStatus): Promise<OrderDetail> {
     const updatedOrder = await prisma.order.update({
       where: { id },
       data: { status },

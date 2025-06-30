@@ -8,6 +8,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
+import type { OrderStatus } from '@prisma/client';
+
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -24,12 +26,10 @@ import { Link } from '@/i18n/routing';
 
 import type { OrderWithItems } from '@/features/order/types';
 
-const statusColorMap = {
+const statusColorMap: Record<OrderStatus, string> = {
   PENDING: 'bg-yellow-100 text-yellow-800',
   PAID: 'bg-green-100 text-green-800',
   SHIPPED: 'bg-blue-100 text-blue-800',
-  DELIVERED: 'bg-purple-100 text-purple-800',
-  CANCELLED: 'bg-red-100 text-red-800',
 };
 
 export default function OrderHistoryClient({

@@ -1,6 +1,8 @@
 import { OrderConfirmationEmail } from '@/components/email-templates/order-confirmation-email';
 import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
 
+import type { OrderStatus } from '@prisma/client';
+
 import { orderRepository } from './repository';
 
 import type {
@@ -31,10 +33,7 @@ export const orderService = {
     return orderRepository.count();
   },
 
-  async updateStatus(
-    id: string,
-    status: 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED',
-  ): Promise<OrderDetail> {
+  async updateStatus(id: string, status: OrderStatus): Promise<OrderDetail> {
     return orderRepository.updateStatus(id, status);
   },
 
