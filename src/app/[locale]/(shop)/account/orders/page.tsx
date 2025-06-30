@@ -7,6 +7,8 @@ import OrderHistoryClient from './components/order-history-client';
 
 import type { ClientOrder } from './components/order-history-client';
 
+export const dynamic = 'force-dynamic';
+
 export default async function OrderHistoryPage({
   params,
 }: Readonly<{ params: Promise<{ locale: string }> }>) {
