@@ -37,7 +37,7 @@ import { orderStatusUpdateSchema } from '@/features/order/schemas';
 
 import type {
   OrderSummary,
-  OrderStatusUpdateFormData,
+  OrderStatusUpdateData,
 } from '@/features/order/types';
 
 interface UpdateOrderStatusDialogProps {
@@ -53,7 +53,7 @@ export function UpdateOrderStatusDialog({
 }: Readonly<UpdateOrderStatusDialogProps>) {
   const t = useTranslations('UpdateOrderStatusDialog');
 
-  const form = useForm<OrderStatusUpdateFormData>({
+  const form = useForm<OrderStatusUpdateData>({
     resolver: zodResolver(orderStatusUpdateSchema),
     defaultValues: {
       id: order.id,

@@ -8,10 +8,10 @@ import type {
   orderStatusUpdateSchema,
 } from './schemas';
 
-export type OrderFormData = z.infer<typeof orderSchema>;
-export type CreateOrderFormData = z.infer<typeof createOrderSchema>;
-export type UpdateOrderFormData = z.infer<typeof updateOrderSchema>;
-export type OrderStatusUpdateFormData = z.infer<typeof orderStatusUpdateSchema>;
+export type OrderData = z.infer<typeof orderSchema>;
+export type CreateOrderData = z.infer<typeof createOrderSchema>;
+export type UpdateOrderData = z.infer<typeof updateOrderSchema>;
+export type OrderStatusUpdateData = z.infer<typeof orderStatusUpdateSchema>;
 
 export interface OrderSummary
   extends Pick<Order, 'id' | 'total' | 'status' | 'createdAt'> {
