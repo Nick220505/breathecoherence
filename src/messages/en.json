@@ -414,32 +414,7 @@
     "paypal": "PayPal",
     "loading_payment_form": "Loading payment form..."
   },
-  "CheckoutSuccessPage": {
-    "title": "Thank You for Your Order!",
-    "description": "We've received your order and will process it shortly.",
-    "order_number": "Order Number",
-    "order_date": "Order Date",
-    "total_amount": "Total Amount",
-    "shipping_address": "Shipping Address",
-    "billing_address": "Billing Address",
-    "order_summary": "Order Summary",
-    "continue_shopping": "Continue Shopping",
-    "view_order": "View Order Details"
-  },
-  "AccountPage": {
-    "title": "My Account",
-    "orders": "Orders",
-    "settings": "Settings",
-    "signout": "Sign Out",
-    "order_history": "Order History",
-    "no_orders": "You have not placed any orders yet.",
-    "order_id": "Order ID",
-    "date": "Date",
-    "total": "Total",
-    "status": "Status",
-    "actions": "Actions",
-    "view_order": "View"
-  },
+
   "OrderDetail": {
     "loading": "Loading order details...",
     "error_title": "Order Error",
@@ -463,21 +438,7 @@
       "loadOrder": "Failed to load order details"
     }
   },
-  "OrderDetailsPage": {
-    "title": "Order Details",
-    "back_to_orders": "Back to Orders",
-    "order_id": "Order ID",
-    "order_date": "Date",
-    "order_status": "Status",
-    "total": "Total",
-    "shipping_address": "Shipping Address",
-    "order_summary": "Order Summary",
-    "product": "Product",
-    "quantity": "Quantity",
-    "price": "Price",
-    "subtotal": "Subtotal",
-    "product_category": "Product Category"
-  },
+
   "ChatBot": {
     "title": "Breathe Coherence Assistant",
     "welcome": "Hello! How can I help you find the perfect product for your spiritual journey today?",

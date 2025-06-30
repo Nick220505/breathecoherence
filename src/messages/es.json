@@ -564,27 +564,6 @@
       "loadOrders": "Error al cargar pedidos"
     }
   },
-  "OrderDetails": {
-    "title": "Detalles del Pedido",
-    "loading": "Cargando detalles del pedido...",
-    "error": "Error al cargar los detalles del pedido",
-    "not_found": "Pedido no encontrado",
-    "back_to_orders": "Volver a los Pedidos",
-    "order_id": "ID del Pedido",
-    "date": "Fecha",
-    "total": "Total",
-    "status": "Estado",
-    "items": "Artículos en este pedido",
-    "image": "Imagen",
-    "product": "Producto",
-    "quantity": "Cantidad",
-    "price": "Precio",
-    "subtotal": "Subtotal",
-    "product_category": "Categoría de Producto",
-    "shipping": "Envío",
-    "tax": "Impuesto",
-    "product_type": "Tipo de Producto"
-  },
 
   "AuthSchema": {
     "Login": {
