@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, type ReactNode } from 'react';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -18,7 +18,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Form,
@@ -30,61 +29,49 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { createCategory, updateCategory } from '@/features/category/actions';
-import { CategoryFormData, categorySchema } from '@/features/category/schema';
+import { updateCategory } from '@/features/category/actions';
+import {
+  CategoryFormData,
+  createCategorySchema,
+} from '@/features/category/schemas';
 import { useServerAction } from 'zsa-react';
 
 import type { Category } from '@prisma/client';
 
-interface CategoryDialogProps {
-  children: ReactNode;
-  category?: Category;
+interface EditCategoryDialogProps {
+  category: Category;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-export function CategoryDialog({
-  children,
+export function EditCategoryDialog({
   category,
-}: Readonly<CategoryDialogProps>) {
-  const isEdit = !!category;
+  open,
+  onOpenChange,
+}: Readonly<EditCategoryDialogProps>) {
   const t = useTranslations('CategoryDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const { execute: executeCreate, isPending: isCreatePending } =
-    useServerAction(createCategory, {
-      onSuccess: ({ data: { name } }) => {
-        form.clearErrors();
-        toast.success(t('created_title'), {
-          description: t('created_description', { name }),
-        });
-        closeRef.current?.click();
-      },
-      onError: ({ err: { message } }) => {
-        form.setError('root.serverError', {
-          message: message ?? 'An error occurred',
-        });
-      },
-    });
-
-  const { execute: executeUpdate, isPending: isUpdatePending } =
-    useServerAction(updateCategory, {
+  const { execute: executeUpdate, isPending } = useServerAction(
+    updateCategory,
+    {
       onSuccess: ({ data: { name } }) => {
         form.clearErrors();
         toast.success(t('updated_title'), {
           description: t('updated_description', { name }),
         });
-        closeRef.current?.click();
+        onOpenChange(false);
       },
       onError: ({ err: { message } }) => {
         form.setError('root.serverError', {
           message: message ?? 'An error occurred',
         });
       },
-    });
-
-  const isPending = isCreatePending || isUpdatePending;
+    },
+  );
 
   const form = useForm<CategoryFormData>({
-    resolver: zodResolver(categorySchema, {
+    resolver: zodResolver(createCategorySchema, {
       path: [],
       async: false,
       errorMap(issue, ctx) {
@@ -101,40 +88,28 @@ export function CategoryDialog({
       },
     }),
     defaultValues: {
-      id: category?.id,
-      name: category?.name ?? '',
-      description: category?.description ?? '',
+      name: category.name,
+      description: category.description ?? '',
     },
   });
 
+  const handleSubmit = (values: CategoryFormData) => {
+    executeUpdate({ ...values, id: category.id });
+  };
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <Form {...form}>
-          <form
-            onSubmit={(e) =>
-              void form.handleSubmit((values: CategoryFormData) => {
-                if (isEdit) {
-                  executeUpdate(values);
-                } else {
-                  executeCreate(values);
-                }
-              })(e)
-            }
-          >
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
             <DialogHeader>
-              <DialogTitle>
-                {isEdit ? t('edit_category') : t('add_category')}
-              </DialogTitle>
+              <DialogTitle>{t('edit_category')}</DialogTitle>
               <DialogDescription className="sr-only">
-                {isEdit ? t('edit_form_description') : t('form_description')}
+                {t('edit_form_description')}
               </DialogDescription>
             </DialogHeader>
 
             <div className="grid gap-4 py-4">
-              {isEdit && <Input type="hidden" {...form.register('id')} />}
-
               <FormField
                 control={form.control}
                 name="name"
@@ -192,10 +167,10 @@ export function CategoryDialog({
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {isEdit ? t('editing') : t('adding')}
+                    {t('editing')}
                   </>
                 ) : (
-                  <>{isEdit ? t('edit') : t('add')}</>
+                  <>{t('edit')}</>
                 )}
               </Button>
             </DialogFooter>

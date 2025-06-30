@@ -3,9 +3,12 @@
 import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { getLocale } from 'next-intl/server';
-import { z } from 'zod';
 
-import { categorySchema } from './schema';
+import {
+  createCategorySchema,
+  updateCategorySchema,
+  deleteCategorySchema,
+} from './schemas';
 import { categoryService } from './service';
 import { createServerAction } from 'zsa';
 
@@ -40,7 +43,7 @@ export async function getCategoryCount(): Promise<number> {
 }
 
 export const createCategory = createServerAction()
-  .input(categorySchema)
+  .input(createCategorySchema)
   .handler(async ({ input: data }) => {
     const locale = (await getLocale()) as Locale;
     const createdCategory = await categoryService.create(data, locale);
@@ -50,23 +53,15 @@ export const createCategory = createServerAction()
   });
 
 export const updateCategory = createServerAction()
-  .input(categorySchema)
+  .input(updateCategorySchema)
   .handler(async ({ input: data }) => {
     const locale = (await getLocale()) as Locale;
-    const updatedCategory = await categoryService.update(
-      data.id!,
-      data,
-      locale,
-    );
+    const updatedCategory = await categoryService.update(data.id, data, locale);
     revalidateTag('categories');
     revalidateTag('category');
 
     return updatedCategory;
   });
-
-const deleteCategorySchema = z.object({
-  id: z.string().min(1),
-});
 
 export const deleteCategory = createServerAction()
   .input(deleteCategorySchema)

@@ -475,7 +475,9 @@
     "updated_at": "Updated At",
     "actions": "Actions"
   },
-  "CategoryTableSkeleton": {
+  "CategoriesLoading": {
+    "title": "Category Management",
+    "add_category": "Add Category",
     "name": "Name",
     "description": "Description",
     "created_at": "Created At",

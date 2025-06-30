@@ -2,7 +2,7 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, type ReactNode } from 'react';
+import { useRef } from 'react';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
 
@@ -15,20 +15,21 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { deleteCategory } from '@/features/category/actions';
 
 import type { Category } from '@prisma/client';
 
 interface DeleteCategoryDialogProps {
-  children: ReactNode;
   category: Category;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function DeleteCategoryDialog({
-  children,
   category,
+  open,
+  onOpenChange,
 }: Readonly<DeleteCategoryDialogProps>) {
   const t = useTranslations('DeleteCategoryDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -38,7 +39,7 @@ export function DeleteCategoryDialog({
       toast.success(t('deleted_title'), {
         description: t('deleted_description', { name }),
       });
-      closeRef.current?.click();
+      onOpenChange(false);
     },
     onError: ({ err: { message } }) => {
       toast.error(message ?? t('error_delete'));
@@ -46,8 +47,7 @@ export function DeleteCategoryDialog({
   });
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>

@@ -1,7 +1,7 @@
 import { translationService } from '@/features/translation/service';
 
 import { categoryRepository } from './repository';
-import { CategoryFormData } from './schema';
+import { CategoryFormData } from './schemas';
 
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';

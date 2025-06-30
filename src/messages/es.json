@@ -227,7 +227,9 @@
     "updated_at": "Actualizado en",
     "actions": "Acciones"
   },
-  "CategoryTableSkeleton": {
+  "CategoriesLoading": {
+    "title": "Gestión de Categorías",
+    "add_category": "Agregar Categoría",
     "name": "Nombre",
     "description": "Descripción",
     "created_at": "Creado en",
