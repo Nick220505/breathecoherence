@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { getTranslations } from 'next-intl/server';
 
 import { getAllCategories } from '@/features/category/actions';
 import { getAllProducts } from '@/features/product/actions';
@@ -18,10 +19,15 @@ export default async function Page(props: Readonly<PageProps>) {
   const searchParams = await props.searchParams;
   const categoryQueryParam =
     searchParams?.category ?? searchParams?.categoria ?? '';
-  const [products, categories] = await Promise.all([
+  const [products, [categories, categoriesErr]] = await Promise.all([
     getAllProducts(),
     getAllCategories(),
   ]);
+
+  if (categoriesErr) {
+    const t = await getTranslations('StoreContent');
+    throw new Error(t('error.loadCategories'));
+  }
 
   const targetCategory = categories.find(
     (c) => c.name.toLowerCase() === categoryQueryParam.toLowerCase(),

@@ -141,6 +141,9 @@
       "signout": "Sign Out",
       "orders": "Orders"
     },
+    "error": {
+      "loadCategories": "Categories unavailable"
+    },
     "store": {
       "cart": {
         "title": "Your Cart",
@@ -163,6 +166,7 @@
   "LanguageToggle": {
     "toggle_language": "Toggle language"
   },
+
   "StoreHeader": {
     "title": "Our Products",
     "subtitle": "Discover our curated collection of sacred geometric forms and healing flower essences, designed to enhance your spiritual and emotional well-being.",
@@ -174,7 +178,10 @@
   },
   "StoreContent": {
     "no_products": "No products found",
-    "try_adjusting": "Try adjusting your filters or check back later for new items."
+    "try_adjusting": "Try adjusting your filters or check back later for new items.",
+    "error": {
+      "loadCategories": "Failed to load categories"
+    }
   },
   "CustomBlendCard": {
     "title": "Create Your Custom Blend",
@@ -348,6 +355,9 @@
     "userTable": {
       "title": "User Management"
     },
+    "error": {
+      "loadCategoryCount": "Failed to load category count"
+    },
     "orderTable": {
       "title": "Order Management"
     }
@@ -465,7 +475,10 @@
 
   "CategoriesPage": {
     "title": "Category Management",
-    "add_category": "Add Category"
+    "add_category": "Add Category",
+    "error": {
+      "loadCategories": "Failed to load categories"
+    }
   },
 
   "CategoryTable": {

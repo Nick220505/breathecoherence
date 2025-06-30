@@ -115,8 +115,10 @@ export function ProductDialog({
 
   useEffect(() => {
     async function fetchCategories() {
-      const fetchedCategories = await getAllCategories();
-      setCategories(fetchedCategories);
+      const [fetchedCategories, err] = await getAllCategories();
+      if (!err) {
+        setCategories(fetchedCategories);
+      }
     }
     void fetchCategories();
   }, []);

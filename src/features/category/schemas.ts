@@ -9,5 +9,3 @@ export const categorySchema = z.object({
 export const createCategorySchema = categorySchema.omit({ id: true });
 
 export const updateCategorySchema = categorySchema;
-
-export const deleteCategorySchema = categorySchema.pick({ id: true });

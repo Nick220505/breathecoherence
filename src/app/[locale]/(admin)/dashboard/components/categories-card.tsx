@@ -5,7 +5,11 @@ import { getCategoryCount } from '@/features/category/actions';
 
 export async function CategoriesCard() {
   const t = await getTranslations('dashboard');
-  const categoryCount = await getCategoryCount();
+  const [categoryCount, err] = await getCategoryCount();
+
+  if (err) {
+    throw new Error(t('error.loadCategoryCount'));
+  }
 
   return (
     <div className="bg-card flex items-center justify-center gap-6 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md max-[475px]:flex-col max-[475px]:gap-3">

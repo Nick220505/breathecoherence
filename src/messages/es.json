@@ -108,6 +108,9 @@
       "signout": "Cerrar Sesión",
       "orders": "Pedidos"
     },
+    "error": {
+      "loadCategories": "Categorías no disponibles"
+    },
     "store": {
       "cart": {
         "title": "Tu Carrito",
@@ -130,6 +133,7 @@
   "LanguageToggle": {
     "toggle_language": "Cambiar idioma"
   },
+
   "dashboard": {
     "title": "Panel de Control",
     "ordersLabel": "Pedidos",
@@ -141,6 +145,9 @@
     },
     "orderTable": {
       "title": "Gestión de Pedidos"
+    },
+    "error": {
+      "loadCategoryCount": "Error al cargar el conteo de categorías"
     },
     "users": {
       "title": "Usuarios",
@@ -172,7 +179,10 @@
   },
   "StoreContent": {
     "no_products": "No se encontraron productos",
-    "try_adjusting": "Intenta ajustar tus filtros o vuelve más tarde para ver nuevos artículos."
+    "try_adjusting": "Intenta ajustar tus filtros o vuelve más tarde para ver nuevos artículos.",
+    "error": {
+      "loadCategories": "Error al cargar las categorías"
+    }
   },
   "CustomBlendCard": {
     "title": "Crea Tu Mezcla Personalizada",
@@ -217,7 +227,10 @@
   },
   "CategoriesPage": {
     "title": "Gestión de Categorías",
-    "add_category": "Agregar Categoría"
+    "add_category": "Agregar Categoría",
+    "error": {
+      "loadCategories": "Error al cargar las categorías"
+    }
   },
 
   "CategoryTable": {

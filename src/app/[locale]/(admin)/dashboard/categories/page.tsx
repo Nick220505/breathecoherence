@@ -10,7 +10,11 @@ import { CategoryTable } from './components/category-table';
 
 export default async function CategoriesPage() {
   const t = await getTranslations('CategoriesPage');
-  const categories = await getAllCategories();
+  const [categories, err] = await getAllCategories();
+
+  if (err) {
+    throw new Error(t('error.loadCategories'));
+  }
 
   return (
     <Card>
