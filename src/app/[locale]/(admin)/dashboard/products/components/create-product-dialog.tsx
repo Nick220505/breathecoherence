@@ -13,13 +13,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import {
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-  type ReactNode,
-} from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -56,82 +50,43 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { getAllCategories } from '@/features/category/actions';
-import { createProduct, updateProduct } from '@/features/product/actions';
-import { ProductFormData, productSchema } from '@/features/product/schema';
-import { cn } from '@/lib/utils';
+import { createProduct } from '@/features/product/actions';
+import { createProductSchema } from '@/features/product/schemas';
+import { useServerAction } from 'zsa-react';
 
-import type { ProductWithCategory } from '@/features/product/types';
+import type { CreateProductData } from '@/features/product/types';
 import type { Category } from '@prisma/client';
 
-interface ProductDialogProps {
+interface CreateProductDialogProps {
   children: ReactNode;
-  product?: ProductWithCategory;
 }
 
-export function ProductDialog({
+export function CreateProductDialog({
   children,
-  product,
-}: Readonly<ProductDialogProps>) {
-  const isEdit = !!product;
+}: Readonly<CreateProductDialogProps>) {
   const t = useTranslations('ProductDialog');
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [isPending, startTransition] = useTransition();
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      return;
-    }
+  const { execute, isPending } = useServerAction(createProduct, {
+    onSuccess: ({ data: { name } }) => {
+      form.reset();
+      form.clearErrors();
+      toast.success(t('created_title'), {
+        description: t('created_description', { name }),
+      });
+      closeRef.current?.click();
+    },
+    onError: ({ err: { message } }) => {
+      form.setError('root.serverError', {
+        message: message ?? 'An error occurred',
+      });
+    },
+  });
 
-    setUploadingImage(true);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result as string;
-      form.setValue('imageBase64', base64String);
-      setUploadingImage(false);
-    };
-    reader.onerror = () => {
-      console.error('Error reading file');
-      setUploadingImage(false);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const getImageToDisplay = () => {
-    const imageValue = form.watch('imageBase64');
-    const categoryId = form.watch('categoryId');
-
-    if (imageValue && imageValue.trim() !== '') {
-      return imageValue;
-    }
-
-    const isSacredGeometry = categoryId === 'clzot3x5w000014rorc81n5jp';
-    return isSacredGeometry
-      ? '/products/sacred-geometry.svg'
-      : '/products/flower-essence.svg';
-  };
-
-  useEffect(() => {
-    async function fetchCategories() {
-      const [fetchedCategories, err] = await getAllCategories();
-      if (!err) {
-        setCategories(fetchedCategories);
-      }
-    }
-    void fetchCategories();
-  }, []);
-
-  const initialData = product
-    ? {
-        ...product,
-        categoryId: product.category.id,
-      }
-    : undefined;
-
-  const form = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema, {
+  const form = useForm<CreateProductData>({
+    resolver: zodResolver(createProductSchema, {
       path: [],
       async: false,
       errorMap(issue, ctx) {
@@ -143,95 +98,80 @@ export function ProductDialog({
         if (path === 'description' && issue.code === ZodIssueCode.too_small) {
           return { message: t('validation.description_min') };
         }
-        if (
-          path === 'categoryId' &&
-          (issue.code === ZodIssueCode.too_small ||
-            issue.code === ZodIssueCode.invalid_type ||
-            issue.code === ZodIssueCode.invalid_enum_value)
-        ) {
-          const key =
-            issue.code === ZodIssueCode.invalid_enum_value
-              ? 'validation.type_invalid'
-              : 'validation.type_required';
-          return { message: t(key) };
+        if (path === 'categoryId' && issue.code === ZodIssueCode.too_small) {
+          return { message: t('validation.category_required') };
         }
         if (path === 'price' && issue.code === ZodIssueCode.too_small) {
           return { message: t('validation.price_min') };
         }
-        if (path === 'stock' && issue.code === ZodIssueCode.invalid_type) {
-          return { message: t('validation.stock_int') };
-        }
         if (path === 'stock' && issue.code === ZodIssueCode.too_small) {
           return { message: t('validation.stock_min') };
-        }
-        if (
-          path === 'imageBase64' &&
-          issue.code === ZodIssueCode.invalid_string
-        ) {
-          return { message: t('validation.image_invalid') };
         }
 
         return { message: ctx.defaultError };
       },
     }),
     defaultValues: {
-      id: initialData?.id,
-      name: initialData?.name ?? '',
-      description: initialData?.description ?? '',
-      price: initialData?.price ?? 0,
-      stock: initialData?.stock ?? 0,
-      categoryId: initialData?.categoryId ?? '',
-      imageBase64: initialData?.imageBase64 ?? '',
+      name: '',
+      description: '',
+      categoryId: '',
+      price: 0,
+      stock: 0,
+      imageBase64: '',
     },
   });
 
-  const onSubmit = (values: ProductFormData): void => {
-    startTransition(async () => {
-      const action = isEdit ? updateProduct : createProduct;
-      const { success, message, errors, data } = await action(values);
-
-      if (success) {
-        form.clearErrors();
-        toast.success(isEdit ? t('updated_title') : t('created_title'), {
-          description: isEdit
-            ? t('updated_description', { name: data?.name ?? '' })
-            : t('created_description', { name: data?.name ?? '' }),
-        });
-
-        closeRef.current?.click();
-      } else {
-        form.setError('root.serverError', { message });
-
-        if (errors) {
-          Object.entries(errors).forEach(([field, messages]) => {
-            if (messages.length > 0) {
-              form.setError(field as keyof ProductFormData, {
-                message: messages[0],
-              });
-            }
-          });
-        }
+  useEffect(() => {
+    const loadCategories = async () => {
+      const [categoriesData, err] = await getAllCategories();
+      if (err) {
+        toast.error(t('error.load_categories'));
+        return;
       }
-    });
+      setCategories(categoriesData);
+    };
+
+    void loadCategories();
+  }, [t]);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error(t('error.image_too_large'));
+      return;
+    }
+
+    setUploadingImage(true);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      form.setValue('imageBase64', result);
+      setUploadingImage(false);
+    };
+    reader.onerror = () => {
+      toast.error(t('error.image_upload'));
+      setUploadingImage(false);
+    };
+    reader.readAsDataURL(file);
   };
+
+  const imageValue = form.watch('imageBase64');
 
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[48rem]">
         <DialogHeader>
-          <DialogTitle>
-            {isEdit ? t('edit_product') : t('add_product')}
-          </DialogTitle>
+          <DialogTitle>{t('add_product')}</DialogTitle>
           <DialogDescription className="sr-only">
-            {isEdit ? t('edit_form_description') : t('form_description')}
+            {t('form_description')}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
+          <form onSubmit={form.handleSubmit(execute)}>
             <div className="space-y-6">
-              {isEdit && <Input type="hidden" {...form.register('id')} />}
-
               <FormField
                 control={form.control}
                 name="name"
@@ -310,7 +250,8 @@ export function ProductDialog({
                     )}
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-4 sm:col-span-2">
+
+                <div className="sm:col-span-1">
                   <FormField
                     control={form.control}
                     name="price"
@@ -324,18 +265,18 @@ export function ProductDialog({
                           <Input
                             type="number"
                             step="0.01"
+                            min="0"
                             placeholder={t('placeholder.price')}
                             {...field}
-                            onChange={(e) =>
-                              field.onChange(parseFloat(e.target.value) || 0)
-                            }
                           />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+                </div>
 
+                <div className="sm:col-span-1">
                   <FormField
                     control={form.control}
                     name="stock"
@@ -348,11 +289,9 @@ export function ProductDialog({
                         <FormControl>
                           <Input
                             type="number"
+                            min="0"
                             placeholder={t('placeholder.stock')}
                             {...field}
-                            onChange={(e) =>
-                              field.onChange(parseInt(e.target.value) || 0)
-                            }
                           />
                         </FormControl>
                         <FormMessage />
@@ -365,7 +304,7 @@ export function ProductDialog({
               <FormField
                 control={form.control}
                 name="imageBase64"
-                render={({ field }) => (
+                render={() => (
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">
                       <ImageIcon className="h-4 w-4" />
@@ -373,28 +312,25 @@ export function ProductDialog({
                     </FormLabel>
                     <FormControl>
                       <div className="flex items-center gap-4">
-                        <div
-                          className={cn(
-                            'relative h-24 w-24 overflow-hidden rounded-lg border-2 border-dashed',
-                            uploadingImage && 'opacity-50',
-                          )}
-                        >
+                        <div className="relative h-24 w-24 overflow-hidden rounded-lg border-2 border-dashed">
                           {uploadingImage && (
                             <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs">
                               <Loader2 className="text-primary h-6 w-6 animate-spin" />
                             </div>
                           )}
-                          <Image
-                            src={getImageToDisplay()}
-                            alt={
-                              field.value
-                                ? t('image_alt')
-                                : t('default_image_alt')
-                            }
-                            fill
-                            className="object-cover"
-                            sizes="96px"
-                          />
+                          {imageValue ? (
+                            <Image
+                              src={imageValue}
+                              alt={t('preview')}
+                              fill
+                              className="object-cover"
+                              sizes="96px"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center">
+                              <ImageIcon className="text-muted-foreground/50 h-8 w-8" />
+                            </div>
+                          )}
                         </div>
 
                         <div className="flex-1">
@@ -404,7 +340,7 @@ export function ProductDialog({
                             onChange={handleImageUpload}
                             disabled={uploadingImage}
                             className="hidden"
-                            id="image-upload"
+                            id="image-upload-create"
                           />
                           <Button
                             type="button"
@@ -412,13 +348,15 @@ export function ProductDialog({
                             className="w-full"
                             disabled={uploadingImage}
                             onClick={() =>
-                              document.getElementById('image-upload')?.click()
+                              document
+                                .getElementById('image-upload-create')
+                                ?.click()
                             }
                           >
                             {uploadingImage ? (
                               <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                {t('uploading')}
+                                {t('uploading_image')}
                               </>
                             ) : (
                               t('choose_file')
@@ -440,25 +378,25 @@ export function ProductDialog({
                   </AlertDescription>
                 </Alert>
               )}
-
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button ref={closeRef} variant="outline" type="button">
-                    {t('cancel')}
-                  </Button>
-                </DialogClose>
-                <Button type="submit" disabled={isPending}>
-                  {isPending ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {isEdit ? t('editing') : t('adding')}
-                    </>
-                  ) : (
-                    <>{isEdit ? t('edit') : t('add')}</>
-                  )}
-                </Button>
-              </DialogFooter>
             </div>
+
+            <DialogFooter className="mt-6">
+              <DialogClose asChild>
+                <Button ref={closeRef} variant="outline" type="button">
+                  {t('cancel')}
+                </Button>
+              </DialogClose>
+              <Button type="submit" disabled={isPending || uploadingImage}>
+                {isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t('adding')}
+                  </>
+                ) : (
+                  <>{t('add')}</>
+                )}
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

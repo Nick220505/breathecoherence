@@ -2,22 +2,22 @@
 
 import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 
-import { productSchema } from './schema';
+import { createProductSchema, updateProductSchema } from './schemas';
 import { productService } from './service';
+import { withLocaleProcedure } from '@/lib/zsa';
+import { z } from 'zod';
+import { createServerAction } from 'zsa';
 
-import type { ProductFormData } from './schema';
 import type { ProductWithCategory } from './types';
 import type { Locale } from '@/i18n/routing';
-import type { ActionResult } from '@/lib/types';
-import type { Product } from '@prisma/client';
 
-export async function getAllProducts(): Promise<ProductWithCategory[]> {
-  const locale = (await getLocale()) as Locale;
-
-  return productService.getAll(locale);
-}
+export const getAllProducts = withLocaleProcedure
+  .createServerAction()
+  .handler(async ({ ctx: { locale } }) => {
+    return productService.getAll(locale);
+  });
 
 export async function getProductById(id: string): Promise<ProductWithCategory> {
   const locale = (await getLocale()) as Locale;
@@ -36,92 +36,37 @@ export async function getProductById(id: string): Promise<ProductWithCategory> {
   }
 }
 
-export async function getProductCount(): Promise<number> {
+export const getProductCount = createServerAction().handler(async () => {
   return productService.getCount();
-}
+});
 
-export async function createProduct(
-  values: ProductFormData,
-): Promise<ActionResult<Product>> {
-  const t = await getTranslations('ServerActions.Product');
-
-  const { success, data, error } = productSchema.safeParse(values);
-
-  if (!success) {
-    return {
-      success: false,
-      message: t('fillRequiredFields'),
-      errors: error.flatten().fieldErrors,
-    };
-  }
-
-  try {
-    const locale = (await getLocale()) as Locale;
+export const createProduct = withLocaleProcedure
+  .createServerAction()
+  .input(createProductSchema)
+  .handler(async ({ input: data, ctx: { locale } }) => {
     const createdProduct = await productService.create(data, locale);
     revalidateTag('products');
 
-    return {
-      success: true,
-      message: t('createSuccess'),
-      data: createdProduct,
-    };
-  } catch {
-    return { success: false, message: t('createError') };
-  }
-}
+    return createdProduct;
+  });
 
-export async function updateProduct(
-  values: ProductFormData,
-): Promise<ActionResult<Product>> {
-  const t = await getTranslations('ServerActions.Product');
-
-  const { success, data, error } = productSchema.safeParse(values);
-
-  if (!success) {
-    return {
-      success: false,
-      message: t('fillRequiredFields'),
-      errors: error.flatten().fieldErrors,
-    };
-  }
-
-  const { id } = data;
-  if (!id) {
-    return { success: false, message: t('missingId') };
-  }
-
-  try {
-    const locale = (await getLocale()) as Locale;
-    const updatedProduct = await productService.update(id, data, locale);
+export const updateProduct = withLocaleProcedure
+  .createServerAction()
+  .input(updateProductSchema)
+  .handler(async ({ input: data, ctx: { locale } }) => {
+    const updatedProduct = await productService.update(data.id, data, locale);
     revalidateTag('products');
     revalidateTag('product');
 
-    return {
-      success: true,
-      message: t('updateSuccess'),
-      data: updatedProduct,
-    };
-  } catch {
-    return { success: false, message: t('updateError') };
-  }
-}
+    return updatedProduct;
+  });
 
-export async function deleteProduct(
-  id: string,
-): Promise<ActionResult<Product>> {
-  const t = await getTranslations('ServerActions.Product');
-
-  try {
-    const locale = (await getLocale()) as Locale;
+export const deleteProduct = withLocaleProcedure
+  .createServerAction()
+  .input(z.object({ id: z.string() }))
+  .handler(async ({ input: { id }, ctx: { locale } }) => {
     const deletedProduct = await productService.delete(id, locale);
     revalidateTag('products');
 
-    return {
-      success: true,
-      message: t('deleteSuccess'),
-      data: deletedProduct,
-    };
-  } catch {
-    return { success: false, message: t('deleteError') };
-  }
-}
+    return deletedProduct;
+  });

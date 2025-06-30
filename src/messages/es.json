@@ -148,7 +148,8 @@
     },
     "error": {
       "loadCategoryCount": "Error al cargar el conteo de categorías",
-      "loadUserCount": "Error al cargar el conteo de usuarios"
+      "loadUserCount": "Error al cargar el conteo de usuarios",
+      "loadProductCount": "Error al cargar el conteo de productos"
     },
     "users": {
       "title": "Usuarios",
@@ -182,7 +183,8 @@
     "no_products": "No se encontraron productos",
     "try_adjusting": "Intenta ajustar tus filtros o vuelve más tarde para ver nuevos artículos.",
     "error": {
-      "loadCategories": "Error al cargar las categorías"
+      "loadCategories": "Error al cargar las categorías",
+      "loadProducts": "Error al cargar productos"
     }
   },
   "CustomBlendCard": {
@@ -199,7 +201,22 @@
   },
   "ProductsPage": {
     "title": "Gestión de Productos",
-    "add_product": "Agregar Producto"
+    "add_product": "Agregar Producto",
+    "error": {
+      "loadProducts": "Error al cargar productos"
+    }
+  },
+  "ProductsLoading": {
+    "title": "Gestión de Productos",
+    "add_product": "Agregar Producto",
+    "image": "Imagen",
+    "name": "Nombre",
+    "category": "Categoría",
+    "price": "Precio",
+    "stock": "Stock",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones"
   },
   "DeleteProductDialog": {
     "error_delete": "Ocurrió un error al eliminar el producto",
@@ -296,7 +313,8 @@
     },
     "image_alt": "Imagen del producto",
     "default_image_alt": "Imagen predeterminada del producto",
-    "uploading": "Subiendo...",
+    "uploading_image": "Subiendo imagen...",
+    "preview": "Vista previa de imagen",
     "choose_file": "Elegir Archivo",
     "created_title": "Producto Creado",
     "updated_title": "Producto Actualizado",
@@ -310,12 +328,14 @@
     "validation": {
       "name_min": "El nombre debe tener al menos 3 caracteres",
       "description_min": "La descripción debe tener al menos 10 caracteres",
-      "type_invalid": "Seleccione una categoría válida",
-      "type_required": "Por favor seleccione una categoría",
+      "category_required": "Por favor seleccione una categoría",
       "price_min": "El precio debe ser al menos 0",
-      "stock_int": "El stock debe ser un número entero",
-      "stock_min": "El stock debe ser al menos 0",
-      "image_invalid": "La imagen debe ser un archivo válido"
+      "stock_min": "El stock debe ser al menos 0"
+    },
+    "error": {
+      "load_categories": "Error al cargar categorías",
+      "image_too_large": "El archivo de imagen es demasiado grande (máx 5MB)",
+      "image_upload": "Error al subir imagen"
     }
   },
   "ProductTable": {
@@ -571,16 +591,6 @@
     }
   },
   "ServerActions": {
-    "Product": {
-      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
-      "createSuccess": "Producto creado con éxito.",
-      "createError": "Error al crear el producto.",
-      "updateSuccess": "Producto actualizado con éxito.",
-      "updateError": "Error al actualizar el producto.",
-      "deleteSuccess": "Producto eliminado con éxito.",
-      "deleteError": "Error al eliminar el producto.",
-      "missingId": "Falta el ID del producto."
-    },
     "Auth": {
       "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
       "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",

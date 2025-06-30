@@ -19,14 +19,17 @@ export default async function Page(props: Readonly<PageProps>) {
   const searchParams = await props.searchParams;
   const categoryQueryParam =
     searchParams?.category ?? searchParams?.categoria ?? '';
-  const [products, [categories, categoriesErr]] = await Promise.all([
-    getAllProducts(),
-    getAllCategories(),
-  ]);
+  const [[products, productsErr], [categories, categoriesErr]] =
+    await Promise.all([getAllProducts(), getAllCategories()]);
 
-  if (categoriesErr) {
+  if (categoriesErr || productsErr) {
     const t = await getTranslations('StoreContent');
-    throw new Error(t('error.loadCategories'));
+    if (categoriesErr) {
+      throw new Error(t('error.loadCategories'));
+    }
+    if (productsErr) {
+      throw new Error(t('error.loadProducts'));
+    }
   }
 
   const targetCategory = categories.find(

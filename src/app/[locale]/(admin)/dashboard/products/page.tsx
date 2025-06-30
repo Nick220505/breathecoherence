@@ -1,34 +1,36 @@
 import { Plus } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import { Suspense } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { getAllProducts } from '@/features/product/actions';
 
-import { ProductDialog } from './components/product-dialog';
+import { CreateProductDialog } from './components/create-product-dialog';
 import { ProductTable } from './components/product-table';
-import { ProductTableSkeleton } from './components/product-table-skeleton';
 
 export default async function ProductsPage() {
   const t = await getTranslations('ProductsPage');
+  const [products, err] = await getAllProducts();
+
+  if (err) {
+    throw new Error(t('error.loadProducts'));
+  }
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>{t('title')}</CardTitle>
-          <ProductDialog>
+          <CreateProductDialog>
             <Button>
               <Plus className="mr-2 h-4 w-4" />
               {t('add_product')}
             </Button>
-          </ProductDialog>
+          </CreateProductDialog>
         </div>
       </CardHeader>
       <CardContent>
-        <Suspense fallback={<ProductTableSkeleton />}>
-          <ProductTable />
-        </Suspense>
+        <ProductTable products={products} />
       </CardContent>
     </Card>
   );

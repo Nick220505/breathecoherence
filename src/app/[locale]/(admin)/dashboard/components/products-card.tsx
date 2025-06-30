@@ -5,7 +5,11 @@ import { getProductCount } from '@/features/product/actions';
 
 export async function ProductsCard() {
   const t = await getTranslations('dashboard');
-  const productCount = await getProductCount();
+  const [productCount, err] = await getProductCount();
+
+  if (err) {
+    throw new Error(t('error.loadProductCount'));
+  }
 
   return (
     <div className="bg-card flex items-center justify-center gap-6 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md max-[475px]:flex-col max-[475px]:gap-3">

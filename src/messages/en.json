@@ -23,16 +23,6 @@
       }
     },
     "ServerActions": {
-      "Product": {
-        "fillRequiredFields": "Please fill all required fields.",
-        "createSuccess": "Product created successfully.",
-        "createError": "Failed to create product.",
-        "updateSuccess": "Product updated successfully.",
-        "updateError": "Failed to update product.",
-        "deleteSuccess": "Product deleted successfully.",
-        "deleteError": "Failed to delete product.",
-        "missingId": "Product ID is missing."
-      },
       "Category": {
         "fillRequiredFields": "Please fill all required fields.",
         "createSuccess": "Category created successfully.",
@@ -180,7 +170,8 @@
     "no_products": "No products found",
     "try_adjusting": "Try adjusting your filters or check back later for new items.",
     "error": {
-      "loadCategories": "Failed to load categories"
+      "loadCategories": "Failed to load categories",
+      "loadProducts": "Failed to load products"
     }
   },
   "CustomBlendCard": {
@@ -197,7 +188,22 @@
   },
   "ProductsPage": {
     "title": "Product Management",
-    "add_product": "Add Product"
+    "add_product": "Add Product",
+    "error": {
+      "loadProducts": "Failed to load products"
+    }
+  },
+  "ProductsLoading": {
+    "title": "Product Management",
+    "add_product": "Add Product",
+    "image": "Image",
+    "name": "Name",
+    "category": "Category",
+    "price": "Price",
+    "stock": "Stock",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "actions": "Actions"
   },
   "DeleteProductDialog": {
     "error_delete": "An error occurred while deleting the product",
@@ -245,7 +251,8 @@
     },
     "image_alt": "Product image",
     "default_image_alt": "Default product image",
-    "uploading": "Uploading...",
+    "uploading_image": "Uploading image...",
+    "preview": "Image preview",
     "choose_file": "Choose File",
     "created_title": "Product Created",
     "updated_title": "Product Updated",
@@ -259,12 +266,14 @@
     "validation": {
       "name_min": "Name must be at least 3 characters",
       "description_min": "Description must be at least 10 characters",
-      "type_invalid": "Please select a valid category",
-      "type_required": "Please select a category",
+      "category_required": "Please select a category",
       "price_min": "Price must be at least 0",
-      "stock_int": "Stock must be an integer",
-      "stock_min": "Stock must be at least 0",
-      "image_invalid": "Please upload a valid image file"
+      "stock_min": "Stock must be at least 0"
+    },
+    "error": {
+      "load_categories": "Failed to load categories",
+      "image_too_large": "Image file is too large (max 5MB)",
+      "image_upload": "Failed to upload image"
     }
   },
   "ProductTable": {
@@ -357,7 +366,8 @@
     },
     "error": {
       "loadCategoryCount": "Failed to load category count",
-      "loadUserCount": "Failed to load user count"
+      "loadUserCount": "Failed to load user count",
+      "loadProductCount": "Failed to load product count"
     },
     "orderTable": {
       "title": "Order Management"
@@ -704,16 +714,6 @@
     "status_cancelled": "Cancelled"
   },
   "ServerActions": {
-    "Product": {
-      "fillRequiredFields": "Please fill all required fields.",
-      "createSuccess": "Product created successfully.",
-      "createError": "Failed to create product.",
-      "updateSuccess": "Product updated successfully.",
-      "updateError": "Failed to update product.",
-      "deleteSuccess": "Product deleted successfully.",
-      "deleteError": "Failed to delete product.",
-      "missingId": "Product ID is missing."
-    },
     "Auth": {
       "fillRequiredFields": "Please fill all required fields.",
       "verificationCodeSent": "Verification code sent. Check your email.",

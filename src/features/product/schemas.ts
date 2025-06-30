@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const productSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   name: z.string().min(3),
   description: z.string().min(10),
   categoryId: z.string().min(1),
@@ -17,4 +17,6 @@ export const productSchema = z.object({
     .optional(),
 });
 
-export type ProductFormData = z.infer<typeof productSchema>;
+export const createProductSchema = productSchema.omit({ id: true });
+
+export const updateProductSchema = productSchema;

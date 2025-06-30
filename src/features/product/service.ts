@@ -2,9 +2,12 @@ import { translationService } from '@/features/translation/service';
 import { categoryTranslationConfig } from '@/features/category/service';
 
 import { productRepository } from './repository';
-import { ProductFormData } from './schema';
 
-import type { ProductWithCategory } from './types';
+import type {
+  CreateProductData,
+  UpdateProductData,
+  ProductWithCategory,
+} from './types';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 import type { Product } from '@prisma/client';
@@ -97,7 +100,7 @@ export const productService = {
     return productRepository.count();
   },
 
-  async create(data: ProductFormData, locale: Locale): Promise<Product> {
+  async create(data: CreateProductData, locale: Locale): Promise<Product> {
     const { categoryId, ...restData } = data;
 
     const defaultLocaleData = await translationService.getDefaultLocaleData(
@@ -131,7 +134,7 @@ export const productService = {
 
   async update(
     id: string,
-    data: ProductFormData,
+    data: UpdateProductData,
     locale: Locale,
   ): Promise<Product> {
     await this.getById(id, locale);
