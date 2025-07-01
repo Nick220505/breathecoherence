@@ -33,14 +33,13 @@ function PayPalPaymentButton({
   finalTotal,
   watch,
   isFormValid,
-  t,
 }: Readonly<{
   finalTotal: number;
   watch: () => CheckoutFormData;
   isFormValid: boolean;
-  t: (key: string) => string;
 }>) {
   const [{ isPending }] = usePayPalScriptReducer();
+  const t = useTranslations('PaypalPaymentButton');
 
   if (!isFormValid) {
     return (
@@ -110,8 +109,6 @@ export default function CheckoutPage() {
   const cart = useCart();
   const { total, cart: cartItems = [] } = cart;
   const [paymentMethod, setPaymentMethod] = useState('card');
-  const schemaT = useTranslations('CheckoutSchema');
-
   const form = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema, {
       path: [],
@@ -120,25 +117,25 @@ export default function CheckoutPage() {
         const path = issue.path.join('.');
 
         if (path === 'name' && issue.code === ZodIssueCode.too_small) {
-          return { message: schemaT('nameMin') };
+          return { message: t('validation.nameMin') };
         }
         if (path === 'email' && issue.code === ZodIssueCode.invalid_string) {
-          return { message: schemaT('emailInvalid') };
+          return { message: t('validation.emailInvalid') };
         }
         if (path === 'address' && issue.code === ZodIssueCode.too_small) {
-          return { message: schemaT('addressMin') };
+          return { message: t('validation.addressMin') };
         }
         if (path === 'city' && issue.code === ZodIssueCode.too_small) {
-          return { message: schemaT('cityMin') };
+          return { message: t('validation.cityMin') };
         }
         if (path === 'state' && issue.code === ZodIssueCode.too_small) {
-          return { message: schemaT('stateMin') };
+          return { message: t('validation.stateMin') };
         }
         if (
           path === 'postalCode' &&
           issue.code === ZodIssueCode.invalid_string
         ) {
-          return { message: schemaT('zipInvalid') };
+          return { message: t('validation.zipInvalid') };
         }
 
         return { message: ctx.defaultError };
@@ -329,7 +326,6 @@ export default function CheckoutPage() {
                     finalTotal={finalTotal}
                     watch={watch}
                     isFormValid={isValid}
-                    t={t}
                   />
                 </div>
               )}

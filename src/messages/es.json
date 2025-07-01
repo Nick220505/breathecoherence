@@ -304,7 +304,6 @@
     "card_payment": "Pago con Tarjeta",
     "paypal": "PayPal",
     "loading_payment_form": "Cargando formulario de pago...",
-    "loading": "Cargando PayPal...",
     "validation": {
       "nameMin": "El nombre debe tener al menos 2 caracteres",
       "emailInvalid": "Dirección de correo electrónico inválida",
@@ -691,7 +690,10 @@
     "total": "Total",
     "actions": "Acciones"
   },
-
+  "PaypalPaymentButton": {
+    "complete_form": "Por favor completa el formulario para proceder con el pago",
+    "loading": "Cargando PayPal..."
+  },
   "ProductDetails": {
     "back_to_store": "Volver a la Tienda",
     "select_option": "Selecciona una opción",
