@@ -90,7 +90,6 @@ export default function CheckoutPage() {
 
   const [clientSecret, setClientSecret] = useState<string>();
 
-  // Handle payment method change and validate form
   const handlePaymentMethodChange = (value: string) => {
     setPaymentMethod(value);
     void form.trigger();
