@@ -21,5 +21,4 @@ export type PartialProductWithCategory = Partial<Product> & {
 
 export type CartItem = Product & {
   quantity: number;
-  categoryName: string;
 };

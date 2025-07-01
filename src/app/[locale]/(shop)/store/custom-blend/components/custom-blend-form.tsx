@@ -52,23 +52,20 @@ export function CustomBlendForm({
       const selectedEssencesList = selectedEssences.filter(
         (essence) => essence,
       );
-      addToCart(
-        {
-          id: 'custom-blend',
-          name: t('cart.name', { essences: selectedEssencesList.join(', ') }),
-          description: t('cart.description', {
-            base: selectedBase,
-            essences: selectedEssencesList.join(', '),
-          }),
-          categoryId: 'custom-blend-category',
-          price: 19.99,
-          stock: 999,
-          imageBase64: '/images/custom-blend.jpg',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        'Flower Essence',
-      );
+      addToCart({
+        id: 'custom-blend',
+        name: t('cart.name', { essences: selectedEssencesList.join(', ') }),
+        description: t('cart.description', {
+          base: selectedBase,
+          essences: selectedEssencesList.join(', '),
+        }),
+        categoryId: 'custom-blend-category',
+        price: 19.99,
+        stock: 999,
+        imageBase64: '/images/custom-blend.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
     } finally {
       setIsAdding(false);
     }

@@ -10,7 +10,7 @@ interface CartContextType {
   total: string;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
-  addToCart: (product: Product, categoryName: string) => void;
+  addToCart: (product: Product) => void;
   removeFromCart: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
   getTotalPrice: () => number;
@@ -27,7 +27,7 @@ export function CartProvider({
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addToCart = (product: Product, categoryName: string) => {
+  const addToCart = (product: Product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {
@@ -37,7 +37,7 @@ export function CartProvider({
             : item,
         );
       }
-      return [...prevCart, { ...product, quantity: 1, categoryName }];
+      return [...prevCart, { ...product, quantity: 1 }];
     });
   };
 

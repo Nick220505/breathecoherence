@@ -267,19 +267,38 @@ export default function CheckoutPage() {
               <div className="space-y-4">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex gap-4">
-                    <div className="relative h-16 w-16 overflow-hidden rounded-md">
-                      <Image
-                        fill
-                        sizes="64px"
-                        alt={item.name}
-                        src={
-                          item.imageBase64 ??
-                          (item.categoryName === 'Sacred Geometry'
-                            ? `/products/sacred-geometry.svg#${item.id}`
-                            : '/products/flower-essence.svg')
-                        }
-                        className="object-cover"
-                      />
+                    <div className="relative h-16 w-16 overflow-hidden rounded-md border-2 border-dashed">
+                      {item.imageBase64 ? (
+                        <Image
+                          fill
+                          sizes="64px"
+                          alt={item.name}
+                          src={item.imageBase64}
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                          <div className="text-muted-foreground/50 h-6 w-6">
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <rect
+                                width="18"
+                                height="18"
+                                x="3"
+                                y="3"
+                                rx="2"
+                                ry="2"
+                              />
+                              <circle cx="9" cy="9" r="2" />
+                              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                            </svg>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1">
                       <h3 className="truncate leading-none font-medium">

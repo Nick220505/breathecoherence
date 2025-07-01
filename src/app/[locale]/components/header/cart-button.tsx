@@ -106,23 +106,38 @@ export function CartButton() {
                     >
                       <Card className="bg-card/50 p-4 transition-shadow duration-300 hover:shadow-lg">
                         <div className="flex gap-4">
-                          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
-                            <Image
-                              src={
-                                item.imageBase64 ??
-                                (item.categoryName === 'Sacred Geometry'
-                                  ? `/products/sacred-geometry.svg#${item.id}`
-                                  : '/products/flower-essence.svg')
-                              }
-                              alt={item.name}
-                              fill
-                              sizes="80px"
-                              className="object-cover transition-transform duration-300 hover:scale-110"
-                              unoptimized={
-                                item.categoryName === 'Sacred Geometry' ||
-                                !item.imageBase64
-                              }
-                            />
+                          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 border-dashed">
+                            {item.imageBase64 ? (
+                              <Image
+                                src={item.imageBase64}
+                                alt={item.name}
+                                fill
+                                sizes="80px"
+                                className="object-cover transition-transform duration-300 hover:scale-110"
+                              />
+                            ) : (
+                              <div className="flex h-full w-full items-center justify-center">
+                                <div className="text-muted-foreground/50 h-8 w-8">
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                  >
+                                    <rect
+                                      width="18"
+                                      height="18"
+                                      x="3"
+                                      y="3"
+                                      rx="2"
+                                      ry="2"
+                                    />
+                                    <circle cx="9" cy="9" r="2" />
+                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                                  </svg>
+                                </div>
+                              </div>
+                            )}
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="flex h-full flex-col">

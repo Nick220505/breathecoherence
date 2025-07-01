@@ -42,35 +42,25 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [isAdding, setIsAdding] = useState(false);
 
-  let imageToDisplay: string;
-  const actualImageValue: unknown = product.imageBase64;
-
-  if (typeof actualImageValue === 'string' && actualImageValue.trim() !== '') {
-    imageToDisplay = actualImageValue;
-  } else if (product.category.name === 'Sacred Geometry') {
-    imageToDisplay = `/products/sacred-geometry.svg#${product.id}`;
-  } else {
-    imageToDisplay = '/products/flower-essence.svg';
-  }
+  const hasImage =
+    typeof product.imageBase64 === 'string' &&
+    product.imageBase64.trim() !== '';
 
   const handleAddToCart = () => {
     setIsAdding(true);
 
     try {
       if (product.category.name === 'Flower Essence' && selectedBase) {
-        addToCart(
-          {
-            ...product,
-            name: t('cart.name', { name: product.name, base: selectedBase }),
-            description: t('cart.description', {
-              base: selectedBase,
-              description: product.description,
-            }),
-          },
-          product.category.name,
-        );
+        addToCart({
+          ...product,
+          name: t('cart.name', { name: product.name, base: selectedBase }),
+          description: t('cart.description', {
+            base: selectedBase,
+            description: product.description,
+          }),
+        });
       } else {
-        addToCart(product, product.category.name);
+        addToCart(product);
       }
     } finally {
       setIsAdding(false);
@@ -101,15 +91,32 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
             initial="initial"
             animate="animate"
           >
-            <div className="group relative aspect-square overflow-hidden rounded-2xl">
-              <Image
-                src={imageToDisplay}
-                alt={product.name}
-                fill
-                className="transform object-cover transition-transform duration-500 group-hover:scale-105"
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+            <div className="group relative aspect-square overflow-hidden rounded-2xl border-2 border-dashed">
+              {hasImage ? (
+                <Image
+                  src={product.imageBase64!}
+                  alt={product.name}
+                  fill
+                  className="transform object-cover transition-transform duration-500 group-hover:scale-105"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <div className="text-muted-foreground/50 h-16 w-16">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                      <circle cx="9" cy="9" r="2" />
+                      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                    </svg>
+                  </div>
+                </div>
+              )}
               <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
           </motion.div>
