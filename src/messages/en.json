@@ -681,6 +681,7 @@
   },
   "ProductDetails": {
     "back_to_store": "Back to Store",
+    "select_option": "Select an option",
     "base": {
       "label": "Base",
       "brandy": "Brandy",
@@ -691,6 +692,10 @@
     "category": {
       "sacred_geometry": "Sacred Geometry",
       "flower_essence": "Flower Essence"
+    },
+    "cart": {
+      "name": "{name} - {base} Base",
+      "description": "Base: {base}. {description}"
     }
   },
   "ProductsError": {
