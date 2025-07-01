@@ -136,13 +136,10 @@
     "error": {
       "title": "Error",
       "description": "Invalid verification link. Please try registering again.",
-      "codeFormat": "Code must contain only numbers",
       "generic": "Verification failed. Please try again."
     },
     "submit": "Verify Email",
     "loading": "Verifying...",
-    "backToRegister": "Back to Register",
-    "goToRegister": "Go to Register",
     "validation": {
       "emailInvalid": "Please enter a valid email address",
       "codeLength": "Verification code must be 6 digits"
@@ -277,7 +274,6 @@
       "stock": "0"
     },
     "image_alt": "Product image",
-    "default_image_alt": "Default product image",
     "uploading_image": "Uploading image...",
     "preview": "Image preview",
     "choose_file": "Choose File",
@@ -317,7 +313,6 @@
       "stock": "0"
     },
     "image_alt": "Product image",
-    "default_image_alt": "Default product image",
     "uploading_image": "Uploading image...",
     "preview": "Image preview",
     "choose_file": "Choose File",
@@ -448,15 +443,9 @@
   },
   "CheckoutPage": {
     "title": "Secure Checkout",
-    "shipping_address": "Shipping Address",
     "order_summary": "Order Summary",
-    "order_notes_label": "Order Notes (optional)",
-    "order_notes_placeholder": "Notes about your order, e.g. special notes for delivery.",
     "payment_method": "Payment Method",
-    "pay_with_card": "Pay with Card",
-    "pay_with_paypal": "Pay with PayPal",
     "total": "Total",
-    "place_order": "Place Order",
     "processing": "Processing...",
     "empty_cart": "Your Cart is Empty",
     "empty_cart_message": "You have no items in your cart. Let's find something for you.",
@@ -496,9 +485,6 @@
     "product_category": "Product Category",
     "quantity": "Quantity",
     "total": "Total",
-    "status_pending": "Pending",
-    "status_paid": "Paid",
-    "status_shipped": "Shipped",
     "error": {
       "loadOrder": "Failed to load order details"
     }
@@ -581,21 +567,18 @@
   "AuthSchema": {
     "Login": {
       "emailInvalid": "Please enter a valid email address",
-      "passwordRequired": "Password is required",
-      "invalidCredentials": "Invalid email or password"
+      "passwordRequired": "Password is required"
     },
     "Register": {
       "nameRequired": "Name is required",
       "emailInvalid": "Please enter a valid email address",
       "passwordMinLength": "Password must be at least 6 characters",
       "confirmPasswordMinLength": "Please confirm your password (minimum 6 characters)",
-      "passwordsDontMatch": "Passwords do not match",
-      "userExistsError": "An account with this email already exists"
+      "passwordsDontMatch": "Passwords do not match"
     },
     "Verify": {
       "emailInvalid": "Please enter a valid email address",
-      "codeLength": "Verification code must be 6 digits",
-      "invalidVerificationCode": "Invalid or expired verification code."
+      "codeLength": "Verification code must be 6 digits"
     }
   },
   "UsersPage": {
@@ -766,7 +749,6 @@
     "no_order_details": "No order details found.",
     "view_order": "View Order",
     "view_all_orders": "View All Orders",
-    "what_next": "What's next?",
     "continue_shopping": "Continue Shopping",
     "loading_details": "Loading order details...",
     "error_fetching_order": "Error fetching order details",
@@ -774,34 +756,24 @@
     "total_amount": "Total Amount",
     "status": "Status",
     "succeeded": "Succeeded",
-    "thank_you": "Thank you!",
-    "order_received": "Your order has been received",
-    "order_number": "Order Number",
     "date": "Date",
     "total": "Total",
     "payment_method": "Payment Method",
     "card": "Card",
     "shipping_info": "Shipping Information",
-    "contact_info": "Contact Information",
     "email": "Email",
-    "track_order": "Track Order",
-    "error_title": "Order Error",
-    "error_no_payment": "No payment information found",
-    "error_no_order": "No order details found",
-    "error_unknown": "An unknown error occurred"
+    "error_title": "Order Error"
   },
   "OrderHistoryPage": {
     "title": "Order History",
     "subtitle": "View and track your orders",
     "guest_order_title": "Your Order",
     "guest_order_subtitle": "View details of your recent purchase",
-    "guest_order_details": "Order Details",
     "loading": "Loading your orders...",
     "error_title": "Order Error",
     "no_orders_title": "No Orders Yet",
     "no_orders_message": "You haven't placed any orders yet. Start shopping to see your orders here.",
     "browse_products": "Browse Products",
-    "try_again": "Try Again",
 
     "order_id": "Order ID",
     "date": "Date",
@@ -810,15 +782,11 @@
     "actions": "Actions",
     "view_details": "View Details",
     "items": "Items",
-    "more_items": "more items",
     "continue_shopping": "Continue Shopping",
     "quantity": "Quantity",
     "pending": "Pending",
     "paid": "Paid",
     "shipped": "Shipped",
-    "status_pending": "Pending",
-    "status_paid": "Paid",
-    "status_shipped": "Shipped",
     "error": {
       "loadOrders": "Failed to load orders"
     }

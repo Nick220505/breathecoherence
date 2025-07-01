@@ -136,13 +136,10 @@
     "error": {
       "title": "Error",
       "description": "Enlace de verificación inválido. Por favor, intenta registrarte nuevamente.",
-      "codeFormat": "El código debe contener solo números",
       "generic": "La verificación falló. Por favor, inténtalo de nuevo."
     },
     "submit": "Verificar Correo",
     "loading": "Verificando...",
-    "backToRegister": "Volver al Registro",
-    "goToRegister": "Ir al Registro",
     "validation": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "codeLength": "El código de verificación debe tener 6 dígitos"
@@ -277,7 +274,6 @@
       "stock": "0"
     },
     "image_alt": "Imagen del producto",
-    "default_image_alt": "Imagen predeterminada del producto",
     "uploading_image": "Subiendo imagen...",
     "preview": "Vista previa de imagen",
     "choose_file": "Elegir Archivo",
@@ -317,7 +313,6 @@
       "stock": "0"
     },
     "image_alt": "Imagen del producto",
-    "default_image_alt": "Imagen predeterminada del producto",
     "uploading_image": "Subiendo imagen...",
     "preview": "Vista previa de imagen",
     "choose_file": "Elegir Archivo",
@@ -448,15 +443,9 @@
   },
   "CheckoutPage": {
     "title": "Pago Seguro",
-    "shipping_address": "Dirección de Envío",
     "order_summary": "Resumen del Pedido",
-    "order_notes_label": "Notas del Pedido (opcional)",
-    "order_notes_placeholder": "Notas sobre tu pedido, ej. notas especiales para la entrega.",
     "payment_method": "Método de Pago",
-    "pay_with_card": "Pagar con Tarjeta",
-    "pay_with_paypal": "Pagar con PayPal",
     "total": "Total",
-    "place_order": "Realizar Pedido",
     "processing": "Procesando...",
     "empty_cart": "Tu Carrito está Vacío",
     "empty_cart_message": "No tienes artículos en tu carrito. Vamos a encontrar algo para ti.",
@@ -496,9 +485,6 @@
     "product_category": "Categoría de Producto",
     "quantity": "Cantidad",
     "total": "Total",
-    "status_pending": "Pendiente",
-    "status_paid": "Pagado",
-    "status_shipped": "Enviado",
     "error": {
       "loadOrder": "Error al cargar detalles del pedido"
     }
@@ -581,21 +567,18 @@
   "AuthSchema": {
     "Login": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
-      "passwordRequired": "La contraseña es obligatoria",
-      "invalidCredentials": "Correo electrónico o contraseña inválidos"
+      "passwordRequired": "La contraseña es obligatoria"
     },
     "Register": {
       "nameRequired": "El nombre es obligatorio",
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
       "confirmPasswordMinLength": "Por favor, confirma tu contraseña (mínimo 6 caracteres)",
-      "passwordsDontMatch": "Las contraseñas no coinciden",
-      "userExistsError": "Ya existe una cuenta con este correo electrónico"
+      "passwordsDontMatch": "Las contraseñas no coinciden"
     },
     "Verify": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
-      "codeLength": "El código de verificación debe tener 6 dígitos",
-      "invalidVerificationCode": "Código de verificación inválido o expirado."
+      "codeLength": "El código de verificación debe tener 6 dígitos"
     }
   },
   "UsersPage": {
@@ -766,7 +749,6 @@
     "no_order_details": "No se encontraron detalles del pedido.",
     "view_order": "Ver Pedido",
     "view_all_orders": "Ver Todos los Pedidos",
-    "what_next": "¿Qué sigue?",
     "continue_shopping": "Continuar Comprando",
     "loading_details": "Cargando detalles del pedido...",
     "error_fetching_order": "Error al obtener los detalles del pedido",
@@ -774,34 +756,24 @@
     "total_amount": "Monto Total",
     "status": "Estado",
     "succeeded": "Exitoso",
-    "thank_you": "¡Gracias!",
-    "order_received": "Tu pedido ha sido recibido",
-    "order_number": "Número de Pedido",
     "date": "Fecha",
     "total": "Total",
     "payment_method": "Método de Pago",
     "card": "Tarjeta",
     "shipping_info": "Información de Envío",
-    "contact_info": "Información de Contacto",
     "email": "Correo Electrónico",
-    "track_order": "Rastrear Pedido",
-    "error_title": "Error de Pedido",
-    "error_no_payment": "No se encontró información de pago",
-    "error_no_order": "No se encontraron detalles del pedido",
-    "error_unknown": "Ocurrió un error desconocido"
+    "error_title": "Error de Pedido"
   },
   "OrderHistoryPage": {
     "title": "Historial de Pedidos",
     "subtitle": "Ver y rastrear tus pedidos",
     "guest_order_title": "Tu Pedido",
     "guest_order_subtitle": "Ver detalles de tu compra reciente",
-    "guest_order_details": "Detalles del Pedido",
     "loading": "Cargando tus pedidos...",
     "error_title": "Error de Pedido",
     "no_orders_title": "Aún Sin Pedidos",
     "no_orders_message": "Aún no has realizado pedidos. Comienza a comprar para verlos aquí.",
     "browse_products": "Explorar Productos",
-    "try_again": "Intentar de Nuevo",
 
     "order_id": "ID del Pedido",
     "date": "Fecha",
@@ -810,15 +782,11 @@
     "actions": "Acciones",
     "view_details": "Ver Detalles",
     "items": "Artículos",
-    "more_items": "más artículos",
     "continue_shopping": "Continuar Comprando",
     "quantity": "Cantidad",
     "pending": "Pendiente",
     "paid": "Pagado",
     "shipped": "Enviado",
-    "status_pending": "Pendiente",
-    "status_paid": "Pagado",
-    "status_shipped": "Enviado",
     "error": {
       "loadOrders": "Error al cargar pedidos"
     }
