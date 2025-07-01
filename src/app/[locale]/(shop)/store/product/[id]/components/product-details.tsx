@@ -58,16 +58,19 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
 
     try {
       if (product.category.name === 'Flower Essence' && selectedBase) {
-        addToCart({
-          ...product,
-          name: t('cart.name', { name: product.name, base: selectedBase }),
-          description: t('cart.description', {
-            base: selectedBase,
-            description: product.description,
-          }),
-        });
+        addToCart(
+          {
+            ...product,
+            name: t('cart.name', { name: product.name, base: selectedBase }),
+            description: t('cart.description', {
+              base: selectedBase,
+              description: product.description,
+            }),
+          },
+          product.category.name,
+        );
       } else {
-        addToCart(product);
+        addToCart(product, product.category.name);
       }
     } finally {
       setIsAdding(false);

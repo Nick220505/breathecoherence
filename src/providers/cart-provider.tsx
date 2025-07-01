@@ -1,15 +1,16 @@
 'use client';
 
 import { createContext, useContext, useState } from 'react';
+import type { Product } from '@prisma/client';
 
-import type { CartItem, ProductWithCategory } from '@/features/product/types';
+import type { CartItem } from '@/features/product/types';
 
 interface CartContextType {
   cart: CartItem[];
   total: string;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
-  addToCart: (product: ProductWithCategory) => void;
+  addToCart: (product: Product, categoryName: string) => void;
   removeFromCart: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
   getTotalPrice: () => number;
@@ -26,7 +27,7 @@ export function CartProvider({
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addToCart = (product: ProductWithCategory) => {
+  const addToCart = (product: Product, categoryName: string) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {
@@ -36,7 +37,7 @@ export function CartProvider({
             : item,
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: 1, categoryName }];
     });
   };
 

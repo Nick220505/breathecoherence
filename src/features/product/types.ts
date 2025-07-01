@@ -19,6 +19,7 @@ export type PartialProductWithCategory = Partial<Product> & {
   category?: { name: string };
 };
 
-export type CartItem = ProductWithCategory & {
+export type CartItem = Product & {
   quantity: number;
+  categoryName: string;
 };

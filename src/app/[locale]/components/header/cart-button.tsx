@@ -110,7 +110,7 @@ export function CartButton() {
                             <Image
                               src={
                                 item.imageBase64 ??
-                                (item.category.name === 'Sacred Geometry'
+                                (item.categoryName === 'Sacred Geometry'
                                   ? `/products/sacred-geometry.svg#${item.id}`
                                   : '/products/flower-essence.svg')
                               }
@@ -119,7 +119,7 @@ export function CartButton() {
                               sizes="80px"
                               className="object-cover transition-transform duration-300 hover:scale-110"
                               unoptimized={
-                                item.category.name === 'Sacred Geometry' ||
+                                item.categoryName === 'Sacred Geometry' ||
                                 !item.imageBase64
                               }
                             />
