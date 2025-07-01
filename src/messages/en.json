@@ -114,10 +114,12 @@
   },
   "ProductsPage": {
     "title": "Product Management",
-    "add_product": "Add Product",
     "error": {
       "loadProducts": "Failed to load products"
     }
+  },
+  "CreateProductButton": {
+    "add_product": "Add Product"
   },
   "ProductsLoading": {
     "title": "Product Management",
@@ -316,10 +318,12 @@
   },
   "CategoriesPage": {
     "title": "Category Management",
-    "add_category": "Add Category",
     "error": {
       "loadCategories": "Failed to load categories"
     }
+  },
+  "CreateCategoryButton": {
+    "add_category": "Add Category"
   },
   "CategoryTable": {
     "name": "Name",
@@ -379,10 +383,12 @@
   },
   "UsersPage": {
     "title": "User Management",
-    "add_user": "Add User",
     "error": {
       "loadUsers": "Failed to load users"
     }
+  },
+  "CreateUserButton": {
+    "add_user": "Add User"
   },
   "UserTable": {
     "name": "Name",

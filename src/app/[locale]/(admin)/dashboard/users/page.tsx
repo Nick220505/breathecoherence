@@ -1,11 +1,9 @@
-import { Plus } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getAllUsers } from '@/features/user/actions';
 
-import { CreateUserDialog } from './components/create-user-dialog';
+import { CreateUserButton } from './components/create-user-button';
 import { UserTable } from './components/user-table';
 
 export default async function UsersPage() {
@@ -21,12 +19,7 @@ export default async function UsersPage() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>{t('title')}</CardTitle>
-          <CreateUserDialog>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              {t('add_user')}
-            </Button>
-          </CreateUserDialog>
+          <CreateUserButton />
         </div>
       </CardHeader>
       <CardContent>

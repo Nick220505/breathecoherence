@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -28,7 +28,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Form,
@@ -58,11 +57,13 @@ import type { CreateProductData } from '@/features/product/types';
 import type { Category } from '@prisma/client';
 
 interface CreateProductDialogProps {
-  children: ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function CreateProductDialog({
-  children,
+  open,
+  onOpenChange,
 }: Readonly<CreateProductDialogProps>) {
   const t = useTranslations('CreateProductDialog');
   const [categories, setCategories] = useState<Category[]>([]);
@@ -76,7 +77,7 @@ export function CreateProductDialog({
       toast.success(t('created_title'), {
         description: t('created_description', { name }),
       });
-      closeRef.current?.click();
+      onOpenChange(false);
     },
     onError: ({ err: { message } }) => {
       form.setError('root.serverError', {
@@ -160,8 +161,7 @@ export function CreateProductDialog({
   const imageValue = form.watch('imageBase64');
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[48rem]">
         <DialogHeader>
           <DialogTitle>{t('add_product')}</DialogTitle>

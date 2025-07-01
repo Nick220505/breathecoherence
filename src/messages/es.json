@@ -114,10 +114,12 @@
   },
   "ProductsPage": {
     "title": "Gestión de Productos",
-    "add_product": "Agregar Producto",
     "error": {
       "loadProducts": "Error al cargar productos"
     }
+  },
+  "CreateProductButton": {
+    "add_product": "Agregar Producto"
   },
   "ProductsLoading": {
     "title": "Gestión de Productos",
@@ -316,10 +318,12 @@
   },
   "CategoriesPage": {
     "title": "Gestión de Categorías",
-    "add_category": "Agregar Categoría",
     "error": {
       "loadCategories": "Error al cargar las categorías"
     }
+  },
+  "CreateCategoryButton": {
+    "add_category": "Agregar Categoría"
   },
   "CategoryTable": {
     "name": "Nombre",
@@ -379,10 +383,12 @@
   },
   "UsersPage": {
     "title": "Gestión de Usuarios",
-    "add_user": "Agregar Usuario",
     "error": {
       "loadUsers": "Error al cargar usuarios"
     }
+  },
+  "CreateUserButton": {
+    "add_user": "Agregar Usuario"
   },
   "UserTable": {
     "name": "Nombre",

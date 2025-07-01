@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, type ReactNode } from 'react';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -18,7 +18,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Form,
@@ -37,11 +36,13 @@ import { useServerAction } from 'zsa-react';
 import type { CreateCategoryData } from '@/features/category/types';
 
 interface CreateCategoryDialogProps {
-  children: ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function CreateCategoryDialog({
-  children,
+  open,
+  onOpenChange,
 }: Readonly<CreateCategoryDialogProps>) {
   const t = useTranslations('CreateCategoryDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -53,7 +54,7 @@ export function CreateCategoryDialog({
       toast.success(t('created_title'), {
         description: t('created_description', { name }),
       });
-      closeRef.current?.click();
+      onOpenChange(false);
     },
     onError: ({ err: { message } }) => {
       form.setError('root.serverError', {
@@ -83,8 +84,7 @@ export function CreateCategoryDialog({
   });
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(execute)}>
