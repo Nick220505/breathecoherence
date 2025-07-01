@@ -17,8 +17,10 @@ export default async function Loading() {
     <div className="container mx-auto px-4 py-8 md:py-12">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8">
-          <div className="bg-muted h-8 w-64 animate-pulse rounded" />
-          <div className="bg-muted mt-2 h-4 w-48 animate-pulse rounded" />
+          <h1 className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-3xl font-bold text-transparent">
+            {t('title')}
+          </h1>
+          <p className="text-muted-foreground mt-2">{t('subtitle')}</p>
         </div>
 
         <Card>
