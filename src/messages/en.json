@@ -303,7 +303,16 @@
     "complete_form": "Please complete the form to proceed with payment",
     "card_payment": "Card Payment",
     "paypal": "PayPal",
-    "loading_payment_form": "Loading payment form..."
+    "loading_payment_form": "Loading payment form...",
+    "loading": "Loading PayPal...",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Invalid email address",
+      "addressMin": "Address must be at least 5 characters",
+      "cityMin": "City must be at least 2 characters",
+      "stateMin": "State must be at least 2 characters",
+      "zipInvalid": "Invalid ZIP code (e.g., 12345 or 12345-6789)"
+    }
   },
   "ChatBot": {
     "title": "Breathe Coherence Assistant",
@@ -682,9 +691,7 @@
     "total": "Total",
     "actions": "Actions"
   },
-  "PaypalPaymentButton": {
-    "loading": "Loading PayPal..."
-  },
+
   "ProductDetails": {
     "back_to_store": "Back to Store",
     "select_option": "Select an option",
@@ -757,14 +764,7 @@
     "message": "An unexpected error occurred. Please try again.",
     "retry": "Try Again"
   },
-  "CheckoutSchema": {
-    "nameMin": "Name must be at least 2 characters",
-    "emailInvalid": "Invalid email address",
-    "addressMin": "Address must be at least 5 characters",
-    "cityMin": "City must be at least 2 characters",
-    "stateMin": "State must be at least 2 characters",
-    "zipInvalid": "Invalid ZIP code (e.g., 12345 or 12345-6789)"
-  },
+
   "StripePaymentForm": {
     "pay_now": "Pay Now",
     "processing": "Processing...",

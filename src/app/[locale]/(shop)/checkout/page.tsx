@@ -33,13 +33,14 @@ function PayPalPaymentButton({
   finalTotal,
   watch,
   isFormValid,
+  t,
 }: Readonly<{
   finalTotal: number;
   watch: () => CheckoutFormData;
   isFormValid: boolean;
+  t: (key: string) => string;
 }>) {
   const [{ isPending }] = usePayPalScriptReducer();
-  const t = useTranslations('PaypalPaymentButton');
 
   if (!isFormValid) {
     return (
@@ -328,6 +329,7 @@ export default function CheckoutPage() {
                     finalTotal={finalTotal}
                     watch={watch}
                     isFormValid={isValid}
+                    t={t}
                   />
                 </div>
               )}
