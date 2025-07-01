@@ -204,6 +204,9 @@ export default function CheckoutPage() {
       };
 
       void fetchClientSecret();
+    } else if (paymentMethod === 'card' && !isValid) {
+      // Clear client secret when form becomes invalid
+      setClientSecret(undefined);
     }
   }, [paymentMethod, finalTotal, cartItems, watch, isValid]);
 
@@ -291,7 +294,7 @@ export default function CheckoutPage() {
               {paymentMethod === 'card' && (
                 <div className="mt-6">
                   {(() => {
-                    if (clientSecret) {
+                    if (clientSecret && isValid) {
                       return (
                         <Elements
                           stripe={stripePromise}
