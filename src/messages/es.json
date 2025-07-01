@@ -3,7 +3,9 @@
     "hero": {
       "title": "Geometría Sagrada & Esencias Sanadoras",
       "subtitle": "Descubre la perfecta armonía entre las formas geométricas sagradas y el poder sanador de las esencias florales.",
-      "cta": "Explora Nuestra Colección"
+      "cta": "Explora Nuestra Colección",
+      "flower_essence": "Esencia Floral",
+      "sacred_geometry": "Geometría Sagrada"
     },
     "features": {
       "title": "Por Qué Elegirnos",
@@ -182,33 +184,6 @@
     "toggle_language": "Cambiar idioma"
   },
 
-  "DashboardPage": {
-    "title": "Panel de Control"
-  },
-  "ProductsCard": {
-    "productsLabel": "Productos",
-    "error": {
-      "loadProductCount": "Error al cargar el conteo de productos"
-    }
-  },
-  "CategoriesCard": {
-    "categoriesLabel": "Categorías",
-    "error": {
-      "loadCategoryCount": "Error al cargar el conteo de categorías"
-    }
-  },
-  "OrdersCard": {
-    "ordersLabel": "Pedidos",
-    "error": {
-      "loadOrderCount": "Error al cargar el conteo de pedidos"
-    }
-  },
-  "UsersCard": {
-    "usersLabel": "Usuarios",
-    "error": {
-      "loadUserCount": "Error al cargar el conteo de usuarios"
-    }
-  },
   "StoreHeader": {
     "title": "Nuestros Productos",
     "subtitle": "Descubre nuestra colección seleccionada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
@@ -237,7 +212,7 @@
   },
   "ProductCard": {
     "view_details": "Ver Detalles",
-    "sacred_geometry": "Geometr�a Sagrada",
+    "sacred_geometry": "Geometría Sagrada",
     "flower_essence": "Esencia Floral"
   },
   "ProductsPage": {
@@ -283,68 +258,6 @@
     "confirm_delete": "Eliminar",
     "deleted_title": "Categoría Eliminada",
     "deleted_description": "La categoría \"{name}\" ha sido eliminada con éxito."
-  },
-  "CategoriesPage": {
-    "title": "Gestión de Categorías",
-    "add_category": "Agregar Categoría",
-    "error": {
-      "loadCategories": "Error al cargar las categorías"
-    }
-  },
-
-  "CategoryTable": {
-    "name": "Nombre",
-    "description": "Descripción",
-    "created_at": "Creado en",
-    "updated_at": "Actualizado en",
-    "actions": "Acciones"
-  },
-  "CategoriesLoading": {
-    "title": "Gestión de Categorías",
-    "add_category": "Agregar Categoría",
-    "name": "Nombre",
-    "description": "Descripción",
-    "created_at": "Creado en",
-    "updated_at": "Actualizado en",
-    "actions": "Acciones"
-  },
-  "CreateCategoryDialog": {
-    "add_category": "Agregar Categoría",
-    "form_description": "Formulario para agregar una nueva categoría",
-    "name": "Nombre de la Categoría",
-    "description": "Descripción",
-    "placeholder": {
-      "name": "Ingrese el nombre de la categoría",
-      "description": "Ingrese la descripción de la categoría"
-    },
-    "created_title": "Categoría Creada",
-    "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
-    "adding": "Creando categoría...",
-    "add": "Crear",
-    "cancel": "Cancelar",
-    "validation": {
-      "name_min": "El nombre debe tener al menos 3 caracteres",
-      "description_min": "La descripción debe tener al menos 10 caracteres"
-    }
-  },
-  "EditCategoryDialog": {
-    "edit_category": "Editar Categoría",
-    "edit_form_description": "Formulario para editar una categoría existente",
-    "name": "Nombre de la Categoría",
-    "description": "Descripción",
-    "placeholder": {
-      "name": "Ingrese el nombre de la categoría",
-      "description": "Ingrese la descripción de la categoría"
-    },
-    "updated_title": "Categoría Actualizada",
-    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
-    "editing": "Guardando cambios...",
-    "edit": "Guardar Cambios",
-    "cancel": "Cancelar",
-    "validation": {
-      "name_min": "El nombre debe tener al menos 3 caracteres",
-      "description_min": "La descripción debe tener al menos 10 caracteres"
-    }
   },
   "CreateProductDialog": {
     "add_product": "Agregar Producto",
@@ -448,44 +361,44 @@
     "actions": "Acciones"
   },
   "CustomBlendPage": {
-    "back_to_store": "Volver a la Tienda",
-    "image_alt": "Crea Tu Propia Mezcla de Flores de Bach",
-    "subtitle": "Esencia Floral Personalizada",
     "title": "Crea Tu Mezcla Personalizada",
+    "subtitle": "Esencia Floral Personalizada",
+    "description": "Diseña tu propia mezcla única de hasta 7 esencias florales. Elige al menos 2 esencias para comenzar.",
     "price": "$19.99",
-    "description": "Diseña tu propia mezcla única de esencias florales adaptada a tus necesidades específicas. Selecciona de nuestra colección curada para crear un remedio personalizado que resuene con tu camino.",
-    "whatsapp_help": "¿Necesitas ayuda para elegir tus esencias? Contáctanos por WhatsApp para una guía personalizada.",
+    "whatsapp_help": "¿Necesitas ayuda para elegir tus esencias? Contáctanos por WhatsApp para una consulta personalizada.",
     "learn_more": "Aprende Más Sobre las Esencias Florales",
     "base": {
-      "label": "Seleccionar Base",
-      "brandy": "Base de Brandy (Tradicional)",
-      "water": "Base de Agua (Sin Alcohol)"
+      "label": "Elige Tu Base",
+      "brandy": "Brandy",
+      "water": "Agua"
     },
     "essence": {
       "label": "Esencia {number}"
     },
-    "select_option": "Selecciona una opción",
-    "skip_option": "Omitir (opcional)",
+    "add_to_cart": "Agregar Mezcla Personalizada al Carrito",
     "adding_to_cart": "Agregando al carrito...",
-    "add_to_cart": "Agregar al Carrito",
+    "select_option": "Selecciona una esencia",
+    "skip_option": "Ninguna (opcional)",
+    "back_to_store": "Volver a la Tienda",
+    "image_alt": "Botella de mezcla personalizada con flores",
     "cart": {
-      "name": "Mezcla Personalizada de Flores de Bach ({essences})",
+      "name": "Mezcla Personalizada ({essences})",
       "description": "Base: {base}, Esencias: {essences}"
     }
   },
   "ProductPage": {
     "back_to_store": "Volver a la Tienda",
     "base": {
-      "label": "Seleccionar Base",
-      "brandy": "Base de Brandy (Tradicional)",
-      "water": "Base de Agua (Sin Alcohol)"
+      "label": "Base",
+      "brandy": "Brandy",
+      "water": "Agua"
     },
-    "select_option": "Selecciona una opción",
-    "adding_to_cart": "Agregando al carrito...",
     "add_to_cart": "Agregar al Carrito",
+    "adding_to_cart": "Agregando al carrito...",
+    "select_option": "Selecciona una opción",
     "cart": {
-      "name": "{name} ({base})",
-      "description": "Base: {base}, {description}"
+      "name": "{name} (Base: {base})",
+      "description": "Base: {base}, Descripción: {description}"
     }
   },
   "ProductNotFound": {
@@ -506,85 +419,95 @@
     "benefits": "El uso de esencias florales es una forma natural y consciente de trabajar con nuestras energías internas, permitiendo que la vibración de la flor se entrelace con nuestra propia frecuencia, y guiándonos hacia un estado de mayor paz y equilibrio.",
     "cta": "Explora Nuestras Esencias Florales"
   },
+  "DashboardPage": {
+    "title": "Panel de Control de Administrador"
+  },
+  "ProductsCard": {
+    "productsLabel": "Productos",
+    "error": {
+      "loadProductCount": "Error al cargar el conteo de productos"
+    }
+  },
+  "CategoriesCard": {
+    "categoriesLabel": "Categorías",
+    "error": {
+      "loadCategoryCount": "Error al cargar el conteo de categorías"
+    }
+  },
+  "OrdersCard": {
+    "ordersLabel": "Pedidos",
+    "error": {
+      "loadOrderCount": "Error al cargar el conteo de pedidos"
+    }
+  },
+  "UsersCard": {
+    "usersLabel": "Usuarios",
+    "error": {
+      "loadUserCount": "Error al cargar el conteo de usuarios"
+    }
+  },
   "CheckoutPage": {
     "title": "Pago Seguro",
-    "empty_cart": "Tu carrito está vacío",
-    "empty_cart_message": "Agrega algunos artículos a tu carrito antes de proceder al pago.",
+    "shipping_address": "Dirección de Envío",
+    "order_summary": "Resumen del Pedido",
+    "order_notes_label": "Notas del Pedido (opcional)",
+    "order_notes_placeholder": "Notas sobre tu pedido, ej. notas especiales para la entrega.",
+    "payment_method": "Método de Pago",
+    "pay_with_card": "Pagar con Tarjeta",
+    "pay_with_paypal": "Pagar con PayPal",
+    "total": "Total",
+    "place_order": "Realizar Pedido",
+    "processing": "Procesando...",
+    "empty_cart": "Tu Carrito está Vacío",
+    "empty_cart_message": "No tienes artículos en tu carrito. Vamos a encontrar algo para ti.",
     "continue_shopping": "Continuar Comprando",
+    "complete_form": "Por favor completa el formulario para proceder con el pago",
     "loading_paypal": "Cargando PayPal...",
     "shipping_info": "Información de Envío",
     "order_notes": "Notas del Pedido",
-    "payment_method": "Método de Pago",
-    "card_payment": "Tarjeta de Crédito/Débito",
-    "paypal": "PayPal",
-    "order_summary": "Resumen del Pedido",
-    "total": "Total",
     "name": "Nombre Completo *",
     "email": "Correo Electrónico *",
     "address": "Dirección *",
     "state": "Estado *",
     "city": "Ciudad *",
     "zip_code": "Código ZIP *",
-    "complete_form": "Por favor completa el formulario para continuar",
-    "loading_payment_form": "Cargando formulario de pago...",
     "placeholder": {
       "name": "Ingresa tu nombre completo",
       "email": "Ingresa tu correo electrónico",
       "address": "Ingresa tu dirección de envío",
-      "state": "Seleccione un Estado",
+      "state": "Selecciona un Estado",
       "city": "Ingresa tu ciudad",
-      "zip_code": "Ingrese el código ZIP",
+      "zip_code": "Ingresa el código ZIP",
       "order_notes": "Notas sobre tu pedido, ej. notas especiales para la entrega"
     },
-    "countries": {},
-    "states": {}
+    "card_payment": "Pago con Tarjeta",
+    "paypal": "PayPal",
+    "loading_payment_form": "Cargando formulario de pago..."
   },
-  "StripePaymentForm": {
-    "pay_now": "Pagar Ahora",
-    "processing": "Procesando...",
+
+  "OrderDetail": {
+    "loading": "Cargando detalles del pedido...",
+    "error_title": "Error de Pedido",
+    "back_to_orders": "Volver a los Pedidos",
+    "not_found_title": "Pedido No Encontrado",
+    "not_found_message": "No se pudo encontrar el pedido que buscas.",
+    "title": "Detalles del Pedido",
+    "order_details": "Detalles del Pedido",
+    "product_category": "Categoría de Producto",
+    "quantity": "Cantidad",
+    "total": "Total",
+    "status_pending": "Pendiente",
+    "status_paid": "Pagado",
+    "status_shipped": "Enviado",
     "error": {
-      "unknown": "Ocurrió un error desconocido",
-      "unexpected": "Ocurrió un error inesperado"
+      "loadOrder": "Error al cargar detalles del pedido"
     }
   },
-  "CheckoutSuccess": {
-    "title": "¡Pago Completado!",
-    "subtitle": "Gracias por tu compra. Tu pedido ha sido procesado con éxito.",
-    "back_to_store": "Volver a la Tienda",
-    "order_details": "Detalles del Pedido",
-    "order_id": "ID del Pedido",
-    "confirmation_sent": "Se ha enviado una confirmación a tu correo electrónico.",
-    "no_order_details": "No se encontraron detalles del pedido.",
-    "view_order": "Ver Pedido",
-    "view_all_orders": "Ver Todos los Pedidos",
-    "what_next": "¿Qué sigue?",
-    "continue_shopping": "Continuar Comprando",
-    "loading_details": "Cargando detalles del pedido...",
-    "error_fetching_order": "Error al obtener los detalles del pedido",
-    "try_view_orders": "Intenta ver tus pedidos en la sección de tu cuenta.",
-    "total_amount": "Monto Total",
-    "status": "Estado",
-    "succeeded": "Completado",
-    "thank_you": "¡Gracias!",
-    "order_received": "Tu pedido ha sido recibido",
-    "order_number": "Número de Pedido",
-    "date": "Fecha",
-    "total": "Total",
-    "payment_method": "Método de Pago",
-    "card": "Tarjeta",
-    "shipping_info": "Información de Envío",
-    "contact_info": "Información de Contacto",
-    "email": "Correo Electrónico",
-    "track_order": "Sigue tu pedido",
-    "error_title": "Error en el Pedido",
-    "error_no_payment": "No se encontró información de pago",
-    "error_no_order": "No se encontraron detalles del pedido",
-    "error_unknown": "Ocurrió un error desconocido"
-  },
+
   "ChatBot": {
-    "title": "Asistente de Compras",
+    "title": "Asistente de Breathe Coherence",
     "welcome": "¡Bienvenido a nuestro Asistente de Compras! 👋\n\nPuedo ayudarte con:\n\n1. Productos de Geometría Sagrada\n• Información sobre nuestros Sólidos Platónicos\n• Sus asociaciones elementales\n• Propiedades metafísicas\n• Precios y disponibilidad\n\n2. Remedios Florales de Bach\n• Información sobre cada esencia\n• Beneficios emocionales\n• Recomendaciones personalizadas\n\n¿En qué puedo ayudarte hoy?",
-    "error": "Lo siento, hubo un error al procesar tu mensaje. Por favor, intenta de nuevo.",
+    "error": "Lo siento, tengo problemas para conectarme ahora. Por favor intenta más tarde.",
     "typing": "Escribiendo...",
     "input_placeholder": "Escribe tu mensaje...",
     "recommended_products": "Productos Recomendados:",
@@ -592,53 +515,74 @@
     "minimize": "Minimizar chat",
     "close": "Cerrar chat"
   },
-  "OrderHistoryPage": {
-    "title": "Historial de Pedidos",
-    "subtitle": "Visualiza y rastrea tus pedidos",
-    "guest_order_title": "Tu Pedido",
-    "guest_order_subtitle": "Detalles de tu compra reciente",
-    "guest_order_details": "Detalles del Pedido",
-    "loading": "Cargando tus pedidos...",
-    "error_title": "Error de Pedido",
-    "no_orders_title": "Aún Sin Pedidos",
-    "no_orders_message": "Aún no has realizado pedidos. Comienza a comprar para verlos aquí.",
-    "browse_products": "Explorar Productos",
-    "try_again": "Intentar de Nuevo",
 
-    "order_id": "ID del Pedido",
-    "date": "Fecha",
-    "status": "Estado",
-    "total": "Total",
-    "actions": "Acciones",
-    "view_details": "Ver Detalles",
-    "items": "Artículos",
-    "more_items": "más artículos",
-    "continue_shopping": "Seguir Comprando",
-    "quantity": "Cantidad",
-    "pending": "Pendiente",
-    "paid": "Pagado",
-    "shipped": "Enviado",
-    "status_pending": "Pendiente",
-    "status_paid": "Pagado",
-    "status_shipped": "Enviado",
+  "CategoriesPage": {
+    "title": "Gestión de Categorías",
+    "add_category": "Agregar Categoría",
     "error": {
-      "loadOrders": "Error al cargar pedidos"
+      "loadCategories": "Error al cargar las categorías"
     }
   },
-  "OrderHistoryLoading": {
-    "title": "Historial de Pedidos",
-    "subtitle": "Visualiza y rastrea tus pedidos",
-    "order_id": "ID del Pedido",
-    "date": "Fecha",
-    "status": "Estado",
-    "total": "Total",
+
+  "CategoryTable": {
+    "name": "Nombre",
+    "description": "Descripción",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
     "actions": "Acciones"
+  },
+  "CategoriesLoading": {
+    "title": "Gestión de Categorías",
+    "add_category": "Agregar Categoría",
+    "name": "Nombre",
+    "description": "Descripción",
+    "created_at": "Creado en",
+    "updated_at": "Actualizado en",
+    "actions": "Acciones"
+  },
+  "CreateCategoryDialog": {
+    "add_category": "Agregar Categoría",
+    "form_description": "Formulario para agregar una nueva categoría",
+    "name": "Nombre de la Categoría",
+    "description": "Descripción",
+    "placeholder": {
+      "name": "Ingrese el nombre de la categoría",
+      "description": "Ingrese la descripción de la categoría"
+    },
+    "created_title": "Categoría Creada",
+    "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
+    "adding": "Creando categoría...",
+    "add": "Crear",
+    "cancel": "Cancelar",
+    "validation": {
+      "name_min": "El nombre debe tener al menos 3 caracteres",
+      "description_min": "La descripción debe tener al menos 10 caracteres"
+    }
+  },
+  "EditCategoryDialog": {
+    "edit_category": "Editar Categoría",
+    "edit_form_description": "Formulario para editar una categoría existente",
+    "name": "Nombre de la Categoría",
+    "description": "Descripción",
+    "placeholder": {
+      "name": "Ingrese el nombre de la categoría",
+      "description": "Ingrese la descripción de la categoría"
+    },
+    "updated_title": "Categoría Actualizada",
+    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
+    "editing": "Guardando cambios...",
+    "edit": "Guardar Cambios",
+    "cancel": "Cancelar",
+    "validation": {
+      "name_min": "El nombre debe tener al menos 3 caracteres",
+      "description_min": "La descripción debe tener al menos 10 caracteres"
+    }
   },
   "AuthSchema": {
     "Login": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "passwordRequired": "La contraseña es obligatoria",
-      "invalidCredentials": "Correo electrónico o contraseña no válidos"
+      "invalidCredentials": "Correo electrónico o contraseña inválidos"
     },
     "Register": {
       "nameRequired": "El nombre es obligatorio",
@@ -651,16 +595,7 @@
     "Verify": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "codeLength": "El código de verificación debe tener 6 dígitos",
-      "invalidVerificationCode": "Código de verificación no válido o caducado."
-    },
-    "Auth": {
-      "fillRequiredFields": "Por favor, rellene todos los campos obligatorios.",
-      "verificationCodeSent": "Código de verificación enviado. Revisa tu correo electrónico.",
-      "registrationError": "Registro fallido.",
-      "verificationSuccess": "Correo verificado con éxito.",
-      "verificationError": "La verificación falló.",
-      "loginSuccess": "Inicio de sesión exitoso.",
-      "loginError": "Error al iniciar sesión."
+      "invalidVerificationCode": "Código de verificación inválido o expirado."
     }
   },
   "UsersPage": {
@@ -672,7 +607,7 @@
   },
   "UserTable": {
     "name": "Nombre",
-    "email": "Correo",
+    "email": "Correo Electrónico",
     "role": "Rol",
     "created_at": "Creado en",
     "updated_at": "Actualizado en",
@@ -687,7 +622,7 @@
     "title": "Gestión de Usuarios",
     "add_user": "Agregar Usuario",
     "name": "Nombre",
-    "email": "Correo",
+    "email": "Correo Electrónico",
     "role": "Rol",
     "created_at": "Creado en",
     "updated_at": "Actualizado en",
@@ -697,7 +632,7 @@
     "add_user": "Agregar Usuario",
     "form_description": "Formulario para agregar un nuevo usuario",
     "name": "Nombre del Usuario",
-    "email": "Correo",
+    "email": "Correo Electrónico",
     "password": "Contraseña",
     "role": "Rol",
     "placeholder": {
@@ -726,7 +661,7 @@
     "edit_user": "Editar Usuario",
     "edit_form_description": "Formulario para editar un usuario existente",
     "name": "Nombre del Usuario",
-    "email": "Correo",
+    "email": "Correo Electrónico",
     "password": "Contraseña",
     "role": "Rol",
     "placeholder": {
@@ -819,35 +754,98 @@
     "categories": "Categorías",
     "orders": "Pedidos",
     "users": "Usuarios",
-    "panel": "Panel de Admin"
+    "panel": "Panel de Administrador"
   },
-  "OrderDetail": {
-    "loading": "Cargando detalles del pedido...",
-    "error_title": "Error de Pedido",
-    "back_to_orders": "Volver a los Pedidos",
-    "not_found_title": "Pedido No Encontrado",
-    "not_found_message": "No pudimos encontrar el pedido que buscas.",
-    "title": "Detalles del Pedido",
+  "CheckoutSuccess": {
+    "title": "¡Pago Completado!",
+    "subtitle": "Gracias por tu compra. Tu pedido ha sido procesado con éxito.",
+    "back_to_store": "Volver a la Tienda",
     "order_details": "Detalles del Pedido",
-    "product_category": "Categoría de Producto",
+    "order_id": "ID del Pedido",
+    "confirmation_sent": "Se ha enviado una confirmación a tu correo electrónico.",
+    "no_order_details": "No se encontraron detalles del pedido.",
+    "view_order": "Ver Pedido",
+    "view_all_orders": "Ver Todos los Pedidos",
+    "what_next": "¿Qué sigue?",
+    "continue_shopping": "Continuar Comprando",
+    "loading_details": "Cargando detalles del pedido...",
+    "error_fetching_order": "Error al obtener los detalles del pedido",
+    "try_view_orders": "Intenta ver tus pedidos en la sección de tu cuenta.",
+    "total_amount": "Monto Total",
+    "status": "Estado",
+    "succeeded": "Exitoso",
+    "thank_you": "¡Gracias!",
+    "order_received": "Tu pedido ha sido recibido",
+    "order_number": "Número de Pedido",
+    "date": "Fecha",
+    "total": "Total",
+    "payment_method": "Método de Pago",
+    "card": "Tarjeta",
+    "shipping_info": "Información de Envío",
+    "contact_info": "Información de Contacto",
+    "email": "Correo Electrónico",
+    "track_order": "Rastrear Pedido",
+    "error_title": "Error de Pedido",
+    "error_no_payment": "No se encontró información de pago",
+    "error_no_order": "No se encontraron detalles del pedido",
+    "error_unknown": "Ocurrió un error desconocido"
+  },
+  "OrderHistoryPage": {
+    "title": "Historial de Pedidos",
+    "subtitle": "Ver y rastrear tus pedidos",
+    "guest_order_title": "Tu Pedido",
+    "guest_order_subtitle": "Ver detalles de tu compra reciente",
+    "guest_order_details": "Detalles del Pedido",
+    "loading": "Cargando tus pedidos...",
+    "error_title": "Error de Pedido",
+    "no_orders_title": "Aún Sin Pedidos",
+    "no_orders_message": "Aún no has realizado pedidos. Comienza a comprar para verlos aquí.",
+    "browse_products": "Explorar Productos",
+    "try_again": "Intentar de Nuevo",
+
+    "order_id": "ID del Pedido",
+    "date": "Fecha",
+    "status": "Estado",
+    "total": "Total",
+    "actions": "Acciones",
+    "view_details": "Ver Detalles",
+    "items": "Artículos",
+    "more_items": "más artículos",
+    "continue_shopping": "Continuar Comprando",
+    "quantity": "Cantidad",
+    "pending": "Pendiente",
+    "paid": "Pagado",
+    "shipped": "Enviado",
     "status_pending": "Pendiente",
     "status_paid": "Pagado",
     "status_shipped": "Enviado",
-    "items": "Artículos",
-    "product": "Producto",
-    "quantity": "Cantidad",
-    "price": "Precio",
-    "total": "Total",
     "error": {
-      "loadOrder": "Error al cargar detalles del pedido"
+      "loadOrders": "Error al cargar pedidos"
     }
+  },
+  "OrderHistoryLoading": {
+    "title": "Historial de Pedidos",
+    "subtitle": "Ver y rastrear tus pedidos",
+    "order_id": "ID del Pedido",
+    "date": "Fecha",
+    "status": "Estado",
+    "total": "Total",
+    "actions": "Acciones"
   },
   "CheckoutSchema": {
     "nameMin": "El nombre debe tener al menos 2 caracteres",
-    "emailInvalid": "Correo electrónico inválido",
+    "emailInvalid": "Dirección de correo electrónico inválida",
     "addressMin": "La dirección debe tener al menos 5 caracteres",
     "cityMin": "La ciudad debe tener al menos 2 caracteres",
     "stateMin": "El estado debe tener al menos 2 caracteres",
     "zipInvalid": "Código ZIP inválido (ej., 12345 o 12345-6789)"
+  },
+  "StripePaymentForm": {
+    "pay_now": "Pagar Ahora",
+    "processing": "Procesando...",
+    "error": {
+      "unknown": "Ocurrió un error desconocido",
+      "unexpected": "Ocurrió un error inesperado"
+    }
   }
 }
