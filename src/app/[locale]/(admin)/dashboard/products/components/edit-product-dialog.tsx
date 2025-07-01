@@ -70,7 +70,7 @@ export function EditProductDialog({
   open,
   onOpenChange,
 }: Readonly<EditProductDialogProps>) {
-  const t = useTranslations('ProductDialog');
+  const t = useTranslations('EditProductDialog');
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);

@@ -15,7 +15,7 @@ interface PageProps {
   }>;
 }
 
-export default async function Page(props: Readonly<PageProps>) {
+export default async function StorePage(props: Readonly<PageProps>) {
   const searchParams = await props.searchParams;
   const categoryQueryParam =
     searchParams?.category ?? searchParams?.categoria ?? '';
@@ -23,7 +23,7 @@ export default async function Page(props: Readonly<PageProps>) {
     await Promise.all([getAllProducts(), getAllCategories()]);
 
   if (categoriesErr || productsErr) {
-    const t = await getTranslations('StoreContent');
+    const t = await getTranslations('StorePage');
     if (categoriesErr) {
       throw new Error(t('error.loadCategories'));
     }

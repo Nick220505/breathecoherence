@@ -15,7 +15,7 @@ const spinnerVariants: Variants = {
   },
 };
 
-export function Loading() {
+export function VerificationLoading() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <motion.div

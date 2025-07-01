@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { getUserCount } from '@/features/user/actions';
 
 export async function UsersCard() {
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('UsersCard');
   const [userCount, err] = await getUserCount();
 
   if (err) {

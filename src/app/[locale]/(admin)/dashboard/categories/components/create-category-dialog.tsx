@@ -43,7 +43,7 @@ interface CreateCategoryDialogProps {
 export function CreateCategoryDialog({
   children,
 }: Readonly<CreateCategoryDialogProps>) {
-  const t = useTranslations('CategoryDialog');
+  const t = useTranslations('CreateCategoryDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(createCategory, {

@@ -58,7 +58,7 @@ export function EditUserDialog({
   open,
   onOpenChange,
 }: Readonly<EditUserDialogProps>) {
-  const t = useTranslations('UserDialog');
+  const t = useTranslations('EditUserDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(updateUser, {

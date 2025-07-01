@@ -193,13 +193,15 @@
       "flower essence": { "badge": "Flower Essence" }
     }
   },
-  "StoreContent": {
-    "no_products": "No products found",
-    "try_adjusting": "Try adjusting your filters or check back later for new items.",
+  "StorePage": {
     "error": {
       "loadCategories": "Failed to load categories",
       "loadProducts": "Failed to load products"
     }
+  },
+  "StoreContent": {
+    "no_products": "No products found",
+    "try_adjusting": "Try adjusting your filters or check back later for new items."
   },
   "CustomBlendCard": {
     "title": "Create Your Custom Blend",
@@ -257,11 +259,9 @@
     "deleted_title": "Category Deleted",
     "deleted_description": "The category \"{name}\" has been deleted successfully."
   },
-  "ProductDialog": {
+  "CreateProductDialog": {
     "add_product": "Add Product",
-    "edit_product": "Edit Product",
     "form_description": "Form to add a new product",
-    "edit_form_description": "Form to edit an existing product",
     "name": "Product Name",
     "description": "Description",
     "category": "Category",
@@ -282,13 +282,49 @@
     "preview": "Image preview",
     "choose_file": "Choose File",
     "created_title": "Product Created",
-    "updated_title": "Product Updated",
     "created_description": "The product \"{name}\" has been created successfully.",
+    "adding": "Creating product...",
+    "add": "Create",
+    "cancel": "Cancel",
+    "validation": {
+      "name_min": "Name must be at least 3 characters",
+      "description_min": "Description must be at least 10 characters",
+      "category_required": "Please select a category",
+      "price_min": "Price must be at least 0",
+      "stock_min": "Stock must be at least 0"
+    },
+    "error": {
+      "load_categories": "Failed to load categories",
+      "image_too_large": "Image file is too large (max 5MB)",
+      "image_upload": "Failed to upload image"
+    }
+  },
+  "EditProductDialog": {
+    "edit_product": "Edit Product",
+    "edit_form_description": "Form to edit an existing product",
+    "name": "Product Name",
+    "description": "Description",
+    "category": "Category",
+    "price": "Price",
+    "stock": "Stock",
+    "image": "Product Image",
+    "categories_label": "Categories",
+    "placeholder": {
+      "name": "Enter product name",
+      "description": "Enter product description",
+      "category": "Select category",
+      "price": "0.00",
+      "stock": "0"
+    },
+    "image_alt": "Product image",
+    "default_image_alt": "Default product image",
+    "uploading_image": "Uploading image...",
+    "preview": "Image preview",
+    "choose_file": "Choose File",
+    "updated_title": "Product Updated",
     "updated_description": "The product \"{name}\" has been updated successfully.",
     "editing": "Saving changes...",
-    "adding": "Creating product...",
     "edit": "Save Changes",
-    "add": "Create",
     "cancel": "Cancel",
     "validation": {
       "name_min": "Name must be at least 3 characters",
@@ -365,6 +401,10 @@
       "description": "Base: {base}, Description: {description}"
     }
   },
+  "ProductNotFound": {
+    "product_not_found": "Product not found",
+    "back_to_store": "Back to Store"
+  },
   "FlowerEssencesPage": {
     "title": "Understanding Flower Essences",
     "introduction": "Flower essences are natural preparations extracted from specific flowers in their natural habitat, carefully crafted to maintain their purity and energy. These essences are known for their ability to harmonize and balance our energetic body, acting as vibration and liquid consciousness.",
@@ -379,23 +419,31 @@
     "benefits": "The use of flower essences is a natural and conscious way to work with our internal energies, allowing the flower's vibration to interweave with our own frequency, and guiding us towards a state of greater peace and balance.",
     "cta": "Explore Our Flower Essences"
   },
-  "dashboard": {
-    "title": "Admin Dashboard",
-    "ordersLabel": "Orders",
-    "usersLabel": "Users",
+  "DashboardPage": {
+    "title": "Admin Dashboard"
+  },
+  "ProductsCard": {
     "productsLabel": "Products",
-    "categoriesLabel": "Categories",
-    "productTable": {
-      "title": "Product Management"
-    },
-    "userTable": {
-      "title": "User Management"
-    },
     "error": {
-      "loadCategoryCount": "Failed to load category count",
-      "loadUserCount": "Failed to load user count",
-      "loadProductCount": "Failed to load product count",
+      "loadProductCount": "Failed to load product count"
+    }
+  },
+  "CategoriesCard": {
+    "categoriesLabel": "Categories",
+    "error": {
+      "loadCategoryCount": "Failed to load category count"
+    }
+  },
+  "OrdersCard": {
+    "ordersLabel": "Orders",
+    "error": {
       "loadOrderCount": "Failed to load order count"
+    }
+  },
+  "UsersCard": {
+    "usersLabel": "Users",
+    "error": {
+      "loadUserCount": "Failed to load user count"
     }
   },
   "CheckoutPage": {
@@ -492,11 +540,9 @@
     "updated_at": "Updated At",
     "actions": "Actions"
   },
-  "CategoryDialog": {
+  "CreateCategoryDialog": {
     "add_category": "Add Category",
-    "edit_category": "Edit Category",
     "form_description": "Form to add a new category",
-    "edit_form_description": "Form to edit an existing category",
     "name": "Category Name",
     "description": "Description",
     "placeholder": {
@@ -504,13 +550,28 @@
       "description": "Enter category description"
     },
     "created_title": "Category Created",
-    "updated_title": "Category Updated",
     "created_description": "The category \"{name}\" has been created successfully.",
+    "adding": "Creating category...",
+    "add": "Create",
+    "cancel": "Cancel",
+    "validation": {
+      "name_min": "Name must be at least 3 characters",
+      "description_min": "Description must be at least 10 characters"
+    }
+  },
+  "EditCategoryDialog": {
+    "edit_category": "Edit Category",
+    "edit_form_description": "Form to edit an existing category",
+    "name": "Category Name",
+    "description": "Description",
+    "placeholder": {
+      "name": "Enter category name",
+      "description": "Enter category description"
+    },
+    "updated_title": "Category Updated",
     "updated_description": "The category \"{name}\" has been updated successfully.",
     "editing": "Saving changes...",
-    "adding": "Creating category...",
     "edit": "Save Changes",
-    "add": "Create",
     "cancel": "Cancel",
     "validation": {
       "name_min": "Name must be at least 3 characters",
@@ -567,11 +628,9 @@
     "updated_at": "Updated At",
     "actions": "Actions"
   },
-  "UserDialog": {
+  "CreateUserDialog": {
     "add_user": "Add User",
-    "edit_user": "Edit User",
     "form_description": "Form to add a new user",
-    "edit_form_description": "Form to edit an existing user",
     "name": "User Name",
     "email": "Email",
     "password": "Password",
@@ -583,13 +642,38 @@
       "role": "Select role"
     },
     "created_title": "User Created",
-    "updated_title": "User Updated",
     "created_description": "The user \"{name}\" has been created successfully.",
+    "adding": "Creating user...",
+    "add": "Create",
+    "cancel": "Cancel",
+    "roles": {
+      "admin": "Admin",
+      "user": "User"
+    },
+    "validation": {
+      "name_min": "Name must be at least 1 character",
+      "email_invalid": "Please enter a valid email",
+      "password_min": "Password must be at least 6 characters",
+      "role_invalid": "Please select a valid role"
+    }
+  },
+  "EditUserDialog": {
+    "edit_user": "Edit User",
+    "edit_form_description": "Form to edit an existing user",
+    "name": "User Name",
+    "email": "Email",
+    "password": "Password",
+    "role": "Role",
+    "placeholder": {
+      "name": "Enter user name",
+      "email": "Enter user email",
+      "password": "Enter password",
+      "role": "Select role"
+    },
+    "updated_title": "User Updated",
     "updated_description": "The user \"{name}\" has been updated successfully.",
     "editing": "Saving changes...",
-    "adding": "Creating user...",
     "edit": "Save Changes",
-    "add": "Create",
     "cancel": "Cancel",
     "roles": {
       "admin": "Admin",

@@ -64,7 +64,7 @@ interface CreateProductDialogProps {
 export function CreateProductDialog({
   children,
 }: Readonly<CreateProductDialogProps>) {
-  const t = useTranslations('ProductDialog');
+  const t = useTranslations('CreateProductDialog');
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);

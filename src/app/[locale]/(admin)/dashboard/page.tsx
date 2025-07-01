@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function DashboardPage() {
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('DashboardPage');
 
   return (
     <div className="container mx-auto space-y-8 py-10">

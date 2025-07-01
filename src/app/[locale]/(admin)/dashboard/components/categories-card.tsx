@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { getCategoryCount } from '@/features/category/actions';
 
 export async function CategoriesCard() {
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('CategoriesCard');
   const [categoryCount, err] = await getCategoryCount();
 
   if (err) {

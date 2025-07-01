@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
-import { Loading } from './components/loading';
+import { VerificationLoading } from './components/loading';
 import { VerificationForm } from './components/verification-form';
 
 export default async function VerifyPage(
@@ -21,7 +21,7 @@ export default async function VerifyPage(
 
   return (
     <div className="from-background via-background/80 to-background min-h-screen bg-linear-to-b">
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<VerificationLoading />}>
         <VerificationForm email={email} />
       </Suspense>
     </div>

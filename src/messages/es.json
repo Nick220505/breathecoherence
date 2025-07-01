@@ -182,38 +182,31 @@
     "toggle_language": "Cambiar idioma"
   },
 
-  "dashboard": {
-    "title": "Panel de Control",
-    "ordersLabel": "Pedidos",
-    "usersLabel": "Usuarios",
+  "DashboardPage": {
+    "title": "Panel de Control"
+  },
+  "ProductsCard": {
     "productsLabel": "Productos",
-    "categoriesLabel": "Categorías",
-    "orders": {
-      "title": "Gestión de Pedidos"
-    },
     "error": {
-      "loadCategoryCount": "Error al cargar el conteo de categorías",
-      "loadUserCount": "Error al cargar el conteo de usuarios",
-      "loadProductCount": "Error al cargar el conteo de productos",
+      "loadProductCount": "Error al cargar el conteo de productos"
+    }
+  },
+  "CategoriesCard": {
+    "categoriesLabel": "Categorías",
+    "error": {
+      "loadCategoryCount": "Error al cargar el conteo de categorías"
+    }
+  },
+  "OrdersCard": {
+    "ordersLabel": "Pedidos",
+    "error": {
       "loadOrderCount": "Error al cargar el conteo de pedidos"
-    },
-    "users": {
-      "title": "Usuarios",
-      "description": "Gestiona tus usuarios aquí."
-    },
-    "productTable": {
-      "title": "Gestión de Productos",
-      "name": "Nombre",
-      "type": "Tipo",
-      "price": "Precio",
-      "stock": "Stock",
-      "actions": "Acciones",
-      "image": "Imagen",
-      "add_product": "Agregar Producto"
-    },
-    "addProduct": "Agregar Producto",
-    "userTable": {
-      "title": "Gestión de Usuarios"
+    }
+  },
+  "UsersCard": {
+    "usersLabel": "Usuarios",
+    "error": {
+      "loadUserCount": "Error al cargar el conteo de usuarios"
     }
   },
   "StoreHeader": {
@@ -225,13 +218,15 @@
       "flower essence": { "badge": "Esencia Floral" }
     }
   },
-  "StoreContent": {
-    "no_products": "No se encontraron productos",
-    "try_adjusting": "Intenta ajustar tus filtros o vuelve más tarde para ver nuevos artículos.",
+  "StorePage": {
     "error": {
       "loadCategories": "Error al cargar las categorías",
       "loadProducts": "Error al cargar productos"
     }
+  },
+  "StoreContent": {
+    "no_products": "No se encontraron productos",
+    "try_adjusting": "Intenta ajustar tus filtros o vuelve más tarde para ver nuevos artículos."
   },
   "CustomBlendCard": {
     "title": "Crea Tu Mezcla Personalizada",
@@ -313,11 +308,9 @@
     "updated_at": "Actualizado en",
     "actions": "Acciones"
   },
-  "CategoryDialog": {
+  "CreateCategoryDialog": {
     "add_category": "Agregar Categoría",
-    "edit_category": "Editar Categoría",
     "form_description": "Formulario para agregar una nueva categoría",
-    "edit_form_description": "Formulario para editar una categoría existente",
     "name": "Nombre de la Categoría",
     "description": "Descripción",
     "placeholder": {
@@ -325,12 +318,8 @@
       "description": "Ingrese la descripción de la categoría"
     },
     "created_title": "Categoría Creada",
-    "updated_title": "Categoría Actualizada",
     "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
-    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
-    "editing": "Guardando cambios...",
     "adding": "Creando categoría...",
-    "edit": "Guardar Cambios",
     "add": "Crear",
     "cancel": "Cancelar",
     "validation": {
@@ -338,11 +327,28 @@
       "description_min": "La descripción debe tener al menos 10 caracteres"
     }
   },
-  "ProductDialog": {
+  "EditCategoryDialog": {
+    "edit_category": "Editar Categoría",
+    "edit_form_description": "Formulario para editar una categoría existente",
+    "name": "Nombre de la Categoría",
+    "description": "Descripción",
+    "placeholder": {
+      "name": "Ingrese el nombre de la categoría",
+      "description": "Ingrese la descripción de la categoría"
+    },
+    "updated_title": "Categoría Actualizada",
+    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
+    "editing": "Guardando cambios...",
+    "edit": "Guardar Cambios",
+    "cancel": "Cancelar",
+    "validation": {
+      "name_min": "El nombre debe tener al menos 3 caracteres",
+      "description_min": "La descripción debe tener al menos 10 caracteres"
+    }
+  },
+  "CreateProductDialog": {
     "add_product": "Agregar Producto",
-    "edit_product": "Editar Producto",
     "form_description": "Formulario para agregar un nuevo producto",
-    "edit_form_description": "Formulario para editar un producto existente",
     "name": "Nombre del Producto",
     "description": "Descripción",
     "category": "Categoría",
@@ -363,13 +369,49 @@
     "preview": "Vista previa de imagen",
     "choose_file": "Elegir Archivo",
     "created_title": "Producto Creado",
-    "updated_title": "Producto Actualizado",
     "created_description": "El producto \"{name}\" ha sido creado con éxito.",
+    "adding": "Creando producto...",
+    "add": "Crear",
+    "cancel": "Cancelar",
+    "validation": {
+      "name_min": "El nombre debe tener al menos 3 caracteres",
+      "description_min": "La descripción debe tener al menos 10 caracteres",
+      "category_required": "Por favor seleccione una categoría",
+      "price_min": "El precio debe ser al menos 0",
+      "stock_min": "El stock debe ser al menos 0"
+    },
+    "error": {
+      "load_categories": "Error al cargar categorías",
+      "image_too_large": "El archivo de imagen es demasiado grande (máx 5MB)",
+      "image_upload": "Error al subir imagen"
+    }
+  },
+  "EditProductDialog": {
+    "edit_product": "Editar Producto",
+    "edit_form_description": "Formulario para editar un producto existente",
+    "name": "Nombre del Producto",
+    "description": "Descripción",
+    "category": "Categoría",
+    "price": "Precio",
+    "stock": "Stock",
+    "image": "Imagen del Producto",
+    "categories_label": "Categorías",
+    "placeholder": {
+      "name": "Ingresa el nombre del producto",
+      "description": "Ingresa la descripción del producto",
+      "category": "Selecciona la categoría",
+      "price": "0.00",
+      "stock": "0"
+    },
+    "image_alt": "Imagen del producto",
+    "default_image_alt": "Imagen predeterminada del producto",
+    "uploading_image": "Subiendo imagen...",
+    "preview": "Vista previa de imagen",
+    "choose_file": "Elegir Archivo",
+    "updated_title": "Producto Actualizado",
     "updated_description": "El producto \"{name}\" ha sido actualizado con éxito.",
     "editing": "Guardando cambios...",
-    "adding": "Creando producto...",
     "edit": "Guardar Cambios",
-    "add": "Crear",
     "cancel": "Cancelar",
     "validation": {
       "name_min": "El nombre debe tener al menos 3 caracteres",
@@ -433,7 +475,6 @@
   },
   "ProductPage": {
     "back_to_store": "Volver a la Tienda",
-    "product_not_found": "Producto no encontrado",
     "base": {
       "label": "Seleccionar Base",
       "brandy": "Base de Brandy (Tradicional)",
@@ -446,6 +487,10 @@
       "name": "{name} ({base})",
       "description": "Base: {base}, {description}"
     }
+  },
+  "ProductNotFound": {
+    "product_not_found": "Producto no encontrado",
+    "back_to_store": "Volver a la Tienda"
   },
   "FlowerEssencesPage": {
     "title": "Entendiendo las Esencias Florales",
@@ -648,11 +693,9 @@
     "updated_at": "Actualizado en",
     "actions": "Acciones"
   },
-  "UserDialog": {
+  "CreateUserDialog": {
     "add_user": "Agregar Usuario",
-    "edit_user": "Editar Usuario",
     "form_description": "Formulario para agregar un nuevo usuario",
-    "edit_form_description": "Formulario para editar un usuario existente",
     "name": "Nombre del Usuario",
     "email": "Correo",
     "password": "Contraseña",
@@ -664,13 +707,38 @@
       "role": "Selecciona el rol"
     },
     "created_title": "Usuario Creado",
-    "updated_title": "Usuario Actualizado",
     "created_description": "El usuario \"{name}\" ha sido creado con éxito.",
+    "adding": "Creando usuario...",
+    "add": "Crear",
+    "cancel": "Cancelar",
+    "roles": {
+      "admin": "Administrador",
+      "user": "Usuario"
+    },
+    "validation": {
+      "name_min": "El nombre debe tener al menos 1 carácter",
+      "email_invalid": "Por favor, introduce una dirección de correo electrónico válida",
+      "password_min": "La contraseña debe tener al menos 6 caracteres",
+      "role_invalid": "Por favor, selecciona un rol válido"
+    }
+  },
+  "EditUserDialog": {
+    "edit_user": "Editar Usuario",
+    "edit_form_description": "Formulario para editar un usuario existente",
+    "name": "Nombre del Usuario",
+    "email": "Correo",
+    "password": "Contraseña",
+    "role": "Rol",
+    "placeholder": {
+      "name": "Ingresa el nombre del usuario",
+      "email": "Ingresa el correo electrónico del usuario",
+      "password": "Ingresa la contraseña",
+      "role": "Selecciona el rol"
+    },
+    "updated_title": "Usuario Actualizado",
     "updated_description": "El usuario \"{name}\" ha sido actualizado con éxito.",
     "editing": "Guardando cambios...",
-    "adding": "Creando usuario...",
     "edit": "Guardar Cambios",
-    "add": "Crear",
     "cancel": "Cancelar",
     "roles": {
       "admin": "Administrador",

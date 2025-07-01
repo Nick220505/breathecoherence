@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
 export function ProductNotFound() {
-  const t = useTranslations('ProductPage');
+  const t = useTranslations('ProductNotFound');
 
   return (
     <div className="container mx-auto px-4 py-8">

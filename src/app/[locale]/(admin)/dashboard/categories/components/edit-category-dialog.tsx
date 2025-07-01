@@ -47,7 +47,7 @@ export function EditCategoryDialog({
   open,
   onOpenChange,
 }: Readonly<EditCategoryDialogProps>) {
-  const t = useTranslations('CategoryDialog');
+  const t = useTranslations('EditCategoryDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(updateCategory, {

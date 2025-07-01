@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-export default function ErrorPage({
+export default function DashboardError({
   error,
   reset,
 }: Readonly<{

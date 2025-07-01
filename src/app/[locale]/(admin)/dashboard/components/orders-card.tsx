@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { getOrderCount } from '@/features/order/actions';
 
 export async function OrdersCard() {
-  const t = await getTranslations('dashboard');
+  const t = await getTranslations('OrdersCard');
   const [orderCount, orderCountErr] = await getOrderCount();
 
   if (orderCountErr) {

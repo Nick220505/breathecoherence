@@ -56,7 +56,7 @@ interface CreateUserDialogProps {
 export function CreateUserDialog({
   children,
 }: Readonly<CreateUserDialogProps>) {
-  const t = useTranslations('UserDialog');
+  const t = useTranslations('CreateUserDialog');
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(createUser, {
