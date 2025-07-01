@@ -10,15 +10,9 @@ import ReactMarkdown from 'react-markdown';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import type { Message } from '@/features/chat/types';
 import type { PartialProductWithCategory } from '@/features/product/types';
 import { Link } from '@/i18n/routing';
-
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-  id: string;
-  products?: PartialProductWithCategory[];
-}
 
 const chatBotVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8, y: 20 },

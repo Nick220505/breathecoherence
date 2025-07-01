@@ -109,7 +109,7 @@ export function CartButton() {
                           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
                             <Image
                               src={
-                                item.imageUrl ??
+                                item.imageBase64 ??
                                 (item.category.name === 'Sacred Geometry'
                                   ? `/products/sacred-geometry.svg#${item.id}`
                                   : '/products/flower-essence.svg')
@@ -120,7 +120,7 @@ export function CartButton() {
                               className="object-cover transition-transform duration-300 hover:scale-110"
                               unoptimized={
                                 item.category.name === 'Sacred Geometry' ||
-                                !item.imageUrl
+                                !item.imageBase64
                               }
                             />
                           </div>

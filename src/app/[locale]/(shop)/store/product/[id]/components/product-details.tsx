@@ -65,10 +65,9 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
             base: selectedBase,
             description: product.description,
           }),
-          category: { name: product.category.name },
         });
       } else {
-        addToCart({ ...product, category: { name: product.category.name } });
+        addToCart(product);
       }
     } finally {
       setIsAdding(false);

@@ -59,10 +59,19 @@ export function CustomBlendForm({
           base: selectedBase,
           essences: selectedEssencesList.join(', '),
         }),
-        category: { name: 'Flower Essence' },
+        categoryId: 'custom-blend-category',
+        category: {
+          id: 'custom-blend-category',
+          name: 'Flower Essence',
+          description: null,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
         price: 19.99,
         stock: 999,
-        imageUrl: '/images/custom-blend.jpg',
+        imageBase64: '/images/custom-blend.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
     } finally {
       setIsAdding(false);

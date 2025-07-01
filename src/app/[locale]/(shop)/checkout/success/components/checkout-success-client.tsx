@@ -10,15 +10,9 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import type { OrderDetails } from '@/features/order/types';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
-
-interface OrderDetails {
-  orderId: string;
-  status: string;
-  amount: number;
-  paymentIntentId: string;
-}
 
 export default function CheckoutSuccessClient({
   locale,

@@ -273,7 +273,7 @@ export default function CheckoutPage() {
                         sizes="64px"
                         alt={item.name}
                         src={
-                          item.imageUrl ??
+                          item.imageBase64 ??
                           (item.category.name === 'Sacred Geometry'
                             ? `/products/sacred-geometry.svg#${item.id}`
                             : '/products/flower-essence.svg')

@@ -2,30 +2,14 @@
 
 import { createContext, useContext, useState } from 'react';
 
-export interface Category {
-  name: string;
-}
-
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: Category;
-  stock: number;
-  imageUrl?: string | null;
-}
-
-export interface CartItem extends Product {
-  quantity: number;
-}
+import type { CartItem, ProductWithCategory } from '@/features/product/types';
 
 interface CartContextType {
   cart: CartItem[];
   total: string;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
-  addToCart: (product: Product) => void;
+  addToCart: (product: ProductWithCategory) => void;
   removeFromCart: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
   getTotalPrice: () => number;
@@ -42,7 +26,7 @@ export function CartProvider({
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: ProductWithCategory) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {

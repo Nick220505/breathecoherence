@@ -70,3 +70,10 @@ export interface OrderConfirmationEmailData {
   total: number;
   shippingAddress?: ShippingAddress;
 }
+
+export interface OrderDetails {
+  orderId: string;
+  status: string;
+  amount: number;
+  paymentIntentId: string;
+}
