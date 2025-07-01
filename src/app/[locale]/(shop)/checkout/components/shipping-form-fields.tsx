@@ -23,16 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-
-interface CheckoutFormData {
-  name: string;
-  email: string;
-  address: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  orderNotes?: string;
-}
+import type { CheckoutFormData } from '@/features/order/types';
 
 interface ShippingFormFieldsProps {
   readonly form: UseFormReturn<CheckoutFormData>;

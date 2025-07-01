@@ -31,3 +31,13 @@ export const orderStatusUpdateSchema = z.object({
   id: z.string(),
   status: z.nativeEnum(OrderStatus),
 });
+
+export const checkoutSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  address: z.string().min(5),
+  city: z.string().min(2),
+  state: z.string().min(2),
+  postalCode: z.string().regex(/^\d{5}(-\d{4})?$/),
+  orderNotes: z.string().optional(),
+});

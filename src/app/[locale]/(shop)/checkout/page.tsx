@@ -10,13 +10,15 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
+import { checkoutSchema } from '@/features/order/schemas';
+import type { CheckoutFormData } from '@/features/order/types';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 
@@ -26,20 +28,6 @@ import { StripePaymentForm } from './components/stripe-payment-form';
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
-
-function createCheckoutSchema(t: (key: string) => string) {
-  return z.object({
-    name: z.string().min(2, t('nameMin')),
-    email: z.string().email(t('emailInvalid')),
-    address: z.string().min(5, t('addressMin')),
-    city: z.string().min(2, t('cityMin')),
-    state: z.string().min(2, t('stateMin')),
-    postalCode: z.string().regex(/^\d{5}(-\d{4})?$/, t('zipInvalid')),
-    orderNotes: z.string().optional(),
-  });
-}
-
-type CheckoutFormData = z.infer<ReturnType<typeof createCheckoutSchema>>;
 
 function PayPalPaymentButton({
   finalTotal,
@@ -122,10 +110,39 @@ export default function CheckoutPage() {
   const { total, cart: cartItems = [] } = cart;
   const [paymentMethod, setPaymentMethod] = useState('card');
   const schemaT = useTranslations('CheckoutSchema');
-  const checkoutSchema = createCheckoutSchema(schemaT);
 
   const form = useForm<CheckoutFormData>({
-    resolver: zodResolver(checkoutSchema),
+    resolver: zodResolver(checkoutSchema, {
+      path: [],
+      async: false,
+      errorMap(issue, ctx) {
+        const path = issue.path.join('.');
+
+        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
+          return { message: schemaT('nameMin') };
+        }
+        if (path === 'email' && issue.code === ZodIssueCode.invalid_string) {
+          return { message: schemaT('emailInvalid') };
+        }
+        if (path === 'address' && issue.code === ZodIssueCode.too_small) {
+          return { message: schemaT('addressMin') };
+        }
+        if (path === 'city' && issue.code === ZodIssueCode.too_small) {
+          return { message: schemaT('cityMin') };
+        }
+        if (path === 'state' && issue.code === ZodIssueCode.too_small) {
+          return { message: schemaT('stateMin') };
+        }
+        if (
+          path === 'postalCode' &&
+          issue.code === ZodIssueCode.invalid_string
+        ) {
+          return { message: schemaT('zipInvalid') };
+        }
+
+        return { message: ctx.defaultError };
+      },
+    }),
     mode: 'onChange',
     defaultValues: {
       name: '',
