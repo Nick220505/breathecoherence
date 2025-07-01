@@ -52,7 +52,7 @@ export default function OrderDetailClient({
   locale: string;
   initialOrder?: Order | null;
 }>) {
-  const t = useTranslations('OrderDetail');
+  const t = useTranslations('OrderDetailClient');
   const router = useRouter();
   const [order, setOrder] = useState<Order | null>(initialOrder ?? null);
   const [loading, setLoading] = useState(!initialOrder);

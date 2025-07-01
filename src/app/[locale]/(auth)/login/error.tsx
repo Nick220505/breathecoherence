@@ -15,7 +15,7 @@ export default function LoginError({
   error: Error & { digest?: string };
   reset: () => void;
 }>) {
-  const t = useTranslations('LoginPage');
+  const t = useTranslations('LoginError');
 
   return (
     <div className="from-background via-background/80 to-background flex min-h-screen items-center justify-center bg-linear-to-b px-4">

@@ -711,12 +711,7 @@
     "updated_title": "Estado del Pedido Actualizado",
     "updated_description": "El estado del pedido #{id} ha sido actualizado con éxito."
   },
-  "OrdersPage": {
-    "title": "Gestión de Pedidos",
-    "error": {
-      "loadOrders": "Error al cargar pedidos"
-    }
-  },
+
   "OrdersLoading": {
     "title": "Gestión de Pedidos",
     "id": "ID",
@@ -731,6 +726,9 @@
     "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
     "retry": "Intentar de Nuevo"
   },
+  "AdminDashboardLink": {
+    "dashboard": "Panel de Control"
+  },
   "AdminNav": {
     "dashboard": "Panel de Control",
     "products": "Productos",
@@ -738,6 +736,39 @@
     "orders": "Pedidos",
     "users": "Usuarios",
     "panel": "Panel de Administrador"
+  },
+  "CartButton": {
+    "title": "Tu Carrito",
+    "description": "Revisa los productos en tu carrito",
+    "empty": "Tu carrito está vacío",
+    "browse": "Explorar Productos",
+    "total": "Total",
+    "checkout": "Pagar"
+  },
+  "CheckoutSuccessClient": {
+    "title": "¡Pago Completado!",
+    "subtitle": "Gracias por tu compra. Tu pedido ha sido procesado con éxito.",
+    "back_to_store": "Volver a la Tienda",
+    "order_details": "Detalles del Pedido",
+    "order_id": "ID del Pedido",
+    "confirmation_sent": "Se ha enviado una confirmación a tu correo electrónico.",
+    "no_order_details": "No se encontraron detalles del pedido.",
+    "view_order": "Ver Pedido",
+    "view_all_orders": "Ver Todos los Pedidos",
+    "continue_shopping": "Continuar Comprando",
+    "loading_details": "Cargando detalles del pedido...",
+    "error_fetching_order": "Error al obtener los detalles del pedido",
+    "try_view_orders": "Intenta ver tus pedidos en la sección de tu cuenta.",
+    "total_amount": "Monto Total",
+    "status": "Estado",
+    "succeeded": "Exitoso",
+    "date": "Fecha",
+    "total": "Total",
+    "payment_method": "Método de Pago",
+    "card": "Tarjeta",
+    "shipping_info": "Información de Envío",
+    "email": "Correo Electrónico",
+    "error_title": "Error de Pedido"
   },
   "CheckoutSuccess": {
     "title": "¡Pago Completado!",
@@ -763,6 +794,93 @@
     "shipping_info": "Información de Envío",
     "email": "Correo Electrónico",
     "error_title": "Error de Pedido"
+  },
+  "CTASection": {
+    "title": "¿Listo para Comenzar tu Viaje?",
+    "description": "Únete a nosotros en la exploración de la intersección entre la geometría sagrada y la sanación natural.",
+    "shop": "Comprar Ahora",
+    "signin": "Iniciar Sesión"
+  },
+  "CustomBlendForm": {
+    "title": "Crea Tu Mezcla Personalizada",
+    "subtitle": "Esencia Floral Personalizada",
+    "description": "Diseña tu propia mezcla única de hasta 7 esencias florales. Elige al menos 2 esencias para comenzar.",
+    "price": "$19.99",
+    "whatsapp_help": "¿Necesitas ayuda para elegir tus esencias? Contáctanos por WhatsApp para una consulta personalizada.",
+    "learn_more": "Aprende Más Sobre las Esencias Florales",
+    "base": {
+      "label": "Elige Tu Base",
+      "brandy": "Brandy",
+      "water": "Agua"
+    },
+    "essence": {
+      "label": "Esencia {number}"
+    },
+    "add_to_cart": "Agregar Mezcla Personalizada al Carrito",
+    "adding_to_cart": "Agregando al carrito...",
+    "select_option": "Selecciona una esencia",
+    "skip_option": "Ninguna (opcional)",
+    "back_to_store": "Volver a la Tienda",
+    "image_alt": "Botella de mezcla personalizada con flores",
+    "cart": {
+      "name": "Mezcla Personalizada ({essences})",
+      "description": "Base: {base}, Esencias: {essences}"
+    }
+  },
+  "FeaturesSection": {
+    "title": "Por Qué Elegirnos",
+    "geometry": {
+      "title": "Geometría Sagrada",
+      "description": "Formas geométricas artesanales que encarnan patrones universales de la creación."
+    },
+    "essences": {
+      "title": "Esencias Florales",
+      "description": "Esencias naturales puras que promueven el bienestar emocional y espiritual."
+    },
+    "harmony": {
+      "title": "Armonía Holística",
+      "description": "La mezcla perfecta de forma y esencia para un alineamiento espiritual completo."
+    }
+  },
+  "HeroSection": {
+    "title": "Geometría Sagrada & Esencias Sanadoras",
+    "subtitle": "Descubre la perfecta armonía entre las formas geométricas sagradas y el poder sanador de las esencias florales.",
+    "cta": "Explora Nuestra Colección",
+    "flower_essence": "Esencia Floral",
+    "sacred_geometry": "Geometría Sagrada"
+  },
+  "LoginError": {
+    "signInError": "Error de Inicio de Sesión",
+    "tryAgainLater": "Por favor intenta más tarde",
+    "tryAgain": "Intentar de nuevo"
+  },
+  "LoginLoading": {
+    "loading": "Cargando"
+  },
+  "NavigationItems": {
+    "error": {
+      "loadCategories": "Categorías no disponibles"
+    }
+  },
+  "OrderDetailClient": {
+    "loading": "Cargando detalles del pedido...",
+    "error_title": "Error de Pedido",
+    "back_to_orders": "Volver a los Pedidos",
+    "not_found_title": "Pedido No Encontrado",
+    "not_found_message": "No se pudo encontrar el pedido que buscas.",
+    "title": "Detalles del Pedido",
+    "order_details": "Detalles del Pedido",
+    "product_category": "Categoría de Producto",
+    "quantity": "Cantidad",
+    "total": "Total",
+    "error": {
+      "loadOrder": "Error al cargar detalles del pedido"
+    }
+  },
+  "OrderDetailPage": {
+    "error": {
+      "loadOrder": "Error al cargar detalles del pedido"
+    }
   },
   "OrderHistoryPage": {
     "title": "Historial de Pedidos",
@@ -799,6 +917,58 @@
     "status": "Estado",
     "total": "Total",
     "actions": "Acciones"
+  },
+
+  "ProductDetails": {
+    "back_to_store": "Volver a la Tienda",
+    "base": {
+      "label": "Base",
+      "brandy": "Brandy",
+      "water": "Agua"
+    },
+    "add_to_cart": "Agregar al Carrito",
+    "adding_to_cart": "Agregando al carrito...",
+    "select_option": "Selecciona una opción",
+    "cart": {
+      "name": "{name} (Base: {base})",
+      "description": "Base: {base}, Descripción: {description}"
+    }
+  },
+  "ShippingFormFields": {
+    "shipping_info": "Información de Envío",
+    "order_notes": "Notas del Pedido",
+    "name": "Nombre Completo *",
+    "email": "Correo Electrónico *",
+    "address": "Dirección *",
+    "state": "Estado *",
+    "city": "Ciudad *",
+    "zip_code": "Código ZIP *",
+    "placeholder": {
+      "name": "Ingresa tu nombre completo",
+      "email": "Ingresa tu correo electrónico",
+      "address": "Ingresa tu dirección de envío",
+      "state": "Selecciona un Estado",
+      "city": "Ingresa tu ciudad",
+      "zip_code": "Ingresa el código ZIP",
+      "order_notes": "Notas sobre tu pedido, ej. notas especiales para la entrega"
+    }
+  },
+  "SidebarNav": {
+    "dashboard": "Panel de Control",
+    "products": "Productos",
+    "categories": "Categorías",
+    "orders": "Pedidos",
+    "users": "Usuarios"
+  },
+  "SidebarHeader": {
+    "panel": "Panel de Administrador"
+  },
+  "UserMenu": {
+    "dashboard": "Panel de Control",
+    "signout": "Cerrar Sesión",
+    "orders": "Pedidos",
+    "login": "Iniciar Sesión",
+    "register": "Crear Cuenta"
   },
   "CheckoutSchema": {
     "nameMin": "El nombre debe tener al menos 2 caracteres",

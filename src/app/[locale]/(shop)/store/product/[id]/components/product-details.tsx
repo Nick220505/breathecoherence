@@ -38,7 +38,7 @@ interface ProductDetailsProps {
 }
 
 export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
-  const t = useTranslations('ProductPage');
+  const t = useTranslations('ProductDetails');
   const storeHeaderCategoryT = useTranslations('StoreHeader.category');
   const { addToCart } = useCart();
   const [selectedBase, setSelectedBase] = useState<string>('');

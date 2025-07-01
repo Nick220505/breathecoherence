@@ -25,7 +25,7 @@ interface CustomBlendFormProps {
 export function CustomBlendForm({
   flowerEssences,
 }: Readonly<CustomBlendFormProps>) {
-  const t = useTranslations('CustomBlendPage');
+  const t = useTranslations('CustomBlendForm');
   const { addToCart } = useCart();
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [selectedEssences, setSelectedEssences] = useState<string[]>(

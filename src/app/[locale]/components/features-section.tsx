@@ -20,23 +20,23 @@ const staggerContainer = {
 };
 
 export function FeaturesSection() {
-  const t = useTranslations('HomePage');
+  const t = useTranslations('FeaturesSection');
 
   const features = [
     {
       icon: '🔮',
-      title: t('features.geometry.title'),
-      description: t('features.geometry.description'),
+      title: t('geometry.title'),
+      description: t('geometry.description'),
     },
     {
       icon: '🌸',
-      title: t('features.essences.title'),
-      description: t('features.essences.description'),
+      title: t('essences.title'),
+      description: t('essences.description'),
     },
     {
       icon: '✨',
-      title: t('features.harmony.title'),
-      description: t('features.harmony.description'),
+      title: t('harmony.title'),
+      description: t('harmony.description'),
     },
   ];
 
@@ -51,7 +51,7 @@ export function FeaturesSection() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl font-bold md:text-4xl dark:text-white">
-            {t('features.title')}
+            {t('title')}
           </h2>
           <div className="mx-auto h-1 w-24 rounded-full bg-linear-to-r from-purple-600 to-blue-600" />
         </motion.div>

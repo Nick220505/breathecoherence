@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
 export default function LoginLoading() {
-  const t = useTranslations('LoginPage');
+  const t = useTranslations('LoginLoading');
 
   return (
     <div className="from-background via-background/80 to-background flex min-h-screen items-center justify-center bg-linear-to-b px-4">

@@ -16,7 +16,7 @@ export default async function OrderDetailPage({
   const [order, orderErr] = await getOrderDetail({ id });
 
   if (orderErr) {
-    const t = await getTranslations('OrderDetail');
+    const t = await getTranslations('OrderDetailPage');
     throw new Error(t('error.loadOrder'));
   }
 

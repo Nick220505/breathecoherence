@@ -22,7 +22,7 @@ const staggerContainer = {
 };
 
 export function HeroSection() {
-  const t = useTranslations('HomePage');
+  const t = useTranslations('HeroSection');
 
   return (
     <section className="from-background via-background/80 to-background relative overflow-hidden bg-linear-to-b py-24">
@@ -52,7 +52,7 @@ export function HeroSection() {
             className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text px-4 text-4xl leading-normal font-bold text-transparent md:text-5xl lg:text-6xl dark:from-purple-400 dark:to-blue-400"
             variants={fadeInUp}
           >
-            {t('hero.title')}
+            {t('title')}
           </motion.h1>
           <motion.div
             className="mx-auto h-1 w-24 rounded-full bg-linear-to-r from-purple-600 to-blue-600"
@@ -62,7 +62,7 @@ export function HeroSection() {
             className="mx-auto max-w-2xl px-4 text-xl leading-relaxed text-gray-600 dark:text-gray-300"
             variants={fadeInUp}
           >
-            {t('hero.subtitle')}
+            {t('subtitle')}
           </motion.p>
           <motion.div className="pt-8" variants={fadeInUp}>
             <Link href="/store">
@@ -70,7 +70,7 @@ export function HeroSection() {
                 size="lg"
                 className="h-auto transform bg-linear-to-r from-purple-600 to-blue-600 px-8 py-6 text-lg text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600"
               >
-                {t('hero.cta')}
+                {t('cta')}
               </Button>
             </Link>
           </motion.div>

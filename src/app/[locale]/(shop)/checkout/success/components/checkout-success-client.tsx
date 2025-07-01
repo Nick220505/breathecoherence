@@ -25,7 +25,7 @@ export default function CheckoutSuccessClient({
 }: Readonly<{
   locale: string;
 }>) {
-  const t = useTranslations('CheckoutSuccess');
+  const t = useTranslations('CheckoutSuccessClient');
   const searchParams = useSearchParams();
   const paymentIntentId = searchParams.get('payment_intent');
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);

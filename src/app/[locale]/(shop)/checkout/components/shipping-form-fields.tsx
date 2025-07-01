@@ -39,7 +39,7 @@ interface ShippingFormFieldsProps {
 }
 
 export function ShippingFormFields({ form }: ShippingFormFieldsProps) {
-  const t = useTranslations('CheckoutPage');
+  const t = useTranslations('ShippingFormFields');
   const {
     register,
     formState: { errors },

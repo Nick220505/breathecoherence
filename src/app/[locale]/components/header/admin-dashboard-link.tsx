@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 
 export function AdminDashboardLink() {
-  const t = useTranslations('Navigation');
+  const t = useTranslations('AdminDashboardLink');
   const { data: session } = useSession();
   const isAdmin = session?.user?.role === 'ADMIN';
 
@@ -22,7 +22,7 @@ export function AdminDashboardLink() {
           className="hover:bg-primary/10 flex w-full items-center justify-start gap-2 transition-colors duration-300 md:w-auto"
         >
           <LayoutDashboard className="h-4 w-4" />
-          {t('nav.dashboard')}
+          {t('dashboard')}
         </Button>
       </Link>
     </div>

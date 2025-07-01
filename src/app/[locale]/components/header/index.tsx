@@ -1,4 +1,4 @@
-import { CartButton } from './cart';
+import { CartButton } from './cart-button';
 import { LanguageToggle } from './language-toggle';
 import { Logo } from './logo';
 import { MobileMenu } from './mobile-menu';

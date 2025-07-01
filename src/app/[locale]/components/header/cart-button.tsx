@@ -20,7 +20,7 @@ import { useCart } from '@/providers/cart-provider';
 
 export function CartButton() {
   const router = useRouter();
-  const t = useTranslations('Navigation');
+  const t = useTranslations('CartButton');
   const {
     cart,
     isCartOpen,
@@ -60,10 +60,10 @@ export function CartButton() {
       <SheetContent className="bg-background/95 fixed top-0 right-0 flex h-full w-full flex-col border-l backdrop-blur-lg sm:max-w-md">
         <SheetHeader>
           <SheetTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">
-            {t('store.cart.title')}
+            {t('title')}
           </SheetTitle>
           <SheetDescription className="text-muted-foreground">
-            {t('store.cart.description')}
+            {t('description')}
           </SheetDescription>
         </SheetHeader>
         <div className="flex flex-1 flex-col px-4 pb-4">
@@ -82,9 +82,7 @@ export function CartButton() {
                   >
                     <ShoppingCart className="text-muted-foreground/50 h-12 w-12" />
                   </motion.div>
-                  <p className="text-muted-foreground text-lg">
-                    {t('store.cart.empty')}
-                  </p>
+                  <p className="text-muted-foreground text-lg">{t('empty')}</p>
                   <Button
                     variant="outline"
                     onClick={() => {
@@ -93,7 +91,7 @@ export function CartButton() {
                     }}
                     className="mt-4"
                   >
-                    {t('store.cart.browse')}
+                    {t('browse')}
                   </Button>
                 </motion.div>
               ) : (
@@ -189,7 +187,7 @@ export function CartButton() {
               className="mt-4 space-y-4 border-t pt-4"
             >
               <div className="flex items-center justify-between">
-                <span className="font-medium">{t('store.cart.total')}</span>
+                <span className="font-medium">{t('total')}</span>
                 <span className="text-lg font-bold">
                   ${getTotalPrice().toFixed(2)}
                 </span>
@@ -198,7 +196,7 @@ export function CartButton() {
                 onClick={handleCheckout}
                 className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
               >
-                {t('store.cart.checkout')}
+                {t('checkout')}
               </Button>
             </motion.div>
           )}

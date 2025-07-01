@@ -16,7 +16,7 @@ interface NavItem {
 
 function SidebarNav() {
   const pathname = usePathname();
-  const t = useTranslations('AdminNav');
+  const t = useTranslations('SidebarNav');
 
   const navItems: NavItem[] = [
     { href: '/dashboard', label: t('dashboard'), icon: Home, exact: true },
@@ -51,7 +51,7 @@ function SidebarNav() {
 }
 
 function SidebarHeader() {
-  const t = useTranslations('AdminNav');
+  const t = useTranslations('SidebarHeader');
   return (
     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
       <Link href="/dashboard" className="flex items-center gap-2 font-semibold">

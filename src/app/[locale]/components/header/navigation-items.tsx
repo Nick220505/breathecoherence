@@ -9,7 +9,7 @@ import { NavigationCategoryButton } from './navigation-category-button';
 
 export async function NavigationItems() {
   const locale = (await getLocale()) ?? 'en';
-  const t = await getTranslations('Navigation');
+  const t = await getTranslations('NavigationItems');
 
   const [categories, err] = await getAllCategories();
 

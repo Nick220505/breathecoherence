@@ -711,12 +711,7 @@
     "updated_title": "Order Status Updated",
     "updated_description": "Order #{id} status has been updated successfully."
   },
-  "OrdersPage": {
-    "title": "Order Management",
-    "error": {
-      "loadOrders": "Failed to load orders"
-    }
-  },
+
   "OrdersLoading": {
     "title": "Order Management",
     "id": "ID",
@@ -731,6 +726,9 @@
     "message": "An unexpected error occurred. Please try again.",
     "retry": "Try Again"
   },
+  "AdminDashboardLink": {
+    "dashboard": "Dashboard"
+  },
   "AdminNav": {
     "dashboard": "Dashboard",
     "products": "Products",
@@ -738,6 +736,39 @@
     "orders": "Orders",
     "users": "Users",
     "panel": "Admin Panel"
+  },
+  "CartButton": {
+    "title": "Your Cart",
+    "description": "Review the items in your cart",
+    "empty": "Your cart is empty",
+    "browse": "Browse Products",
+    "total": "Total",
+    "checkout": "Checkout"
+  },
+  "CheckoutSuccessClient": {
+    "title": "Payment Completed!",
+    "subtitle": "Thank you for your purchase. Your order has been processed successfully.",
+    "back_to_store": "Back to Store",
+    "order_details": "Order Details",
+    "order_id": "Order ID",
+    "confirmation_sent": "A confirmation has been sent to your email address.",
+    "no_order_details": "No order details found.",
+    "view_order": "View Order",
+    "view_all_orders": "View All Orders",
+    "continue_shopping": "Continue Shopping",
+    "loading_details": "Loading order details...",
+    "error_fetching_order": "Error fetching order details",
+    "try_view_orders": "Try viewing your orders in the account section.",
+    "total_amount": "Total Amount",
+    "status": "Status",
+    "succeeded": "Succeeded",
+    "date": "Date",
+    "total": "Total",
+    "payment_method": "Payment Method",
+    "card": "Card",
+    "shipping_info": "Shipping Information",
+    "email": "Email",
+    "error_title": "Order Error"
   },
   "CheckoutSuccess": {
     "title": "Payment Completed!",
@@ -763,6 +794,93 @@
     "shipping_info": "Shipping Information",
     "email": "Email",
     "error_title": "Order Error"
+  },
+  "CTASection": {
+    "title": "Ready to Begin Your Journey?",
+    "description": "Join us in exploring the intersection of sacred geometry and natural healing.",
+    "shop": "Shop Now",
+    "signin": "Sign In"
+  },
+  "CustomBlendForm": {
+    "title": "Create Your Custom Blend",
+    "subtitle": "Custom Flower Essence",
+    "description": "Design your own unique blend of up to 7 flower essences. Choose at least 2 essences to get started.",
+    "price": "$19.99",
+    "whatsapp_help": "Need help choosing your essences? Contact us on WhatsApp for a personalized consultation.",
+    "learn_more": "Learn More About Flower Essences",
+    "base": {
+      "label": "Choose Your Base",
+      "brandy": "Brandy",
+      "water": "Water"
+    },
+    "essence": {
+      "label": "Essence {number}"
+    },
+    "add_to_cart": "Add Custom Blend to Cart",
+    "adding_to_cart": "Adding to cart...",
+    "select_option": "Select an essence",
+    "skip_option": "None (optional)",
+    "back_to_store": "Back to Store",
+    "image_alt": "Custom blend bottle with flowers",
+    "cart": {
+      "name": "Custom Blend ({essences})",
+      "description": "Base: {base}, Essences: {essences}"
+    }
+  },
+  "FeaturesSection": {
+    "title": "Why Choose Us",
+    "geometry": {
+      "title": "Sacred Geometry",
+      "description": "Handcrafted geometric forms that embody universal patterns of creation."
+    },
+    "essences": {
+      "title": "Flower Essences",
+      "description": "Pure natural essences that promote emotional and spiritual well-being."
+    },
+    "harmony": {
+      "title": "Holistic Harmony",
+      "description": "The perfect blend of form and essence for complete spiritual alignment."
+    }
+  },
+  "HeroSection": {
+    "title": "Sacred Geometry & Healing Essences",
+    "subtitle": "Discover the perfect harmony between sacred geometric forms and the healing power of flower essences.",
+    "cta": "Explore Our Collection",
+    "flower_essence": "Flower Essence",
+    "sacred_geometry": "Sacred Geometry"
+  },
+  "LoginError": {
+    "signInError": "Sign In Error",
+    "tryAgainLater": "Please try again later",
+    "tryAgain": "Try Again"
+  },
+  "LoginLoading": {
+    "loading": "Loading"
+  },
+  "NavigationItems": {
+    "error": {
+      "loadCategories": "Categories unavailable"
+    }
+  },
+  "OrderDetailClient": {
+    "loading": "Loading order details...",
+    "error_title": "Order Error",
+    "back_to_orders": "Back to Orders",
+    "not_found_title": "Order Not Found",
+    "not_found_message": "The order you are looking for could not be found.",
+    "title": "Order Details",
+    "order_details": "Order Details",
+    "product_category": "Product Category",
+    "quantity": "Quantity",
+    "total": "Total",
+    "error": {
+      "loadOrder": "Failed to load order details"
+    }
+  },
+  "OrderDetailPage": {
+    "error": {
+      "loadOrder": "Failed to load order details"
+    }
   },
   "OrderHistoryPage": {
     "title": "Order History",
@@ -799,6 +917,58 @@
     "status": "Status",
     "total": "Total",
     "actions": "Actions"
+  },
+
+  "ProductDetails": {
+    "back_to_store": "Back to Store",
+    "base": {
+      "label": "Base",
+      "brandy": "Brandy",
+      "water": "Water"
+    },
+    "add_to_cart": "Add to Cart",
+    "adding_to_cart": "Adding to cart...",
+    "select_option": "Select an option",
+    "cart": {
+      "name": "{name} (Base: {base})",
+      "description": "Base: {base}, Description: {description}"
+    }
+  },
+  "ShippingFormFields": {
+    "shipping_info": "Shipping Information",
+    "order_notes": "Order Notes",
+    "name": "Full Name *",
+    "email": "Email *",
+    "address": "Address *",
+    "state": "State *",
+    "city": "City *",
+    "zip_code": "Zip Code *",
+    "placeholder": {
+      "name": "Enter your full name",
+      "email": "Enter your email address",
+      "address": "Enter your shipping address",
+      "state": "Select a State",
+      "city": "Enter your city",
+      "zip_code": "Enter the ZIP code",
+      "order_notes": "Notes about your order, e.g. special notes for delivery"
+    }
+  },
+  "SidebarNav": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "categories": "Categories",
+    "orders": "Orders",
+    "users": "Users"
+  },
+  "SidebarHeader": {
+    "panel": "Admin Panel"
+  },
+  "UserMenu": {
+    "dashboard": "Dashboard",
+    "signout": "Sign Out",
+    "orders": "Orders",
+    "login": "Sign In",
+    "register": "Create Account"
   },
   "CheckoutSchema": {
     "nameMin": "Name must be at least 2 characters",

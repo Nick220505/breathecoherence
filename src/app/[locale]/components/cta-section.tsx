@@ -21,7 +21,7 @@ const staggerContainer = {
 };
 
 export function CTASection() {
-  const t = useTranslations('HomePage');
+  const t = useTranslations('CTASection');
 
   return (
     <section className="from-background/80 to-background bg-linear-to-b py-24">
@@ -34,10 +34,10 @@ export function CTASection() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-3xl font-bold text-transparent md:text-4xl dark:from-purple-400 dark:to-blue-400">
-            {t('cta.title')}
+            {t('title')}
           </h2>
           <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
-            {t('cta.description')}
+            {t('description')}
           </p>
           <div className="mx-auto h-px w-full max-w-xs bg-linear-to-r from-transparent via-purple-500/20 to-transparent" />
           <motion.div
@@ -54,7 +54,7 @@ export function CTASection() {
                   size="lg"
                   className="h-auto transform bg-linear-to-r from-purple-600 to-blue-600 px-8 py-6 text-lg text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600"
                 >
-                  {t('cta.shop')}
+                  {t('shop')}
                 </Button>
               </Link>
             </motion.div>
@@ -65,7 +65,7 @@ export function CTASection() {
                   size="lg"
                   className="h-auto transform border-purple-500/20 px-8 py-6 text-lg transition-transform duration-300 hover:scale-105 hover:bg-purple-500/10"
                 >
-                  {t('cta.signin')}
+                  {t('signin')}
                 </Button>
               </Link>
             </motion.div>

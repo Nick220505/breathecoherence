@@ -16,7 +16,7 @@ import {
 import { Link } from '@/i18n/routing';
 
 export function UserMenu() {
-  const t = useTranslations('Navigation');
+  const t = useTranslations('UserMenu');
   const { data: session } = useSession();
 
   return (
@@ -58,7 +58,7 @@ export function UserMenu() {
                   className="flex w-full items-center gap-2"
                 >
                   <Package className="h-4 w-4" />
-                  {t('nav.orders')}
+                  {t('orders')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem
@@ -66,7 +66,7 @@ export function UserMenu() {
                 className="flex items-center gap-2 text-red-500 hover:text-red-600 focus:text-red-600"
               >
                 <LogOut className="h-4 w-4" />
-                {t('nav.signout')}
+                {t('signout')}
               </DropdownMenuItem>
             </>
           ) : (
@@ -77,7 +77,7 @@ export function UserMenu() {
                   className="flex w-full items-center gap-2"
                 >
                   <User className="h-4 w-4" />
-                  {t('nav.login')}
+                  {t('login')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
@@ -86,7 +86,7 @@ export function UserMenu() {
                   className="flex w-full items-center gap-2"
                 >
                   <User className="h-4 w-4" />
-                  {t('nav.register')}
+                  {t('register')}
                 </Link>
               </DropdownMenuItem>
             </>
