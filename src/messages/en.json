@@ -621,7 +621,7 @@
       "loadCategories": "Categories unavailable"
     }
   },
-  "OrderDetailClient": {
+  "OrderDetailPage": {
     "loading": "Loading order details...",
     "error_title": "Order Error",
     "back_to_orders": "Back to Orders",
@@ -634,13 +634,19 @@
     "total": "Total",
     "status_pending": "Pending",
     "status_paid": "Paid",
-    "status_shipped": "Shipped"
-  },
-  "OrderDetailPage": {
+    "status_shipped": "Shipped",
     "error": {
       "loadOrder": "Failed to load order details"
     }
   },
+  "OrderDetailLoading": {
+    "back_to_orders": "Back to Orders",
+    "title": "Order Details",
+    "product_category": "Product Category",
+    "quantity": "Quantity",
+    "total": "Total"
+  },
+
   "OrdersError": {
     "title": "Something went wrong",
     "message": "An unexpected error occurred. Please try again.",
