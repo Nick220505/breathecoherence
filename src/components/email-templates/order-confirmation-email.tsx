@@ -107,5 +107,3 @@ export function OrderConfirmationEmail({
     </Tailwind>
   );
 }
-
-export default OrderConfirmationEmail;
