@@ -2,7 +2,7 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
+import { type ComponentProps } from 'react';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
 
@@ -20,26 +20,23 @@ import { deleteCategory } from '@/features/category/actions';
 
 import type { Category } from '@prisma/client';
 
-interface DeleteCategoryDialogProps {
+interface DeleteCategoryDialogProps extends ComponentProps<typeof Dialog> {
   category: Category;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export function DeleteCategoryDialog({
   category,
-  open,
   onOpenChange,
+  ...props
 }: Readonly<DeleteCategoryDialogProps>) {
   const t = useTranslations('DeleteCategoryDialog');
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(deleteCategory, {
     onSuccess: ({ data: { name } }) => {
       toast.success(t('deleted_title'), {
         description: t('deleted_description', { name }),
       });
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: ({ err: { message } }) => {
       toast.error(message ?? t('error_delete'));
@@ -47,7 +44,7 @@ export function DeleteCategoryDialog({
   });
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
@@ -57,7 +54,7 @@ export function DeleteCategoryDialog({
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button ref={closeRef} variant="outline" disabled={isPending}>
+            <Button variant="outline" disabled={isPending}>
               {t('cancel')}
             </Button>
           </DialogClose>

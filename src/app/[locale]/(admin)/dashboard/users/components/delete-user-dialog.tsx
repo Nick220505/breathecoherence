@@ -2,7 +2,7 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
+import { type ComponentProps } from 'react';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
 
@@ -20,26 +20,23 @@ import { deleteUser } from '@/features/user/actions';
 
 import type { UserSummary } from '@/features/user/types';
 
-interface DeleteUserDialogProps {
+interface DeleteUserDialogProps extends ComponentProps<typeof Dialog> {
   user: UserSummary;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export function DeleteUserDialog({
   user,
-  open,
   onOpenChange,
+  ...props
 }: Readonly<DeleteUserDialogProps>) {
   const t = useTranslations('DeleteUserDialog');
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(deleteUser, {
     onSuccess: ({ data: { name } }) => {
       toast.success(t('deleted_title'), {
         description: t('deleted_description', { name }),
       });
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: ({ err: { message } }) => {
       toast.error(message ?? t('error_delete'));
@@ -47,7 +44,7 @@ export function DeleteUserDialog({
   });
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
@@ -57,7 +54,7 @@ export function DeleteUserDialog({
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button ref={closeRef} variant="outline" disabled={isPending}>
+            <Button variant="outline" disabled={isPending}>
               {t('cancel')}
             </Button>
           </DialogClose>

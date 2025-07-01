@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
+import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -36,19 +36,16 @@ import { useServerAction } from 'zsa-react';
 import type { UpdateCategoryData } from '@/features/category/types';
 import type { Category } from '@prisma/client';
 
-interface EditCategoryDialogProps {
+interface EditCategoryDialogProps extends ComponentProps<typeof Dialog> {
   category: Category;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export function EditCategoryDialog({
   category,
-  open,
   onOpenChange,
+  ...props
 }: Readonly<EditCategoryDialogProps>) {
   const t = useTranslations('EditCategoryDialog');
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(updateCategory, {
     onSuccess: ({ data: { name } }) => {
@@ -56,7 +53,7 @@ export function EditCategoryDialog({
       toast.success(t('updated_title'), {
         description: t('updated_description', { name }),
       });
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: ({ err: { message } }) => {
       form.setError('root.serverError', {
@@ -90,7 +87,7 @@ export function EditCategoryDialog({
   });
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(execute)}>
@@ -161,7 +158,7 @@ export function EditCategoryDialog({
 
             <DialogFooter>
               <DialogClose asChild>
-                <Button ref={closeRef} variant="outline" type="button">
+                <Button variant="outline" type="button">
                   {t('cancel')}
                 </Button>
               </DialogClose>

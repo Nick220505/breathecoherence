@@ -9,7 +9,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
+import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -47,19 +47,16 @@ import { useServerAction } from 'zsa-react';
 
 import type { UpdateUserData, UserSummary } from '@/features/user/types';
 
-interface EditUserDialogProps {
+interface EditUserDialogProps extends ComponentProps<typeof Dialog> {
   user: UserSummary;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export function EditUserDialog({
   user,
-  open,
   onOpenChange,
+  ...props
 }: Readonly<EditUserDialogProps>) {
   const t = useTranslations('EditUserDialog');
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(updateUser, {
     onSuccess: ({ data: { name } }) => {
@@ -67,7 +64,7 @@ export function EditUserDialog({
       toast.success(t('updated_title'), {
         description: t('updated_description', { name }),
       });
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: ({ err: { message } }) => {
       form.setError('root.serverError', {
@@ -105,7 +102,7 @@ export function EditUserDialog({
   });
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(execute)}>
@@ -208,7 +205,7 @@ export function EditUserDialog({
 
             <DialogFooter>
               <DialogClose asChild>
-                <Button ref={closeRef} variant="outline" type="button">
+                <Button variant="outline" type="button">
                   {t('cancel')}
                 </Button>
               </DialogClose>

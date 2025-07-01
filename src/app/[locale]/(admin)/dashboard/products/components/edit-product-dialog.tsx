@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -59,21 +59,18 @@ import type {
 } from '@/features/product/types';
 import type { Category } from '@prisma/client';
 
-interface EditProductDialogProps {
+interface EditProductDialogProps extends ComponentProps<typeof Dialog> {
   product: ProductWithCategory;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export function EditProductDialog({
   product,
-  open,
   onOpenChange,
+  ...props
 }: Readonly<EditProductDialogProps>) {
   const t = useTranslations('EditProductDialog');
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(updateProduct, {
     onSuccess: ({ data: { name } }) => {
@@ -81,7 +78,7 @@ export function EditProductDialog({
       toast.success(t('updated_title'), {
         description: t('updated_description', { name }),
       });
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: ({ err: { message } }) => {
       form.setError('root.serverError', {
@@ -166,7 +163,7 @@ export function EditProductDialog({
   const imageValue = form.watch('imageBase64');
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent className="sm:max-w-[48rem]">
         <DialogHeader>
           <DialogTitle>{t('edit_product')}</DialogTitle>
@@ -398,7 +395,7 @@ export function EditProductDialog({
 
             <DialogFooter className="mt-6">
               <DialogClose asChild>
-                <Button ref={closeRef} variant="outline" type="button">
+                <Button variant="outline" type="button">
                   {t('cancel')}
                 </Button>
               </DialogClose>

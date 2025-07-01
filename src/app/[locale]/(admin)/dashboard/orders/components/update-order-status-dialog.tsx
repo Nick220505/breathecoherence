@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Loader2, Package } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
@@ -11,6 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -40,16 +42,14 @@ import type {
   OrderStatusUpdateData,
 } from '@/features/order/types';
 
-interface UpdateOrderStatusDialogProps {
+interface UpdateOrderStatusDialogProps extends ComponentProps<typeof Dialog> {
   order: OrderSummary;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export function UpdateOrderStatusDialog({
   order,
-  open,
   onOpenChange,
+  ...props
 }: Readonly<UpdateOrderStatusDialogProps>) {
   const t = useTranslations('UpdateOrderStatusDialog');
 
@@ -66,7 +66,7 @@ export function UpdateOrderStatusDialog({
       toast.success(t('updated_title'), {
         description: t('updated_description', { id }),
       });
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: ({ err: { message } }) => {
       form.setError('root.serverError', {
@@ -82,7 +82,7 @@ export function UpdateOrderStatusDialog({
   ] as const;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
@@ -134,13 +134,11 @@ export function UpdateOrderStatusDialog({
               )}
 
               <DialogFooter>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => onOpenChange(false)}
-                >
-                  {t('cancel')}
-                </Button>
+                <DialogClose asChild>
+                  <Button variant="outline" type="button">
+                    {t('cancel')}
+                  </Button>
+                </DialogClose>
                 <Button type="submit" disabled={isPending}>
                   {isPending ? (
                     <>

@@ -2,7 +2,7 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
+import { type ComponentProps } from 'react';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
 
@@ -20,26 +20,23 @@ import { deleteProduct } from '@/features/product/actions';
 
 import type { ProductWithCategory } from '@/features/product/types';
 
-interface DeleteProductDialogProps {
+interface DeleteProductDialogProps extends ComponentProps<typeof Dialog> {
   product: ProductWithCategory;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
 export function DeleteProductDialog({
   product,
-  open,
   onOpenChange,
+  ...props
 }: Readonly<DeleteProductDialogProps>) {
   const t = useTranslations('DeleteProductDialog');
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute, isPending } = useServerAction(deleteProduct, {
     onSuccess: ({ data: { name } }) => {
       toast.success(t('deleted_title'), {
         description: t('deleted_description', { name }),
       });
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: ({ err: { message } }) => {
       toast.error(message ?? t('error_delete'));
@@ -47,7 +44,7 @@ export function DeleteProductDialog({
   });
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
@@ -57,7 +54,7 @@ export function DeleteProductDialog({
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button ref={closeRef} variant="outline" disabled={isPending}>
+            <Button variant="outline" disabled={isPending}>
               {t('cancel')}
             </Button>
           </DialogClose>
