@@ -241,7 +241,9 @@
     "created_at": "Created At",
     "updated_at": "Updated At",
     "actions": "Actions",
-    "out_of_stock": "Out of stock"
+    "out_of_stock": "Out of stock",
+    "edit_tooltip": "Edit product",
+    "delete_tooltip": "Delete product"
   },
   "ProductNotFound": {
     "product_not_found": "Product not found",
@@ -324,7 +326,9 @@
     "description": "Description",
     "created_at": "Created At",
     "updated_at": "Updated At",
-    "actions": "Actions"
+    "actions": "Actions",
+    "edit_tooltip": "Edit category",
+    "delete_tooltip": "Delete category"
   },
   "CategoriesLoading": {
     "title": "Category Management",
@@ -387,6 +391,8 @@
     "created_at": "Created At",
     "updated_at": "Updated At",
     "actions": "Actions",
+    "edit_tooltip": "Edit user",
+    "delete_tooltip": "Delete user",
     "roles": {
       "user": "User",
       "admin": "Admin"
@@ -474,6 +480,7 @@
     "status_label": "Status",
     "created_at": "Created At",
     "actions": "Actions",
+    "edit_tooltip": "Update order status",
     "status": {
       "pending": "Pending",
       "paid": "Paid",

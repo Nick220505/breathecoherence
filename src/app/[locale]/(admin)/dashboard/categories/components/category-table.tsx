@@ -13,6 +13,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 import { EditCategoryDialog } from './edit-category-dialog';
 import { DeleteCategoryDialog } from './delete-category-dialog';
@@ -62,19 +67,33 @@ export function CategoryTable({ categories }: Readonly<CategoryTableProps>) {
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
-                  <Button
-                    size="icon"
-                    onClick={() => setEditingCategory(category)}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => setDeletingCategory(category)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size="icon"
+                        onClick={() => setEditingCategory(category)}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('edit_tooltip')}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => setDeletingCategory(category)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('delete_tooltip')}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               </TableCell>
             </TableRow>

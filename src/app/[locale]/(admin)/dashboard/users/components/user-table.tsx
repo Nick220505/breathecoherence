@@ -12,6 +12,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 import { DeleteUserDialog } from './delete-user-dialog';
 import { EditUserDialog } from './edit-user-dialog';
@@ -69,16 +74,30 @@ export function UserTable({ users }: Readonly<UserTableProps>) {
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
-                  <Button size="icon" onClick={() => setEditingUser(user)}>
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => setDeletingUser(user)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button size="icon" onClick={() => setEditingUser(user)}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('edit_tooltip')}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => setDeletingUser(user)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('delete_tooltip')}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               </TableCell>
             </TableRow>

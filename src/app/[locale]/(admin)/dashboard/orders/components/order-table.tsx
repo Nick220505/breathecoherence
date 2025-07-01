@@ -14,6 +14,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 import { UpdateOrderStatusDialog } from './update-order-status-dialog';
 
@@ -73,9 +78,19 @@ export function OrderTable({ orders }: Readonly<OrderTableProps>) {
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
-                  <Button size="icon" onClick={() => setUpdatingOrder(order)}>
-                    <Edit className="h-4 w-4" />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size="icon"
+                        onClick={() => setUpdatingOrder(order)}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('edit_tooltip')}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               </TableCell>
             </TableRow>

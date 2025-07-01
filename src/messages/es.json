@@ -241,7 +241,9 @@
     "created_at": "Creado en",
     "updated_at": "Actualizado en",
     "actions": "Acciones",
-    "out_of_stock": "Sin stock"
+    "out_of_stock": "Sin stock",
+    "edit_tooltip": "Editar producto",
+    "delete_tooltip": "Eliminar producto"
   },
   "ProductNotFound": {
     "product_not_found": "Producto no encontrado",
@@ -324,7 +326,9 @@
     "description": "Descripción",
     "created_at": "Creado en",
     "updated_at": "Actualizado en",
-    "actions": "Acciones"
+    "actions": "Acciones",
+    "edit_tooltip": "Editar categoría",
+    "delete_tooltip": "Eliminar categoría"
   },
   "CategoriesLoading": {
     "title": "Gestión de Categorías",
@@ -387,6 +391,8 @@
     "created_at": "Creado en",
     "updated_at": "Actualizado en",
     "actions": "Acciones",
+    "edit_tooltip": "Editar usuario",
+    "delete_tooltip": "Eliminar usuario",
     "roles": {
       "user": "Usuario",
       "admin": "Administrador"
@@ -474,6 +480,7 @@
     "status_label": "Estado",
     "created_at": "Creado en",
     "actions": "Acciones",
+    "edit_tooltip": "Actualizar estado del pedido",
     "status": {
       "pending": "Pendiente",
       "paid": "Pagado",
