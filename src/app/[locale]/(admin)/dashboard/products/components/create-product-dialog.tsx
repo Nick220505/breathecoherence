@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -58,7 +58,7 @@ import type { CreateProductData } from '@/features/product/types';
 export function CreateProductDialog({
   onOpenChange,
   ...props
-}: Readonly<ComponentProps<typeof Dialog>>) {
+}: Readonly<React.ComponentProps<typeof Dialog>>) {
   const t = useTranslations('CreateProductDialog');
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);

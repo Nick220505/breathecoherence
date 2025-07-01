@@ -2,7 +2,6 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
 
@@ -19,7 +18,7 @@ import {
 import { deleteProduct } from '@/features/product/actions';
 import type { ProductWithCategory } from '@/features/product/types';
 
-interface DeleteProductDialogProps extends ComponentProps<typeof Dialog> {
+interface DeleteProductDialogProps extends React.ComponentProps<typeof Dialog> {
   product: ProductWithCategory;
 }
 

@@ -10,7 +10,6 @@ import {
   User as UserIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -50,7 +49,7 @@ import type { CreateUserData } from '@/features/user/types';
 export function CreateUserDialog({
   onOpenChange,
   ...props
-}: Readonly<ComponentProps<typeof Dialog>>) {
+}: Readonly<React.ComponentProps<typeof Dialog>>) {
   const t = useTranslations('CreateUserDialog');
 
   const { execute, isPending } = useServerAction(createUser, {

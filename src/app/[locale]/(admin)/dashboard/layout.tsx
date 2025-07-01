@@ -1,5 +1,4 @@
 import { Menu } from 'lucide-react';
-import { type ReactNode } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -13,7 +12,7 @@ import {
 import { MobileSidebar, Sidebar } from './components/sidebar';
 
 interface DashboardLayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export default function DashboardLayout({

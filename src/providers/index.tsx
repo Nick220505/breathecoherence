@@ -1,14 +1,13 @@
 import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { ReactNode } from 'react';
 
 import { CartProvider } from './cart-provider';
 import { PayPalProvider } from './paypal-provider';
 import { ThemeProvider } from './theme-provider';
 
 interface ProvidersProps {
-  readonly children: ReactNode;
+  children: React.ReactNode;
 }
 
 export async function Providers({ children }: Readonly<ProvidersProps>) {

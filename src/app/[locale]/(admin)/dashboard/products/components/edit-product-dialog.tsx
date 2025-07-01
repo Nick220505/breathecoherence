@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -58,7 +58,7 @@ import type {
   UpdateProductData,
 } from '@/features/product/types';
 
-interface EditProductDialogProps extends ComponentProps<typeof Dialog> {
+interface EditProductDialogProps extends React.ComponentProps<typeof Dialog> {
   product: ProductWithCategory;
 }
 

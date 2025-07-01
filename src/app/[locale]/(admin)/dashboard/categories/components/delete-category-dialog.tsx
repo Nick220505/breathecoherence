@@ -3,7 +3,6 @@
 import type { Category } from '@prisma/client';
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
 
@@ -19,7 +18,8 @@ import {
 } from '@/components/ui/dialog';
 import { deleteCategory } from '@/features/category/actions';
 
-interface DeleteCategoryDialogProps extends ComponentProps<typeof Dialog> {
+interface DeleteCategoryDialogProps
+  extends React.ComponentProps<typeof Dialog> {
   category: Category;
 }
 

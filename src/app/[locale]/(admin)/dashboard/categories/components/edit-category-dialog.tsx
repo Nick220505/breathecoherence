@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import type { Category } from '@prisma/client';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -35,7 +34,7 @@ import { updateCategory } from '@/features/category/actions';
 import { updateCategorySchema } from '@/features/category/schemas';
 import type { UpdateCategoryData } from '@/features/category/types';
 
-interface EditCategoryDialogProps extends ComponentProps<typeof Dialog> {
+interface EditCategoryDialogProps extends React.ComponentProps<typeof Dialog> {
   category: Category;
 }
 

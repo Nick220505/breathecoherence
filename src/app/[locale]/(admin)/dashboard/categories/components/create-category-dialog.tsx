@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -37,7 +36,7 @@ import type { CreateCategoryData } from '@/features/category/types';
 export function CreateCategoryDialog({
   onOpenChange,
   ...props
-}: Readonly<ComponentProps<typeof Dialog>>) {
+}: Readonly<React.ComponentProps<typeof Dialog>>) {
   const t = useTranslations('CreateCategoryDialog');
 
   const { execute, isPending } = useServerAction(createCategory, {

@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Loader2, Package } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
@@ -41,7 +40,8 @@ import type {
   OrderSummary,
 } from '@/features/order/types';
 
-interface UpdateOrderStatusDialogProps extends ComponentProps<typeof Dialog> {
+interface UpdateOrderStatusDialogProps
+  extends React.ComponentProps<typeof Dialog> {
   order: OrderSummary;
 }
 

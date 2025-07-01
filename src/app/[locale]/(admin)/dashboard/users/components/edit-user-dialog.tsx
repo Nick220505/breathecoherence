@@ -9,7 +9,6 @@ import {
   User as UserIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
@@ -46,7 +45,7 @@ import { updateUser } from '@/features/user/actions';
 import { updateUserSchema } from '@/features/user/schemas';
 import type { UpdateUserData, UserSummary } from '@/features/user/types';
 
-interface EditUserDialogProps extends ComponentProps<typeof Dialog> {
+interface EditUserDialogProps extends React.ComponentProps<typeof Dialog> {
   user: UserSummary;
 }
 

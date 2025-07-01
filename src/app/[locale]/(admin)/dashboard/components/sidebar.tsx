@@ -2,13 +2,12 @@
 
 import { Folder, Home, Package, ShoppingCart, Users } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ComponentProps } from 'react';
 
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
 interface NavItem {
-  href: ComponentProps<typeof Link>['href'];
+  href: React.ComponentProps<typeof Link>['href'];
   label: string;
   icon: React.ElementType;
   exact?: boolean;

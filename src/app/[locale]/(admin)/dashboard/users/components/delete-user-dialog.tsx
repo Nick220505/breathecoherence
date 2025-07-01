@@ -2,7 +2,6 @@
 
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type ComponentProps } from 'react';
 import { toast } from 'sonner';
 import { useServerAction } from 'zsa-react';
 
@@ -19,7 +18,7 @@ import {
 import { deleteUser } from '@/features/user/actions';
 import type { UserSummary } from '@/features/user/types';
 
-interface DeleteUserDialogProps extends ComponentProps<typeof Dialog> {
+interface DeleteUserDialogProps extends React.ComponentProps<typeof Dialog> {
   user: UserSummary;
 }
 
