@@ -1,16 +1,16 @@
-import { translationService } from '@/features/translation/service';
+import type { Product } from '@prisma/client';
+
 import { categoryTranslationConfig } from '@/features/category/service';
-
-import { productRepository } from './repository';
-
-import type {
-  CreateProductData,
-  UpdateProductData,
-  ProductWithCategory,
-} from './types';
+import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
-import type { Product } from '@prisma/client';
+
+import { productRepository } from './repository';
+import type {
+  CreateProductData,
+  ProductWithCategory,
+  UpdateProductData,
+} from './types';
 
 const productTranslationConfig: TranslationConfig = {
   entityType: 'Product',

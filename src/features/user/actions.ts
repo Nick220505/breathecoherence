@@ -1,11 +1,11 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { z } from 'zod';
+import { createServerAction } from 'zsa';
 
 import { createUserSchema, updateUserSchema } from './schemas';
 import { userService } from './service';
-import { z } from 'zod';
-import { createServerAction } from 'zsa';
 
 export const getAllUsers = createServerAction().handler(async () => {
   return userService.getAll();

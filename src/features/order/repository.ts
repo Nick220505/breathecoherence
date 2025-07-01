@@ -2,7 +2,7 @@ import type { OrderStatus } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 
-import type { OrderSummary, OrderDetail, OrderWithItems } from './types';
+import type { OrderDetail, OrderSummary, OrderWithItems } from './types';
 
 export const orderRepository = {
   async findMany(): Promise<OrderSummary[]> {

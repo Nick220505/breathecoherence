@@ -17,7 +17,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteUser } from '@/features/user/actions';
-
 import type { UserSummary } from '@/features/user/types';
 
 interface DeleteUserDialogProps extends ComponentProps<typeof Dialog> {

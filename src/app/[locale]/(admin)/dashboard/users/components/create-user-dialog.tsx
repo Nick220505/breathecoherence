@@ -4,16 +4,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AlertCircle,
   Loader2,
-  Mail,
-  User as UserIcon,
-  Shield,
   Lock,
+  Mail,
+  Shield,
+  User as UserIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
+import { useServerAction } from 'zsa-react';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -44,8 +45,6 @@ import {
 } from '@/components/ui/select';
 import { createUser } from '@/features/user/actions';
 import { createUserSchema } from '@/features/user/schemas';
-import { useServerAction } from 'zsa-react';
-
 import type { CreateUserData } from '@/features/user/types';
 
 export function CreateUserDialog({

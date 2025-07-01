@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
-  SheetTrigger,
-  SheetTitle,
   SheetDescription,
+  SheetTitle,
+  SheetTrigger,
 } from '@/components/ui/sheet';
 
-import { Sidebar, MobileSidebar } from './components/sidebar';
+import { MobileSidebar, Sidebar } from './components/sidebar';
 
 interface DashboardLayoutProps {
   children: ReactNode;

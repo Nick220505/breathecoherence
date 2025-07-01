@@ -2,11 +2,11 @@
 
 import { useTranslations } from 'next-intl';
 
+import type { ProductWithCategory } from '@/features/product/types';
+
 import { CustomBlendCard } from './product/custom-blend-card';
 import { ProductCard } from './product/product-card';
 import { ProductSkeleton } from './product/product-skeleton';
-
-import type { ProductWithCategory } from '@/features/product/types';
 
 interface StoreContentProps {
   products: ProductWithCategory[];

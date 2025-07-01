@@ -1,9 +1,8 @@
 import Stripe from 'stripe';
 
 import { orderService } from '@/features/order/service';
-import prisma from '@/lib/prisma';
-
 import type { EmailOrderItem, ShippingAddress } from '@/features/order/types';
+import prisma from '@/lib/prisma';
 
 export async function handlePaymentIntentSucceeded(
   paymentIntent: Stripe.PaymentIntent,

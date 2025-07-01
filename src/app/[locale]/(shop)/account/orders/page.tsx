@@ -1,8 +1,7 @@
+import type { OrderStatus } from '@prisma/client';
 import { Package2 } from 'lucide-react';
 import NextLink from 'next/link';
 import { getTranslations } from 'next-intl/server';
-
-import type { OrderStatus } from '@prisma/client';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -14,8 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Link } from '@/i18n/routing';
 import { getOrdersByUser } from '@/features/order/actions';
+import { Link } from '@/i18n/routing';
 
 export const dynamic = 'force-dynamic';
 

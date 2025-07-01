@@ -21,9 +21,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
 import { loginSchema } from '@/features/auth/schemas';
-import { Link, useRouter } from '@/i18n/routing';
-
 import type { LoginData } from '@/features/auth/types';
+import { Link, useRouter } from '@/i18n/routing';
 
 export default function LoginForm() {
   const t = useTranslations('LoginForm');

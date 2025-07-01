@@ -1,12 +1,13 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { z } from 'zod';
+import { createServerAction } from 'zsa';
+
+import { withLocaleProcedure } from '@/lib/zsa';
 
 import { createCategorySchema, updateCategorySchema } from './schemas';
 import { categoryService } from './service';
-import { withLocaleProcedure } from '@/lib/zsa';
-import { z } from 'zod';
-import { createServerAction } from 'zsa';
 
 export const getAllCategories = withLocaleProcedure
   .createServerAction()

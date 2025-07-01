@@ -1,6 +1,8 @@
 'use client';
 
 import { Edit, Trash2 } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -17,13 +19,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import type { UserSummary } from '@/features/user/types';
 
 import { DeleteUserDialog } from './delete-user-dialog';
 import { EditUserDialog } from './edit-user-dialog';
-import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
-
-import type { UserSummary } from '@/features/user/types';
 
 interface UserTableProps {
   users: UserSummary[];

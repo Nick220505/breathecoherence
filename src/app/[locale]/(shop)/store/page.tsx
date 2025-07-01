@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
 import { getAllCategories } from '@/features/category/actions';
 import { getAllProducts } from '@/features/product/actions';

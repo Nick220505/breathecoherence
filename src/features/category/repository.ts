@@ -1,6 +1,6 @@
-import prisma from '@/lib/prisma';
-
 import type { Category, Prisma } from '@prisma/client';
+
+import prisma from '@/lib/prisma';
 
 export const categoryRepository = {
   findMany(): Promise<Category[]> {

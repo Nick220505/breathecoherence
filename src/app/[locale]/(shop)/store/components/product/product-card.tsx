@@ -1,5 +1,6 @@
 'use client';
 
+import type { Product } from '@prisma/client';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -13,8 +14,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Link } from '@/i18n/routing';
-
-import type { Product } from '@prisma/client';
 
 interface ProductCardProps {
   product: Product;

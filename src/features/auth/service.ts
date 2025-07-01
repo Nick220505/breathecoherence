@@ -1,6 +1,6 @@
-import crypto from 'crypto';
-
+import type { User } from '@prisma/client';
 import { compare, hash } from 'bcryptjs';
+import crypto from 'crypto';
 
 import { VerificationEmail } from '@/components/email-templates/verification-email';
 import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
@@ -11,9 +11,7 @@ import {
   InvalidVerificationError,
   UserExistsError,
 } from './errors';
-
 import type { AuthUser, LoginData, RegisterData, VerifyData } from './types';
-import type { User } from '@prisma/client';
 
 export const authService = {
   async register({ name, email, password }: RegisterData): Promise<AuthUser> {

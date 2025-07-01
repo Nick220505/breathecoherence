@@ -1,14 +1,13 @@
+import type { OrderStatus } from '@prisma/client';
+
 import { OrderConfirmationEmail } from '@/components/email-templates/order-confirmation-email';
 import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
 
-import type { OrderStatus } from '@prisma/client';
-
 import { orderRepository } from './repository';
-
 import type {
-  OrderSummary,
-  OrderDetail,
   OrderConfirmationEmailData,
+  OrderDetail,
+  OrderSummary,
   OrderWithItems,
 } from './types';
 

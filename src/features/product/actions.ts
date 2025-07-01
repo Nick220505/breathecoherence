@@ -3,15 +3,15 @@
 import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { getLocale } from 'next-intl/server';
-
-import { createProductSchema, updateProductSchema } from './schemas';
-import { productService } from './service';
-import { withLocaleProcedure } from '@/lib/zsa';
 import { z } from 'zod';
 import { createServerAction } from 'zsa';
 
-import type { ProductWithCategory } from './types';
 import type { Locale } from '@/i18n/routing';
+import { withLocaleProcedure } from '@/lib/zsa';
+
+import { createProductSchema, updateProductSchema } from './schemas';
+import { productService } from './service';
+import type { ProductWithCategory } from './types';
 
 export const getAllProducts = withLocaleProcedure
   .createServerAction()

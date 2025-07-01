@@ -1,10 +1,11 @@
+import type { Category, Product } from '@prisma/client';
 import type { z } from 'zod';
+
 import type {
-  productSchema,
   createProductSchema,
+  productSchema,
   updateProductSchema,
 } from './schemas';
-import type { Category, Product } from '@prisma/client';
 
 export type ProductData = z.infer<typeof productSchema>;
 export type CreateProductData = z.infer<typeof createProductSchema>;

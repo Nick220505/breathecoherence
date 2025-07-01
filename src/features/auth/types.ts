@@ -1,6 +1,7 @@
-import type { z } from 'zod';
-import type { loginSchema, registerSchema, verifySchema } from './schemas';
 import type { User } from '@prisma/client';
+import type { z } from 'zod';
+
+import type { loginSchema, registerSchema, verifySchema } from './schemas';
 
 export type AuthUser = Pick<User, 'id' | 'name' | 'email' | 'role'>;
 export type LoginData = z.infer<typeof loginSchema>;

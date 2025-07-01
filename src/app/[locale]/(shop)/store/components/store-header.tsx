@@ -1,11 +1,10 @@
 'use client';
 
+import type { Category } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';
-
-import type { Category } from '@prisma/client';
 
 interface StoreHeaderProps {
   category?: Category | null;

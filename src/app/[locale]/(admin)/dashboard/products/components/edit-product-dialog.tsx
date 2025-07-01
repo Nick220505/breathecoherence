@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { Category } from '@prisma/client';
 import {
   AlertCircle,
   Box,
@@ -13,10 +14,11 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState, type ComponentProps } from 'react';
+import { type ComponentProps, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
+import { useServerAction } from 'zsa-react';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -51,13 +53,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { getAllCategories } from '@/features/category/actions';
 import { updateProduct } from '@/features/product/actions';
 import { updateProductSchema } from '@/features/product/schemas';
-import { useServerAction } from 'zsa-react';
-
 import type {
-  UpdateProductData,
   ProductWithCategory,
+  UpdateProductData,
 } from '@/features/product/types';
-import type { Category } from '@prisma/client';
 
 interface EditProductDialogProps extends ComponentProps<typeof Dialog> {
   product: ProductWithCategory;

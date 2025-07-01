@@ -17,7 +17,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteProduct } from '@/features/product/actions';
-
 import type { ProductWithCategory } from '@/features/product/types';
 
 interface DeleteProductDialogProps extends ComponentProps<typeof Dialog> {

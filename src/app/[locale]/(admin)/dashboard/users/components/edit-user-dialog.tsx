@@ -5,14 +5,15 @@ import {
   AlertCircle,
   Loader2,
   Mail,
-  User as UserIcon,
   Shield,
+  User as UserIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
+import { useServerAction } from 'zsa-react';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -43,8 +44,6 @@ import {
 } from '@/components/ui/select';
 import { updateUser } from '@/features/user/actions';
 import { updateUserSchema } from '@/features/user/schemas';
-import { useServerAction } from 'zsa-react';
-
 import type { UpdateUserData, UserSummary } from '@/features/user/types';
 
 interface EditUserDialogProps extends ComponentProps<typeof Dialog> {

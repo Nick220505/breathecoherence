@@ -1,13 +1,12 @@
 'use client';
 
+import type { OrderStatus } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Package2 } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-
-import type { OrderStatus } from '@prisma/client';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';

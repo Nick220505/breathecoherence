@@ -1,7 +1,8 @@
+import type { Prisma, Product } from '@prisma/client';
+
 import prisma from '@/lib/prisma';
 
 import type { ProductWithCategory } from './types';
-import type { Prisma, Product } from '@prisma/client';
 
 export const productRepository = {
   findMany(): Promise<ProductWithCategory[]> {

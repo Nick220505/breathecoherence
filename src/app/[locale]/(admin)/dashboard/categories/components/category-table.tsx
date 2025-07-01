@@ -1,5 +1,6 @@
 'use client';
 
+import type { Category } from '@prisma/client';
 import { Edit, Trash2 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -19,10 +20,8 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-import { EditCategoryDialog } from './edit-category-dialog';
 import { DeleteCategoryDialog } from './delete-category-dialog';
-
-import type { Category } from '@prisma/client';
+import { EditCategoryDialog } from './edit-category-dialog';
 
 interface CategoryTableProps {
   categories: Category[];

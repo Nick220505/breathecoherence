@@ -36,10 +36,9 @@ import {
 } from '@/components/ui/select';
 import { updateOrderStatus } from '@/features/order/actions';
 import { orderStatusUpdateSchema } from '@/features/order/schemas';
-
 import type {
-  OrderSummary,
   OrderStatusUpdateData,
+  OrderSummary,
 } from '@/features/order/types';
 
 interface UpdateOrderStatusDialogProps extends ComponentProps<typeof Dialog> {

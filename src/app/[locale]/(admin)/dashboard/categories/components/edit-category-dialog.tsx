@@ -1,12 +1,14 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { Category } from '@prisma/client';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
+import { useServerAction } from 'zsa-react';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -31,10 +33,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { updateCategory } from '@/features/category/actions';
 import { updateCategorySchema } from '@/features/category/schemas';
-import { useServerAction } from 'zsa-react';
-
 import type { UpdateCategoryData } from '@/features/category/types';
-import type { Category } from '@prisma/client';
 
 interface EditCategoryDialogProps extends ComponentProps<typeof Dialog> {
   category: Category;

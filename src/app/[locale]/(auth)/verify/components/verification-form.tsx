@@ -30,9 +30,8 @@ import {
 } from '@/components/ui/input-otp';
 import { verify } from '@/features/auth/actions';
 import { verifySchema } from '@/features/auth/schemas';
-import { Link, useRouter } from '@/i18n/routing';
-
 import type { VerifyData } from '@/features/auth/types';
+import { Link, useRouter } from '@/i18n/routing';
 
 interface VerificationFormProps {
   email: string;

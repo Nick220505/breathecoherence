@@ -1,5 +1,6 @@
 'use client';
 
+import type { Category } from '@prisma/client';
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type ComponentProps } from 'react';
@@ -17,8 +18,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteCategory } from '@/features/category/actions';
-
-import type { Category } from '@prisma/client';
 
 interface DeleteCategoryDialogProps extends ComponentProps<typeof Dialog> {
   category: Category;

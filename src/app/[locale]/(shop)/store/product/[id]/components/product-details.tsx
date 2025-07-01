@@ -14,10 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import type { ProductWithCategory } from '@/features/product/types';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
-
-import type { ProductWithCategory } from '@/features/product/types';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },

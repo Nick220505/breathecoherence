@@ -1,6 +1,6 @@
+import { AlertCircle } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
-import { AlertCircle } from 'lucide-react';
 
 import { getAllCategories } from '@/features/category/actions';
 

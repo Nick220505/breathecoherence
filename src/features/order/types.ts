@@ -2,10 +2,10 @@ import type { Order, OrderStatus, Prisma } from '@prisma/client';
 import type { z } from 'zod';
 
 import type {
-  orderSchema,
   createOrderSchema,
-  updateOrderSchema,
+  orderSchema,
   orderStatusUpdateSchema,
+  updateOrderSchema,
 } from './schemas';
 
 export type OrderData = z.infer<typeof orderSchema>;

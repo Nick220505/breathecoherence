@@ -2,7 +2,6 @@ import { getLocale } from 'next-intl/server';
 import { createServerActionProcedure } from 'zsa';
 
 import { auth } from '@/auth';
-
 import type { Locale } from '@/i18n/routing';
 
 export const withLocaleProcedure = createServerActionProcedure().handler(

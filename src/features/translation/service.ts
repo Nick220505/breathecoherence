@@ -2,7 +2,6 @@ import { Locale, routing } from '@/i18n/routing';
 import { translate } from '@/lib/translation';
 
 import { translationRepository } from './repository';
-
 import type { TranslatableFields, TranslationConfig } from './types';
 
 function extractTranslatableFields(

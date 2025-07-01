@@ -19,10 +19,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import type { OrderSummary } from '@/features/order/types';
 
 import { UpdateOrderStatusDialog } from './update-order-status-dialog';
-
-import type { OrderSummary } from '@/features/order/types';
 
 interface OrderTableProps {
   orders: OrderSummary[];

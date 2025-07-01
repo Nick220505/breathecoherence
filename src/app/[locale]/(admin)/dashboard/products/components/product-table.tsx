@@ -2,6 +2,8 @@
 
 import { Edit, Trash2 } from 'lucide-react';
 import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -18,13 +20,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import type { ProductWithCategory } from '@/features/product/types';
 
 import { DeleteProductDialog } from './delete-product-dialog';
 import { EditProductDialog } from './edit-product-dialog';
-import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
-
-import type { ProductWithCategory } from '@/features/product/types';
 
 interface ProductTableProps {
   products: ProductWithCategory[];

@@ -1,4 +1,4 @@
-import { Tailwind, Img } from '@react-email/components';
+import { Img, Tailwind } from '@react-email/components';
 
 import { emailTailwindConfig } from '@/lib/email-tailwind-config';
 

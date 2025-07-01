@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 import {
-  handlePaymentIntentSucceeded,
   handlePaymentIntentFailed,
+  handlePaymentIntentSucceeded,
 } from './stripe-handlers';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);

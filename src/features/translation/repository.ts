@@ -1,6 +1,6 @@
-import prisma from '@/lib/prisma';
-
 import type { Translation } from '@prisma/client';
+
+import prisma from '@/lib/prisma';
 
 export const translationRepository = {
   findMany(

@@ -20,9 +20,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
 import { registerSchema } from '@/features/auth/schemas';
-import { Link, useRouter } from '@/i18n/routing';
-
 import type { RegisterData } from '@/features/auth/types';
+import { Link, useRouter } from '@/i18n/routing';
 
 export default function RegisterForm() {
   const t = useTranslations('RegisterForm');

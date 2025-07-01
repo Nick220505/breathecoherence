@@ -10,9 +10,8 @@ import ReactMarkdown from 'react-markdown';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Link } from '@/i18n/routing';
-
 import type { PartialProductWithCategory } from '@/features/product/types';
+import { Link } from '@/i18n/routing';
 
 interface Message {
   role: 'user' | 'assistant';

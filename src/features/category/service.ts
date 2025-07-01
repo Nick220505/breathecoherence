@@ -1,11 +1,11 @@
+import type { Category } from '@prisma/client';
+
 import { translationService } from '@/features/translation/service';
-
-import { categoryRepository } from './repository';
-
-import type { CreateCategoryData, UpdateCategoryData } from './types';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
-import type { Category } from '@prisma/client';
+
+import { categoryRepository } from './repository';
+import type { CreateCategoryData, UpdateCategoryData } from './types';
 
 export const categoryTranslationConfig: TranslationConfig = {
   entityType: 'Category',

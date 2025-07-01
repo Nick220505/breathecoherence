@@ -3,8 +3,8 @@ import { getTranslations } from 'next-intl/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getAllCategories } from '@/features/category/actions';
 
-import { CreateCategoryButton } from './components/create-category-button';
 import { CategoryTable } from './components/category-table';
+import { CreateCategoryButton } from './components/create-category-button';
 
 export default async function CategoriesPage() {
   const t = await getTranslations('CategoriesPage');

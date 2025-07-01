@@ -1,8 +1,9 @@
 'use server';
 
+import { createServerAction } from 'zsa';
+
 import { loginSchema, registerSchema, verifySchema } from './schemas';
 import { authService } from './service';
-import { createServerAction } from 'zsa';
 
 export const register = createServerAction()
   .input(registerSchema)

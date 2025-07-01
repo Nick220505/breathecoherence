@@ -13,10 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import type { ProductWithCategory } from '@/features/product/types';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
-
-import type { ProductWithCategory } from '@/features/product/types';
 
 interface CustomBlendFormProps {
   flowerEssences: ProductWithCategory[];
