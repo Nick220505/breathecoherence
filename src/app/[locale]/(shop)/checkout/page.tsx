@@ -141,7 +141,7 @@ export default function CheckoutPage() {
         return { message: ctx.defaultError };
       },
     }),
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       name: '',
       email: '',
