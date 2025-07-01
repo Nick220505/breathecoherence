@@ -1,34 +1,4 @@
 {
-  "HomePage": {
-    "hero": {
-      "title": "Geometría Sagrada & Esencias Sanadoras",
-      "subtitle": "Descubre la perfecta armonía entre las formas geométricas sagradas y el poder sanador de las esencias florales.",
-      "cta": "Explora Nuestra Colección",
-      "flower_essence": "Esencia Floral",
-      "sacred_geometry": "Geometría Sagrada"
-    },
-    "features": {
-      "title": "Por Qué Elegirnos",
-      "geometry": {
-        "title": "Geometría Sagrada",
-        "description": "Formas geométricas artesanales que encarnan patrones universales de la creación."
-      },
-      "essences": {
-        "title": "Esencias Florales",
-        "description": "Esencias naturales puras que promueven el bienestar emocional y espiritual."
-      },
-      "harmony": {
-        "title": "Armonía Holística",
-        "description": "La mezcla perfecta de forma y esencia para un alineamiento espiritual completo."
-      }
-    },
-    "cta": {
-      "title": "¿Listo para Comenzar tu Viaje?",
-      "description": "Únete a nosotros en la exploración de la intersección entre la geometría sagrada y la sanación natural.",
-      "shop": "Comprar Ahora",
-      "signin": "Iniciar Sesión"
-    }
-  },
   "Footer": {
     "rights": "Todos los derechos reservados.",
     "nav": {
@@ -38,49 +8,11 @@
   },
   "RegisterPage": {
     "title": "Crear Cuenta",
-    "description": "Únete a nuestra comunidad",
-    "name": "Nombre Completo",
-    "email": "Correo Electrónico",
-    "password": "Contraseña",
-    "confirmPassword": "Confirmar Contraseña",
-    "submit": "Crear Cuenta",
-    "haveAccount": "¿Ya tienes una cuenta?",
-    "login": "Iniciar sesión",
-    "creating": "Creando cuenta...",
-    "loading": "Cargando...",
-    "placeholder": {
-      "name": "Ingresa tu nombre completo",
-      "email": "Ingresa tu correo electrónico",
-      "password": "Ingresa tu contraseña",
-      "confirmPassword": "Ingresa tu contraseña nuevamente"
-    },
-    "error": {
-      "generic": "Registro fallido. Inténtalo de nuevo."
-    },
-    "errorOccurred": "Error de Registro",
-    "tryAgainLater": "Por favor intenta más tarde",
-    "tryAgain": "Intentar de nuevo"
+    "description": "Únete a nuestra comunidad"
   },
   "LoginPage": {
     "title": "Iniciar Sesión",
-    "description": "Accede a tu cuenta",
-    "email": "Correo Electrónico",
-    "password": "Contraseña",
-    "submit": "Iniciar Sesión",
-    "loading": "Cargando...",
-    "noAccount": "¿No tienes una cuenta?",
-    "register": "Crear cuenta",
-    "error": {
-      "invalid": "Correo electrónico o contraseña inválidos",
-      "generic": "Error al iniciar sesión. Inténtalo de nuevo."
-    },
-    "placeholder": {
-      "email": "Ingresa tu correo electrónico",
-      "password": "Ingresa tu contraseña"
-    },
-    "errorOccurred": "Error de Inicio de Sesión",
-    "tryAgainLater": "Por favor intenta más tarde",
-    "tryAgain": "Intentar de nuevo"
+    "description": "Accede a tu cuenta"
   },
   "RegisterForm": {
     "submit": "Crear Cuenta",
@@ -130,9 +62,6 @@
   "VerificationForm": {
     "title": "Verifica tu correo electrónico",
     "description": "Ingresa el código enviado a",
-    "placeholder": {
-      "code": "Ingresa el código de verificación"
-    },
     "error": {
       "title": "Error",
       "description": "Enlace de verificación inválido. Por favor, intenta registrarte nuevamente.",
@@ -143,30 +72,6 @@
     "validation": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
       "codeLength": "El código de verificación debe tener 6 dígitos"
-    }
-  },
-  "Navigation": {
-    "nav": {
-      "sacred_geometry": "Geometría Sagrada",
-      "flower_essences": "Esencias Florales",
-      "dashboard": "Panel de Control",
-      "login": "Iniciar Sesión",
-      "register": "Crear Cuenta",
-      "signout": "Cerrar Sesión",
-      "orders": "Pedidos"
-    },
-    "error": {
-      "loadCategories": "Categorías no disponibles"
-    },
-    "store": {
-      "cart": {
-        "title": "Tu Carrito",
-        "description": "Revisa los productos en tu carrito",
-        "empty": "Tu carrito está vacío",
-        "browse": "Explorar Productos",
-        "total": "Total",
-        "checkout": "Pagar"
-      }
     }
   },
   "ThemeToggle": {
@@ -180,15 +85,10 @@
   "LanguageToggle": {
     "toggle_language": "Cambiar idioma"
   },
-
   "StoreHeader": {
     "title": "Nuestros Productos",
-    "subtitle": "Descubre nuestra colección seleccionada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional.",
     "category_title": "Colección de {name}",
-    "category": {
-      "sacred geometry": { "badge": "Geometría Sagrada" },
-      "flower essence": { "badge": "Esencia Floral" }
-    }
+    "subtitle": "Descubre nuestra colección seleccionada de formas geométricas sagradas y esencias florales sanadoras, diseñadas para mejorar tu bienestar espiritual y emocional."
   },
   "StorePage": {
     "error": {
@@ -239,7 +139,7 @@
     "deleting": "Eliminando Producto...",
     "confirm_delete": "Eliminar",
     "deleted_title": "Producto Eliminado",
-    "deleted_description": "El producto \"{name}\" ha sido eliminado con éxito."
+    "deleted_description": "El producto \"{name}\" ha sido eliminado exitosamente."
   },
   "CategoriesError": {
     "title": "Algo salió mal",
@@ -254,7 +154,7 @@
     "deleting": "Eliminando Categoría...",
     "confirm_delete": "Eliminar",
     "deleted_title": "Categoría Eliminada",
-    "deleted_description": "La categoría \"{name}\" ha sido eliminada con éxito."
+    "deleted_description": "La categoría \"{name}\" ha sido eliminada exitosamente."
   },
   "CreateProductDialog": {
     "add_product": "Agregar Producto",
@@ -273,12 +173,11 @@
       "price": "0.00",
       "stock": "0"
     },
-    "image_alt": "Imagen del producto",
     "uploading_image": "Subiendo imagen...",
     "preview": "Vista previa de imagen",
     "choose_file": "Elegir Archivo",
     "created_title": "Producto Creado",
-    "created_description": "El producto \"{name}\" ha sido creado con éxito.",
+    "created_description": "El producto \"{name}\" ha sido creado exitosamente.",
     "adding": "Creando producto...",
     "add": "Crear",
     "cancel": "Cancelar",
@@ -312,12 +211,11 @@
       "price": "0.00",
       "stock": "0"
     },
-    "image_alt": "Imagen del producto",
     "uploading_image": "Subiendo imagen...",
     "preview": "Vista previa de imagen",
     "choose_file": "Elegir Archivo",
     "updated_title": "Producto Actualizado",
-    "updated_description": "El producto \"{name}\" ha sido actualizado con éxito.",
+    "updated_description": "El producto \"{name}\" ha sido actualizado exitosamente.",
     "editing": "Guardando cambios...",
     "edit": "Guardar Cambios",
     "cancel": "Cancelar",
@@ -344,57 +242,6 @@
     "updated_at": "Actualizado en",
     "actions": "Acciones",
     "out_of_stock": "Sin stock"
-  },
-  "ProductTableSkeleton": {
-    "image": "Imagen",
-    "name": "Nombre",
-    "category": "Categoría",
-    "price": "Precio",
-    "stock": "Stock",
-    "created_at": "Creado en",
-    "updated_at": "Actualizado en",
-    "actions": "Acciones"
-  },
-  "CustomBlendPage": {
-    "title": "Crea Tu Mezcla Personalizada",
-    "subtitle": "Esencia Floral Personalizada",
-    "description": "Diseña tu propia mezcla única de hasta 7 esencias florales. Elige al menos 2 esencias para comenzar.",
-    "price": "$19.99",
-    "whatsapp_help": "¿Necesitas ayuda para elegir tus esencias? Contáctanos por WhatsApp para una consulta personalizada.",
-    "learn_more": "Aprende Más Sobre las Esencias Florales",
-    "base": {
-      "label": "Elige Tu Base",
-      "brandy": "Brandy",
-      "water": "Agua"
-    },
-    "essence": {
-      "label": "Esencia {number}"
-    },
-    "add_to_cart": "Agregar Mezcla Personalizada al Carrito",
-    "adding_to_cart": "Agregando al carrito...",
-    "select_option": "Selecciona una esencia",
-    "skip_option": "Ninguna (opcional)",
-    "back_to_store": "Volver a la Tienda",
-    "image_alt": "Botella de mezcla personalizada con flores",
-    "cart": {
-      "name": "Mezcla Personalizada ({essences})",
-      "description": "Base: {base}, Esencias: {essences}"
-    }
-  },
-  "ProductPage": {
-    "back_to_store": "Volver a la Tienda",
-    "base": {
-      "label": "Base",
-      "brandy": "Brandy",
-      "water": "Agua"
-    },
-    "add_to_cart": "Agregar al Carrito",
-    "adding_to_cart": "Agregando al carrito...",
-    "select_option": "Selecciona una opción",
-    "cart": {
-      "name": "{name} (Base: {base})",
-      "description": "Base: {base}, Descripción: {description}"
-    }
   },
   "ProductNotFound": {
     "product_not_found": "Producto no encontrado",
@@ -446,50 +293,14 @@
     "order_summary": "Resumen del Pedido",
     "payment_method": "Método de Pago",
     "total": "Total",
-    "processing": "Procesando...",
     "empty_cart": "Tu Carrito está Vacío",
     "empty_cart_message": "No tienes artículos en tu carrito. Vamos a encontrar algo para ti.",
     "continue_shopping": "Continuar Comprando",
     "complete_form": "Por favor completa el formulario para proceder con el pago",
-    "loading_paypal": "Cargando PayPal...",
-    "shipping_info": "Información de Envío",
-    "order_notes": "Notas del Pedido",
-    "name": "Nombre Completo *",
-    "email": "Correo Electrónico *",
-    "address": "Dirección *",
-    "state": "Estado *",
-    "city": "Ciudad *",
-    "zip_code": "Código ZIP *",
-    "placeholder": {
-      "name": "Ingresa tu nombre completo",
-      "email": "Ingresa tu correo electrónico",
-      "address": "Ingresa tu dirección de envío",
-      "state": "Selecciona un Estado",
-      "city": "Ingresa tu ciudad",
-      "zip_code": "Ingresa el código ZIP",
-      "order_notes": "Notas sobre tu pedido, ej. notas especiales para la entrega"
-    },
     "card_payment": "Pago con Tarjeta",
     "paypal": "PayPal",
     "loading_payment_form": "Cargando formulario de pago..."
   },
-
-  "OrderDetail": {
-    "loading": "Cargando detalles del pedido...",
-    "error_title": "Error de Pedido",
-    "back_to_orders": "Volver a los Pedidos",
-    "not_found_title": "Pedido No Encontrado",
-    "not_found_message": "No se pudo encontrar el pedido que buscas.",
-    "title": "Detalles del Pedido",
-    "order_details": "Detalles del Pedido",
-    "product_category": "Categoría de Producto",
-    "quantity": "Cantidad",
-    "total": "Total",
-    "error": {
-      "loadOrder": "Error al cargar detalles del pedido"
-    }
-  },
-
   "ChatBot": {
     "title": "Asistente de Breathe Coherence",
     "welcome": "¡Bienvenido a nuestro Asistente de Compras! 👋\n\nPuedo ayudarte con:\n\n1. Productos de Geometría Sagrada\n• Información sobre nuestros Sólidos Platónicos\n• Sus asociaciones elementales\n• Propiedades metafísicas\n• Precios y disponibilidad\n\n2. Remedios Florales de Bach\n• Información sobre cada esencia\n• Beneficios emocionales\n• Recomendaciones personalizadas\n\n¿En qué puedo ayudarte hoy?",
@@ -501,7 +312,6 @@
     "minimize": "Minimizar chat",
     "close": "Cerrar chat"
   },
-
   "CategoriesPage": {
     "title": "Gestión de Categorías",
     "add_category": "Agregar Categoría",
@@ -509,7 +319,6 @@
       "loadCategories": "Error al cargar las categorías"
     }
   },
-
   "CategoryTable": {
     "name": "Nombre",
     "description": "Descripción",
@@ -536,7 +345,7 @@
       "description": "Ingrese la descripción de la categoría"
     },
     "created_title": "Categoría Creada",
-    "created_description": "La categoría \"{name}\" ha sido creada con éxito.",
+    "created_description": "La categoría \"{name}\" ha sido creada exitosamente.",
     "adding": "Creando categoría...",
     "add": "Crear",
     "cancel": "Cancelar",
@@ -555,30 +364,13 @@
       "description": "Ingrese la descripción de la categoría"
     },
     "updated_title": "Categoría Actualizada",
-    "updated_description": "La categoría \"{name}\" ha sido actualizada con éxito.",
+    "updated_description": "La categoría \"{name}\" ha sido actualizada exitosamente.",
     "editing": "Guardando cambios...",
     "edit": "Guardar Cambios",
     "cancel": "Cancelar",
     "validation": {
       "name_min": "El nombre debe tener al menos 3 caracteres",
       "description_min": "La descripción debe tener al menos 10 caracteres"
-    }
-  },
-  "AuthSchema": {
-    "Login": {
-      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
-      "passwordRequired": "La contraseña es obligatoria"
-    },
-    "Register": {
-      "nameRequired": "El nombre es obligatorio",
-      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
-      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
-      "confirmPasswordMinLength": "Por favor, confirma tu contraseña (mínimo 6 caracteres)",
-      "passwordsDontMatch": "Las contraseñas no coinciden"
-    },
-    "Verify": {
-      "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
-      "codeLength": "El código de verificación debe tener 6 dígitos"
     }
   },
   "UsersPage": {
@@ -596,11 +388,10 @@
     "updated_at": "Actualizado en",
     "actions": "Acciones",
     "roles": {
-      "admin": "Administrador",
-      "user": "Usuario"
+      "user": "Usuario",
+      "admin": "Administrador"
     }
   },
-
   "UsersLoading": {
     "title": "Gestión de Usuarios",
     "add_user": "Agregar Usuario",
@@ -625,7 +416,7 @@
       "role": "Selecciona el rol"
     },
     "created_title": "Usuario Creado",
-    "created_description": "El usuario \"{name}\" ha sido creado con éxito.",
+    "created_description": "El usuario \"{name}\" ha sido creado exitosamente.",
     "adding": "Creando usuario...",
     "add": "Crear",
     "cancel": "Cancelar",
@@ -645,16 +436,14 @@
     "edit_form_description": "Formulario para editar un usuario existente",
     "name": "Nombre del Usuario",
     "email": "Correo Electrónico",
-    "password": "Contraseña",
     "role": "Rol",
     "placeholder": {
       "name": "Ingresa el nombre del usuario",
       "email": "Ingresa el correo electrónico del usuario",
-      "password": "Ingresa la contraseña",
       "role": "Selecciona el rol"
     },
     "updated_title": "Usuario Actualizado",
-    "updated_description": "El usuario \"{name}\" ha sido actualizado con éxito.",
+    "updated_description": "El usuario \"{name}\" ha sido actualizado exitosamente.",
     "editing": "Guardando cambios...",
     "edit": "Guardar Cambios",
     "cancel": "Cancelar",
@@ -665,7 +454,6 @@
     "validation": {
       "name_min": "El nombre debe tener al menos 1 carácter",
       "email_invalid": "Por favor, introduce una dirección de correo electrónico válida",
-      "password_min": "La contraseña debe tener al menos 6 caracteres",
       "role_invalid": "Por favor, selecciona un rol válido"
     }
   },
@@ -677,7 +465,7 @@
     "deleting": "Eliminando Usuario...",
     "confirm_delete": "Eliminar",
     "deleted_title": "Usuario Eliminado",
-    "deleted_description": "El usuario \"{name}\" ha sido eliminado con éxito."
+    "deleted_description": "El usuario \"{name}\" ha sido eliminado exitosamente."
   },
   "OrderTable": {
     "id": "ID",
@@ -690,14 +478,11 @@
       "pending": "Pendiente",
       "paid": "Pagado",
       "shipped": "Enviado"
-    },
-    "error": {
-      "loadOrders": "Error al cargar pedidos"
     }
   },
   "UpdateOrderStatusDialog": {
     "title": "Actualizar Estado del Pedido",
-    "description": "Actualizar el estado del pedido #{id}",
+    "description": "Cambiar el estado de este pedido",
     "status_label": "Estado",
     "status_placeholder": "Seleccionar estado",
     "status": {
@@ -709,9 +494,14 @@
     "update": "Actualizar Estado",
     "updating": "Actualizando...",
     "updated_title": "Estado del Pedido Actualizado",
-    "updated_description": "El estado del pedido #{id} ha sido actualizado con éxito."
+    "updated_description": "El estado del pedido #{id} ha sido actualizado exitosamente."
   },
-
+  "OrdersPage": {
+    "title": "Gestión de Pedidos",
+    "error": {
+      "loadOrders": "Error al cargar pedidos"
+    }
+  },
   "OrdersLoading": {
     "title": "Gestión de Pedidos",
     "id": "ID",
@@ -721,17 +511,8 @@
     "createdAt": "Creado en",
     "actions": "Acciones"
   },
-
   "AdminDashboardLink": {
     "dashboard": "Panel de Control"
-  },
-  "AdminNav": {
-    "dashboard": "Panel de Control",
-    "products": "Productos",
-    "categories": "Categorías",
-    "orders": "Pedidos",
-    "users": "Usuarios",
-    "panel": "Panel de Administrador"
   },
   "CartButton": {
     "title": "Tu Carrito",
@@ -757,39 +538,7 @@
     "try_view_orders": "Intenta ver tus pedidos en la sección de tu cuenta.",
     "total_amount": "Monto Total",
     "status": "Estado",
-    "succeeded": "Exitoso",
-    "date": "Fecha",
-    "total": "Total",
-    "payment_method": "Método de Pago",
-    "card": "Tarjeta",
-    "shipping_info": "Información de Envío",
-    "email": "Correo Electrónico",
-    "error_title": "Error de Pedido"
-  },
-  "CheckoutSuccess": {
-    "title": "¡Pago Completado!",
-    "subtitle": "Gracias por tu compra. Tu pedido ha sido procesado con éxito.",
-    "back_to_store": "Volver a la Tienda",
-    "order_details": "Detalles del Pedido",
-    "order_id": "ID del Pedido",
-    "confirmation_sent": "Se ha enviado una confirmación a tu correo electrónico.",
-    "no_order_details": "No se encontraron detalles del pedido.",
-    "view_order": "Ver Pedido",
-    "view_all_orders": "Ver Todos los Pedidos",
-    "continue_shopping": "Continuar Comprando",
-    "loading_details": "Cargando detalles del pedido...",
-    "error_fetching_order": "Error al obtener los detalles del pedido",
-    "try_view_orders": "Intenta ver tus pedidos en la sección de tu cuenta.",
-    "total_amount": "Monto Total",
-    "status": "Estado",
-    "succeeded": "Exitoso",
-    "date": "Fecha",
-    "total": "Total",
-    "payment_method": "Método de Pago",
-    "card": "Tarjeta",
-    "shipping_info": "Información de Envío",
-    "email": "Correo Electrónico",
-    "error_title": "Error de Pedido"
+    "succeeded": "Exitoso"
   },
   "CTASection": {
     "title": "¿Listo para Comenzar tu Viaje?",
@@ -823,7 +572,6 @@
     "back_to_store": "Volver a la Tienda",
     "image_alt": "Botella de mezcla personalizada con flores",
     "cart": {
-      "name": "Mezcla Personalizada ({essences})",
       "description": "Base: {base}, Esencias: {essences}"
     }
   },
@@ -845,9 +593,7 @@
   "HeroSection": {
     "title": "Geometría Sagrada & Esencias Sanadoras",
     "subtitle": "Descubre la perfecta armonía entre las formas geométricas sagradas y el poder sanador de las esencias florales.",
-    "cta": "Explora Nuestra Colección",
-    "flower_essence": "Esencia Floral",
-    "sacred_geometry": "Geometría Sagrada"
+    "cta": "Explora Nuestra Colección"
   },
   "LoginError": {
     "signInError": "Error de Inicio de Sesión",
@@ -873,9 +619,9 @@
     "product_category": "Categoría de Producto",
     "quantity": "Cantidad",
     "total": "Total",
-    "error": {
-      "loadOrder": "Error al cargar detalles del pedido"
-    }
+    "status_pending": "Pendiente",
+    "status_paid": "Pagado",
+    "status_shipped": "Enviado"
   },
   "OrderDetailPage": {
     "error": {
@@ -892,21 +638,15 @@
     "subtitle": "Ver y rastrear tus pedidos",
     "guest_order_title": "Tu Pedido",
     "guest_order_subtitle": "Ver detalles de tu compra reciente",
-    "loading": "Cargando tus pedidos...",
-    "error_title": "Error de Pedido",
     "no_orders_title": "Aún Sin Pedidos",
     "no_orders_message": "Aún no has realizado pedidos. Comienza a comprar para verlos aquí.",
     "browse_products": "Explorar Productos",
-
     "order_id": "ID del Pedido",
     "date": "Fecha",
     "status": "Estado",
     "total": "Total",
     "actions": "Acciones",
     "view_details": "Ver Detalles",
-    "items": "Artículos",
-    "continue_shopping": "Continuar Comprando",
-    "quantity": "Cantidad",
     "pending": "Pendiente",
     "paid": "Pagado",
     "shipped": "Enviado",
@@ -926,7 +666,6 @@
   "PaypalPaymentButton": {
     "loading": "Cargando PayPal..."
   },
-
   "ProductDetails": {
     "back_to_store": "Volver a la Tienda",
     "base": {
@@ -936,11 +675,6 @@
     },
     "add_to_cart": "Agregar al Carrito",
     "adding_to_cart": "Agregando al carrito...",
-    "select_option": "Selecciona una opción",
-    "cart": {
-      "name": "{name} (Base: {base})",
-      "description": "Base: {base}, Descripción: {description}"
-    },
     "category": {
       "sacred_geometry": "Geometría Sagrada",
       "flower_essence": "Esencia Floral"
@@ -989,7 +723,6 @@
     "panel": "Panel de Administrador"
   },
   "UserMenu": {
-    "dashboard": "Panel de Control",
     "signout": "Cerrar Sesión",
     "orders": "Pedidos",
     "login": "Iniciar Sesión",

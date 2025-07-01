@@ -1,34 +1,4 @@
 {
-  "HomePage": {
-    "hero": {
-      "title": "Sacred Geometry & Healing Essences",
-      "subtitle": "Discover the perfect harmony between sacred geometric forms and the healing power of flower essences.",
-      "cta": "Explore Our Collection",
-      "flower_essence": "Flower Essence",
-      "sacred_geometry": "Sacred Geometry"
-    },
-    "features": {
-      "title": "Why Choose Us",
-      "geometry": {
-        "title": "Sacred Geometry",
-        "description": "Handcrafted geometric forms that embody universal patterns of creation."
-      },
-      "essences": {
-        "title": "Flower Essences",
-        "description": "Pure, natural essences that promote emotional and spiritual well-being."
-      },
-      "harmony": {
-        "title": "Holistic Harmony",
-        "description": "The perfect blend of form and essence for complete spiritual alignment."
-      }
-    },
-    "cta": {
-      "title": "Ready to Begin Your Journey?",
-      "description": "Join us in exploring the intersection of sacred geometry and natural healing.",
-      "shop": "Shop Now",
-      "signin": "Sign In"
-    }
-  },
   "Footer": {
     "rights": "All rights reserved.",
     "nav": {
@@ -38,49 +8,11 @@
   },
   "RegisterPage": {
     "title": "Create Account",
-    "description": "Join our community",
-    "name": "Full Name",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "submit": "Create Account",
-    "haveAccount": "Already have an account?",
-    "login": "Sign in",
-    "creating": "Creating account...",
-    "loading": "Loading...",
-    "placeholder": {
-      "name": "Enter your full name",
-      "email": "Enter your email address",
-      "password": "Enter your password",
-      "confirmPassword": "Enter your password again"
-    },
-    "error": {
-      "generic": "Registration failed. Please try again."
-    },
-    "errorOccurred": "Registration Error",
-    "tryAgainLater": "Please try again later",
-    "tryAgain": "Try again"
+    "description": "Join our community"
   },
   "LoginPage": {
     "title": "Sign In",
-    "description": "Access your account",
-    "email": "Email",
-    "password": "Password",
-    "submit": "Sign In",
-    "loading": "Loading...",
-    "noAccount": "Don't have an account?",
-    "register": "Create account",
-    "error": {
-      "invalid": "Invalid email or password",
-      "generic": "Sign in failed. Please try again."
-    },
-    "placeholder": {
-      "email": "Enter your email address",
-      "password": "Enter your password"
-    },
-    "errorOccurred": "Sign In Error",
-    "tryAgainLater": "Please try again later",
-    "tryAgain": "Try again"
+    "description": "Access your account"
   },
   "RegisterForm": {
     "submit": "Create Account",
@@ -130,9 +62,6 @@
   "VerificationForm": {
     "title": "Verify your email",
     "description": "Enter the code sent to",
-    "placeholder": {
-      "code": "Enter verification code"
-    },
     "error": {
       "title": "Error",
       "description": "Invalid verification link. Please try registering again.",
@@ -143,30 +72,6 @@
     "validation": {
       "emailInvalid": "Please enter a valid email address",
       "codeLength": "Verification code must be 6 digits"
-    }
-  },
-  "Navigation": {
-    "nav": {
-      "sacred_geometry": "Sacred Geometry",
-      "flower_essences": "Flower Essences",
-      "dashboard": "Dashboard",
-      "login": "Sign In",
-      "register": "Create Account",
-      "signout": "Sign Out",
-      "orders": "Orders"
-    },
-    "error": {
-      "loadCategories": "Categories unavailable"
-    },
-    "store": {
-      "cart": {
-        "title": "Your Cart",
-        "description": "Review the items in your cart",
-        "empty": "Your cart is empty",
-        "browse": "Browse Products",
-        "total": "Total",
-        "checkout": "Checkout"
-      }
     }
   },
   "ThemeToggle": {
@@ -180,15 +85,10 @@
   "LanguageToggle": {
     "toggle_language": "Toggle language"
   },
-
   "StoreHeader": {
     "title": "Our Products",
-    "subtitle": "Discover our curated collection of sacred geometric forms and healing flower essences, designed to enhance your spiritual and emotional well-being.",
     "category_title": "{name} Collection",
-    "category": {
-      "sacred geometry": { "badge": "Sacred Geometry" },
-      "flower essence": { "badge": "Flower Essence" }
-    }
+    "subtitle": "Discover our curated collection of sacred geometric forms and healing flower essences, designed to enhance your spiritual and emotional well-being."
   },
   "StorePage": {
     "error": {
@@ -273,7 +173,6 @@
       "price": "0.00",
       "stock": "0"
     },
-    "image_alt": "Product image",
     "uploading_image": "Uploading image...",
     "preview": "Image preview",
     "choose_file": "Choose File",
@@ -312,7 +211,6 @@
       "price": "0.00",
       "stock": "0"
     },
-    "image_alt": "Product image",
     "uploading_image": "Uploading image...",
     "preview": "Image preview",
     "choose_file": "Choose File",
@@ -344,57 +242,6 @@
     "updated_at": "Updated At",
     "actions": "Actions",
     "out_of_stock": "Out of stock"
-  },
-  "ProductTableSkeleton": {
-    "image": "Image",
-    "name": "Name",
-    "category": "Category",
-    "price": "Price",
-    "stock": "Stock",
-    "created_at": "Created At",
-    "updated_at": "Updated At",
-    "actions": "Actions"
-  },
-  "CustomBlendPage": {
-    "title": "Create Your Custom Blend",
-    "subtitle": "Personalized Flower Essence",
-    "description": "Design your own unique blend of up to 7 flower essences. Choose at least 2 essences to get started.",
-    "price": "$19.99",
-    "whatsapp_help": "Need help choosing your essences? Contact us on WhatsApp for a personalized consultation.",
-    "learn_more": "Learn More About Flower Essences",
-    "base": {
-      "label": "Choose Your Base",
-      "brandy": "Brandy",
-      "water": "Water"
-    },
-    "essence": {
-      "label": "Essence {number}"
-    },
-    "add_to_cart": "Add Custom Blend to Cart",
-    "adding_to_cart": "Adding to cart...",
-    "select_option": "Select an essence",
-    "skip_option": "None (optional)",
-    "back_to_store": "Back to Store",
-    "image_alt": "Custom blend bottle with flowers",
-    "cart": {
-      "name": "Custom Blend ({essences})",
-      "description": "Base: {base}, Essences: {essences}"
-    }
-  },
-  "ProductPage": {
-    "back_to_store": "Back to Store",
-    "base": {
-      "label": "Base",
-      "brandy": "Brandy",
-      "water": "Water"
-    },
-    "add_to_cart": "Add to Cart",
-    "adding_to_cart": "Adding to cart...",
-    "select_option": "Select an option",
-    "cart": {
-      "name": "{name} (Base: {base})",
-      "description": "Base: {base}, Description: {description}"
-    }
   },
   "ProductNotFound": {
     "product_not_found": "Product not found",
@@ -446,50 +293,14 @@
     "order_summary": "Order Summary",
     "payment_method": "Payment Method",
     "total": "Total",
-    "processing": "Processing...",
     "empty_cart": "Your Cart is Empty",
     "empty_cart_message": "You have no items in your cart. Let's find something for you.",
     "continue_shopping": "Continue Shopping",
     "complete_form": "Please complete the form to proceed with payment",
-    "loading_paypal": "Loading PayPal...",
-    "shipping_info": "Shipping Information",
-    "order_notes": "Order Notes",
-    "name": "Full Name *",
-    "email": "Email *",
-    "address": "Address *",
-    "state": "State *",
-    "city": "City *",
-    "zip_code": "Zip Code *",
-    "placeholder": {
-      "name": "Enter your full name",
-      "email": "Enter your email address",
-      "address": "Enter your shipping address",
-      "state": "Select a State",
-      "city": "Enter your city",
-      "zip_code": "Enter the ZIP code",
-      "order_notes": "Notes about your order, e.g. special notes for delivery"
-    },
     "card_payment": "Card Payment",
     "paypal": "PayPal",
     "loading_payment_form": "Loading payment form..."
   },
-
-  "OrderDetail": {
-    "loading": "Loading order details...",
-    "error_title": "Order Error",
-    "back_to_orders": "Back to Orders",
-    "not_found_title": "Order Not Found",
-    "not_found_message": "The order you are looking for could not be found.",
-    "title": "Order Details",
-    "order_details": "Order Details",
-    "product_category": "Product Category",
-    "quantity": "Quantity",
-    "total": "Total",
-    "error": {
-      "loadOrder": "Failed to load order details"
-    }
-  },
-
   "ChatBot": {
     "title": "Breathe Coherence Assistant",
     "welcome": "Welcome to our Shopping Assistant! 👋\n\nI can help you with:\n\n1. Sacred Geometry Products\n• Information about our Platonic Solids\n• Their elemental associations\n• Metaphysical properties\n• Prices and availability\n\n2. Bach Flower Remedies\n• Information about each essence\n• Emotional benefits\n• Personalized recommendations\n\nHow can I help you today?",
@@ -501,7 +312,6 @@
     "minimize": "Minimize chat",
     "close": "Close chat"
   },
-
   "CategoriesPage": {
     "title": "Category Management",
     "add_category": "Add Category",
@@ -509,7 +319,6 @@
       "loadCategories": "Failed to load categories"
     }
   },
-
   "CategoryTable": {
     "name": "Name",
     "description": "Description",
@@ -564,23 +373,6 @@
       "description_min": "Description must be at least 10 characters"
     }
   },
-  "AuthSchema": {
-    "Login": {
-      "emailInvalid": "Please enter a valid email address",
-      "passwordRequired": "Password is required"
-    },
-    "Register": {
-      "nameRequired": "Name is required",
-      "emailInvalid": "Please enter a valid email address",
-      "passwordMinLength": "Password must be at least 6 characters",
-      "confirmPasswordMinLength": "Please confirm your password (minimum 6 characters)",
-      "passwordsDontMatch": "Passwords do not match"
-    },
-    "Verify": {
-      "emailInvalid": "Please enter a valid email address",
-      "codeLength": "Verification code must be 6 digits"
-    }
-  },
   "UsersPage": {
     "title": "User Management",
     "add_user": "Add User",
@@ -596,11 +388,10 @@
     "updated_at": "Updated At",
     "actions": "Actions",
     "roles": {
-      "admin": "Admin",
-      "user": "User"
+      "user": "User",
+      "admin": "Admin"
     }
   },
-
   "UsersLoading": {
     "title": "User Management",
     "add_user": "Add User",
@@ -645,12 +436,10 @@
     "edit_form_description": "Form to edit an existing user",
     "name": "User Name",
     "email": "Email",
-    "password": "Password",
     "role": "Role",
     "placeholder": {
       "name": "Enter user name",
       "email": "Enter user email",
-      "password": "Enter password",
       "role": "Select role"
     },
     "updated_title": "User Updated",
@@ -665,7 +454,6 @@
     "validation": {
       "name_min": "Name must be at least 1 character",
       "email_invalid": "Please enter a valid email",
-      "password_min": "Password must be at least 6 characters",
       "role_invalid": "Please select a valid role"
     }
   },
@@ -690,14 +478,11 @@
       "pending": "Pending",
       "paid": "Paid",
       "shipped": "Shipped"
-    },
-    "error": {
-      "loadOrders": "Failed to load orders"
     }
   },
   "UpdateOrderStatusDialog": {
     "title": "Update Order Status",
-    "description": "Update the status for order #{id}",
+    "description": "Change the status of this order",
     "status_label": "Status",
     "status_placeholder": "Select status",
     "status": {
@@ -709,9 +494,14 @@
     "update": "Update Status",
     "updating": "Updating...",
     "updated_title": "Order Status Updated",
-    "updated_description": "Order #{id} status has been updated successfully."
+    "updated_description": "The status for order #{id} has been updated successfully."
   },
-
+  "OrdersPage": {
+    "title": "Order Management",
+    "error": {
+      "loadOrders": "Failed to load orders"
+    }
+  },
   "OrdersLoading": {
     "title": "Order Management",
     "id": "ID",
@@ -721,17 +511,8 @@
     "createdAt": "Created At",
     "actions": "Actions"
   },
-
   "AdminDashboardLink": {
     "dashboard": "Dashboard"
-  },
-  "AdminNav": {
-    "dashboard": "Dashboard",
-    "products": "Products",
-    "categories": "Categories",
-    "orders": "Orders",
-    "users": "Users",
-    "panel": "Admin Panel"
   },
   "CartButton": {
     "title": "Your Cart",
@@ -757,39 +538,7 @@
     "try_view_orders": "Try viewing your orders in the account section.",
     "total_amount": "Total Amount",
     "status": "Status",
-    "succeeded": "Succeeded",
-    "date": "Date",
-    "total": "Total",
-    "payment_method": "Payment Method",
-    "card": "Card",
-    "shipping_info": "Shipping Information",
-    "email": "Email",
-    "error_title": "Order Error"
-  },
-  "CheckoutSuccess": {
-    "title": "Payment Completed!",
-    "subtitle": "Thank you for your purchase. Your order has been processed successfully.",
-    "back_to_store": "Back to Store",
-    "order_details": "Order Details",
-    "order_id": "Order ID",
-    "confirmation_sent": "A confirmation has been sent to your email address.",
-    "no_order_details": "No order details found.",
-    "view_order": "View Order",
-    "view_all_orders": "View All Orders",
-    "continue_shopping": "Continue Shopping",
-    "loading_details": "Loading order details...",
-    "error_fetching_order": "Error fetching order details",
-    "try_view_orders": "Try viewing your orders in the account section.",
-    "total_amount": "Total Amount",
-    "status": "Status",
-    "succeeded": "Succeeded",
-    "date": "Date",
-    "total": "Total",
-    "payment_method": "Payment Method",
-    "card": "Card",
-    "shipping_info": "Shipping Information",
-    "email": "Email",
-    "error_title": "Order Error"
+    "succeeded": "Succeeded"
   },
   "CTASection": {
     "title": "Ready to Begin Your Journey?",
@@ -823,7 +572,6 @@
     "back_to_store": "Back to Store",
     "image_alt": "Custom blend bottle with flowers",
     "cart": {
-      "name": "Custom Blend ({essences})",
       "description": "Base: {base}, Essences: {essences}"
     }
   },
@@ -845,9 +593,7 @@
   "HeroSection": {
     "title": "Sacred Geometry & Healing Essences",
     "subtitle": "Discover the perfect harmony between sacred geometric forms and the healing power of flower essences.",
-    "cta": "Explore Our Collection",
-    "flower_essence": "Flower Essence",
-    "sacred_geometry": "Sacred Geometry"
+    "cta": "Explore Our Collection"
   },
   "LoginError": {
     "signInError": "Sign In Error",
@@ -873,9 +619,9 @@
     "product_category": "Product Category",
     "quantity": "Quantity",
     "total": "Total",
-    "error": {
-      "loadOrder": "Failed to load order details"
-    }
+    "status_pending": "Pending",
+    "status_paid": "Paid",
+    "status_shipped": "Shipped"
   },
   "OrderDetailPage": {
     "error": {
@@ -892,21 +638,15 @@
     "subtitle": "View and track your orders",
     "guest_order_title": "Your Order",
     "guest_order_subtitle": "View details of your recent purchase",
-    "loading": "Loading your orders...",
-    "error_title": "Order Error",
     "no_orders_title": "No Orders Yet",
     "no_orders_message": "You haven't placed any orders yet. Start shopping to see your orders here.",
     "browse_products": "Browse Products",
-
     "order_id": "Order ID",
     "date": "Date",
     "status": "Status",
     "total": "Total",
     "actions": "Actions",
     "view_details": "View Details",
-    "items": "Items",
-    "continue_shopping": "Continue Shopping",
-    "quantity": "Quantity",
     "pending": "Pending",
     "paid": "Paid",
     "shipped": "Shipped",
@@ -926,7 +666,6 @@
   "PaypalPaymentButton": {
     "loading": "Loading PayPal..."
   },
-
   "ProductDetails": {
     "back_to_store": "Back to Store",
     "base": {
@@ -936,11 +675,6 @@
     },
     "add_to_cart": "Add to Cart",
     "adding_to_cart": "Adding to cart...",
-    "select_option": "Select an option",
-    "cart": {
-      "name": "{name} (Base: {base})",
-      "description": "Base: {base}, Description: {description}"
-    },
     "category": {
       "sacred_geometry": "Sacred Geometry",
       "flower_essence": "Flower Essence"
@@ -989,7 +723,6 @@
     "panel": "Admin Panel"
   },
   "UserMenu": {
-    "dashboard": "Dashboard",
     "signout": "Sign Out",
     "orders": "Orders",
     "login": "Sign In",
