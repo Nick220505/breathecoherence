@@ -721,11 +721,7 @@
     "createdAt": "Created At",
     "actions": "Actions"
   },
-  "ErrorBoundary": {
-    "title": "Something went wrong",
-    "message": "An unexpected error occurred. Please try again.",
-    "retry": "Try Again"
-  },
+
   "AdminDashboardLink": {
     "dashboard": "Dashboard"
   },
@@ -800,6 +796,10 @@
     "description": "Join us in exploring the intersection of sacred geometry and natural healing.",
     "shop": "Shop Now",
     "signin": "Sign In"
+  },
+  "DashboardError": {
+    "title": "Something went wrong!",
+    "tryAgain": "Try again"
   },
   "CustomBlendForm": {
     "title": "Create Your Custom Blend",
@@ -882,6 +882,11 @@
       "loadOrder": "Failed to load order details"
     }
   },
+  "OrdersError": {
+    "title": "Something went wrong",
+    "message": "An unexpected error occurred. Please try again.",
+    "retry": "Try Again"
+  },
   "OrderHistoryPage": {
     "title": "Order History",
     "subtitle": "View and track your orders",
@@ -918,6 +923,9 @@
     "total": "Total",
     "actions": "Actions"
   },
+  "PaypalPaymentButton": {
+    "loading": "Loading PayPal..."
+  },
 
   "ProductDetails": {
     "back_to_store": "Back to Store",
@@ -932,7 +940,24 @@
     "cart": {
       "name": "{name} (Base: {base})",
       "description": "Base: {base}, Description: {description}"
+    },
+    "category": {
+      "sacred_geometry": "Sacred Geometry",
+      "flower_essence": "Flower Essence"
     }
+  },
+  "ProductsError": {
+    "title": "Something went wrong",
+    "message": "An unexpected error occurred. Please try again.",
+    "retry": "Try Again"
+  },
+  "RegisterError": {
+    "errorOccurred": "Registration Error",
+    "tryAgainLater": "Please try again later",
+    "tryAgain": "Try Again"
+  },
+  "RegisterLoading": {
+    "loading": "Loading"
   },
   "ShippingFormFields": {
     "shipping_info": "Shipping Information",
@@ -969,6 +994,11 @@
     "orders": "Orders",
     "login": "Sign In",
     "register": "Create Account"
+  },
+  "UsersError": {
+    "title": "Something went wrong",
+    "message": "An unexpected error occurred. Please try again.",
+    "retry": "Try Again"
   },
   "CheckoutSchema": {
     "nameMin": "Name must be at least 2 characters",

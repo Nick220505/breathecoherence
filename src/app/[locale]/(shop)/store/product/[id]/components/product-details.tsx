@@ -39,7 +39,6 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
   const t = useTranslations('ProductDetails');
-  const storeHeaderCategoryT = useTranslations('StoreHeader.category');
   const { addToCart } = useCart();
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [isAdding, setIsAdding] = useState(false);
@@ -128,8 +127,8 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
                 className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium"
               >
                 {product.category.name === 'Sacred Geometry'
-                  ? storeHeaderCategoryT('sacred geometry.badge')
-                  : storeHeaderCategoryT('flower essence.badge')}
+                  ? t('category.sacred_geometry')
+                  : t('category.flower_essence')}
               </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}

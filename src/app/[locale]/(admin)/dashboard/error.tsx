@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,8 @@ export default function DashboardError({
   error: Error & { digest?: string };
   reset: () => void;
 }>) {
+  const t = useTranslations('DashboardError');
+
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -26,12 +29,12 @@ export default function DashboardError({
     <div className="container mx-auto px-4 py-8">
       <Card className="border-destructive">
         <CardHeader>
-          <CardTitle>Something went wrong!</CardTitle>
+          <CardTitle>{t('title')}</CardTitle>
           <CardDescription>{error.message}</CardDescription>
         </CardHeader>
         <CardContent>
           <Button onClick={reset} variant="outline">
-            Try again
+            {t('tryAgain')}
           </Button>
         </CardContent>
       </Card>

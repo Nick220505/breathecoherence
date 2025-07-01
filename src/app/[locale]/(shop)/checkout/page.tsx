@@ -51,7 +51,7 @@ function PayPalPaymentButton({
   isFormValid: boolean;
 }>) {
   const [{ isPending }] = usePayPalScriptReducer();
-  const t = useTranslations('CheckoutPage');
+  const t = useTranslations('PaypalPaymentButton');
 
   if (!isFormValid) {
     return (
@@ -64,7 +64,7 @@ function PayPalPaymentButton({
   if (isPending) {
     return (
       <div className="text-muted-foreground flex min-h-[100px] items-center justify-center">
-        {t('loading_paypal')}
+        {t('loading')}
       </div>
     );
   }

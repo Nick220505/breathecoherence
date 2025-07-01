@@ -721,11 +721,7 @@
     "createdAt": "Creado en",
     "actions": "Acciones"
   },
-  "ErrorBoundary": {
-    "title": "Algo salió mal",
-    "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
-    "retry": "Intentar de Nuevo"
-  },
+
   "AdminDashboardLink": {
     "dashboard": "Panel de Control"
   },
@@ -800,6 +796,10 @@
     "description": "Únete a nosotros en la exploración de la intersección entre la geometría sagrada y la sanación natural.",
     "shop": "Comprar Ahora",
     "signin": "Iniciar Sesión"
+  },
+  "DashboardError": {
+    "title": "¡Algo salió mal!",
+    "tryAgain": "Intentar de nuevo"
   },
   "CustomBlendForm": {
     "title": "Crea Tu Mezcla Personalizada",
@@ -882,6 +882,11 @@
       "loadOrder": "Error al cargar detalles del pedido"
     }
   },
+  "OrdersError": {
+    "title": "Algo salió mal",
+    "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "retry": "Intentar de Nuevo"
+  },
   "OrderHistoryPage": {
     "title": "Historial de Pedidos",
     "subtitle": "Ver y rastrear tus pedidos",
@@ -918,6 +923,9 @@
     "total": "Total",
     "actions": "Acciones"
   },
+  "PaypalPaymentButton": {
+    "loading": "Cargando PayPal..."
+  },
 
   "ProductDetails": {
     "back_to_store": "Volver a la Tienda",
@@ -932,7 +940,24 @@
     "cart": {
       "name": "{name} (Base: {base})",
       "description": "Base: {base}, Descripción: {description}"
+    },
+    "category": {
+      "sacred_geometry": "Geometría Sagrada",
+      "flower_essence": "Esencia Floral"
     }
+  },
+  "ProductsError": {
+    "title": "Algo salió mal",
+    "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "retry": "Intentar de Nuevo"
+  },
+  "RegisterError": {
+    "errorOccurred": "Error de Registro",
+    "tryAgainLater": "Por favor intenta más tarde",
+    "tryAgain": "Intentar de nuevo"
+  },
+  "RegisterLoading": {
+    "loading": "Cargando"
   },
   "ShippingFormFields": {
     "shipping_info": "Información de Envío",
@@ -969,6 +994,11 @@
     "orders": "Pedidos",
     "login": "Iniciar Sesión",
     "register": "Crear Cuenta"
+  },
+  "UsersError": {
+    "title": "Algo salió mal",
+    "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "retry": "Intentar de Nuevo"
   },
   "CheckoutSchema": {
     "nameMin": "El nombre debe tener al menos 2 caracteres",

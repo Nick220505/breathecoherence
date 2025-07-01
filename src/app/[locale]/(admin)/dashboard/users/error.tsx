@@ -9,7 +9,7 @@ interface ErrorProps {
 }
 
 export default function UsersError({ error, reset }: ErrorProps) {
-  const t = useTranslations('ErrorBoundary');
+  const t = useTranslations('UsersError');
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4 py-12">

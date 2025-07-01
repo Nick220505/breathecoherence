@@ -15,7 +15,7 @@ export default function RegisterError({
   error: Error & { digest?: string };
   reset: () => void;
 }>) {
-  const t = useTranslations('RegisterPage');
+  const t = useTranslations('RegisterError');
 
   return (
     <div className="from-background via-background/80 to-background flex min-h-screen items-center justify-center bg-linear-to-b px-4">

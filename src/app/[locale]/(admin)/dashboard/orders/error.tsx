@@ -9,7 +9,7 @@ interface ErrorProps {
 }
 
 export default function OrdersError({ error, reset }: ErrorProps) {
-  const t = useTranslations('ErrorBoundary');
+  const t = useTranslations('OrdersError');
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4 py-12">
