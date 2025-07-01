@@ -36,7 +36,7 @@ export default async function OrderHistoryPage({
   const resolvedSearchParams = await searchParams;
   const guestOrderId = resolvedSearchParams.guestId as string | undefined;
 
-  const t = await getTranslations('OrderHistory');
+  const t = await getTranslations('OrderHistoryPage');
   const [orders, ordersErr] = await getOrdersByUser();
 
   if (ordersErr) {

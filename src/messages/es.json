@@ -547,7 +547,7 @@
     "minimize": "Minimizar chat",
     "close": "Cerrar chat"
   },
-  "OrderHistory": {
+  "OrderHistoryPage": {
     "title": "Historial de Pedidos",
     "subtitle": "Visualiza y rastrea tus pedidos",
     "guest_order_title": "Tu Pedido",
@@ -580,7 +580,15 @@
       "loadOrders": "Error al cargar pedidos"
     }
   },
-
+  "OrderHistoryLoading": {
+    "title": "Historial de Pedidos",
+    "subtitle": "Visualiza y rastrea tus pedidos",
+    "order_id": "ID del Pedido",
+    "date": "Fecha",
+    "status": "Estado",
+    "total": "Total",
+    "actions": "Acciones"
+  },
   "AuthSchema": {
     "Login": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",

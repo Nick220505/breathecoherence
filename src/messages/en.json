@@ -706,7 +706,7 @@
     "error_no_order": "No order details found",
     "error_unknown": "An unknown error occurred"
   },
-  "OrderHistory": {
+  "OrderHistoryPage": {
     "title": "Order History",
     "subtitle": "View and track your orders",
     "guest_order_title": "Your Order",
@@ -738,6 +738,15 @@
     "error": {
       "loadOrders": "Failed to load orders"
     }
+  },
+  "OrderHistoryLoading": {
+    "title": "Order History",
+    "subtitle": "View and track your orders",
+    "order_id": "Order ID",
+    "date": "Date",
+    "status": "Status",
+    "total": "Total",
+    "actions": "Actions"
   },
   "CheckoutSchema": {
     "nameMin": "Name must be at least 2 characters",

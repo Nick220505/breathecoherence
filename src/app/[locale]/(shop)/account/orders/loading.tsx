@@ -10,8 +10,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export default async function Loading() {
-  const t = await getTranslations('OrderHistory');
+export default async function OrderHistoryLoading() {
+  const t = await getTranslations('OrderHistoryLoading');
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">

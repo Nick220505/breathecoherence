@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export default async function Loading() {
+export default async function OrdersLoading() {
   const t = await getTranslations('OrdersLoading');
 
   return (
