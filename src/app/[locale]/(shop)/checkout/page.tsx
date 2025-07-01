@@ -141,7 +141,7 @@ export default function CheckoutPage() {
         return { message: ctx.defaultError };
       },
     }),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       name: '',
       email: '',
@@ -162,14 +162,13 @@ export default function CheckoutPage() {
   const subtotal = parseFloat(total || '0');
   const finalTotal = subtotal;
 
-  useEffect(() => {
-    const validateForm = async () => {
-      await form.trigger();
-    };
-    void validateForm();
-  }, [form]);
-
   const [clientSecret, setClientSecret] = useState<string>();
+
+  // Handle payment method change and validate form
+  const handlePaymentMethodChange = (value: string) => {
+    setPaymentMethod(value);
+    void form.trigger();
+  };
 
   useEffect(() => {
     if (paymentMethod === 'card' && isValid) {
@@ -270,7 +269,7 @@ export default function CheckoutPage() {
               </h2>
               <RadioGroup
                 value={paymentMethod}
-                onValueChange={setPaymentMethod}
+                onValueChange={handlePaymentMethodChange}
                 className="space-y-4"
               >
                 <div className="hover:bg-accent flex items-center space-x-3 rounded-lg border p-4 transition-colors">
