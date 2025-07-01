@@ -13,6 +13,3 @@ export function Sidebar() {
     </div>
   );
 }
-
-// Re-export MobileSidebar from its own file
-export { MobileSidebar } from './mobile-sidebar';

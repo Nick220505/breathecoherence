@@ -9,7 +9,8 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 
-import { MobileSidebar, Sidebar } from './components/sidebar';
+import { MobileSidebar } from './components/mobile-sidebar';
+import { Sidebar } from './components/sidebar';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
