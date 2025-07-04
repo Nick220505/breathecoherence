@@ -100,6 +100,21 @@
     "no_products": "No se encontraron productos",
     "try_adjusting": "Intenta ajustar tus filtros o vuelve más tarde para ver nuevos artículos."
   },
+  "StockStatusBadge": {
+    "out_of_stock": "Sin stock",
+    "low_stock": "Stock bajo",
+    "in_stock": "En stock",
+    "stock_label": "Stock",
+    "stock_count": "{count} en stock",
+    "out_of_stock_with_count": "Sin stock (0)",
+    "in_stock_with_count": "En stock ({count})"
+  },
+  "AddToCartButton": {
+    "add_to_cart": "Agregar al Carrito",
+    "adding_to_cart": "Agregando al carrito...",
+    "out_of_stock": "Sin stock",
+    "max_quantity_reached": "Cantidad máxima alcanzada"
+  },
   "CustomBlendCard": {
     "title": "Crea Tu Mezcla Personalizada",
     "subtitle": "Esencia Floral Personalizada",
@@ -110,7 +125,10 @@
   "ProductCard": {
     "view_details": "Ver Detalles",
     "sacred_geometry": "Geometría Sagrada",
-    "flower_essence": "Esencia Floral"
+    "flower_essence": "Esencia Floral",
+    "stock_label": "Stock",
+    "no_stock": "Sin stock",
+    "currently_unavailable": "No disponible actualmente"
   },
   "ProductsPage": {
     "title": "Gestión de Productos",
@@ -711,7 +729,8 @@
     "cart": {
       "name": "{name} - Base {base}",
       "description": "Base: {base}. {description}"
-    }
+    },
+    "stock_label": "Stock"
   },
   "ProductsError": {
     "title": "Algo salió mal",

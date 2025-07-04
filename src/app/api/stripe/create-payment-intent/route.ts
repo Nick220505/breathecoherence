@@ -32,6 +32,29 @@ export async function POST(req: Request) {
     const { amount, items, shippingDetails } =
       (await req.json()) as PaymentRequest;
 
+    for (const item of items) {
+      const product = await prisma.product.findUnique({
+        where: { id: item.id },
+        select: { stock: true, name: true },
+      });
+
+      if (!product) {
+        return NextResponse.json(
+          { error: `Product ${item.name} not found` },
+          { status: 400 },
+        );
+      }
+
+      if (product.stock < item.quantity) {
+        return NextResponse.json(
+          {
+            error: `Insufficient stock for ${item.name}. Available: ${product.stock}, Requested: ${item.quantity}`,
+          },
+          { status: 400 },
+        );
+      }
+    }
+
     let orderId: string;
     let userId = 'guest';
 

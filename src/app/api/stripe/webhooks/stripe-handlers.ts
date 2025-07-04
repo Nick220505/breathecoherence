@@ -29,14 +29,43 @@ export async function handlePaymentIntentSucceeded(
 
     if (!isGuestOrder) {
       try {
-        await prisma.order.update({
+        const order = await prisma.order.findUnique({
           where: { id: orderId },
-          data: {
-            status: 'PAID',
-            updatedAt: new Date(),
+          include: {
+            items: {
+              include: {
+                product: true,
+              },
+            },
           },
         });
-        console.log(`Order ${orderId} marked as paid`);
+
+        if (order) {
+          await prisma.$transaction(async (tx) => {
+            await tx.order.update({
+              where: { id: orderId },
+              data: {
+                status: 'PAID',
+                updatedAt: new Date(),
+              },
+            });
+
+            for (const item of order.items) {
+              await tx.product.update({
+                where: { id: item.productId },
+                data: {
+                  stock: {
+                    decrement: item.quantity,
+                  },
+                },
+              });
+              console.log(
+                `Reduced stock for product ${item.product.name} by ${item.quantity}`,
+              );
+            }
+          });
+          console.log(`Order ${orderId} marked as paid and stock updated`);
+        }
       } catch (error) {
         console.error(`Error updating order ${orderId}:`, error);
       }

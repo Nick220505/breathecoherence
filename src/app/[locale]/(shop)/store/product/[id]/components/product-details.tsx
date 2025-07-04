@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, Loader2, ShoppingCart } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { AddToCartButton } from '@/components/ui/add-to-cart-button';
 import {
   Select,
   SelectContent,
@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { StockStatusBadge } from '@/components/ui/stock-status-badge';
 import type { ProductWithCategory } from '@/features/product/types';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
@@ -38,20 +39,26 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
   const t = useTranslations('ProductDetails');
-  const { addToCart } = useCart();
+  const { addToCart, canAddToCart } = useCart();
   const [selectedBase, setSelectedBase] = useState<string>('');
   const [isAdding, setIsAdding] = useState(false);
+  const [addToCartError, setAddToCartError] = useState<string>('');
 
   const hasImage =
     typeof product.imageBase64 === 'string' &&
     product.imageBase64.trim() !== '';
 
+  const isOutOfStock = product.stock === 0;
+  const canAddMore = canAddToCart(product);
+
   const handleAddToCart = () => {
     setIsAdding(true);
+    setAddToCartError('');
 
     try {
+      let success = false;
       if (product.category.name === 'Flower Essence' && selectedBase) {
-        addToCart({
+        success = addToCart({
           ...product,
           name: t('cart.name', { name: product.name, base: selectedBase }),
           description: t('cart.description', {
@@ -60,7 +67,11 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
           }),
         });
       } else {
-        addToCart(product);
+        success = addToCart(product);
+      }
+
+      if (!success) {
+        setAddToCartError(t('stock_error'));
       }
     } finally {
       setIsAdding(false);
@@ -132,11 +143,12 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium"
               >
-                {product.category.name === 'Sacred Geometry'
-                  ? t('category.sacred_geometry')
-                  : t('category.flower_essence')}
+                <div className="bg-primary/10 text-primary inline-flex items-center rounded-full px-3 py-1 text-sm font-medium">
+                  {product.category.name === 'Sacred Geometry'
+                    ? t('category.sacred_geometry')
+                    : t('category.flower_essence')}
+                </div>
               </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -154,6 +166,13 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
               >
                 ${product.price.toFixed(2)}
               </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+              >
+                <StockStatusBadge stock={product.stock} />
+              </motion.div>
             </div>
 
             <motion.div
@@ -196,29 +215,23 @@ export function ProductDetails({ product }: Readonly<ProductDetailsProps>) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
+              className="space-y-3"
             >
-              <Button
+              {addToCartError && (
+                <div className="rounded-lg bg-red-50 p-3 text-sm text-red-800 dark:bg-red-900/20 dark:text-red-400">
+                  {addToCartError}
+                </div>
+              )}
+              <AddToCartButton
                 onClick={handleAddToCart}
-                className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
-                size="lg"
+                isAdding={isAdding}
+                isOutOfStock={isOutOfStock}
+                canAddMore={canAddMore}
                 disabled={
-                  (product.category.name === 'Flower Essence' &&
-                    !selectedBase) ||
-                  isAdding
+                  product.category.name === 'Flower Essence' && !selectedBase
                 }
-              >
-                {isAdding ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t('adding_to_cart')}
-                  </>
-                ) : (
-                  <>
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    {t('add_to_cart')}
-                  </>
-                )}
-              </Button>
+                className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 hover:shadow-xl disabled:from-gray-400 disabled:to-gray-500 disabled:hover:scale-100"
+              />
             </motion.div>
           </motion.div>
         </div>

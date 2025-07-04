@@ -100,6 +100,21 @@
     "no_products": "No products found",
     "try_adjusting": "Try adjusting your filters or check back later for new items."
   },
+  "StockStatusBadge": {
+    "out_of_stock": "Out of stock",
+    "low_stock": "Low stock",
+    "in_stock": "In stock",
+    "stock_label": "Stock",
+    "stock_count": "{count} in stock",
+    "out_of_stock_with_count": "Out of stock (0)",
+    "in_stock_with_count": "In stock ({count})"
+  },
+  "AddToCartButton": {
+    "add_to_cart": "Add to Cart",
+    "adding_to_cart": "Adding to cart...",
+    "out_of_stock": "Out of stock",
+    "max_quantity_reached": "Maximum quantity reached"
+  },
   "CustomBlendCard": {
     "title": "Create Your Custom Blend",
     "subtitle": "Personalized Flower Essence",
@@ -110,7 +125,10 @@
   "ProductCard": {
     "view_details": "View Details",
     "sacred_geometry": "Sacred Geometry",
-    "flower_essence": "Flower Essence"
+    "flower_essence": "Flower Essence",
+    "stock_label": "Stock",
+    "no_stock": "Out of stock",
+    "currently_unavailable": "Currently unavailable"
   },
   "ProductsPage": {
     "title": "Product Management",
@@ -711,7 +729,8 @@
     "cart": {
       "name": "{name} - {base} Base",
       "description": "Base: {base}. {description}"
-    }
+    },
+    "stock_label": "Stock"
   },
   "ProductsError": {
     "title": "Something went wrong",

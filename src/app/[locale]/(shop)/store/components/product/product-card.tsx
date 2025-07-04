@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { StockStatusBadge } from '@/components/ui/stock-status-badge';
 import { Link } from '@/i18n/routing';
 
 interface ProductCardProps {
@@ -27,6 +28,7 @@ export function ProductCard({
   categoryName,
 }: Readonly<ProductCardProps>) {
   const t = useTranslations('ProductCard');
+  const isOutOfStock = product.stock === 0;
 
   let imageToDisplay: string;
   const actualImageValue: unknown = product.imageBase64;
@@ -60,10 +62,13 @@ export function ProductCard({
             )}
             {product.name}
           </CardTitle>
-          <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
-            {categoryName === 'Sacred Geometry'
-              ? t('sacred_geometry')
-              : t('flower_essence')}
+          <CardDescription className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+            <span>
+              {categoryName === 'Sacred Geometry'
+                ? t('sacred_geometry')
+                : t('flower_essence')}
+            </span>
+            <StockStatusBadge stock={product.stock} />
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -73,23 +78,32 @@ export function ProductCard({
               alt={product.name}
               width={400}
               height={400}
-              className="aspect-square w-full transform rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
+              className={`aspect-square w-full transform rounded-lg object-cover transition-transform duration-300 group-hover:scale-105 ${
+                isOutOfStock ? 'opacity-60 grayscale' : ''
+              }`}
               priority
               sizes="(max-width: 768px) 100vw, 400px"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </div>
-          <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-            {product.description}
-          </p>
+          <div className="space-y-3">
+            <p className="line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              {product.description}
+            </p>
+          </div>
         </CardContent>
-        <CardFooter className="xs:flex-row flex flex-col items-center justify-between border-t border-purple-500/10">
+        <CardFooter className="xs:flex-row flex flex-col items-center justify-between gap-3 border-t border-purple-500/10 pt-4">
           <span className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent dark:from-purple-400 dark:to-blue-400">
             ${product.price.toFixed(2)}
           </span>
           <Button
             size="lg"
-            className="bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 group-hover:shadow-xl hover:from-purple-700 hover:to-blue-700"
+            disabled={isOutOfStock}
+            className={`shadow-lg transition-all duration-300 ${
+              isOutOfStock
+                ? 'cursor-not-allowed bg-gray-300 text-gray-500 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400'
+                : 'bg-linear-to-r from-purple-600 to-blue-600 text-white group-hover:shadow-xl hover:from-purple-700 hover:to-blue-700'
+            }`}
           >
             {t('view_details')}
           </Button>
