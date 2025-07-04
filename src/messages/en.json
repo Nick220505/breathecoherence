@@ -800,6 +800,7 @@
     "totalOrders": "Total Orders",
     "last7Days": "Last 7 Days",
     "orders": "orders",
+    "revenue": "Revenue",
     "error": {
       "loadSalesData": "Failed to load sales data"
     }
@@ -822,11 +823,22 @@
     "lowStock": "Low Stock",
     "outOfStock": "Out of Stock",
     "stockAlerts": "Stock Alerts",
-    "stock": "Stock",
+    "stockOverview": "Stock Overview",
     "andMore": "and {count} more...",
     "error": {
       "loadStockData": "Failed to load stock data"
     }
+  },
+  "ProductStockBarChart": {
+    "noProductsFound": "No products found"
+  },
+  "ProductStockTooltip": {
+    "inStock": "In Stock",
+    "lowStock": "Low Stock",
+    "mediumStock": "Medium Stock",
+    "outOfStock": "Out of Stock",
+    "stock": "Stock",
+    "units": "units"
   },
   "RecentActivityChart": {
     "title": "Recent Activity",

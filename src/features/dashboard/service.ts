@@ -1,6 +1,7 @@
 import { orderService } from '@/features/order/service';
 import { productService } from '@/features/product/service';
 import { userService } from '@/features/user/service';
+import type { Locale } from '@/i18n/routing';
 import type {
   DashboardAnalyticsData,
   OrderStatusData,
@@ -63,11 +64,10 @@ export const dashboardService = {
     }));
   },
 
-  async getProductStockData(): Promise<ProductStockData[]> {
-    const products = await productService.getAllProducts();
+  async getProductStockData(locale: Locale): Promise<ProductStockData[]> {
+    const products = await productService.getAll(locale);
 
     return products
-      .filter((product) => product.stock <= 10)
       .map((product) => ({
         id: product.id,
         name: product.name,
@@ -112,7 +112,7 @@ export const dashboardService = {
       .slice(0, 10);
   },
 
-  async getDashboardAnalytics(): Promise<DashboardAnalyticsData> {
+  async getDashboardAnalytics(locale: Locale): Promise<DashboardAnalyticsData> {
     const [
       salesOverview,
       orderStatus,
@@ -122,7 +122,7 @@ export const dashboardService = {
     ] = await Promise.all([
       this.getSalesOverviewData(),
       this.getOrderStatusData(),
-      this.getProductStockData(),
+      this.getProductStockData(locale),
       this.getRecentActivityData(),
       this.getTotalStats(),
     ]);

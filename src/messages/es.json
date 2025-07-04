@@ -800,6 +800,7 @@
     "totalOrders": "Pedidos Totales",
     "last7Days": "Últimos 7 Días",
     "orders": "pedidos",
+    "revenue": "Ingresos",
     "error": {
       "loadSalesData": "Error al cargar datos de ventas"
     }
@@ -822,11 +823,22 @@
     "lowStock": "Stock Bajo",
     "outOfStock": "Sin Stock",
     "stockAlerts": "Alertas de Stock",
-    "stock": "Stock",
+    "stockOverview": "Resumen de Stock",
     "andMore": "y {count} más...",
     "error": {
       "loadStockData": "Error al cargar datos de stock"
     }
+  },
+  "ProductStockBarChart": {
+    "noProductsFound": "No se encontraron productos"
+  },
+  "ProductStockTooltip": {
+    "inStock": "En Stock",
+    "lowStock": "Stock Bajo",
+    "mediumStock": "Stock Medio",
+    "outOfStock": "Sin Stock",
+    "stock": "Stock",
+    "units": "unidades"
   },
   "RecentActivityChart": {
     "title": "Actividad Reciente",

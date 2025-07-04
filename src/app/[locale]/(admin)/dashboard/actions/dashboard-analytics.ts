@@ -3,6 +3,7 @@
 import { createServerAction } from 'zsa';
 
 import { dashboardService } from '@/features/dashboard/service';
+import { withLocaleProcedure } from '@/lib/zsa';
 import type {
   DashboardAnalyticsData,
   OrderStatusData,
@@ -23,11 +24,11 @@ export const getOrderStatusData = createServerAction().handler(
   },
 );
 
-export const getProductStockData = createServerAction().handler(
-  async (): Promise<ProductStockData[]> => {
-    return dashboardService.getProductStockData();
-  },
-);
+export const getProductStockData = withLocaleProcedure
+  .createServerAction()
+  .handler(async ({ ctx: { locale } }): Promise<ProductStockData[]> => {
+    return dashboardService.getProductStockData(locale);
+  });
 
 export const getRecentActivityData = createServerAction().handler(
   async (): Promise<RecentActivityData[]> => {
@@ -35,8 +36,8 @@ export const getRecentActivityData = createServerAction().handler(
   },
 );
 
-export const getDashboardAnalytics = createServerAction().handler(
-  async (): Promise<DashboardAnalyticsData> => {
-    return dashboardService.getDashboardAnalytics();
-  },
-);
+export const getDashboardAnalytics = withLocaleProcedure
+  .createServerAction()
+  .handler(async ({ ctx: { locale } }): Promise<DashboardAnalyticsData> => {
+    return dashboardService.getDashboardAnalytics(locale);
+  });
