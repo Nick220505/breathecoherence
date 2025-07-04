@@ -9,6 +9,14 @@ export const userService = {
     return userRepository.findMany();
   },
 
+  getAllUsers(): Promise<UserSummary[]> {
+    return userRepository.findMany();
+  },
+
+  getRecentUsers(limit: number): Promise<UserSummary[]> {
+    return userRepository.findManyRecent(limit);
+  },
+
   getCount(): Promise<number> {
     return userRepository.count();
   },

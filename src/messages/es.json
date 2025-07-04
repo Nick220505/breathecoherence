@@ -793,5 +793,58 @@
       "unknown": "Ocurrió un error desconocido",
       "unexpected": "Ocurrió un error inesperado"
     }
+  },
+  "SalesOverviewChart": {
+    "title": "Resumen de Ventas",
+    "totalRevenue": "Ingresos Totales",
+    "totalOrders": "Pedidos Totales",
+    "last7Days": "Últimos 7 Días",
+    "orders": "pedidos",
+    "error": {
+      "loadSalesData": "Error al cargar datos de ventas"
+    }
+  },
+  "OrderStatusChart": {
+    "title": "Estado de Pedidos",
+    "totalOrders": "Pedidos Totales",
+    "status": {
+      "pending": "Pendiente",
+      "paid": "Pagado",
+      "shipped": "Enviado"
+    },
+    "error": {
+      "loadOrderStatusData": "Error al cargar datos de estado de pedidos"
+    }
+  },
+  "ProductStockChart": {
+    "title": "Stock de Productos",
+    "inStock": "En Stock",
+    "lowStock": "Stock Bajo",
+    "outOfStock": "Sin Stock",
+    "stockAlerts": "Alertas de Stock",
+    "stock": "Stock",
+    "andMore": "y {count} más...",
+    "error": {
+      "loadStockData": "Error al cargar datos de stock"
+    }
+  },
+  "RecentActivityChart": {
+    "title": "Actividad Reciente",
+    "newOrder": "Nuevo Pedido",
+    "newUser": "Nuevo Usuario",
+    "noActivity": "Sin actividad reciente",
+    "status": {
+      "pending": "Pendiente",
+      "paid": "Pagado",
+      "shipped": "Enviado"
+    },
+    "timeAgo": {
+      "justNow": "Ahora mismo",
+      "hoursAgo": "hace {hours}h",
+      "daysAgo": "hace {days}d"
+    },
+    "error": {
+      "loadActivityData": "Error al cargar datos de actividad"
+    }
   }
 }

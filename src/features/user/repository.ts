@@ -19,6 +19,21 @@ export const userRepository = {
     });
   },
 
+  findManyRecent(limit: number): Promise<UserSummary[]> {
+    return prisma.user.findMany({
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+  },
+
   count(): Promise<number> {
     return prisma.user.count();
   },

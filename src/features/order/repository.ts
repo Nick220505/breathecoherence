@@ -101,6 +101,58 @@ export const orderRepository = {
     return prisma.order.count();
   },
 
+  async findManyInDateRange(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<OrderSummary[]> {
+    const orders = await prisma.order.findMany({
+      where: {
+        createdAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        total: true,
+        status: true,
+        createdAt: true,
+        user: { select: { email: true } },
+      },
+    });
+
+    return orders.map(({ id, total, status, createdAt, user }) => ({
+      id,
+      total,
+      status,
+      createdAt,
+      userEmail: user.email,
+    }));
+  },
+
+  async findManyRecent(limit: number): Promise<OrderSummary[]> {
+    const orders = await prisma.order.findMany({
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        total: true,
+        status: true,
+        createdAt: true,
+        user: { select: { email: true } },
+      },
+    });
+
+    return orders.map(({ id, total, status, createdAt, user }) => ({
+      id,
+      total,
+      status,
+      createdAt,
+      userEmail: user.email,
+    }));
+  },
+
   async updateStatus(id: string, status: OrderStatus): Promise<OrderDetail> {
     const updatedOrder = await prisma.order.update({
       where: { id },

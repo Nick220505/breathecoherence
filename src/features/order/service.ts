@@ -16,6 +16,21 @@ export const orderService = {
     return orderRepository.findMany();
   },
 
+  getAllOrders(): Promise<OrderSummary[]> {
+    return orderRepository.findMany();
+  },
+
+  getOrdersInDateRange(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<OrderSummary[]> {
+    return orderRepository.findManyInDateRange(startDate, endDate);
+  },
+
+  getRecentOrders(limit: number): Promise<OrderSummary[]> {
+    return orderRepository.findManyRecent(limit);
+  },
+
   async getDetail(id: string, userId?: string): Promise<OrderDetail | null> {
     if (id.startsWith('guest-')) {
       return orderRepository.findById(id);

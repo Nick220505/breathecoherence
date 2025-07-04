@@ -793,5 +793,58 @@
       "unknown": "An unknown error occurred",
       "unexpected": "An unexpected error occurred"
     }
+  },
+  "SalesOverviewChart": {
+    "title": "Sales Overview",
+    "totalRevenue": "Total Revenue",
+    "totalOrders": "Total Orders",
+    "last7Days": "Last 7 Days",
+    "orders": "orders",
+    "error": {
+      "loadSalesData": "Failed to load sales data"
+    }
+  },
+  "OrderStatusChart": {
+    "title": "Order Status",
+    "totalOrders": "Total Orders",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped"
+    },
+    "error": {
+      "loadOrderStatusData": "Failed to load order status data"
+    }
+  },
+  "ProductStockChart": {
+    "title": "Product Stock",
+    "inStock": "In Stock",
+    "lowStock": "Low Stock",
+    "outOfStock": "Out of Stock",
+    "stockAlerts": "Stock Alerts",
+    "stock": "Stock",
+    "andMore": "and {count} more...",
+    "error": {
+      "loadStockData": "Failed to load stock data"
+    }
+  },
+  "RecentActivityChart": {
+    "title": "Recent Activity",
+    "newOrder": "New Order",
+    "newUser": "New User",
+    "noActivity": "No recent activity",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped"
+    },
+    "timeAgo": {
+      "justNow": "Just now",
+      "hoursAgo": "{hours}h ago",
+      "daysAgo": "{days}d ago"
+    },
+    "error": {
+      "loadActivityData": "Failed to load activity data"
+    }
   }
 }
