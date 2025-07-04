@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -20,10 +19,6 @@ export default function DashboardError({
   reset: () => void;
 }>) {
   const t = useTranslations('DashboardError');
-
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -102,8 +102,8 @@ export function ChatBot() {
           productRecs.push(product);
           seenProductIds.add(product.id);
         }
-      } catch (e) {
-        console.error('Failed to parse product recommendation:', e);
+      } catch {
+        continue;
       }
     }
 
@@ -149,8 +149,7 @@ export function ChatBot() {
           products: productRecs,
         },
       ]);
-    } catch (error) {
-      console.error('Error in chat:', error);
+    } catch {
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: t('error'), id: Date.now().toString() },

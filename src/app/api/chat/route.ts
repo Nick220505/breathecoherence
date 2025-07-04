@@ -65,8 +65,7 @@ When answering questions:
     });
 
     return NextResponse.json({ response: finalResponse });
-  } catch (error) {
-    console.error('Error in chat endpoint:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Failed to process chat request' },
       { status: 500 },

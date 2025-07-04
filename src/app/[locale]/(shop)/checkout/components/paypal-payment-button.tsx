@@ -72,9 +72,7 @@ export function PayPalPaymentButton({
         }}
         onApprove={async (data, actions) => {
           if (actions.order) {
-            return actions.order.capture().then((details) => {
-              console.log('Payment completed:', details);
-            });
+            return actions.order.capture().then(() => {});
           }
         }}
       />

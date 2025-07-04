@@ -83,13 +83,9 @@ export async function POST(req: Request) {
           orderId = order.id;
           userId = user.id;
         } else {
-          console.log(
-            'User session exists but no database record found. Using guest checkout.',
-          );
           orderId = `guest-${Date.now()}`;
         }
-      } catch (error) {
-        console.error('Error creating order:', error);
+      } catch {
         orderId = `guest-${Date.now()}`;
       }
     } else {

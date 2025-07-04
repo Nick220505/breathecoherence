@@ -8,8 +8,6 @@ export async function handlePaymentIntentSucceeded(
   paymentIntent: Stripe.PaymentIntent,
 ) {
   try {
-    console.log('Processing payment intent succeeded:', paymentIntent.id);
-
     const {
       orderId,
       customerEmail,
@@ -21,53 +19,44 @@ export async function handlePaymentIntentSucceeded(
     } = paymentIntent.metadata || {};
 
     if (!orderId) {
-      console.error('No orderId found in payment intent metadata');
       return false;
     }
 
     const isGuestOrder = orderId.startsWith('guest-');
 
     if (!isGuestOrder) {
-      try {
-        const order = await prisma.order.findUnique({
-          where: { id: orderId },
-          include: {
-            items: {
-              include: {
-                product: true,
-              },
+      const order = await prisma.order.findUnique({
+        where: { id: orderId },
+        include: {
+          items: {
+            include: {
+              product: true,
             },
           },
-        });
+        },
+      });
 
-        if (order) {
-          await prisma.$transaction(async (tx) => {
-            await tx.order.update({
-              where: { id: orderId },
+      if (order && order.status === 'PENDING') {
+        await prisma.$transaction(async (tx) => {
+          await tx.order.update({
+            where: { id: orderId },
+            data: {
+              status: 'PAID',
+              updatedAt: new Date(),
+            },
+          });
+
+          for (const item of order.items) {
+            await tx.product.update({
+              where: { id: item.productId },
               data: {
-                status: 'PAID',
-                updatedAt: new Date(),
+                stock: {
+                  decrement: item.quantity,
+                },
               },
             });
-
-            for (const item of order.items) {
-              await tx.product.update({
-                where: { id: item.productId },
-                data: {
-                  stock: {
-                    decrement: item.quantity,
-                  },
-                },
-              });
-              console.log(
-                `Reduced stock for product ${item.product.name} by ${item.quantity}`,
-              );
-            }
-          });
-          console.log(`Order ${orderId} marked as paid and stock updated`);
-        }
-      } catch (error) {
-        console.error(`Error updating order ${orderId}:`, error);
+          }
+        });
       }
     }
 

@@ -43,14 +43,11 @@ export async function POST(req: Request) {
         await handlePaymentIntentFailed(event.data.object);
         break;
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        break;
     }
 
     return NextResponse.json({ received: true });
-  } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown error';
-    console.error('Error processing webhook:', errorMessage);
+  } catch {
     return NextResponse.json(
       { error: 'Error processing webhook' },
       { status: 500 },

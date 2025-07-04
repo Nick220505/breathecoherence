@@ -12,7 +12,7 @@ interface RouteParams {
   }>;
 }
 
-export async function GET(request: Request, context: RouteParams) {
+export async function GET(_request: Request, context: RouteParams) {
   try {
     const { id } = await context.params;
 
@@ -40,6 +40,42 @@ export async function GET(request: Request, context: RouteParams) {
         { error: 'Order not found for this payment' },
         { status: 404 },
       );
+    }
+
+    if (paymentIntent.status === 'succeeded' && !orderId.startsWith('guest-')) {
+      const order = await prisma.order.findUnique({
+        where: { id: orderId },
+        include: {
+          items: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
+
+      if (order && order.status === 'PENDING') {
+        await prisma.$transaction(async (tx) => {
+          await tx.order.update({
+            where: { id: orderId },
+            data: {
+              status: 'PAID',
+              updatedAt: new Date(),
+            },
+          });
+
+          for (const item of order.items) {
+            await tx.product.update({
+              where: { id: item.productId },
+              data: {
+                stock: {
+                  decrement: item.quantity,
+                },
+              },
+            });
+          }
+        });
+      }
     }
 
     if (session?.user && !orderId.startsWith('guest-')) {
