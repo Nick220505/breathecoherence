@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import type { Message } from '@/features/chat/types';
-import type { PartialProductWithCategory } from '@/features/product/types';
+import type { ProductSummary } from '@/features/product/types';
 import { Link } from '@/i18n/routing';
 
 const chatBotVariants: Variants = {
@@ -90,14 +90,14 @@ export function ChatBot() {
   }, [messages]);
 
   const extractProductRecs = (message: string) => {
-    const productRecs: PartialProductWithCategory[] = [];
+    const productRecs: ProductSummary[] = [];
     const seenProductIds = new Set<string>();
     const regex = /\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
     let match;
 
     while ((match = regex.exec(message)) !== null) {
       try {
-        const product = JSON.parse(match[1]) as PartialProductWithCategory;
+        const product = JSON.parse(match[1]) as ProductSummary;
         if (product.id && !seenProductIds.has(product.id)) {
           productRecs.push(product);
           seenProductIds.add(product.id);

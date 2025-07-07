@@ -38,3 +38,23 @@ export const productWithCategorySchema = productSchema.extend({
 export const productWithCategoryArraySchema = z.array(
   productWithCategorySchema,
 );
+
+export const cartItemSchema = productSchema.extend({
+  quantity: z.number().int().min(1),
+});
+
+export const cartItemArraySchema = z.array(cartItemSchema);
+
+export const productSummarySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  price: z.number(),
+  imageBase64: z.string().nullable(),
+  category: z
+    .object({
+      name: z.string(),
+    })
+    .optional(),
+});
+
+export const productSummaryArraySchema = z.array(productSummarySchema);
