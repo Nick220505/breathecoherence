@@ -8,16 +8,12 @@ export const categorySchema = z.object({
   updatedAt: z.date(),
 });
 
-export const createCategorySchema = categorySchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
 export const updateCategorySchema = categorySchema.omit({
   createdAt: true,
   updatedAt: true,
 });
+
+export const createCategorySchema = updateCategorySchema.omit({ id: true });
 
 export const categoryArraySchema = z.array(categorySchema);
 
