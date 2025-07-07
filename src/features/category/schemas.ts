@@ -15,6 +15,8 @@ export const updateCategorySchema = categorySchema.omit({
 
 export const createCategorySchema = updateCategorySchema.omit({ id: true });
 
+export const deleteCategorySchema = z.object({ id: z.string() });
+
 export const categoryArraySchema = z.array(categorySchema);
 
 export const categoryCountSchema = z.number();

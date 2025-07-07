@@ -1,7 +1,6 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { z } from 'zod';
 import { createServerAction } from 'zsa';
 
 import { withLocaleProcedure } from '@/lib/zsa';
@@ -9,6 +8,7 @@ import { withLocaleProcedure } from '@/lib/zsa';
 import {
   createCategorySchema,
   updateCategorySchema,
+  deleteCategorySchema,
   categorySchema,
   categoryArraySchema,
   categoryCountSchema,
@@ -53,7 +53,7 @@ export const updateCategory = withLocaleProcedure
 
 export const deleteCategory = withLocaleProcedure
   .createServerAction()
-  .input(z.object({ id: z.string() }))
+  .input(deleteCategorySchema)
   .output(categorySchema)
   .handler(async ({ input: { id }, ctx: { locale } }) => {
     const deletedCategory = await categoryService.delete(id, locale);
