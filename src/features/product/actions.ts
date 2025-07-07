@@ -1,17 +1,13 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { notFound } from 'next/navigation';
-import { getLocale } from 'next-intl/server';
 import { z } from 'zod';
 import { createServerAction } from 'zsa';
 
-import type { Locale } from '@/i18n/routing';
 import { withLocaleProcedure } from '@/lib/zsa';
 
 import { createProductSchema, updateProductSchema } from './schemas';
 import { productService } from './service';
-import type { ProductWithCategory } from './types';
 
 export const getAllProducts = withLocaleProcedure
   .createServerAction()
@@ -19,22 +15,12 @@ export const getAllProducts = withLocaleProcedure
     return productService.getAll(locale);
   });
 
-export async function getProductById(id: string): Promise<ProductWithCategory> {
-  const locale = (await getLocale()) as Locale;
-
-  try {
-    return await productService.getById(id, locale);
-  } catch (error) {
-    if (
-      error instanceof Error &&
-      error.message.includes('Product not found by id')
-    ) {
-      notFound();
-    }
-
-    throw error;
-  }
-}
+export const getProductById = withLocaleProcedure
+  .createServerAction()
+  .input(z.object({ id: z.string() }))
+  .handler(async ({ input: { id }, ctx: { locale } }) => {
+    return productService.getById(id, locale);
+  });
 
 export const getProductCount = createServerAction().handler(async () => {
   return productService.getCount();

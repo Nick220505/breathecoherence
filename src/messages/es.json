@@ -266,7 +266,8 @@
     "delete_tooltip": "Eliminar producto"
   },
   "ProductNotFound": {
-    "product_not_found": "Producto no encontrado",
+    "title": "Producto No Encontrado",
+    "description": "No pudimos encontrar el producto que estás buscando. Es posible que haya sido eliminado o ya no esté disponible.",
     "back_to_store": "Volver a la Tienda"
   },
   "FlowerEssencesPage": {
@@ -858,5 +859,12 @@
     "error": {
       "loadActivityData": "Error al cargar datos de actividad"
     }
+  },
+  "ProductError": {
+    "title": "Algo Salió Mal",
+    "description": "Encontramos un error al cargar este producto. Por favor, inténtalo de nuevo o regresa a la tienda.",
+    "error_code": "Código de error",
+    "try_again": "Intentar de Nuevo",
+    "back_to_store": "Volver a la Tienda"
   }
 }

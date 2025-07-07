@@ -266,7 +266,8 @@
     "delete_tooltip": "Delete product"
   },
   "ProductNotFound": {
-    "product_not_found": "Product not found",
+    "title": "Product Not Found",
+    "description": "We couldn't find the product you're looking for. It may have been removed or is no longer available.",
     "back_to_store": "Back to Store"
   },
   "FlowerEssencesPage": {
@@ -858,5 +859,12 @@
     "error": {
       "loadActivityData": "Failed to load activity data"
     }
+  },
+  "ProductError": {
+    "title": "Something Went Wrong",
+    "description": "We encountered an error while loading this product. Please try again or return to the store.",
+    "error_code": "Error code",
+    "try_again": "Try Again",
+    "back_to_store": "Back to Store"
   }
 }
