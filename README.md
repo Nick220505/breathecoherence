@@ -20,7 +20,7 @@
     <img src="https://img.shields.io/badge/i18n-next--intl-blue.svg" alt="next-intl">
   </a>
   <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
+    <img src="https://img.shields.io/badge/License-Proprietary-blue.svg" alt="License">
   </a>
 </p>
 
@@ -41,10 +41,8 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 - [🌐 Browser Compatibility](#-browser-compatibility)
 - [🔐 Security](#-security)
 - [🛠️ Troubleshooting](#️-troubleshooting)
-- [🤝 Contributing](#-contributing)
 - [📝 License](#-license)
-- [👥 Authors](#-authors)
-- [🙏 Acknowledgments](#-acknowledgments)
+- [👥 Project Team](#-project-team)
 
 ## 🚀 Key Features
 
@@ -286,26 +284,10 @@ breathecoherence/
   ```
   ✅ **Solution**: In development, use Stripe's test cards (e.g., 4242 4242 4242 4242) with any future expiry date and CVC.
 
-## 🤝 Contributing
-
-1.  🍴 Fork the repository.
-2.  🌿 Create your feature branch (`git checkout -b feature/your-amazing-feature`).
-3.  💾 Commit your changes (`git commit -m 'Add some amazing feature'`).
-4.  📤 Push to the branch (`git push origin feature/your-amazing-feature`).
-5.  🔍 Open a Pull Request.
-
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is proprietary software developed for Breathe Coherence. All rights reserved.
 
-## 👥 Authors
+## 👥 Project Team
 
-- Juan Nicolas Pardo Torres - Initial work
-
-## 🙏 Acknowledgments
-
-- Next.js team for the amazing framework
-- Vercel for the deployment platform
-- CockroachDB for the database service
-- Google for AI services
-- DeepL for translation services
+- Juan Nicolas Pardo Torres - Lead Developer
