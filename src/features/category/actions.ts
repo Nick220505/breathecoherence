@@ -6,22 +6,32 @@ import { createServerAction } from 'zsa';
 
 import { withLocaleProcedure } from '@/lib/zsa';
 
-import { createCategorySchema, updateCategorySchema } from './schemas';
+import {
+  createCategorySchema,
+  updateCategorySchema,
+  categorySchema,
+  categoryArraySchema,
+  categoryCountSchema,
+} from './schemas';
 import { categoryService } from './service';
 
 export const getAllCategories = withLocaleProcedure
   .createServerAction()
+  .output(categoryArraySchema)
   .handler(async ({ ctx: { locale } }) => {
     return categoryService.getAll(locale);
   });
 
-export const getCategoryCount = createServerAction().handler(async () => {
-  return categoryService.getCount();
-});
+export const getCategoryCount = createServerAction()
+  .output(categoryCountSchema)
+  .handler(async () => {
+    return categoryService.getCount();
+  });
 
 export const createCategory = withLocaleProcedure
   .createServerAction()
   .input(createCategorySchema)
+  .output(categorySchema)
   .handler(async ({ input: data, ctx: { locale } }) => {
     const createdCategory = await categoryService.create(data, locale);
     revalidateTag('categories');
@@ -32,6 +42,7 @@ export const createCategory = withLocaleProcedure
 export const updateCategory = withLocaleProcedure
   .createServerAction()
   .input(updateCategorySchema)
+  .output(categorySchema)
   .handler(async ({ input: data, ctx: { locale } }) => {
     const updatedCategory = await categoryService.update(data.id, data, locale);
     revalidateTag('categories');
@@ -43,6 +54,7 @@ export const updateCategory = withLocaleProcedure
 export const deleteCategory = withLocaleProcedure
   .createServerAction()
   .input(z.object({ id: z.string() }))
+  .output(categorySchema)
   .handler(async ({ input: { id }, ctx: { locale } }) => {
     const deletedCategory = await categoryService.delete(id, locale);
     revalidateTag('categories');
