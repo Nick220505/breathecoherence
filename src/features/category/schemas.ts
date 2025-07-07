@@ -8,24 +8,16 @@ export const categorySchema = z.object({
   updatedAt: z.date(),
 });
 
-export const createCategorySchema = categorySchema
-  .omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
-  })
-  .extend({
-    description: z.string().min(10),
-  });
+export const createCategorySchema = categorySchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
-export const updateCategorySchema = categorySchema
-  .omit({
-    createdAt: true,
-    updatedAt: true,
-  })
-  .extend({
-    description: z.string().min(10),
-  });
+export const updateCategorySchema = categorySchema.omit({
+  createdAt: true,
+  updatedAt: true,
+});
 
 export const categoryArraySchema = z.array(categorySchema);
 
