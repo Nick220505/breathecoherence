@@ -10,7 +10,7 @@ import type {
   CreateProductData,
   ProductWithCategory,
   UpdateProductData,
-} from './types';
+} from './schemas';
 
 const productTranslationConfig: TranslationConfig = {
   entityType: 'Product',

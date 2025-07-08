@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { StockStatusBadge } from '@/components/ui/stock-status-badge';
-import type { ProductWithCategory } from '@/features/product/types';
+import type { ProductWithCategory } from '@/features/product/schemas';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 

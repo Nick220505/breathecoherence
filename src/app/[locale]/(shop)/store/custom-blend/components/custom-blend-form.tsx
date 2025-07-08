@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import type { ProductWithCategory } from '@/features/product/types';
+import type { ProductWithCategory } from '@/features/product/schemas';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 

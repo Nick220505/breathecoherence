@@ -20,7 +20,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import type { ProductWithCategory } from '@/features/product/types';
+import type { ProductWithCategory } from '@/features/product/schemas';
 
 import { DeleteProductDialog } from './delete-product-dialog';
 import { EditProductDialog } from './edit-product-dialog';

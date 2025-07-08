@@ -1,4 +1,4 @@
-import type { ProductSummary } from '@/features/product/types';
+import type { ProductSummary } from '@/features/product/schemas';
 
 export interface Message {
   role: 'user' | 'assistant';

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import type { ProductWithCategory } from '@/features/product/types';
+import type { ProductWithCategory } from '@/features/product/schemas';
 
 import { CustomBlendCard } from './product/custom-blend-card';
 import { ProductCard } from './product/product-card';

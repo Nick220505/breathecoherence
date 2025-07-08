@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import type { Message } from '@/features/chat/types';
-import type { ProductSummary } from '@/features/product/types';
+import type { ProductSummary } from '@/features/product/schemas';
 import { Link } from '@/i18n/routing';
 
 const chatBotVariants: Variants = {

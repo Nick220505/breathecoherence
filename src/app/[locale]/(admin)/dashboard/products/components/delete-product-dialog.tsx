@@ -16,7 +16,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteProduct } from '@/features/product/actions';
-import type { ProductWithCategory } from '@/features/product/types';
+import type { ProductWithCategory } from '@/features/product/schemas';
 
 interface DeleteProductDialogProps extends React.ComponentProps<typeof Dialog> {
   product: ProductWithCategory;

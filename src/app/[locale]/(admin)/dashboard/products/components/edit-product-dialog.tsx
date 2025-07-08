@@ -56,7 +56,7 @@ import { updateProductSchema } from '@/features/product/schemas';
 import type {
   ProductWithCategory,
   UpdateProductData,
-} from '@/features/product/types';
+} from '@/features/product/schemas';
 
 interface EditProductDialogProps extends React.ComponentProps<typeof Dialog> {
   product: ProductWithCategory;
