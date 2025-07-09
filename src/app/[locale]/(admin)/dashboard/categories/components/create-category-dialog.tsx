@@ -30,8 +30,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { createCategory } from '@/features/category/actions';
-import { createCategorySchema } from '@/features/category/schemas';
-import type { CreateCategoryData } from '@/features/category/types';
+import {
+  createCategorySchema,
+  type CreateCategoryData,
+} from '@/features/category/schemas';
 
 export function CreateCategoryDialog({
   onOpenChange,

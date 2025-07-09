@@ -59,7 +59,7 @@ export function DeleteCategoryDialog({
           </DialogClose>
           <Button
             variant="destructive"
-            onClick={() => execute({ id: category.id })}
+            onClick={() => execute(category.id)}
             disabled={isPending}
           >
             {isPending ? (

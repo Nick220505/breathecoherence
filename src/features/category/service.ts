@@ -5,7 +5,7 @@ import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 
 import { categoryRepository } from './repository';
-import type { CreateCategoryData, UpdateCategoryData } from './types';
+import type { CreateCategoryData, UpdateCategoryData } from './schemas';
 
 export const categoryTranslationConfig: TranslationConfig = {
   entityType: 'Category',

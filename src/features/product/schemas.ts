@@ -23,9 +23,9 @@ export const updateProductSchema = productSchema.omit({
 
 export const createProductSchema = updateProductSchema.omit({ id: true });
 
-export const deleteProductSchema = z.object({ id: z.string() });
+export const deleteProductSchema = z.string();
 
-export const getProductByIdSchema = z.object({ id: z.string() });
+export const getProductByIdSchema = z.string();
 
 export const productArraySchema = z.array(productSchema);
 

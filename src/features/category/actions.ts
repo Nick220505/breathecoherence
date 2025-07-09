@@ -55,7 +55,7 @@ export const deleteCategory = withLocaleProcedure
   .createServerAction()
   .input(deleteCategorySchema)
   .output(categorySchema)
-  .handler(async ({ input: { id }, ctx: { locale } }) => {
+  .handler(async ({ input: id, ctx: { locale } }) => {
     const deletedCategory = await categoryService.delete(id, locale);
     revalidateTag('categories');
 

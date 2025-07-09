@@ -28,7 +28,7 @@ export const getProductById = withLocaleProcedure
   .createServerAction()
   .input(getProductByIdSchema)
   .output(productWithCategorySchema)
-  .handler(async ({ input: { id }, ctx: { locale } }) => {
+  .handler(async ({ input: id, ctx: { locale } }) => {
     return productService.getById(id, locale);
   });
 
@@ -65,7 +65,7 @@ export const deleteProduct = withLocaleProcedure
   .createServerAction()
   .input(deleteProductSchema)
   .output(productSchema)
-  .handler(async ({ input: { id }, ctx: { locale } }) => {
+  .handler(async ({ input: id, ctx: { locale } }) => {
     const deletedProduct = await productService.delete(id, locale);
     revalidateTag('products');
 

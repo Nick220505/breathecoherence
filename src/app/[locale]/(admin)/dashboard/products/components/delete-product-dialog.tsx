@@ -58,7 +58,7 @@ export function DeleteProductDialog({
           </DialogClose>
           <Button
             variant="destructive"
-            onClick={() => execute({ id: product.id })}
+            onClick={() => execute(product.id)}
             disabled={isPending}
           >
             {isPending ? (

@@ -31,8 +31,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { updateCategory } from '@/features/category/actions';
-import { updateCategorySchema } from '@/features/category/schemas';
-import type { UpdateCategoryData } from '@/features/category/types';
+import {
+  updateCategorySchema,
+  type UpdateCategoryData,
+} from '@/features/category/schemas';
 
 interface EditCategoryDialogProps extends React.ComponentProps<typeof Dialog> {
   category: Category;
