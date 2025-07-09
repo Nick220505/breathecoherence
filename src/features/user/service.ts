@@ -2,7 +2,7 @@ import type { User } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 import { userRepository } from './repository';
-import type { CreateUserData, UpdateUserData, UserSummary } from './types';
+import type { CreateUserData, UpdateUserData, UserSummary } from './schemas';
 
 export const userService = {
   getAll(): Promise<UserSummary[]> {

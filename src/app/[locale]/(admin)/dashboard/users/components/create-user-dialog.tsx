@@ -43,8 +43,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { createUser } from '@/features/user/actions';
-import { createUserSchema } from '@/features/user/schemas';
-import type { CreateUserData } from '@/features/user/types';
+import { createUserSchema, type CreateUserData } from '@/features/user/schemas';
 
 export function CreateUserDialog({
   onOpenChange,

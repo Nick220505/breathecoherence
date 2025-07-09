@@ -48,7 +48,7 @@ export const updateUser = createServerAction()
 export const deleteUser = createServerAction()
   .input(deleteUserSchema)
   .output(userSchema)
-  .handler(async ({ input: { id } }) => {
+  .handler(async ({ input: id }) => {
     const deletedUser = await userService.delete(id);
     revalidateTag('users');
 

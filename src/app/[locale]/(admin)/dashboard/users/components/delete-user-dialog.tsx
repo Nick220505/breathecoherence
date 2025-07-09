@@ -16,7 +16,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteUser } from '@/features/user/actions';
-import type { UserSummary } from '@/features/user/types';
+import type { UserSummary } from '@/features/user/schemas';
 
 interface DeleteUserDialogProps extends React.ComponentProps<typeof Dialog> {
   user: UserSummary;
@@ -58,7 +58,7 @@ export function DeleteUserDialog({
           </DialogClose>
           <Button
             variant="destructive"
-            onClick={() => execute({ id: user.id })}
+            onClick={() => execute(user.id)}
             disabled={isPending}
           >
             {isPending ? (

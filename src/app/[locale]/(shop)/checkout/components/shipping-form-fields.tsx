@@ -26,10 +26,12 @@ import { Textarea } from '@/components/ui/textarea';
 import type { CheckoutFormData } from '@/features/order/types';
 
 interface ShippingFormFieldsProps {
-  readonly form: UseFormReturn<CheckoutFormData>;
+  form: UseFormReturn<CheckoutFormData>;
 }
 
-export function ShippingFormFields({ form }: ShippingFormFieldsProps) {
+export function ShippingFormFields({
+  form,
+}: Readonly<ShippingFormFieldsProps>) {
   const t = useTranslations('ShippingFormFields');
   const {
     register,

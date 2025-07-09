@@ -28,9 +28,9 @@ export const createUserSchema = userSchema.pick({
   role: true,
 });
 
-export const deleteUserSchema = z.object({ id: z.string() });
+export const deleteUserSchema = z.string();
 
-export const getUserByIdSchema = z.object({ id: z.string() });
+export const getUserByIdSchema = z.string();
 
 export const userArraySchema = z.array(userSchema);
 
@@ -46,3 +46,8 @@ export const userSummarySchema = userSchema.pick({
 });
 
 export const userSummaryArraySchema = z.array(userSummarySchema);
+
+export type UserData = z.infer<typeof userSchema>;
+export type CreateUserData = z.infer<typeof createUserSchema>;
+export type UpdateUserData = z.infer<typeof updateUserSchema>;
+export type UserSummary = z.infer<typeof userSummarySchema>;

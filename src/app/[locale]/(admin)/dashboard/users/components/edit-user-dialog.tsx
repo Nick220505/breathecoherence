@@ -42,8 +42,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { updateUser } from '@/features/user/actions';
-import { updateUserSchema } from '@/features/user/schemas';
-import type { UpdateUserData, UserSummary } from '@/features/user/types';
+import {
+  updateUserSchema,
+  type UpdateUserData,
+  type UserSummary,
+} from '@/features/user/schemas';
 
 interface EditUserDialogProps extends React.ComponentProps<typeof Dialog> {
   user: UserSummary;
