@@ -7,9 +7,9 @@ import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
 import prisma from '@/lib/prisma';
 
 import {
-  InvalidCredentialsError,
-  InvalidVerificationError,
-  UserExistsError,
+  INVALID_CREDENTIALS,
+  INVALID_VERIFICATION,
+  USER_EXISTS,
 } from './errors';
 import type { AuthUser, LoginData, RegisterData, VerifyData } from './schemas';
 
@@ -18,7 +18,7 @@ export const authService = {
     const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
-      throw new UserExistsError();
+      throw new Error(USER_EXISTS);
     }
 
     const verifyToken = crypto.randomInt(100000, 999999).toString();
@@ -66,7 +66,7 @@ export const authService = {
     });
 
     if (!user) {
-      throw new InvalidVerificationError();
+      throw new Error(INVALID_VERIFICATION);
     }
 
     return prisma.user.update({
@@ -79,13 +79,13 @@ export const authService = {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      throw new InvalidCredentialsError();
+      throw new Error(INVALID_CREDENTIALS);
     }
 
     const isValid = await compare(password, user.password);
 
     if (!isValid) {
-      throw new InvalidCredentialsError();
+      throw new Error(INVALID_CREDENTIALS);
     }
 
     return { id: user.id, name: user.name, email: user.email, role: user.role };

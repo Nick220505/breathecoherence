@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
+import { USER_EXISTS } from '@/features/auth/errors';
 import { registerSchema, type RegisterData } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
@@ -35,8 +36,14 @@ export default function RegisterForm() {
       });
     },
     onError: ({ err: { message } }) => {
+      let errorMessage = t('error.generic');
+
+      if (message === USER_EXISTS) {
+        errorMessage = t('error.userExists');
+      }
+
       form.setError('root.serverError', {
-        message: message ?? t('error.generic'),
+        message: errorMessage,
       });
     },
   });

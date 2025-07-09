@@ -30,7 +30,8 @@
       "confirmPassword": "Confirm your password"
     },
     "error": {
-      "generic": "Registration failed. Please try again."
+      "generic": "Registration failed. Please try again.",
+      "userExists": "User already exists"
     },
     "validation": {
       "nameRequired": "Name is required",
@@ -52,7 +53,8 @@
       "password": "Enter your password"
     },
     "error": {
-      "generic": "Sign in failed. Please try again."
+      "generic": "Sign in failed. Please try again.",
+      "invalidCredentials": "Invalid email or password"
     },
     "validation": {
       "emailInvalid": "Please enter a valid email address",
@@ -65,7 +67,8 @@
     "error": {
       "title": "Error",
       "description": "Invalid verification link. Please try registering again.",
-      "generic": "Verification failed. Please try again."
+      "generic": "Verification failed. Please try again.",
+      "invalidVerification": "Invalid or expired verification code"
     },
     "submit": "Verify Email",
     "loading": "Verifying...",

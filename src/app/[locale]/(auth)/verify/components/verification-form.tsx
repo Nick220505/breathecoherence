@@ -29,6 +29,7 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { verify } from '@/features/auth/actions';
+import { INVALID_VERIFICATION } from '@/features/auth/errors';
 import { verifySchema, type VerifyData } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
@@ -46,8 +47,14 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
       router.push('/login');
     },
     onError: ({ err: { message } }) => {
+      let errorMessage = t('error.generic');
+
+      if (message === INVALID_VERIFICATION) {
+        errorMessage = t('error.invalidVerification');
+      }
+
       form.setError('root.serverError', {
-        message: message ?? t('error.generic'),
+        message: errorMessage,
       });
     },
   });

@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
+import { INVALID_CREDENTIALS } from '@/features/auth/errors';
 import { loginSchema, type LoginData } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
@@ -44,8 +45,14 @@ export default function LoginForm() {
       });
     },
     onError: ({ err: { message } }) => {
+      let errorMessage = t('error.generic');
+
+      if (message === INVALID_CREDENTIALS) {
+        errorMessage = t('error.invalidCredentials');
+      }
+
       form.setError('root.serverError', {
-        message: message ?? t('error.generic'),
+        message: errorMessage,
       });
     },
   });

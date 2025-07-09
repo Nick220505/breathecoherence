@@ -30,7 +30,8 @@
       "confirmPassword": "Confirma tu contraseña"
     },
     "error": {
-      "generic": "El registro falló. Por favor, inténtalo de nuevo."
+      "generic": "El registro falló. Por favor, inténtalo de nuevo.",
+      "userExists": "El usuario ya existe"
     },
     "validation": {
       "nameRequired": "El nombre es obligatorio",
@@ -52,7 +53,8 @@
       "password": "Ingresa tu contraseña"
     },
     "error": {
-      "generic": "Error al iniciar sesión. Por favor, inténtalo de nuevo."
+      "generic": "Error al iniciar sesión. Por favor, inténtalo de nuevo.",
+      "invalidCredentials": "Correo electrónico o contraseña incorrectos"
     },
     "validation": {
       "emailInvalid": "Por favor, introduce una dirección de correo electrónico válida",
@@ -65,7 +67,8 @@
     "error": {
       "title": "Error",
       "description": "Enlace de verificación inválido. Por favor, intenta registrarte nuevamente.",
-      "generic": "La verificación falló. Por favor, inténtalo de nuevo."
+      "generic": "La verificación falló. Por favor, inténtalo de nuevo.",
+      "invalidVerification": "Código de verificación inválido o expirado"
     },
     "submit": "Verificar Correo",
     "loading": "Verificando...",
