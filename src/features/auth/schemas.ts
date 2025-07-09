@@ -1,3 +1,4 @@
+import type { User } from '@prisma/client';
 import { z } from 'zod';
 
 export const loginSchema = z.object({
@@ -20,3 +21,8 @@ export const verifySchema = z.object({
   email: z.string().email(),
   code: z.string().length(6),
 });
+
+export type AuthUser = Pick<User, 'id' | 'name' | 'email' | 'role'>;
+export type LoginData = z.infer<typeof loginSchema>;
+export type RegisterData = z.infer<typeof registerSchema>;
+export type VerifyData = z.infer<typeof verifySchema>;

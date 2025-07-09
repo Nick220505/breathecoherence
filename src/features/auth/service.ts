@@ -11,7 +11,7 @@ import {
   InvalidVerificationError,
   UserExistsError,
 } from './errors';
-import type { AuthUser, LoginData, RegisterData, VerifyData } from './types';
+import type { AuthUser, LoginData, RegisterData, VerifyData } from './schemas';
 
 export const authService = {
   async register({ name, email, password }: RegisterData): Promise<AuthUser> {

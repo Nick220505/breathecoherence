@@ -19,8 +19,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
-import { registerSchema } from '@/features/auth/schemas';
-import type { RegisterData } from '@/features/auth/types';
+import { registerSchema, type RegisterData } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
 export default function RegisterForm() {

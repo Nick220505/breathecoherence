@@ -29,8 +29,7 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { verify } from '@/features/auth/actions';
-import { verifySchema } from '@/features/auth/schemas';
-import type { VerifyData } from '@/features/auth/types';
+import { verifySchema, type VerifyData } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
 interface VerificationFormProps {
