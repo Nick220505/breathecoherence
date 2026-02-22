@@ -44,7 +44,7 @@ export const createProduct = withLocaleProcedure
   .output(productSchema)
   .handler(async ({ input: data, ctx: { locale } }) => {
     const createdProduct = await productService.create(data, locale);
-    revalidateTag('products');
+    revalidateTag('products', 'max');
 
     return createdProduct;
   });
@@ -55,8 +55,8 @@ export const updateProduct = withLocaleProcedure
   .output(productSchema)
   .handler(async ({ input: data, ctx: { locale } }) => {
     const updatedProduct = await productService.update(data.id, data, locale);
-    revalidateTag('products');
-    revalidateTag('product');
+    revalidateTag('products', 'max');
+    revalidateTag('product', 'max');
 
     return updatedProduct;
   });
@@ -67,7 +67,7 @@ export const deleteProduct = withLocaleProcedure
   .output(productSchema)
   .handler(async ({ input: id, ctx: { locale } }) => {
     const deletedProduct = await productService.delete(id, locale);
-    revalidateTag('products');
+    revalidateTag('products', 'max');
 
     return deletedProduct;
   });

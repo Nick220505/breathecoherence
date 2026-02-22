@@ -30,7 +30,7 @@ export const createUser = createServerAction()
   .output(userSchema)
   .handler(async ({ input: data }) => {
     const createdUser = await userService.create(data);
-    revalidateTag('users');
+    revalidateTag('users', 'max');
 
     return createdUser;
   });
@@ -40,7 +40,7 @@ export const updateUser = createServerAction()
   .output(userSchema)
   .handler(async ({ input: data }) => {
     const updatedUser = await userService.update(data.id, data);
-    revalidateTag('users');
+    revalidateTag('users', 'max');
 
     return updatedUser;
   });
@@ -50,7 +50,7 @@ export const deleteUser = createServerAction()
   .output(userSchema)
   .handler(async ({ input: id }) => {
     const deletedUser = await userService.delete(id);
-    revalidateTag('users');
+    revalidateTag('users', 'max');
 
     return deletedUser;
   });

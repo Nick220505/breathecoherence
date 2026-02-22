@@ -34,7 +34,7 @@ export const createCategory = withLocaleProcedure
   .output(categorySchema)
   .handler(async ({ input: data, ctx: { locale } }) => {
     const createdCategory = await categoryService.create(data, locale);
-    revalidateTag('categories');
+    revalidateTag('categories', 'max');
 
     return createdCategory;
   });
@@ -45,8 +45,8 @@ export const updateCategory = withLocaleProcedure
   .output(categorySchema)
   .handler(async ({ input: data, ctx: { locale } }) => {
     const updatedCategory = await categoryService.update(data.id, data, locale);
-    revalidateTag('categories');
-    revalidateTag('category');
+    revalidateTag('categories', 'max');
+    revalidateTag('category', 'max');
 
     return updatedCategory;
   });
@@ -57,7 +57,7 @@ export const deleteCategory = withLocaleProcedure
   .output(categorySchema)
   .handler(async ({ input: id, ctx: { locale } }) => {
     const deletedCategory = await categoryService.delete(id, locale);
-    revalidateTag('categories');
+    revalidateTag('categories', 'max');
 
     return deletedCategory;
   });

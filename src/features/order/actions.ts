@@ -37,7 +37,7 @@ export const updateOrderStatus = withAuthProcedure
   .input(orderStatusUpdateSchema)
   .handler(async ({ input: { id, status } }) => {
     const updatedOrder = await orderService.updateStatus(id, status);
-    revalidateTag('orders');
+    revalidateTag('orders', 'max');
 
     return updatedOrder;
   });
