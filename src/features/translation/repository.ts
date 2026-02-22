@@ -1,4 +1,4 @@
-import type { Translation } from '@prisma/client';
+import type { Translation } from '@/generated/prisma/client';
 
 import prisma from '@/lib/prisma';
 

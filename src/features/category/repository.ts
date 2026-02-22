@@ -1,4 +1,4 @@
-import type { Category, Prisma } from '@prisma/client';
+import type { Category, Prisma } from '@/generated/prisma/client';
 
 import prisma from '@/lib/prisma';
 

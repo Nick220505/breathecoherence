@@ -1,4 +1,4 @@
-import type { Order, OrderStatus, Prisma } from '@prisma/client';
+import type { Order, OrderStatus, Prisma } from '@/generated/prisma/client';
 import type { z } from 'zod';
 
 import type {
@@ -15,8 +15,10 @@ export type UpdateOrderData = z.infer<typeof updateOrderSchema>;
 export type OrderStatusUpdateData = z.infer<typeof orderStatusUpdateSchema>;
 export type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
-export interface OrderSummary
-  extends Pick<Order, 'id' | 'total' | 'status' | 'createdAt'> {
+export interface OrderSummary extends Pick<
+  Order,
+  'id' | 'total' | 'status' | 'createdAt'
+> {
   userEmail: string;
 }
 

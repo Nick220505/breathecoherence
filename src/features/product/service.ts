@@ -1,4 +1,4 @@
-import type { Product } from '@prisma/client';
+import type { Product } from '@/generated/prisma/client';
 
 import { categoryTranslationConfig } from '@/features/category/service';
 import { translationService } from '@/features/translation/service';
