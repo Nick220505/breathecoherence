@@ -6,7 +6,7 @@ export const orderSchema = z.object({
   userId: z.string().nullable(),
   userEmail: z.string().email(),
   total: z.number().positive(),
-  status: z.nativeEnum(OrderStatus),
+  status: z.enum(OrderStatus),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -29,7 +29,7 @@ export const updateOrderSchema = orderSchema
 
 export const orderStatusUpdateSchema = z.object({
   id: z.string(),
-  status: z.nativeEnum(OrderStatus),
+  status: z.enum(OrderStatus),
 });
 
 export const checkoutSchema = z.object({

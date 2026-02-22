@@ -12,7 +12,6 @@ import {
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { ZodIssueCode } from 'zod';
 import { useAction } from 'next-safe-action/hooks';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -69,25 +68,21 @@ export function CreateUserDialog({
 
   const form = useForm<CreateUserData>({
     resolver: zodResolver(createUserSchema, {
-      path: [],
-      async: false,
-      errorMap(issue, ctx) {
-        const path = issue.path.join('.');
+      error: (issue) => {
+        const path = issue.path?.join('.') ?? '';
 
-        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.name_min') };
+        if (path === 'name' && issue.code === 'too_small') {
+          return t('validation.name_min');
         }
-        if (path === 'email' && issue.code === ZodIssueCode.invalid_string) {
-          return { message: t('validation.email_invalid') };
+        if (path === 'email' && issue.code === 'invalid_format') {
+          return t('validation.email_invalid');
         }
-        if (path === 'role' && issue.code === ZodIssueCode.invalid_enum_value) {
-          return { message: t('validation.role_invalid') };
+        if (path === 'role' && issue.code === 'invalid_value') {
+          return t('validation.role_invalid');
         }
-        if (path === 'password' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.password_min') };
+        if (path === 'password' && issue.code === 'too_small') {
+          return t('validation.password_min');
         }
-
-        return { message: ctx.defaultError };
       },
     }),
     defaultValues: {

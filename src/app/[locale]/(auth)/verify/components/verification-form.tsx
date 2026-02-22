@@ -6,7 +6,6 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { ZodIssueCode } from 'zod';
 import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from '@/components/ui/button';
@@ -61,28 +60,20 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
 
   const form = useForm<VerifyData>({
     resolver: zodResolver(verifySchema, {
-      path: [],
-      async: false,
-      errorMap(issue, ctx) {
-        const path = issue.path.join('.');
+      error: (issue) => {
+        const path = issue.path?.join('.') ?? '';
 
-        if (
-          path === 'email' &&
-          issue.code === ZodIssueCode.invalid_string &&
-          issue.validation === 'email'
-        ) {
-          return { message: t('validation.emailInvalid') };
+        if (path === 'email' && issue.code === 'invalid_format') {
+          return t('validation.emailInvalid');
         }
         if (
           path === 'code' &&
-          ((issue.code === ZodIssueCode.too_small && issue.minimum === 6) ||
-            (issue.code === ZodIssueCode.too_big && issue.maximum === 6) ||
-            issue.code === ZodIssueCode.invalid_string)
+          (issue.code === 'too_small' ||
+            issue.code === 'too_big' ||
+            issue.code === 'invalid_format')
         ) {
-          return { message: t('validation.codeLength') };
+          return t('validation.codeLength');
         }
-
-        return { message: ctx.defaultError };
       },
     }),
     defaultValues: { email, code: '' },

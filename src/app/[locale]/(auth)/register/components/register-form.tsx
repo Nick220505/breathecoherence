@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { AlertCircle, AtSign, Loader2, Lock, Shield, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { ZodIssueCode } from 'zod';
 import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from '@/components/ui/button';
@@ -50,44 +49,24 @@ export default function RegisterForm() {
 
   const form = useForm<RegisterData>({
     resolver: zodResolver(registerSchema, {
-      path: [],
-      async: false,
-      errorMap(issue, ctx) {
-        const path = issue.path.join('.');
+      error: (issue) => {
+        const path = issue.path?.join('.') ?? '';
 
-        if (
-          path === 'email' &&
-          issue.code === ZodIssueCode.invalid_string &&
-          issue.validation === 'email'
-        ) {
-          return { message: t('validation.emailInvalid') };
+        if (path === 'email' && issue.code === 'invalid_format') {
+          return t('validation.emailInvalid');
         }
-        if (
-          path === 'password' &&
-          issue.code === ZodIssueCode.too_small &&
-          issue.minimum === 6
-        ) {
-          return { message: t('validation.passwordMinLength') };
+        if (path === 'password' && issue.code === 'too_small') {
+          return t('validation.passwordMinLength');
         }
-        if (
-          path === 'name' &&
-          issue.code === ZodIssueCode.too_small &&
-          issue.minimum === 1
-        ) {
-          return { message: t('validation.nameRequired') };
+        if (path === 'name' && issue.code === 'too_small') {
+          return t('validation.nameRequired');
         }
-        if (
-          path === 'confirmPassword' &&
-          issue.code === ZodIssueCode.too_small &&
-          issue.minimum === 6
-        ) {
-          return { message: t('validation.confirmPasswordMinLength') };
+        if (path === 'confirmPassword' && issue.code === 'too_small') {
+          return t('validation.confirmPasswordMinLength');
         }
-        if (path === 'confirmPassword' && issue.code === ZodIssueCode.custom) {
-          return { message: t('validation.passwordsDontMatch') };
+        if (path === 'confirmPassword' && issue.code === 'custom') {
+          return t('validation.passwordsDontMatch');
         }
-
-        return { message: ctx.defaultError };
       },
     }),
     defaultValues: { name: '', email: '', password: '', confirmPassword: '' },

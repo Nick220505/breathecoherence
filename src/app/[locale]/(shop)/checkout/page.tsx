@@ -10,7 +10,6 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ZodIssueCode } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -37,34 +36,27 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const form = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema, {
-      path: [],
-      async: false,
-      errorMap(issue, ctx) {
-        const path = issue.path.join('.');
+      error: (issue) => {
+        const path = issue.path?.join('.') ?? '';
 
-        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.nameMin') };
+        if (path === 'name' && issue.code === 'too_small') {
+          return t('validation.nameMin');
         }
-        if (path === 'email' && issue.code === ZodIssueCode.invalid_string) {
-          return { message: t('validation.emailInvalid') };
+        if (path === 'email' && issue.code === 'invalid_format') {
+          return t('validation.emailInvalid');
         }
-        if (path === 'address' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.addressMin') };
+        if (path === 'address' && issue.code === 'too_small') {
+          return t('validation.addressMin');
         }
-        if (path === 'city' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.cityMin') };
+        if (path === 'city' && issue.code === 'too_small') {
+          return t('validation.cityMin');
         }
-        if (path === 'state' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.stateMin') };
+        if (path === 'state' && issue.code === 'too_small') {
+          return t('validation.stateMin');
         }
-        if (
-          path === 'postalCode' &&
-          issue.code === ZodIssueCode.invalid_string
-        ) {
-          return { message: t('validation.zipInvalid') };
+        if (path === 'postalCode' && issue.code === 'invalid_format') {
+          return t('validation.zipInvalid');
         }
-
-        return { message: ctx.defaultError };
       },
     }),
     mode: 'onChange',

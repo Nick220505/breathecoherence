@@ -15,9 +15,8 @@ import {
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, type Resolver } from 'react-hook-form';
 import { toast } from 'sonner';
-import { ZodIssueCode } from 'zod';
 import { useAction } from 'next-safe-action/hooks';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -81,30 +80,26 @@ export function CreateProductDialog({
 
   const form = useForm<CreateProductData>({
     resolver: zodResolver(createProductSchema, {
-      path: [],
-      async: false,
-      errorMap(issue, ctx) {
-        const path = issue.path.join('.');
+      error: (issue) => {
+        const path = issue.path?.join('.') ?? '';
 
-        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.name_min') };
+        if (path === 'name' && issue.code === 'too_small') {
+          return t('validation.name_min');
         }
-        if (path === 'description' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.description_min') };
+        if (path === 'description' && issue.code === 'too_small') {
+          return t('validation.description_min');
         }
-        if (path === 'categoryId' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.category_required') };
+        if (path === 'categoryId' && issue.code === 'too_small') {
+          return t('validation.category_required');
         }
-        if (path === 'price' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.price_min') };
+        if (path === 'price' && issue.code === 'too_small') {
+          return t('validation.price_min');
         }
-        if (path === 'stock' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.stock_min') };
+        if (path === 'stock' && issue.code === 'too_small') {
+          return t('validation.stock_min');
         }
-
-        return { message: ctx.defaultError };
       },
-    }),
+    }) as unknown as Resolver<CreateProductData>,
     defaultValues: {
       name: '',
       description: '',

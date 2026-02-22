@@ -6,7 +6,6 @@ import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { ZodIssueCode } from 'zod';
 import { useAction } from 'next-safe-action/hooks';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -64,19 +63,15 @@ export function EditCategoryDialog({
 
   const form = useForm<UpdateCategoryData>({
     resolver: zodResolver(updateCategorySchema, {
-      path: [],
-      async: false,
-      errorMap(issue, ctx) {
-        const path = issue.path.join('.');
+      error: (issue) => {
+        const path = issue.path?.join('.') ?? '';
 
-        if (path === 'name' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.name_min') };
+        if (path === 'name' && issue.code === 'too_small') {
+          return t('validation.name_min');
         }
-        if (path === 'description' && issue.code === ZodIssueCode.too_small) {
-          return { message: t('validation.description_min') };
+        if (path === 'description' && issue.code === 'too_small') {
+          return t('validation.description_min');
         }
-
-        return { message: ctx.defaultError };
       },
     }),
     defaultValues: {

@@ -6,7 +6,6 @@ import { AlertCircle, AtSign, Loader2, Lock } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { ZodIssueCode } from 'zod';
 import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from '@/components/ui/button';
@@ -59,27 +58,15 @@ export default function LoginForm() {
 
   const form = useForm<LoginData>({
     resolver: zodResolver(loginSchema, {
-      path: [],
-      async: false,
-      errorMap(issue, ctx) {
-        const path = issue.path.join('.');
+      error: (issue) => {
+        const path = issue.path?.join('.') ?? '';
 
-        if (
-          path === 'email' &&
-          issue.code === ZodIssueCode.invalid_string &&
-          issue.validation === 'email'
-        ) {
-          return { message: t('validation.emailInvalid') };
+        if (path === 'email' && issue.code === 'invalid_format') {
+          return t('validation.emailInvalid');
         }
-        if (
-          path === 'password' &&
-          issue.code === ZodIssueCode.too_small &&
-          issue.minimum === 1
-        ) {
-          return { message: t('validation.passwordRequired') };
+        if (path === 'password' && issue.code === 'too_small') {
+          return t('validation.passwordRequired');
         }
-
-        return { message: ctx.defaultError };
       },
     }),
     defaultValues: { email: '', password: '' },
