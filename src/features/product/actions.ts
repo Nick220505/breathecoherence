@@ -18,20 +18,20 @@ import { productService } from './service';
 
 export const getAllProducts = actionClientWithLocale
   .outputSchema(productWithCategoryArraySchema)
-  .action(async ({ ctx: { locale } }) => {
+  .action(({ ctx: { locale } }) => {
     return productService.getAll(locale);
   });
 
 export const getProductById = actionClientWithLocale
   .inputSchema(getProductByIdSchema)
   .outputSchema(productWithCategorySchema)
-  .action(async ({ parsedInput: id, ctx: { locale } }) => {
+  .action(({ parsedInput: id, ctx: { locale } }) => {
     return productService.getById(id, locale);
   });
 
 export const getProductCount = actionClient
   .outputSchema(productCountSchema)
-  .action(async () => {
+  .action(() => {
     return productService.getCount();
   });
 

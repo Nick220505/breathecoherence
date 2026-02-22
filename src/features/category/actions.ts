@@ -16,13 +16,13 @@ import { categoryService } from './service';
 
 export const getAllCategories = actionClientWithLocale
   .outputSchema(categoryArraySchema)
-  .action(async ({ ctx: { locale } }) => {
+  .action(({ ctx: { locale } }) => {
     return categoryService.getAll(locale);
   });
 
 export const getCategoryCount = actionClient
   .outputSchema(categoryCountSchema)
-  .action(async () => {
+  .action(() => {
     return categoryService.getCount();
   });
 

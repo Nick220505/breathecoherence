@@ -16,13 +16,13 @@ import { userService } from './service';
 
 export const getAllUsers = actionClient
   .outputSchema(userSummaryArraySchema)
-  .action(async () => {
+  .action(() => {
     return userService.getAll();
   });
 
 export const getUserCount = actionClient
   .outputSchema(userCountSchema)
-  .action(async () => {
+  .action(() => {
     return userService.getCount();
   });
 

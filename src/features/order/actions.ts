@@ -9,22 +9,22 @@ import { orderStatusUpdateSchema } from './schemas';
 import { orderService } from './service';
 
 export const getOrdersByUser = actionClientWithAuth.action(
-  async ({ ctx: { user } }) => {
+  ({ ctx: { user } }) => {
     return orderService.getOrdersByUser(user.id);
   },
 );
 
 export const getOrderDetail = actionClientWithAuth
   .inputSchema(z.object({ id: z.string() }))
-  .action(async ({ parsedInput: { id }, ctx: { user } }) => {
+  .action(({ parsedInput: { id }, ctx: { user } }) => {
     return orderService.getDetail(id, user.id);
   });
 
-export const getAllOrders = actionClientWithAuth.action(async () => {
+export const getAllOrders = actionClientWithAuth.action(() => {
   return orderService.getAll();
 });
 
-export const getOrderCount = actionClient.action(async () => {
+export const getOrderCount = actionClient.action(() => {
   return orderService.getCount();
 });
 
