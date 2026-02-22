@@ -1,6 +1,6 @@
 'use client';
 
-import type { Product } from '@prisma/client';
+import type { Product } from '@/generated/prisma/browser';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 

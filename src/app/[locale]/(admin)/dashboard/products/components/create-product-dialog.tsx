@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { Category } from '@prisma/client';
+import type { Category } from '@/generated/prisma/browser';
 import {
   AlertCircle,
   Box,

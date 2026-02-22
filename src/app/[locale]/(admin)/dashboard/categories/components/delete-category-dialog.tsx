@@ -1,6 +1,6 @@
 'use client';
 
-import type { Category } from '@prisma/client';
+import type { Category } from '@/generated/prisma/browser';
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -18,8 +18,9 @@ import {
 } from '@/components/ui/dialog';
 import { deleteCategory } from '@/features/category/actions';
 
-interface DeleteCategoryDialogProps
-  extends React.ComponentProps<typeof Dialog> {
+interface DeleteCategoryDialogProps extends React.ComponentProps<
+  typeof Dialog
+> {
   category: Category;
 }
 
