@@ -15,10 +15,6 @@
     "db:reset": "tsx src/prisma/reset.ts",
     "db:reset:seed": "tsx src/prisma/reset.ts --seed"
   },
-  "prisma": {
-    "schema": "src/prisma/schema.prisma",
-    "seed": "tsx src/prisma/seed.ts"
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
