@@ -5,9 +5,9 @@ import { getUserCount } from '@/features/user/actions';
 
 export async function UsersCard() {
   const t = await getTranslations('UsersCard');
-  const [userCount, err] = await getUserCount();
+  const { data: userCount, serverError } = await getUserCount();
 
-  if (err) {
+  if (serverError || userCount == undefined) {
     throw new Error(t('error.loadUserCount'));
   }
 

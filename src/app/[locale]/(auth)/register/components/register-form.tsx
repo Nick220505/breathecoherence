@@ -6,7 +6,7 @@ import { AlertCircle, AtSign, Loader2, Lock, Shield, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
-import { useServerAction } from 'zsa-react';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -27,7 +27,7 @@ export default function RegisterForm() {
   const t = useTranslations('RegisterForm');
   const router = useRouter();
 
-  const { execute, isPending } = useServerAction(register, {
+  const { execute, isExecuting } = useAction(register, {
     onSuccess: () => {
       form.clearErrors();
       router.push({
@@ -35,10 +35,10 @@ export default function RegisterForm() {
         query: { email: form.getValues('email') },
       });
     },
-    onError: ({ err: { message } }) => {
+    onError: ({ error: { serverError } }) => {
       let errorMessage = t('error.generic');
 
-      if (message === USER_EXISTS) {
+      if (serverError === USER_EXISTS) {
         errorMessage = t('error.userExists');
       }
 
@@ -113,7 +113,7 @@ export default function RegisterForm() {
                   <Input
                     type="text"
                     placeholder={t('placeholder.name')}
-                    disabled={isPending}
+                    disabled={isExecuting}
                     {...field}
                   />
                 </FormControl>
@@ -140,7 +140,7 @@ export default function RegisterForm() {
                   <Input
                     type="email"
                     placeholder={t('placeholder.email')}
-                    disabled={isPending}
+                    disabled={isExecuting}
                     {...field}
                   />
                 </FormControl>
@@ -167,7 +167,7 @@ export default function RegisterForm() {
                   <Input
                     type="password"
                     placeholder={t('placeholder.password')}
-                    disabled={isPending}
+                    disabled={isExecuting}
                     {...field}
                   />
                 </FormControl>
@@ -194,7 +194,7 @@ export default function RegisterForm() {
                   <Input
                     type="password"
                     placeholder={t('placeholder.confirmPassword')}
-                    disabled={isPending}
+                    disabled={isExecuting}
                     {...field}
                   />
                 </FormControl>
@@ -221,10 +221,10 @@ export default function RegisterForm() {
         >
           <Button
             type="submit"
-            disabled={isPending}
+            disabled={isExecuting}
             className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
           >
-            {isPending ? (
+            {isExecuting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t('creating')}

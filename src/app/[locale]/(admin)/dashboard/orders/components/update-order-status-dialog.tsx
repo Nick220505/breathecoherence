@@ -5,7 +5,7 @@ import { AlertCircle, Loader2, Package } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { useServerAction } from 'zsa-react';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -40,8 +40,9 @@ import type {
   OrderSummary,
 } from '@/features/order/types';
 
-interface UpdateOrderStatusDialogProps
-  extends React.ComponentProps<typeof Dialog> {
+interface UpdateOrderStatusDialogProps extends React.ComponentProps<
+  typeof Dialog
+> {
   order: OrderSummary;
 }
 
@@ -60,16 +61,16 @@ export function UpdateOrderStatusDialog({
     },
   });
 
-  const { execute, isPending } = useServerAction(updateOrderStatus, {
+  const { execute, isExecuting } = useAction(updateOrderStatus, {
     onSuccess: ({ data: { id } }) => {
       toast.success(t('updated_title'), {
         description: t('updated_description', { id }),
       });
       onOpenChange?.(false);
     },
-    onError: ({ err: { message } }) => {
+    onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
-        message: message ?? 'An error occurred',
+        message: serverError ?? 'An error occurred',
       });
     },
   });
@@ -138,8 +139,8 @@ export function UpdateOrderStatusDialog({
                     {t('cancel')}
                   </Button>
                 </DialogClose>
-                <Button type="submit" disabled={isPending}>
-                  {isPending ? (
+                <Button type="submit" disabled={isExecuting}>
+                  {isExecuting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       {t('updating')}

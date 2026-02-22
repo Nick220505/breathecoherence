@@ -8,9 +8,9 @@ import { getRecentActivityData } from '../actions/dashboard-analytics';
 
 export async function RecentActivityChart() {
   const t = await getTranslations('RecentActivityChart');
-  const [activityData, activityDataErr] = await getRecentActivityData();
+  const { data: activityData, serverError } = await getRecentActivityData();
 
-  if (activityDataErr) {
+  if (serverError || !activityData) {
     throw new Error(t('error.loadActivityData'));
   }
 

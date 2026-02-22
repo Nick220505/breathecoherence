@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
-import { useServerAction } from 'zsa-react';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -71,7 +71,7 @@ export function EditProductDialog({
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
 
-  const { execute, isPending } = useServerAction(updateProduct, {
+  const { execute, isExecuting } = useAction(updateProduct, {
     onSuccess: ({ data: { name } }) => {
       form.clearErrors();
       toast.success(t('updated_title'), {
@@ -79,9 +79,9 @@ export function EditProductDialog({
       });
       onOpenChange?.(false);
     },
-    onError: ({ err: { message } }) => {
+    onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
-        message: message ?? 'An error occurred',
+        message: serverError ?? 'An error occurred',
       });
     },
   });
@@ -125,8 +125,8 @@ export function EditProductDialog({
 
   useEffect(() => {
     const loadCategories = async () => {
-      const [categoriesData, err] = await getAllCategories();
-      if (err) {
+      const { data: categoriesData, serverError } = await getAllCategories();
+      if (serverError || !categoriesData) {
         toast.error(t('error.load_categories'));
         return;
       }
@@ -398,8 +398,8 @@ export function EditProductDialog({
                   {t('cancel')}
                 </Button>
               </DialogClose>
-              <Button type="submit" disabled={isPending || uploadingImage}>
-                {isPending ? (
+              <Button type="submit" disabled={isExecuting || uploadingImage}>
+                {isExecuting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     {t('editing')}

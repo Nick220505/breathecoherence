@@ -8,9 +8,9 @@ import { ProductTable } from './components/product-table';
 
 export default async function ProductsPage() {
   const t = await getTranslations('ProductsPage');
-  const [products, err] = await getAllProducts();
+  const { data: products, serverError } = await getAllProducts();
 
-  if (err) {
+  if (serverError || !products) {
     throw new Error(t('error.loadProducts'));
   }
 

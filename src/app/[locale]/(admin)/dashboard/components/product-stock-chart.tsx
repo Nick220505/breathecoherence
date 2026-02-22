@@ -8,9 +8,9 @@ import { ProductStockBarChart } from './product-stock-bar-chart';
 
 export async function ProductStockChart() {
   const t = await getTranslations('ProductStockChart');
-  const [stockData, stockDataErr] = await getProductStockData();
+  const { data: stockData, serverError } = await getProductStockData();
 
-  if (stockDataErr) {
+  if (serverError || !stockData) {
     throw new Error(t('error.loadStockData'));
   }
 

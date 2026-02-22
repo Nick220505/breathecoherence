@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ZodIssueCode } from 'zod';
-import { useServerAction } from 'zsa-react';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -47,7 +47,7 @@ export function EditCategoryDialog({
 }: Readonly<EditCategoryDialogProps>) {
   const t = useTranslations('EditCategoryDialog');
 
-  const { execute, isPending } = useServerAction(updateCategory, {
+  const { execute, isExecuting } = useAction(updateCategory, {
     onSuccess: ({ data: { name } }) => {
       form.clearErrors();
       toast.success(t('updated_title'), {
@@ -55,9 +55,9 @@ export function EditCategoryDialog({
       });
       onOpenChange?.(false);
     },
-    onError: ({ err: { message } }) => {
+    onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
-        message: message ?? 'An error occurred',
+        message: serverError ?? 'An error occurred',
       });
     },
   });
@@ -162,8 +162,8 @@ export function EditCategoryDialog({
                   {t('cancel')}
                 </Button>
               </DialogClose>
-              <Button type="submit" disabled={isPending}>
-                {isPending ? (
+              <Button type="submit" disabled={isExecuting}>
+                {isExecuting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     {t('editing')}

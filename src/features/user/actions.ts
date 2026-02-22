@@ -1,7 +1,8 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { createServerAction } from 'zsa';
+
+import { actionClient } from '@/lib/safe-action';
 
 import {
   createUserSchema,
@@ -13,42 +14,42 @@ import {
 } from './schemas';
 import { userService } from './service';
 
-export const getAllUsers = createServerAction()
-  .output(userSummaryArraySchema)
-  .handler(async () => {
+export const getAllUsers = actionClient
+  .outputSchema(userSummaryArraySchema)
+  .action(async () => {
     return userService.getAll();
   });
 
-export const getUserCount = createServerAction()
-  .output(userCountSchema)
-  .handler(async () => {
+export const getUserCount = actionClient
+  .outputSchema(userCountSchema)
+  .action(async () => {
     return userService.getCount();
   });
 
-export const createUser = createServerAction()
-  .input(createUserSchema)
-  .output(userSchema)
-  .handler(async ({ input: data }) => {
+export const createUser = actionClient
+  .inputSchema(createUserSchema)
+  .outputSchema(userSchema)
+  .action(async ({ parsedInput: data }) => {
     const createdUser = await userService.create(data);
     revalidateTag('users', 'max');
 
     return createdUser;
   });
 
-export const updateUser = createServerAction()
-  .input(updateUserSchema)
-  .output(userSchema)
-  .handler(async ({ input: data }) => {
+export const updateUser = actionClient
+  .inputSchema(updateUserSchema)
+  .outputSchema(userSchema)
+  .action(async ({ parsedInput: data }) => {
     const updatedUser = await userService.update(data.id, data);
     revalidateTag('users', 'max');
 
     return updatedUser;
   });
 
-export const deleteUser = createServerAction()
-  .input(deleteUserSchema)
-  .output(userSchema)
-  .handler(async ({ input: id }) => {
+export const deleteUser = actionClient
+  .inputSchema(deleteUserSchema)
+  .outputSchema(userSchema)
+  .action(async ({ parsedInput: id }) => {
     const deletedUser = await userService.delete(id);
     revalidateTag('users', 'max');
 

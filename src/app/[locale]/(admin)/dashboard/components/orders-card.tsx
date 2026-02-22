@@ -5,9 +5,9 @@ import { getOrderCount } from '@/features/order/actions';
 
 export async function OrdersCard() {
   const t = await getTranslations('OrdersCard');
-  const [orderCount, orderCountErr] = await getOrderCount();
+  const { data: orderCount, serverError } = await getOrderCount();
 
-  if (orderCountErr) {
+  if (serverError || orderCount == undefined) {
     throw new Error(t('error.loadOrderCount'));
   }
 

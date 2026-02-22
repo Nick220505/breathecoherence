@@ -7,7 +7,7 @@ import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
-import { useServerAction } from 'zsa-react';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -28,7 +28,7 @@ export default function LoginForm() {
   const t = useTranslations('LoginForm');
   const router = useRouter();
 
-  const { execute, isPending } = useServerAction(login, {
+  const { execute, isExecuting } = useAction(login, {
     onSuccess: () => {
       form.clearErrors();
 
@@ -44,10 +44,10 @@ export default function LoginForm() {
         }
       });
     },
-    onError: ({ err: { message } }) => {
+    onError: ({ error: { serverError } }) => {
       let errorMessage = t('error.generic');
 
-      if (message === INVALID_CREDENTIALS) {
+      if (serverError === INVALID_CREDENTIALS) {
         errorMessage = t('error.invalidCredentials');
       }
 
@@ -105,7 +105,7 @@ export default function LoginForm() {
                   <Input
                     type="email"
                     placeholder={t('placeholder.email')}
-                    disabled={isPending}
+                    disabled={isExecuting}
                     {...field}
                   />
                 </FormControl>
@@ -132,7 +132,7 @@ export default function LoginForm() {
                   <Input
                     type="password"
                     placeholder={t('placeholder.password')}
-                    disabled={isPending}
+                    disabled={isExecuting}
                     {...field}
                   />
                 </FormControl>
@@ -159,10 +159,10 @@ export default function LoginForm() {
         >
           <Button
             type="submit"
-            disabled={isPending}
+            disabled={isExecuting}
             className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
           >
-            {isPending ? (
+            {isExecuting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t('loading')}

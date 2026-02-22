@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { ZodIssueCode } from 'zod';
-import { useServerAction } from 'zsa-react';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -41,15 +41,15 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
   const t = useTranslations('VerificationForm');
   const router = useRouter();
 
-  const { execute, isPending } = useServerAction(verify, {
+  const { execute, isExecuting } = useAction(verify, {
     onSuccess: () => {
       form.clearErrors();
       router.push('/login');
     },
-    onError: ({ err: { message } }) => {
+    onError: ({ error: { serverError } }) => {
       let errorMessage = t('error.generic');
 
-      if (message === INVALID_VERIFICATION) {
+      if (serverError === INVALID_VERIFICATION) {
         errorMessage = t('error.invalidVerification');
       }
 
@@ -143,7 +143,11 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-center justify-center">
                       <FormControl>
-                        <InputOTP maxLength={6} {...field} disabled={isPending}>
+                        <InputOTP
+                          maxLength={6}
+                          {...field}
+                          disabled={isExecuting}
+                        >
                           <InputOTPGroup>
                             <InputOTPSlot index={0} />
                             <InputOTPSlot index={1} />
@@ -166,10 +170,10 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
                 />
                 <Button
                   type="submit"
-                  disabled={isPending}
+                  disabled={isExecuting}
                   className="w-full transform bg-linear-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:from-purple-700 hover:to-blue-700 hover:shadow-xl"
                 >
-                  {isPending ? (
+                  {isExecuting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       {t('loading')}

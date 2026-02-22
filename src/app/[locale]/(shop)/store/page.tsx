@@ -19,15 +19,17 @@ export default async function StorePage(props: Readonly<PageProps>) {
   const searchParams = await props.searchParams;
   const categoryQueryParam =
     searchParams?.category ?? searchParams?.categoria ?? '';
-  const [[products, productsErr], [categories, categoriesErr]] =
-    await Promise.all([getAllProducts(), getAllCategories()]);
+  const [
+    { data: products, serverError: productsError },
+    { data: categories, serverError: categoriesError },
+  ] = await Promise.all([getAllProducts(), getAllCategories()]);
 
-  if (categoriesErr || productsErr) {
+  if (categoriesError || productsError || !categories || !products) {
     const t = await getTranslations('StorePage');
-    if (categoriesErr) {
+    if (categoriesError || !categories) {
       throw new Error(t('error.loadCategories'));
     }
-    if (productsErr) {
+    if (productsError || !products) {
       throw new Error(t('error.loadProducts'));
     }
   }

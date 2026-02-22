@@ -8,9 +8,9 @@ import { UserTable } from './components/user-table';
 
 export default async function UsersPage() {
   const t = await getTranslations('UsersPage');
-  const [users, err] = await getAllUsers();
+  const { data: users, serverError } = await getAllUsers();
 
-  if (err) {
+  if (serverError || !users) {
     throw new Error(t('error.loadUsers'));
   }
 

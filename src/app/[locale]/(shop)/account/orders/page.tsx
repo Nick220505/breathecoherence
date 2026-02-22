@@ -36,9 +36,9 @@ export default async function OrderHistoryPage({
   const guestOrderId = resolvedSearchParams.guestId as string | undefined;
 
   const t = await getTranslations('OrderHistoryPage');
-  const [orders, ordersErr] = await getOrdersByUser();
+  const { data: orders, serverError } = await getOrdersByUser();
 
-  if (ordersErr) {
+  if (serverError || !orders) {
     throw new Error(t('error.loadOrders'));
   }
 

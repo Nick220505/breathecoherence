@@ -1,9 +1,8 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { createServerAction } from 'zsa';
 
-import { withLocaleProcedure } from '@/lib/zsa';
+import { actionClient, actionClientWithLocale } from '@/lib/safe-action';
 
 import {
   createProductSchema,
@@ -17,43 +16,39 @@ import {
 } from './schemas';
 import { productService } from './service';
 
-export const getAllProducts = withLocaleProcedure
-  .createServerAction()
-  .output(productWithCategoryArraySchema)
-  .handler(async ({ ctx: { locale } }) => {
+export const getAllProducts = actionClientWithLocale
+  .outputSchema(productWithCategoryArraySchema)
+  .action(async ({ ctx: { locale } }) => {
     return productService.getAll(locale);
   });
 
-export const getProductById = withLocaleProcedure
-  .createServerAction()
-  .input(getProductByIdSchema)
-  .output(productWithCategorySchema)
-  .handler(async ({ input: id, ctx: { locale } }) => {
+export const getProductById = actionClientWithLocale
+  .inputSchema(getProductByIdSchema)
+  .outputSchema(productWithCategorySchema)
+  .action(async ({ parsedInput: id, ctx: { locale } }) => {
     return productService.getById(id, locale);
   });
 
-export const getProductCount = createServerAction()
-  .output(productCountSchema)
-  .handler(async () => {
+export const getProductCount = actionClient
+  .outputSchema(productCountSchema)
+  .action(async () => {
     return productService.getCount();
   });
 
-export const createProduct = withLocaleProcedure
-  .createServerAction()
-  .input(createProductSchema)
-  .output(productSchema)
-  .handler(async ({ input: data, ctx: { locale } }) => {
+export const createProduct = actionClientWithLocale
+  .inputSchema(createProductSchema)
+  .outputSchema(productSchema)
+  .action(async ({ parsedInput: data, ctx: { locale } }) => {
     const createdProduct = await productService.create(data, locale);
     revalidateTag('products', 'max');
 
     return createdProduct;
   });
 
-export const updateProduct = withLocaleProcedure
-  .createServerAction()
-  .input(updateProductSchema)
-  .output(productSchema)
-  .handler(async ({ input: data, ctx: { locale } }) => {
+export const updateProduct = actionClientWithLocale
+  .inputSchema(updateProductSchema)
+  .outputSchema(productSchema)
+  .action(async ({ parsedInput: data, ctx: { locale } }) => {
     const updatedProduct = await productService.update(data.id, data, locale);
     revalidateTag('products', 'max');
     revalidateTag('product', 'max');
@@ -61,11 +56,10 @@ export const updateProduct = withLocaleProcedure
     return updatedProduct;
   });
 
-export const deleteProduct = withLocaleProcedure
-  .createServerAction()
-  .input(deleteProductSchema)
-  .output(productSchema)
-  .handler(async ({ input: id, ctx: { locale } }) => {
+export const deleteProduct = actionClientWithLocale
+  .inputSchema(deleteProductSchema)
+  .outputSchema(productSchema)
+  .action(async ({ parsedInput: id, ctx: { locale } }) => {
     const deletedProduct = await productService.delete(id, locale);
     revalidateTag('products', 'max');
 

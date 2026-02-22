@@ -11,9 +11,9 @@ export async function NavigationItems() {
   const locale = (await getLocale()) ?? 'en';
   const t = await getTranslations('NavigationItems');
 
-  const [categories, err] = await getAllCategories();
+  const { data: categories, serverError } = await getAllCategories();
 
-  if (err) {
+  if (serverError || !categories) {
     return (
       <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
         <div className="flex items-center gap-2 rounded-md border border-orange-200 bg-orange-50 px-3 py-1 text-sm text-orange-700 dark:border-orange-800 dark:bg-orange-950 dark:text-orange-300">

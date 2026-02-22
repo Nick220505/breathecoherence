@@ -1,9 +1,7 @@
 'use server';
 
-import { createServerAction } from 'zsa';
-
 import { dashboardService } from '@/features/dashboard/service';
-import { withLocaleProcedure } from '@/lib/zsa';
+import { actionClient, actionClientWithLocale } from '@/lib/safe-action';
 import type {
   DashboardAnalyticsData,
   OrderStatusData,
@@ -12,32 +10,32 @@ import type {
   SalesOverviewData,
 } from '@/features/dashboard/types';
 
-export const getSalesOverviewData = createServerAction().handler(
+export const getSalesOverviewData = actionClient.action(
   async (): Promise<SalesOverviewData[]> => {
     return dashboardService.getSalesOverviewData();
   },
 );
 
-export const getOrderStatusData = createServerAction().handler(
+export const getOrderStatusData = actionClient.action(
   async (): Promise<OrderStatusData[]> => {
     return dashboardService.getOrderStatusData();
   },
 );
 
-export const getProductStockData = withLocaleProcedure
-  .createServerAction()
-  .handler(async ({ ctx: { locale } }): Promise<ProductStockData[]> => {
+export const getProductStockData = actionClientWithLocale.action(
+  async ({ ctx: { locale } }): Promise<ProductStockData[]> => {
     return dashboardService.getProductStockData(locale);
-  });
+  },
+);
 
-export const getRecentActivityData = createServerAction().handler(
+export const getRecentActivityData = actionClient.action(
   async (): Promise<RecentActivityData[]> => {
     return dashboardService.getRecentActivityData();
   },
 );
 
-export const getDashboardAnalytics = withLocaleProcedure
-  .createServerAction()
-  .handler(async ({ ctx: { locale } }): Promise<DashboardAnalyticsData> => {
+export const getDashboardAnalytics = actionClientWithLocale.action(
+  async ({ ctx: { locale } }): Promise<DashboardAnalyticsData> => {
     return dashboardService.getDashboardAnalytics(locale);
-  });
+  },
+);

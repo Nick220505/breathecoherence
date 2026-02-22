@@ -5,9 +5,9 @@ import { getProductCount } from '@/features/product/actions';
 
 export async function ProductsCard() {
   const t = await getTranslations('ProductsCard');
-  const [productCount, err] = await getProductCount();
+  const { data: productCount, serverError } = await getProductCount();
 
-  if (err) {
+  if (serverError || productCount == undefined) {
     throw new Error(t('error.loadProductCount'));
   }
 

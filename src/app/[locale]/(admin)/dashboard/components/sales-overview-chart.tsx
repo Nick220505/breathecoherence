@@ -8,9 +8,9 @@ import { SalesOverviewBarChart } from './sales-overview-bar-chart';
 
 export async function SalesOverviewChart() {
   const t = await getTranslations('SalesOverviewChart');
-  const [salesData, salesDataErr] = await getSalesOverviewData();
+  const { data: salesData, serverError } = await getSalesOverviewData();
 
-  if (salesDataErr) {
+  if (serverError || !salesData) {
     throw new Error(t('error.loadSalesData'));
   }
 

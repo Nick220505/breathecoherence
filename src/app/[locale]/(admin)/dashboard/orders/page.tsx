@@ -7,9 +7,9 @@ import { OrderTable } from './components/order-table';
 
 export default async function OrdersPage() {
   const t = await getTranslations('OrdersPage');
-  const [orders, ordersErr] = await getAllOrders();
+  const { data: orders, serverError } = await getAllOrders();
 
-  if (ordersErr) {
+  if (serverError || !orders) {
     throw new Error(t('error.loadOrders'));
   }
 

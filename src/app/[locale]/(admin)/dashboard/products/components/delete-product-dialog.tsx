@@ -3,7 +3,7 @@
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
-import { useServerAction } from 'zsa-react';
+import { useAction } from 'next-safe-action/hooks';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -29,15 +29,15 @@ export function DeleteProductDialog({
 }: Readonly<DeleteProductDialogProps>) {
   const t = useTranslations('DeleteProductDialog');
 
-  const { execute, isPending } = useServerAction(deleteProduct, {
+  const { execute, isExecuting } = useAction(deleteProduct, {
     onSuccess: ({ data: { name } }) => {
       toast.success(t('deleted_title'), {
         description: t('deleted_description', { name }),
       });
       onOpenChange?.(false);
     },
-    onError: ({ err: { message } }) => {
-      toast.error(message ?? t('error_delete'));
+    onError: ({ error: { serverError } }) => {
+      toast.error(serverError ?? t('error_delete'));
     },
   });
 
@@ -52,16 +52,16 @@ export function DeleteProductDialog({
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" disabled={isPending}>
+            <Button variant="outline" disabled={isExecuting}>
               {t('cancel')}
             </Button>
           </DialogClose>
           <Button
             variant="destructive"
             onClick={() => execute(product.id)}
-            disabled={isPending}
+            disabled={isExecuting}
           >
-            {isPending ? (
+            {isExecuting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t('deleting')}

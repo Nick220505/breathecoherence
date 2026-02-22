@@ -5,9 +5,9 @@ import { getCategoryCount } from '@/features/category/actions';
 
 export async function CategoriesCard() {
   const t = await getTranslations('CategoriesCard');
-  const [categoryCount, err] = await getCategoryCount();
+  const { data: categoryCount, serverError } = await getCategoryCount();
 
-  if (err) {
+  if (serverError || categoryCount === undefined) {
     throw new Error(t('error.loadCategoryCount'));
   }
 

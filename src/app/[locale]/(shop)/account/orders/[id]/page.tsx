@@ -28,9 +28,9 @@ export default async function OrderDetailPage({
   const guestOrderId = resolvedSearchParams.guestId as string | undefined;
 
   const t = await getTranslations('OrderDetailPage');
-  const [order, orderErr] = await getOrderDetail({ id: orderId });
+  const { data: order, serverError } = await getOrderDetail({ id: orderId });
 
-  if (orderErr) {
+  if (serverError || !order) {
     throw new Error(t('error.loadOrder'));
   }
 

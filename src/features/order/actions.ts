@@ -2,40 +2,35 @@
 
 import { revalidateTag } from 'next/cache';
 import { z } from 'zod';
-import { createServerAction } from 'zsa';
 
-import { withAuthProcedure } from '@/lib/zsa';
+import { actionClient, actionClientWithAuth } from '@/lib/safe-action';
 
 import { orderStatusUpdateSchema } from './schemas';
 import { orderService } from './service';
 
-export const getOrdersByUser = withAuthProcedure
-  .createServerAction()
-  .handler(async ({ ctx: { user } }) => {
+export const getOrdersByUser = actionClientWithAuth.action(
+  async ({ ctx: { user } }) => {
     return orderService.getOrdersByUser(user.id);
-  });
+  },
+);
 
-export const getOrderDetail = withAuthProcedure
-  .createServerAction()
-  .input(z.object({ id: z.string() }))
-  .handler(async ({ input: { id }, ctx: { user } }) => {
+export const getOrderDetail = actionClientWithAuth
+  .inputSchema(z.object({ id: z.string() }))
+  .action(async ({ parsedInput: { id }, ctx: { user } }) => {
     return orderService.getDetail(id, user.id);
   });
 
-export const getAllOrders = withAuthProcedure
-  .createServerAction()
-  .handler(async () => {
-    return orderService.getAll();
-  });
+export const getAllOrders = actionClientWithAuth.action(async () => {
+  return orderService.getAll();
+});
 
-export const getOrderCount = createServerAction().handler(async () => {
+export const getOrderCount = actionClient.action(async () => {
   return orderService.getCount();
 });
 
-export const updateOrderStatus = withAuthProcedure
-  .createServerAction()
-  .input(orderStatusUpdateSchema)
-  .handler(async ({ input: { id, status } }) => {
+export const updateOrderStatus = actionClientWithAuth
+  .inputSchema(orderStatusUpdateSchema)
+  .action(async ({ parsedInput: { id, status } }) => {
     const updatedOrder = await orderService.updateStatus(id, status);
     revalidateTag('orders', 'max');
 

@@ -9,9 +9,9 @@ import { OrderStatusPieChart } from './order-status-pie-chart';
 
 export async function OrderStatusChart() {
   const t = await getTranslations('OrderStatusChart');
-  const [statusData, statusDataErr] = await getOrderStatusData();
+  const { data: statusData, serverError } = await getOrderStatusData();
 
-  if (statusDataErr) {
+  if (serverError || !statusData) {
     throw new Error(t('error.loadOrderStatusData'));
   }
 
