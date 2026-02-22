@@ -501,6 +501,7 @@
   },
   "DeleteUserDialog": {
     "error_delete": "Ocurrió un error al eliminar el usuario",
+    "error_has_orders": "No se puede eliminar un usuario con pedidos existentes",
     "delete_confirm_title": "Eliminar Usuario",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",

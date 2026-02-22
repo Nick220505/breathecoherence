@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteUser } from '@/features/user/actions';
+import { USER_HAS_ORDERS } from '@/features/user/errors';
 import type { UserSummary } from '@/features/user/schemas';
 
 interface DeleteUserDialogProps extends React.ComponentProps<typeof Dialog> {
@@ -37,7 +38,13 @@ export function DeleteUserDialog({
       onOpenChange?.(false);
     },
     onError: ({ error: { serverError } }) => {
-      toast.error(serverError ?? t('error_delete'));
+      let errorMessage = t('error_delete');
+
+      if (serverError === USER_HAS_ORDERS) {
+        errorMessage = t('error_has_orders');
+      }
+
+      toast.error(errorMessage);
     },
   });
 

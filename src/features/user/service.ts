@@ -1,6 +1,7 @@
 import type { User } from '@/generated/prisma/client';
 import { hash } from 'bcryptjs';
 
+import { USER_HAS_ORDERS } from './errors';
 import { userRepository } from './repository';
 import type { CreateUserData, UpdateUserData, UserSummary } from './schemas';
 
@@ -33,7 +34,13 @@ export const userService = {
     return userRepository.update(id, data);
   },
 
-  delete(id: string): Promise<User> {
+  async delete(id: string): Promise<User> {
+    const hasOrders = await userRepository.hasOrders(id);
+
+    if (hasOrders) {
+      throw new Error(USER_HAS_ORDERS);
+    }
+
     return userRepository.delete(id);
   },
 };

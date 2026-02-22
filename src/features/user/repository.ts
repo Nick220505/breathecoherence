@@ -38,6 +38,13 @@ export const userRepository = {
     return prisma.user.count();
   },
 
+  async hasOrders(userId: string): Promise<boolean> {
+    const orderCount = await prisma.order.count({
+      where: { userId },
+    });
+    return orderCount > 0;
+  },
+
   create(data: Prisma.UserCreateInput): Promise<User> {
     return prisma.user.create({ data });
   },
