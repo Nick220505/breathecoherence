@@ -8,20 +8,17 @@ import { authService } from './service';
 export const register = actionClient
   .inputSchema(registerSchema)
   .action(async ({ parsedInput: data }) => {
-    const user = await authService.register(data);
-    return user;
+    return authService.register(data);
   });
 
 export const verify = actionClient
   .inputSchema(verifySchema)
   .action(async ({ parsedInput: data }) => {
-    const user = await authService.verify(data);
-    return user;
+    return authService.verify(data);
   });
 
 export const login = actionClient
   .inputSchema(loginSchema)
   .action(async ({ parsedInput: data }) => {
-    const user = await authService.login(data);
-    return user;
+    return authService.login(data);
   });
