@@ -2,14 +2,14 @@ import type { User } from '@/generated/prisma/client';
 import { z } from 'zod';
 
 export const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(1),
 });
 
 export const registerSchema = z
   .object({
     name: z.string().min(1),
-    email: z.string().email(),
+    email: z.email(),
     password: z.string().min(6),
     confirmPassword: z.string().min(6),
   })
@@ -18,7 +18,7 @@ export const registerSchema = z
   });
 
 export const verifySchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   code: z.string().length(6),
 });
 

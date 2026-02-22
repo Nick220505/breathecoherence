@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const orderSchema = z.object({
   id: z.string(),
   userId: z.string().nullable(),
-  userEmail: z.string().email(),
+  userEmail: z.email(),
   total: z.number().positive(),
   status: z.enum(OrderStatus),
   createdAt: z.date(),
@@ -34,7 +34,7 @@ export const orderStatusUpdateSchema = z.object({
 
 export const checkoutSchema = z.object({
   name: z.string().min(2),
-  email: z.string().email(),
+  email: z.email(),
   address: z.string().min(5),
   city: z.string().min(2),
   state: z.string().min(2),
