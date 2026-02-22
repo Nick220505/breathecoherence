@@ -28,9 +28,11 @@ function PaymentStatusCheck() {
     const clientSecret = searchParams.get('payment_intent_client_secret');
 
     if (!clientSecret) {
-      setStatus('error');
-      setMessage('No payment intent client secret found');
-      return;
+      const timer = setTimeout(() => {
+        setStatus('error');
+        setMessage('No payment intent client secret found');
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     stripe

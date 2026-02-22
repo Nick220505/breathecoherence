@@ -82,6 +82,7 @@ export default function CheckoutPage() {
   const {
     handleSubmit,
     watch,
+    getValues,
     formState: { isValid },
   } = form;
 
@@ -97,7 +98,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (paymentMethod === 'card' && isValid) {
-      const formData = watch();
+      const formData = getValues();
       const fetchClientSecret = async () => {
         try {
           const response = await fetch('/api/stripe/create-payment-intent', {
@@ -130,10 +131,12 @@ export default function CheckoutPage() {
 
       void fetchClientSecret();
     } else if (paymentMethod === 'card' && !isValid) {
-      // Clear client secret when form becomes invalid
-      setClientSecret(undefined);
+      const timer = setTimeout(() => {
+        setClientSecret(undefined);
+      }, 0);
+      return () => clearTimeout(timer);
     }
-  }, [paymentMethod, finalTotal, cartItems, watch, isValid]);
+  }, [paymentMethod, finalTotal, cartItems, getValues, isValid]);
 
   const onSubmit = (data: CheckoutFormData) => {
     if (paymentMethod === 'card') {
