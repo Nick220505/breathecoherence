@@ -5,6 +5,7 @@ import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 
+import { PRODUCT_HAS_ORDERS, PRODUCT_NOT_FOUND } from './errors';
 import { productRepository } from './repository';
 import type {
   CreateProductData,
@@ -75,7 +76,7 @@ export const productService = {
     const product = await productRepository.findById(id);
 
     if (!product) {
-      throw new Error(`Product not found by id: ${id}`);
+      throw new Error(PRODUCT_NOT_FOUND);
     }
 
     const translatedProduct = await translationService.getTranslatedEntity(
@@ -166,6 +167,12 @@ export const productService = {
 
   async delete(id: string, locale: Locale): Promise<Product> {
     const translatedProduct = await this.getById(id, locale);
+
+    const hasOrders = await productRepository.hasOrders(id);
+
+    if (hasOrders) {
+      throw new Error(PRODUCT_HAS_ORDERS);
+    }
 
     await translationService.deleteTranslations(id, this.translationConfig);
 

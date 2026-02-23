@@ -156,6 +156,7 @@
   },
   "DeleteProductDialog": {
     "error_delete": "An error occurred while deleting the product",
+    "error_has_orders": "Cannot delete product with existing orders",
     "delete_confirm_title": "Delete Product",
     "delete_confirm_description": "Are you sure you want to delete this product? This action cannot be undone.",
     "cancel": "Cancel",
@@ -171,6 +172,7 @@
   },
   "DeleteCategoryDialog": {
     "error_delete": "An error occurred while deleting the category",
+    "error_has_products": "Cannot delete category with existing products",
     "delete_confirm_title": "Delete Category",
     "delete_confirm_description": "Are you sure you want to delete this category? This action cannot be undone.",
     "cancel": "Cancel",

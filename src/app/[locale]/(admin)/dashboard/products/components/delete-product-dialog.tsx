@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteProduct } from '@/features/product/actions';
+import { PRODUCT_HAS_ORDERS } from '@/features/product/errors';
 import type { ProductWithCategory } from '@/features/product/schemas';
 
 interface DeleteProductDialogProps extends React.ComponentProps<typeof Dialog> {
@@ -37,7 +38,13 @@ export function DeleteProductDialog({
       onOpenChange?.(false);
     },
     onError: ({ error: { serverError } }) => {
-      toast.error(serverError ?? t('error_delete'));
+      let errorMessage = t('error_delete');
+
+      if (serverError === PRODUCT_HAS_ORDERS) {
+        errorMessage = t('error_has_orders');
+      }
+
+      toast.error(errorMessage);
     },
   });
 

@@ -156,6 +156,7 @@
   },
   "DeleteProductDialog": {
     "error_delete": "Ocurrió un error al eliminar el producto",
+    "error_has_orders": "No se puede eliminar un producto con pedidos existentes",
     "delete_confirm_title": "Eliminar Producto",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",
@@ -171,6 +172,7 @@
   },
   "DeleteCategoryDialog": {
     "error_delete": "Ocurrió un error al eliminar la categoría",
+    "error_has_products": "No se puede eliminar una categoría con productos existentes",
     "delete_confirm_title": "Eliminar Categoría",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",

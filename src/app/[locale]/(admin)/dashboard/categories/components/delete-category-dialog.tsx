@@ -17,6 +17,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { deleteCategory } from '@/features/category/actions';
+import { CATEGORY_HAS_PRODUCTS } from '@/features/category/errors';
 
 interface DeleteCategoryDialogProps extends React.ComponentProps<
   typeof Dialog
@@ -39,7 +40,13 @@ export function DeleteCategoryDialog({
       onOpenChange?.(false);
     },
     onError: ({ error: { serverError } }) => {
-      toast.error(serverError ?? t('error_delete'));
+      let errorMessage = t('error_delete');
+
+      if (serverError === CATEGORY_HAS_PRODUCTS) {
+        errorMessage = t('error_has_products');
+      }
+
+      toast.error(errorMessage);
     },
   });
 

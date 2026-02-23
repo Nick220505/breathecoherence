@@ -4,6 +4,7 @@ import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 
+import { CATEGORY_HAS_PRODUCTS, CATEGORY_NOT_FOUND } from './errors';
 import { categoryRepository } from './repository';
 import type { CreateCategoryData, UpdateCategoryData } from './schemas';
 
@@ -31,7 +32,7 @@ export const categoryService = {
     const category = await categoryRepository.findById(id);
 
     if (!category) {
-      throw new Error(`Category not found by id: ${id}`);
+      throw new Error(CATEGORY_NOT_FOUND);
     }
 
     return translationService.getTranslatedEntity(
@@ -105,6 +106,12 @@ export const categoryService = {
 
   async delete(id: string, locale: Locale): Promise<Category> {
     const translatedCategory = await this.getById(id, locale);
+
+    const hasProducts = await categoryRepository.hasProducts(id);
+
+    if (hasProducts) {
+      throw new Error(CATEGORY_HAS_PRODUCTS);
+    }
 
     await translationService.deleteTranslations(id, this.translationConfig);
 

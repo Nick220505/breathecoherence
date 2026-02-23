@@ -31,6 +31,13 @@ export const productRepository = {
     return prisma.product.count();
   },
 
+  async hasOrders(productId: string): Promise<boolean> {
+    const orderItemCount = await prisma.orderItem.count({
+      where: { productId },
+    });
+    return orderItemCount > 0;
+  },
+
   create(data: Prisma.ProductCreateInput): Promise<Product> {
     return prisma.product.create({ data });
   },

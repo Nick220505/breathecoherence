@@ -15,6 +15,13 @@ export const categoryRepository = {
     return prisma.category.count();
   },
 
+  async hasProducts(categoryId: string): Promise<boolean> {
+    const productCount = await prisma.product.count({
+      where: { categoryId },
+    });
+    return productCount > 0;
+  },
+
   create(data: Prisma.CategoryCreateInput): Promise<Category> {
     return prisma.category.create({ data });
   },
