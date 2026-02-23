@@ -1,6 +1,6 @@
 import type { Product } from '@/generated/prisma/client';
 
-import { categoryTranslationConfig } from '@/features/category/service';
+import { categoryService } from '@/features/category/service';
 import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
@@ -12,12 +12,12 @@ import type {
   UpdateProductData,
 } from './schemas';
 
-const productTranslationConfig: TranslationConfig = {
-  entityType: 'Product',
-  translatableFields: ['name', 'description'],
-};
-
 export const productService = {
+  translationConfig: {
+    entityType: 'Product',
+    translatableFields: ['name', 'description'],
+  } satisfies TranslationConfig,
+
   async getAll(locale: Locale): Promise<ProductWithCategory[]> {
     const products = await productRepository.findMany();
 
@@ -26,13 +26,13 @@ export const productService = {
         const translatedProduct = await translationService.getTranslatedEntity(
           product,
           locale,
-          productTranslationConfig,
+          this.translationConfig,
         );
 
         const translatedCategory = await translationService.getTranslatedEntity(
           product.category,
           locale,
-          categoryTranslationConfig,
+          categoryService.translationConfig,
         );
 
         return {
@@ -54,13 +54,13 @@ export const productService = {
         const translatedProduct = await translationService.getTranslatedEntity(
           product,
           locale,
-          productTranslationConfig,
+          this.translationConfig,
         );
 
         const translatedCategory = await translationService.getTranslatedEntity(
           product.category,
           locale,
-          categoryTranslationConfig,
+          categoryService.translationConfig,
         );
 
         return {
@@ -81,13 +81,13 @@ export const productService = {
     const translatedProduct = await translationService.getTranslatedEntity(
       product,
       locale,
-      productTranslationConfig,
+      this.translationConfig,
     );
 
     const translatedCategory = await translationService.getTranslatedEntity(
       product.category,
       locale,
-      categoryTranslationConfig,
+      categoryService.translationConfig,
     );
 
     return {
@@ -106,7 +106,7 @@ export const productService = {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       restData,
       locale,
-      productTranslationConfig,
+      this.translationConfig,
     );
 
     const newProduct = await productRepository.create({
@@ -122,13 +122,13 @@ export const productService = {
       newProduct.id,
       restData,
       locale,
-      productTranslationConfig,
+      this.translationConfig,
     );
 
     return translationService.getTranslatedEntity(
       newProduct,
       locale,
-      productTranslationConfig,
+      this.translationConfig,
     );
   },
 
@@ -142,7 +142,7 @@ export const productService = {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
-      productTranslationConfig,
+      this.translationConfig,
     );
 
     const updatedProduct = await productRepository.update(id, {
@@ -154,20 +154,20 @@ export const productService = {
       id,
       data,
       locale,
-      productTranslationConfig,
+      this.translationConfig,
     );
 
     return translationService.getTranslatedEntity(
       updatedProduct,
       locale,
-      productTranslationConfig,
+      this.translationConfig,
     );
   },
 
   async delete(id: string, locale: Locale): Promise<Product> {
     const translatedProduct = await this.getById(id, locale);
 
-    await translationService.deleteTranslations(id, productTranslationConfig);
+    await translationService.deleteTranslations(id, this.translationConfig);
 
     await productRepository.delete(id);
 

@@ -7,12 +7,12 @@ import type { Locale } from '@/i18n/routing';
 import { categoryRepository } from './repository';
 import type { CreateCategoryData, UpdateCategoryData } from './schemas';
 
-export const categoryTranslationConfig: TranslationConfig = {
-  entityType: 'Category',
-  translatableFields: ['name', 'description'],
-};
-
 export const categoryService = {
+  translationConfig: {
+    entityType: 'Category',
+    translatableFields: ['name', 'description'],
+  } satisfies TranslationConfig,
+
   async getAll(locale: Locale): Promise<Category[]> {
     const categories = await categoryRepository.findMany();
 
@@ -21,7 +21,7 @@ export const categoryService = {
         translationService.getTranslatedEntity(
           category,
           locale,
-          categoryTranslationConfig,
+          this.translationConfig,
         ),
       ),
     );
@@ -37,7 +37,7 @@ export const categoryService = {
     return translationService.getTranslatedEntity(
       category,
       locale,
-      categoryTranslationConfig,
+      this.translationConfig,
     );
   },
 
@@ -49,7 +49,7 @@ export const categoryService = {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
-      categoryTranslationConfig,
+      this.translationConfig,
     );
 
     const newCategory = await categoryRepository.create({
@@ -61,13 +61,13 @@ export const categoryService = {
       newCategory.id,
       data,
       locale,
-      categoryTranslationConfig,
+      this.translationConfig,
     );
 
     return translationService.getTranslatedEntity(
       newCategory,
       locale,
-      categoryTranslationConfig,
+      this.translationConfig,
     );
   },
 
@@ -81,7 +81,7 @@ export const categoryService = {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
-      categoryTranslationConfig,
+      this.translationConfig,
     );
 
     const updatedCategory = await categoryRepository.update(id, {
@@ -93,20 +93,20 @@ export const categoryService = {
       id,
       data,
       locale,
-      categoryTranslationConfig,
+      this.translationConfig,
     );
 
     return translationService.getTranslatedEntity(
       updatedCategory,
       locale,
-      categoryTranslationConfig,
+      this.translationConfig,
     );
   },
 
   async delete(id: string, locale: Locale): Promise<Category> {
     const translatedCategory = await this.getById(id, locale);
 
-    await translationService.deleteTranslations(id, categoryTranslationConfig);
+    await translationService.deleteTranslations(id, this.translationConfig);
 
     await categoryRepository.delete(id);
 
