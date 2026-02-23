@@ -88,7 +88,7 @@ export const dashboardService = {
       activities.push({
         id: order.id,
         type: 'order',
-        description: `Order from ${order.userEmail}`,
+        description: `Order from ${order.user.email}`,
         createdAt: order.createdAt.toISOString(),
         status: order.status,
         amount: order.total,

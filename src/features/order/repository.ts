@@ -26,19 +26,11 @@ export const orderRepository = {
   } as const satisfies Prisma.OrderInclude,
 
   async findMany(limit?: number): Promise<OrderSummary[]> {
-    const orders = await prisma.order.findMany({
+    return prisma.order.findMany({
       ...(limit && { take: limit }),
       orderBy: { createdAt: 'desc' },
       select: this.orderSummarySelect,
     });
-
-    return orders.map(({ id, total, status, createdAt, user }) => ({
-      id,
-      total,
-      status,
-      createdAt,
-      userEmail: user.email,
-    }));
   },
 
   findById(id: string): Promise<OrderDetail | null> {
@@ -55,31 +47,12 @@ export const orderRepository = {
     });
   },
 
-  async findManyByUser(userId: string): Promise<OrderWithItems[]> {
-    const orders = await prisma.order.findMany({
+  findManyByUser(userId: string): Promise<OrderWithItems[]> {
+    return prisma.order.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       include: this.orderDetailInclude,
     });
-
-    return orders.map((order) => ({
-      id: order.id,
-      status: order.status,
-      total: order.total,
-      createdAt: order.createdAt,
-      items: order.items.map((item) => ({
-        id: item.id,
-        productId: item.productId,
-        quantity: item.quantity,
-        price: item.price,
-        product: {
-          id: item.product.id,
-          name: item.product.name,
-          type: (item.product as { type?: string }).type,
-          imageBase64: item.product.imageBase64 ?? undefined,
-        },
-      })),
-    }));
   },
 
   count(): Promise<number> {
@@ -90,7 +63,7 @@ export const orderRepository = {
     startDate: Date,
     endDate: Date,
   ): Promise<OrderSummary[]> {
-    const orders = await prisma.order.findMany({
+    return prisma.order.findMany({
       where: {
         createdAt: {
           gte: startDate,
@@ -100,23 +73,13 @@ export const orderRepository = {
       orderBy: { createdAt: 'desc' },
       select: this.orderSummarySelect,
     });
-
-    return orders.map(({ id, total, status, createdAt, user }) => ({
-      id,
-      total,
-      status,
-      createdAt,
-      userEmail: user.email,
-    }));
   },
 
   async updateStatus(id: string, status: OrderStatus): Promise<OrderDetail> {
-    const updatedOrder = await prisma.order.update({
+    return prisma.order.update({
       where: { id },
       data: { status },
       include: this.orderDetailInclude,
     });
-
-    return updatedOrder;
   },
 };

@@ -62,7 +62,7 @@ export function OrderTable({ orders }: Readonly<OrderTableProps>) {
           {orders.map((order) => (
             <TableRow key={order.id}>
               <TableCell className="font-medium">{order.id}</TableCell>
-              <TableCell>{order.userEmail}</TableCell>
+              <TableCell>{order.user.email}</TableCell>
               <TableCell>${order.total.toFixed(2)}</TableCell>
               <TableCell>
                 <Badge variant={getStatusBadgeVariant(order.status)}>

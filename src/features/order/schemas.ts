@@ -4,7 +4,9 @@ import { z } from 'zod';
 export const orderSchema = z.object({
   id: z.string(),
   userId: z.string().nullable(),
-  userEmail: z.email(),
+  user: z.object({
+    email: z.email(),
+  }),
   total: z.number().positive(),
   status: z.enum(OrderStatus),
   createdAt: z.date(),

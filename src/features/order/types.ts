@@ -15,11 +15,14 @@ export type UpdateOrderData = z.infer<typeof updateOrderSchema>;
 export type OrderStatusUpdateData = z.infer<typeof orderStatusUpdateSchema>;
 export type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
-export interface OrderSummary extends Pick<
-  Order,
-  'id' | 'total' | 'status' | 'createdAt'
-> {
-  userEmail: string;
+export interface OrderSummary {
+  id: string;
+  total: number;
+  status: OrderStatus;
+  createdAt: Date;
+  user: {
+    email: string;
+  };
 }
 
 export type OrderDetail = Prisma.OrderGetPayload<{
@@ -30,26 +33,19 @@ export type OrderDetail = Prisma.OrderGetPayload<{
   };
 }>;
 
-export interface OrderItem {
-  id: string;
-  productId: string;
-  quantity: number;
-  price: number;
-  product: {
-    id: string;
-    name: string;
-    type?: string;
-    imageBase64?: string;
+export type OrderWithItems = Prisma.OrderGetPayload<{
+  include: {
+    items: {
+      include: {
+        product: {
+          include: {
+            category: true;
+          };
+        };
+      };
+    };
   };
-}
-
-export interface OrderWithItems {
-  id: string;
-  status: OrderStatus;
-  total: number;
-  createdAt: Date;
-  items: OrderItem[];
-}
+}>;
 
 export interface EmailOrderItem {
   name: string;
