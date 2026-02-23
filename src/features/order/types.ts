@@ -1,4 +1,4 @@
-import type { Order, OrderStatus, Prisma } from '@/generated/prisma/client';
+import type { OrderStatus, Prisma } from '@/generated/prisma/client';
 import type { z } from 'zod';
 
 import type {
