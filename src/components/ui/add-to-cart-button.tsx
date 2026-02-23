@@ -22,29 +22,6 @@ export function AddToCartButton({
 }: Readonly<AddToCartButtonProps>) {
   const t = useTranslations('AddToCartButton');
 
-  const getButtonContent = () => {
-    if (isAdding) {
-      return (
-        <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          {t('adding_to_cart')}
-        </>
-      );
-    }
-    if (isOutOfStock) {
-      return t('out_of_stock');
-    }
-    if (!canAddMore) {
-      return t('max_quantity_reached');
-    }
-    return (
-      <>
-        <ShoppingCart className="mr-2 h-4 w-4" />
-        {t('add_to_cart')}
-      </>
-    );
-  };
-
   const isButtonDisabled = disabled || isAdding || isOutOfStock || !canAddMore;
 
   return (
@@ -54,7 +31,21 @@ export function AddToCartButton({
       className={className}
       size="lg"
     >
-      {getButtonContent()}
+      {isAdding ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          {t('adding_to_cart')}
+        </>
+      ) : isOutOfStock ? (
+        t('out_of_stock')
+      ) : !canAddMore ? (
+        t('max_quantity_reached')
+      ) : (
+        <>
+          <ShoppingCart className="mr-2 h-4 w-4" />
+          {t('add_to_cart')}
+        </>
+      )}
     </Button>
   );
 }

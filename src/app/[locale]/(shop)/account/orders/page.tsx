@@ -44,13 +44,6 @@ export default async function OrderHistoryPage({
 
   const isGuestView = !!guestOrderId;
 
-  const getOrderUrl = (orderId: string) => {
-    if (isGuestView) {
-      return `/account/orders/${orderId}?guestId=${guestOrderId}`;
-    }
-    return `/account/orders/${orderId}`;
-  };
-
   if (orders.length === 0) {
     return (
       <div className="container mx-auto px-4 py-8 md:py-12">
@@ -114,7 +107,13 @@ export default async function OrderHistoryPage({
                   </TableCell>
                   <TableCell className="text-right">
                     <Button variant="outline" size="sm" asChild>
-                      <NextLink href={getOrderUrl(order.id)}>
+                      <NextLink
+                        href={
+                          isGuestView
+                            ? `/account/orders/${order.id}?guestId=${guestOrderId}`
+                            : `/account/orders/${order.id}`
+                        }
+                      >
                         {t('view_details')}
                       </NextLink>
                     </Button>

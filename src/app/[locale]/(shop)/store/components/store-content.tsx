@@ -22,15 +22,6 @@ export function StoreContent({
   const t = useTranslations('StoreContent');
   const showCustomBlend = !category || category === 'Flower Essence';
 
-  const getDelayClass = (index: number) => {
-    if (index === 1) return 'delay-100';
-    if (index === 2) return 'delay-200';
-    if (index === 3) return 'delay-300';
-    if (index === 4) return 'delay-400';
-    if (index >= 5) return 'delay-500';
-    return '';
-  };
-
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -64,9 +55,14 @@ export function StoreContent({
       {products.map((product, index) => (
         <div
           key={product.id}
-          className={`animate-in fade-in slide-in-from-bottom-4 duration-500 ${getDelayClass(
-            index,
-          )}`}
+          className={`animate-in fade-in slide-in-from-bottom-4 duration-500 ${
+            {
+              1: 'delay-100',
+              2: 'delay-200',
+              3: 'delay-300',
+              4: 'delay-400',
+            }[index] ?? (index >= 5 ? 'delay-500' : '')
+          }`}
         >
           <ProductCard
             product={product}

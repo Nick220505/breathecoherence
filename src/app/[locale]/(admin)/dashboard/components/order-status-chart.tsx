@@ -17,32 +17,6 @@ export async function OrderStatusChart() {
 
   const total = statusData.reduce((sum, item) => sum + item.count, 0);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'PENDING':
-        return '#eab308'; // yellow-500
-      case 'PAID':
-        return '#22c55e'; // green-500
-      case 'SHIPPED':
-        return '#3b82f6'; // blue-500
-      default:
-        return '#6b7280'; // gray-500
-    }
-  };
-
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case 'PENDING':
-        return 'secondary' as const;
-      case 'PAID':
-        return 'default' as const;
-      case 'SHIPPED':
-        return 'outline' as const;
-      default:
-        return 'secondary' as const;
-    }
-  };
-
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -70,9 +44,24 @@ export async function OrderStatusChart() {
                   <div className="flex items-center space-x-2">
                     <div
                       className="h-3 w-3 rounded-full"
-                      style={{ backgroundColor: getStatusColor(status.status) }}
+                      style={{
+                        backgroundColor:
+                          {
+                            PENDING: '#eab308',
+                            PAID: '#22c55e',
+                            SHIPPED: '#3b82f6',
+                          }[status.status] ?? '#6b7280',
+                      }}
                     />
-                    <Badge variant={getStatusVariant(status.status)}>
+                    <Badge
+                      variant={
+                        {
+                          PENDING: 'secondary' as const,
+                          PAID: 'default' as const,
+                          SHIPPED: 'outline' as const,
+                        }[status.status] ?? ('secondary' as const)
+                      }
+                    >
                       {t(`status.${status.status.toLowerCase()}`)}
                     </Badge>
                   </div>

@@ -66,14 +66,11 @@ export function OrderStatusPieChart({
   const t = useTranslations('OrderStatusChart');
   const total = data.reduce((sum, item) => sum + item.count, 0);
 
-  const getStatusLabel = (status: string) =>
-    t(`status.${status.toLowerCase()}`);
-
   const chartData = data.map((item) => ({
     ...item,
     percentage: total > 0 ? ((item.count / total) * 100).toFixed(1) : '0',
     fill: COLORS[item.status as keyof typeof COLORS] || COLORS.PENDING,
-    translatedStatus: getStatusLabel(item.status),
+    translatedStatus: t(`status.${item.status.toLowerCase()}`),
   }));
 
   // Find the status with the highest count for center display

@@ -17,20 +17,6 @@ export function ProductStockTooltip({ active, payload }: TooltipProps) {
   if (active && payload?.length) {
     const data = payload[0].payload;
 
-    const getStockStatus = (stock: number) => {
-      if (stock === 0) return t('outOfStock');
-      if (stock <= 5) return t('lowStock');
-      if (stock <= 20) return t('mediumStock');
-      return t('inStock');
-    };
-
-    const getStockStatusColor = (stock: number) => {
-      if (stock === 0) return 'text-red-600';
-      if (stock <= 5) return 'text-yellow-600';
-      if (stock <= 20) return 'text-blue-600';
-      return 'text-green-600';
-    };
-
     return (
       <div className="bg-background rounded-lg border p-3 shadow-sm">
         <div className="flex flex-col space-y-1">
@@ -39,9 +25,23 @@ export function ProductStockTooltip({ active, payload }: TooltipProps) {
             {t('stock')}: {data.stock} {t('units')}
           </span>
           <span
-            className={`text-xs font-medium ${getStockStatusColor(data.stock)}`}
+            className={`text-xs font-medium ${
+              data.stock === 0
+                ? 'text-red-600'
+                : data.stock <= 5
+                  ? 'text-yellow-600'
+                  : data.stock <= 20
+                    ? 'text-blue-600'
+                    : 'text-green-600'
+            }`}
           >
-            {getStockStatus(data.stock)}
+            {data.stock === 0
+              ? t('outOfStock')
+              : data.stock <= 5
+                ? t('lowStock')
+                : data.stock <= 20
+                  ? t('mediumStock')
+                  : t('inStock')}
           </span>
         </div>
       </div>

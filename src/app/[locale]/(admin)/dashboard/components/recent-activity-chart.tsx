@@ -14,43 +14,6 @@ export async function RecentActivityChart() {
     throw new Error(t('error.loadActivityData'));
   }
 
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case 'order':
-        return <ShoppingCart className="h-4 w-4" />;
-      case 'user':
-        return <User className="h-4 w-4" />;
-      default:
-        return <Activity className="h-4 w-4" />;
-    }
-  };
-
-  const getActivityColor = (type: string) => {
-    switch (type) {
-      case 'order':
-        return 'text-orange-600 bg-orange-100 dark:bg-orange-900/20';
-      case 'user':
-        return 'text-purple-600 bg-purple-100 dark:bg-purple-900/20';
-      default:
-        return 'text-gray-600 bg-gray-100 dark:bg-gray-900/20';
-    }
-  };
-
-  const getStatusBadge = (status?: string) => {
-    if (!status) return null;
-
-    switch (status) {
-      case 'PENDING':
-        return <Badge variant="secondary">{t('status.pending')}</Badge>;
-      case 'PAID':
-        return <Badge variant="default">{t('status.paid')}</Badge>;
-      case 'SHIPPED':
-        return <Badge variant="outline">{t('status.shipped')}</Badge>;
-      default:
-        return null;
-    }
-  };
-
   const formatTimeAgo = (date: string) => {
     const now = new Date();
     const activityDate = new Date(date);
@@ -88,9 +51,19 @@ export async function RecentActivityChart() {
                   className="bg-muted/50 flex items-start space-x-3 rounded-lg p-3"
                 >
                   <div
-                    className={`flex h-8 w-8 items-center justify-center rounded-full ${getActivityColor(activity.type)}`}
+                    className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                      {
+                        order:
+                          'bg-orange-100 text-orange-600 dark:bg-orange-900/20',
+                        user: 'bg-purple-100 text-purple-600 dark:bg-purple-900/20',
+                      }[activity.type] ??
+                      'bg-gray-100 text-gray-600 dark:bg-gray-900/20'
+                    }`}
                   >
-                    {getActivityIcon(activity.type)}
+                    {{
+                      order: <ShoppingCart className="h-4 w-4" />,
+                      user: <User className="h-4 w-4" />,
+                    }[activity.type] ?? <Activity className="h-4 w-4" />}
                   </div>
 
                   <div className="min-w-0 flex-1 space-y-1">
@@ -111,7 +84,25 @@ export async function RecentActivityChart() {
 
                     <div className="flex items-center justify-between">
                       {activity.status && (
-                        <div>{getStatusBadge(activity.status)}</div>
+                        <div>
+                          {{
+                            PENDING: (
+                              <Badge variant="secondary">
+                                {t('status.pending')}
+                              </Badge>
+                            ),
+                            PAID: (
+                              <Badge variant="default">
+                                {t('status.paid')}
+                              </Badge>
+                            ),
+                            SHIPPED: (
+                              <Badge variant="outline">
+                                {t('status.shipped')}
+                              </Badge>
+                            ),
+                          }[activity.status] ?? null}
+                        </div>
                       )}
                       {activity.amount && (
                         <p className="text-sm font-medium">

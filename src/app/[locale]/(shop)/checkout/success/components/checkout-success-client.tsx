@@ -27,10 +27,6 @@ export default function CheckoutSuccessClient({
   const [error, setError] = useState<string | null>(null);
   const { cart, removeFromCart } = useCart();
 
-  const getOrderUrl = (orderId: string) => {
-    return `/${locale}/account/orders/${orderId}`;
-  };
-
   useEffect(() => {
     if (paymentIntentId && cart.length > 0) {
       cart.forEach((item) => removeFromCart(item.id));
@@ -152,7 +148,9 @@ export default function CheckoutSuccessClient({
                   className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 sm:w-auto"
                   asChild
                 >
-                  <NextLink href={getOrderUrl(orderDetails.orderId)}>
+                  <NextLink
+                    href={`/${locale}/account/orders/${orderDetails.orderId}`}
+                  >
                     {t('view_order')}
                     <ChevronRight className="ml-1 h-4 w-4" />
                   </NextLink>

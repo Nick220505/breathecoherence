@@ -32,19 +32,6 @@ export function OrderTable({ orders }: Readonly<OrderTableProps>) {
   const locale = useLocale();
   const [updatingOrder, setUpdatingOrder] = useState<OrderSummary | null>(null);
 
-  const getStatusBadgeVariant = (status: string) => {
-    switch (status) {
-      case 'PENDING':
-        return 'secondary';
-      case 'PAID':
-        return 'default';
-      case 'SHIPPED':
-        return 'outline';
-      default:
-        return 'secondary';
-    }
-  };
-
   return (
     <>
       <Table>
@@ -65,7 +52,15 @@ export function OrderTable({ orders }: Readonly<OrderTableProps>) {
               <TableCell>{order.user.email}</TableCell>
               <TableCell>${order.total.toFixed(2)}</TableCell>
               <TableCell>
-                <Badge variant={getStatusBadgeVariant(order.status)}>
+                <Badge
+                  variant={
+                    {
+                      PENDING: 'secondary' as const,
+                      PAID: 'default' as const,
+                      SHIPPED: 'outline' as const,
+                    }[order.status] ?? ('secondary' as const)
+                  }
+                >
                   {t(`status.${order.status.toLowerCase()}`)}
                 </Badge>
               </TableCell>
