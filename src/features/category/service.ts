@@ -73,7 +73,7 @@ export const categoryService = {
 
   async update(
     id: string,
-    data: UpdateCategoryData,
+    data: Omit<UpdateCategoryData, 'id'>,
     locale: Locale,
   ): Promise<Category> {
     await this.getById(id, locale);

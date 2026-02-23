@@ -35,8 +35,8 @@ export const createCategory = actionClientWithLocale
 export const updateCategory = actionClientWithLocale
   .inputSchema(updateCategorySchema)
   .outputSchema(categorySchema)
-  .action(async ({ parsedInput: data, ctx: { locale } }) => {
-    const updatedCategory = await categoryService.update(data.id, data, locale);
+  .action(async ({ parsedInput: { id, ...data }, ctx: { locale } }) => {
+    const updatedCategory = await categoryService.update(id, data, locale);
     revalidateTag('categories', 'max');
     revalidateTag('category', 'max');
 

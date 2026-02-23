@@ -44,8 +44,8 @@ export const createProduct = actionClientWithLocale
 export const updateProduct = actionClientWithLocale
   .inputSchema(updateProductSchema)
   .outputSchema(productSchema)
-  .action(async ({ parsedInput: data, ctx: { locale } }) => {
-    const updatedProduct = await productService.update(data.id, data, locale);
+  .action(async ({ parsedInput: { id, ...data }, ctx: { locale } }) => {
+    const updatedProduct = await productService.update(id, data, locale);
     revalidateTag('products', 'max');
     revalidateTag('product', 'max');
 

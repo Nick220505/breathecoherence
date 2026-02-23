@@ -138,7 +138,7 @@ export const productService = {
 
   async update(
     id: string,
-    data: UpdateProductData,
+    data: Omit<UpdateProductData, 'id'>,
     locale: Locale,
   ): Promise<Product> {
     await this.getById(id, locale);
