@@ -1,12 +1,14 @@
-import type { Category } from '@/generated/prisma/client';
-
 import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 
 import { CATEGORY_HAS_PRODUCTS, CATEGORY_NOT_FOUND } from './errors';
 import { categoryRepository } from './repository';
-import type { CreateCategoryData, UpdateCategoryData } from './schemas';
+import type {
+  CategoryData,
+  CreateCategoryData,
+  UpdateCategoryData,
+} from './schemas';
 
 export const categoryService = {
   translationConfig: {
@@ -14,7 +16,7 @@ export const categoryService = {
     translatableFields: ['name', 'description'],
   } satisfies TranslationConfig,
 
-  async getAll(locale: Locale): Promise<Category[]> {
+  async getAll(locale: Locale): Promise<CategoryData[]> {
     const categories = await categoryRepository.findMany();
 
     return Promise.all(
@@ -28,7 +30,7 @@ export const categoryService = {
     );
   },
 
-  async getById(id: string, locale: Locale): Promise<Category> {
+  async getById(id: string, locale: Locale): Promise<CategoryData> {
     const category = await categoryRepository.findById(id);
 
     if (!category) {
@@ -46,7 +48,10 @@ export const categoryService = {
     return categoryRepository.count();
   },
 
-  async create(data: CreateCategoryData, locale: Locale): Promise<Category> {
+  async create(
+    data: CreateCategoryData,
+    locale: Locale,
+  ): Promise<CategoryData> {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
@@ -76,7 +81,7 @@ export const categoryService = {
     id: string,
     data: Omit<UpdateCategoryData, 'id'>,
     locale: Locale,
-  ): Promise<Category> {
+  ): Promise<CategoryData> {
     await this.getById(id, locale);
 
     const defaultLocaleData = await translationService.getDefaultLocaleData(
@@ -104,7 +109,7 @@ export const categoryService = {
     );
   },
 
-  async delete(id: string, locale: Locale): Promise<Category> {
+  async delete(id: string, locale: Locale): Promise<CategoryData> {
     const translatedCategory = await this.getById(id, locale);
 
     const hasProducts = await categoryRepository.hasProducts(id);
