@@ -28,20 +28,20 @@ export default function LoginForm() {
   const router = useRouter();
 
   const { execute, isExecuting } = useAction(login, {
-    onSuccess: () => {
+    onSuccess: async () => {
       form.clearErrors();
 
-      signIn('credentials', {
+      const { error } = await signIn('credentials', {
         email: form.getValues('email'),
         password: form.getValues('password'),
         redirect: false,
-      }).then(({ error }) => {
-        if (error) {
-          form.setError('root.serverError', { message: t('error.generic') });
-        } else {
-          router.push('/');
-        }
       });
+
+      if (error) {
+        form.setError('root.serverError', { message: t('error.generic') });
+      } else {
+        router.push('/');
+      }
     },
     onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
