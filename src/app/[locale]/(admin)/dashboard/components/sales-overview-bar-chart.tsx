@@ -77,8 +77,8 @@ export function SalesOverviewBarChart({
   return (
     <div className="space-y-3">
       <p className="text-sm font-medium">{t('last7Days')}</p>
-      <div className="h-[200px]">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="h-[200px] w-full">
+        <ResponsiveContainer width="100%" height="100%" minHeight={200}>
           <BarChart data={chartData}>
             <XAxis
               dataKey="date"
