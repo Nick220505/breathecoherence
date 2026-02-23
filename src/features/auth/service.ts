@@ -32,19 +32,7 @@ export const authService = {
       verifyTokenExpiry: new Date(Date.now() + 30 * 60 * 1000),
     });
 
-    const { error } = await resend.emails.send({
-      from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
-      to: email,
-      subject: 'Verify your email address',
-      react: VerificationEmail({
-        verificationCode: verifyToken,
-        companyName: COMPANY_NAME,
-      }),
-    });
-
-    if (error) {
-      throw new Error(EMAIL_SEND_FAILED);
-    }
+    await this.sendVerificationEmail(email, verifyToken);
 
     return user;
   },
@@ -77,5 +65,24 @@ export const authService = {
     }
 
     return { id: user.id, name: user.name, email: user.email, role: user.role };
+  },
+
+  async sendVerificationEmail(
+    email: string,
+    verificationCode: string,
+  ): Promise<void> {
+    const { error } = await resend.emails.send({
+      from: `${COMPANY_NAME} <${FROM_EMAIL}>`,
+      to: email,
+      subject: 'Verify your email address',
+      react: VerificationEmail({
+        verificationCode,
+        companyName: COMPANY_NAME,
+      }),
+    });
+
+    if (error) {
+      throw new Error(EMAIL_SEND_FAILED);
+    }
   },
 };
