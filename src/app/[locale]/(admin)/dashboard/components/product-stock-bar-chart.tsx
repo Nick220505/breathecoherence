@@ -50,35 +50,33 @@ export function ProductStockBarChart({
   return (
     <div className="space-y-3">
       <p className="text-sm font-medium">{stockOverviewLabel}</p>
-      <div className="h-[200px] w-full">
-        <ResponsiveContainer width="100%" height="100%" minHeight={200}>
-          <BarChart data={chartData} layout="vertical">
-            <XAxis
-              type="number"
-              stroke="#888888"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-            />
-            <YAxis
-              type="category"
-              dataKey="name"
-              stroke="#888888"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-              width={120}
-            />
-            <Tooltip content={<ProductStockTooltip />} />
-            <Bar
-              dataKey="stock"
-              fill="hsl(var(--primary))"
-              radius={[0, 4, 4, 0]}
-              maxBarSize={40}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={chartData} layout="vertical">
+          <XAxis
+            type="number"
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+          />
+          <YAxis
+            type="category"
+            dataKey="name"
+            stroke="#888888"
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+            width={120}
+          />
+          <Tooltip content={<ProductStockTooltip />} />
+          <Bar
+            dataKey="stock"
+            fill="hsl(var(--primary))"
+            radius={[0, 4, 4, 0]}
+            maxBarSize={40}
+          />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 }

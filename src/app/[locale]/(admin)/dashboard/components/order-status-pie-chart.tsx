@@ -85,57 +85,55 @@ export function OrderStatusPieChart({
       : null;
 
   return (
-    <div className="h-[300px] w-full">
-      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
-        <PieChart>
-          <Pie
-            data={chartData}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={120}
-            paddingAngle={2}
-            dataKey="count"
-          >
-            {chartData.map((entry) => (
-              <Cell key={`cell-${entry.status}`} fill={entry.fill} />
-            ))}
-            {dominantStatus && (
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                    return (
-                      <text
+    <ResponsiveContainer width="100%" height={300}>
+      <PieChart>
+        <Pie
+          data={chartData}
+          cx="50%"
+          cy="50%"
+          innerRadius={60}
+          outerRadius={120}
+          paddingAngle={2}
+          dataKey="count"
+        >
+          {chartData.map((entry) => (
+            <Cell key={`cell-${entry.status}`} fill={entry.fill} />
+          ))}
+          {dominantStatus && (
+            <Label
+              content={({ viewBox }) => {
+                if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                  return (
+                    <text
+                      x={viewBox.cx}
+                      y={viewBox.cy}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                    >
+                      <tspan
                         x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
+                        y={(viewBox.cy || 0) - 10}
+                        className="fill-foreground text-lg font-bold"
                       >
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) - 10}
-                          className="fill-foreground text-lg font-bold"
-                        >
-                          {dominantStatus.translatedStatus}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 15}
-                          className="fill-muted-foreground text-sm"
-                        >
-                          {dominantStatus.count} orders (
-                          {dominantStatus.percentage}%)
-                        </tspan>
-                      </text>
-                    );
-                  }
-                }}
-              />
-            )}
-          </Pie>
-          <Tooltip content={<CustomTooltip />} />
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+                        {dominantStatus.translatedStatus}
+                      </tspan>
+                      <tspan
+                        x={viewBox.cx}
+                        y={(viewBox.cy || 0) + 15}
+                        className="fill-muted-foreground text-sm"
+                      >
+                        {dominantStatus.count} orders (
+                        {dominantStatus.percentage}%)
+                      </tspan>
+                    </text>
+                  );
+                }
+              }}
+            />
+          )}
+        </Pie>
+        <Tooltip content={<CustomTooltip />} />
+      </PieChart>
+    </ResponsiveContainer>
   );
 }
