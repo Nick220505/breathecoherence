@@ -1,21 +1,35 @@
-import type { OrderStatus } from '@/generated/prisma/client';
+import type { OrderStatus, Prisma } from '@/generated/prisma/client';
 
 import prisma from '@/lib/prisma';
 
 import type { OrderDetail, OrderSummary, OrderWithItems } from './types';
 
 export const orderRepository = {
+  orderSummarySelect: {
+    id: true,
+    total: true,
+    status: true,
+    createdAt: true,
+    user: { select: { email: true } },
+  } as const satisfies Prisma.OrderSelect,
+
+  orderDetailInclude: {
+    items: {
+      include: {
+        product: {
+          include: {
+            category: true,
+          },
+        },
+      },
+    },
+  } as const satisfies Prisma.OrderInclude,
+
   async findMany(limit?: number): Promise<OrderSummary[]> {
     const orders = await prisma.order.findMany({
       ...(limit && { take: limit }),
       orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        total: true,
-        status: true,
-        createdAt: true,
-        user: { select: { email: true } },
-      },
+      select: this.orderSummarySelect,
     });
 
     return orders.map(({ id, total, status, createdAt, user }) => ({
@@ -30,34 +44,14 @@ export const orderRepository = {
   findById(id: string): Promise<OrderDetail | null> {
     return prisma.order.findUnique({
       where: { id },
-      include: {
-        items: {
-          include: {
-            product: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
-      },
+      include: this.orderDetailInclude,
     });
   },
 
   findByIdAndUser(id: string, userId: string): Promise<OrderDetail | null> {
     return prisma.order.findFirst({
       where: { id, userId },
-      include: {
-        items: {
-          include: {
-            product: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
-      },
+      include: this.orderDetailInclude,
     });
   },
 
@@ -65,17 +59,7 @@ export const orderRepository = {
     const orders = await prisma.order.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
-      include: {
-        items: {
-          include: {
-            product: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
-      },
+      include: this.orderDetailInclude,
     });
 
     return orders.map((order) => ({
@@ -114,13 +98,7 @@ export const orderRepository = {
         },
       },
       orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        total: true,
-        status: true,
-        createdAt: true,
-        user: { select: { email: true } },
-      },
+      select: this.orderSummarySelect,
     });
 
     return orders.map(({ id, total, status, createdAt, user }) => ({
@@ -136,17 +114,7 @@ export const orderRepository = {
     const updatedOrder = await prisma.order.update({
       where: { id },
       data: { status },
-      include: {
-        items: {
-          include: {
-            product: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
-      },
+      include: this.orderDetailInclude,
     });
 
     return updatedOrder;

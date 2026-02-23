@@ -12,7 +12,7 @@ export const userRepository = {
     role: true,
     createdAt: true,
     updatedAt: true,
-  },
+  } as const satisfies Prisma.UserSelect,
 
   findMany(limit?: number): Promise<UserSummary[]> {
     return prisma.user.findMany({

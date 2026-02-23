@@ -5,9 +5,13 @@ import prisma from '@/lib/prisma';
 import type { ProductWithCategory } from './schemas';
 
 export const productRepository = {
+  productWithCategoryInclude: {
+    category: true,
+  } as const satisfies Prisma.ProductInclude,
+
   findMany(): Promise<ProductWithCategory[]> {
     return prisma.product.findMany({
-      include: { category: true },
+      include: this.productWithCategoryInclude,
       orderBy: { createdAt: 'desc' },
     });
   },
@@ -15,7 +19,7 @@ export const productRepository = {
   findByCategory(categoryName: string): Promise<ProductWithCategory[]> {
     return prisma.product.findMany({
       where: { category: { name: categoryName } },
-      include: { category: true },
+      include: this.productWithCategoryInclude,
       orderBy: { createdAt: 'desc' },
     });
   },
@@ -23,7 +27,7 @@ export const productRepository = {
   findById(id: string): Promise<ProductWithCategory | null> {
     return prisma.product.findUnique({
       where: { id },
-      include: { category: true },
+      include: this.productWithCategoryInclude,
     });
   },
 
