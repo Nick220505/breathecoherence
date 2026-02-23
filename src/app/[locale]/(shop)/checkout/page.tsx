@@ -17,7 +17,7 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { checkoutSchema } from '@/features/order/schemas';
-import type { CheckoutFormData } from '@/features/order/types';
+import type { Checkout } from '@/features/order/types';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 
@@ -34,7 +34,7 @@ export default function CheckoutPage() {
   const cart = useCart();
   const { total, cart: cartItems = [] } = cart;
   const [paymentMethod, setPaymentMethod] = useState('card');
-  const form = useForm<CheckoutFormData>({
+  const form = useForm<Checkout>({
     resolver: zodResolver(checkoutSchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';
@@ -130,7 +130,7 @@ export default function CheckoutPage() {
     }
   }, [paymentMethod, finalTotal, cartItems, getValues, isValid]);
 
-  const onSubmit = (data: CheckoutFormData) => {
+  const onSubmit = (data: Checkout) => {
     if (paymentMethod === 'card') {
       console.log('Form data:', data);
     } else if (paymentMethod === 'paypal') {

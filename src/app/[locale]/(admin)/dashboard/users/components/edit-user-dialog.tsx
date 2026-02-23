@@ -43,7 +43,7 @@ import {
 import { updateUser } from '@/features/user/actions';
 import {
   updateUserSchema,
-  type UpdateUserData,
+  type UpdateUser,
   type UserSummary,
 } from '@/features/user/schemas';
 
@@ -73,7 +73,7 @@ export function EditUserDialog({
     },
   });
 
-  const form = useForm<UpdateUserData>({
+  const form = useForm<UpdateUser>({
     resolver: zodResolver(updateUserSchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';

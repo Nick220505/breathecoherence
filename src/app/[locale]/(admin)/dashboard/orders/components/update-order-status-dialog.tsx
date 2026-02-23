@@ -35,10 +35,7 @@ import {
 } from '@/components/ui/select';
 import { updateOrderStatus } from '@/features/order/actions';
 import { orderStatusUpdateSchema } from '@/features/order/schemas';
-import type {
-  OrderStatusUpdateData,
-  OrderSummary,
-} from '@/features/order/types';
+import type { OrderStatusUpdate, OrderSummary } from '@/features/order/types';
 
 interface UpdateOrderStatusDialogProps extends React.ComponentProps<
   typeof Dialog
@@ -53,7 +50,7 @@ export function UpdateOrderStatusDialog({
 }: Readonly<UpdateOrderStatusDialogProps>) {
   const t = useTranslations('UpdateOrderStatusDialog');
 
-  const form = useForm<OrderStatusUpdateData>({
+  const form = useForm<OrderStatusUpdate>({
     resolver: zodResolver(orderStatusUpdateSchema),
     defaultValues: {
       id: order.id,

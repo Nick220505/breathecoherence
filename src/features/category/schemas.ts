@@ -17,6 +17,6 @@ export const createCategorySchema = updateCategorySchema.omit({ id: true });
 
 export const deleteCategorySchema = z.string();
 
-export type CategoryData = z.infer<typeof categorySchema>;
-export type CreateCategoryData = z.infer<typeof createCategorySchema>;
-export type UpdateCategoryData = z.infer<typeof updateCategorySchema>;
+export type Category = z.infer<typeof categorySchema>;
+export type CreateCategory = z.infer<typeof createCategorySchema>;
+export type UpdateCategory = z.infer<typeof updateCategorySchema>;

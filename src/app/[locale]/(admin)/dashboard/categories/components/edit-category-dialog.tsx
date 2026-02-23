@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { Category } from '@/generated/prisma/browser';
 import { AlertCircle, Info, Loader2, Tags } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
@@ -32,7 +31,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { updateCategory } from '@/features/category/actions';
 import {
   updateCategorySchema,
-  type UpdateCategoryData,
+  type Category,
+  type UpdateCategory,
 } from '@/features/category/schemas';
 
 interface EditCategoryDialogProps extends React.ComponentProps<typeof Dialog> {
@@ -61,7 +61,7 @@ export function EditCategoryDialog({
     },
   });
 
-  const form = useForm<UpdateCategoryData>({
+  const form = useForm<UpdateCategory>({
     resolver: zodResolver(updateCategorySchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';

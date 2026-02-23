@@ -9,11 +9,11 @@ import type {
   updateOrderSchema,
 } from './schemas';
 
-export type OrderData = z.infer<typeof orderSchema>;
-export type CreateOrderData = z.infer<typeof createOrderSchema>;
-export type UpdateOrderData = z.infer<typeof updateOrderSchema>;
-export type OrderStatusUpdateData = z.infer<typeof orderStatusUpdateSchema>;
-export type CheckoutFormData = z.infer<typeof checkoutSchema>;
+export type Order = z.infer<typeof orderSchema>;
+export type CreateOrder = z.infer<typeof createOrderSchema>;
+export type UpdateOrder = z.infer<typeof updateOrderSchema>;
+export type OrderStatusUpdate = z.infer<typeof orderStatusUpdateSchema>;
+export type Checkout = z.infer<typeof checkoutSchema>;
 
 export interface OrderSummary {
   id: string;

@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
 import { INVALID_CREDENTIALS } from '@/features/auth/errors';
-import { loginSchema, type LoginData } from '@/features/auth/schemas';
+import { loginSchema, type Login } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
 export default function LoginForm() {
@@ -53,7 +53,7 @@ export default function LoginForm() {
     },
   });
 
-  const form = useForm<LoginData>({
+  const form = useForm<Login>({
     resolver: zodResolver(loginSchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';

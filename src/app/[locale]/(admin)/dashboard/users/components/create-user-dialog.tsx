@@ -42,7 +42,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { createUser } from '@/features/user/actions';
-import { createUserSchema, type CreateUserData } from '@/features/user/schemas';
+import { createUserSchema, type CreateUser } from '@/features/user/schemas';
 
 export function CreateUserDialog({
   onOpenChange,
@@ -66,7 +66,7 @@ export function CreateUserDialog({
     },
   });
 
-  const form = useForm<CreateUserData>({
+  const form = useForm<CreateUser>({
     resolver: zodResolver(createUserSchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';

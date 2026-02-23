@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/input-otp';
 import { verify } from '@/features/auth/actions';
 import { INVALID_VERIFICATION } from '@/features/auth/errors';
-import { verifySchema, type VerifyData } from '@/features/auth/schemas';
+import { verifySchema, type Verify } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
 interface VerificationFormProps {
@@ -55,7 +55,7 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
     },
   });
 
-  const form = useForm<VerifyData>({
+  const form = useForm<Verify>({
     resolver: zodResolver(verifySchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';

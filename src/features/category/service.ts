@@ -4,11 +4,7 @@ import type { Locale } from '@/i18n/routing';
 
 import { CATEGORY_HAS_PRODUCTS, CATEGORY_NOT_FOUND } from './errors';
 import { categoryRepository } from './repository';
-import type {
-  CategoryData,
-  CreateCategoryData,
-  UpdateCategoryData,
-} from './schemas';
+import type { Category, CreateCategory, UpdateCategory } from './schemas';
 
 export const categoryService = {
   translationConfig: {
@@ -16,7 +12,7 @@ export const categoryService = {
     translatableFields: ['name', 'description'],
   } satisfies TranslationConfig,
 
-  async getAll(locale: Locale): Promise<CategoryData[]> {
+  async getAll(locale: Locale): Promise<Category[]> {
     const categories = await categoryRepository.findMany();
 
     return Promise.all(
@@ -30,7 +26,7 @@ export const categoryService = {
     );
   },
 
-  async getById(id: string, locale: Locale): Promise<CategoryData> {
+  async getById(id: string, locale: Locale): Promise<Category> {
     const category = await categoryRepository.findById(id);
 
     if (!category) {
@@ -48,10 +44,7 @@ export const categoryService = {
     return categoryRepository.count();
   },
 
-  async create(
-    data: CreateCategoryData,
-    locale: Locale,
-  ): Promise<CategoryData> {
+  async create(data: CreateCategory, locale: Locale): Promise<Category> {
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,
@@ -79,9 +72,9 @@ export const categoryService = {
 
   async update(
     id: string,
-    data: Omit<UpdateCategoryData, 'id'>,
+    data: Omit<UpdateCategory, 'id'>,
     locale: Locale,
-  ): Promise<CategoryData> {
+  ): Promise<Category> {
     await this.getById(id, locale);
 
     const defaultLocaleData = await translationService.getDefaultLocaleData(
@@ -109,7 +102,7 @@ export const categoryService = {
     );
   },
 
-  async delete(id: string, locale: Locale): Promise<CategoryData> {
+  async delete(id: string, locale: Locale): Promise<Category> {
     const translatedCategory = await this.getById(id, locale);
 
     const hasProducts = await categoryRepository.hasProducts(id);

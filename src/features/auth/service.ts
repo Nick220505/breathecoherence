@@ -12,10 +12,10 @@ import {
   INVALID_VERIFICATION,
   USER_EXISTS,
 } from './errors';
-import type { AuthUser, LoginData, RegisterData, VerifyData } from './schemas';
+import type { AuthUser, Login, Register, Verify } from './schemas';
 
 export const authService = {
-  async register({ name, email, password }: RegisterData): Promise<AuthUser> {
+  async register({ name, email, password }: Register): Promise<AuthUser> {
     const existingUser = await userService.findByEmail(email);
 
     if (existingUser) {
@@ -37,7 +37,7 @@ export const authService = {
     return user;
   },
 
-  async verify({ email, code }: VerifyData): Promise<UserSummary> {
+  async verify({ email, code }: Verify): Promise<UserSummary> {
     const user = await userService.findByEmailAndVerifyToken(email, code);
 
     if (!user) {
@@ -51,7 +51,7 @@ export const authService = {
     });
   },
 
-  async login({ email, password }: LoginData): Promise<AuthUser> {
+  async login({ email, password }: Login): Promise<AuthUser> {
     const user = await userService.findByEmail(email);
 
     if (!user || !(await compare(password, user.password))) {

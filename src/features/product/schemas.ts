@@ -47,9 +47,9 @@ export const productSummarySchema = z.object({
     .optional(),
 });
 
-export type ProductData = z.infer<typeof productSchema>;
-export type CreateProductData = z.infer<typeof createProductSchema>;
-export type UpdateProductData = z.infer<typeof updateProductSchema>;
+export type Product = z.infer<typeof productSchema>;
+export type CreateProduct = z.infer<typeof createProductSchema>;
+export type UpdateProduct = z.infer<typeof updateProductSchema>;
 export type ProductWithCategory = z.infer<typeof productWithCategorySchema>;
 export type CartItem = z.infer<typeof cartItemSchema>;
 export type ProductSummary = z.infer<typeof productSummarySchema>;

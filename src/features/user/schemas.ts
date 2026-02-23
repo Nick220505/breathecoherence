@@ -59,7 +59,7 @@ export const userSummarySchema = userSchema.pick({
   updatedAt: true,
 });
 
-export type UserData = z.infer<typeof userSchema>;
-export type CreateUserData = z.infer<typeof createUserSchema>;
-export type UpdateUserData = z.infer<typeof updateUserSchema>;
+export type User = z.infer<typeof userSchema>;
+export type CreateUser = z.infer<typeof createUserSchema>;
+export type UpdateUser = z.infer<typeof updateUserSchema>;
 export type UserSummary = z.infer<typeof userSummarySchema>;

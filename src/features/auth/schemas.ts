@@ -23,6 +23,6 @@ export const verifySchema = z.object({
 });
 
 export type AuthUser = Pick<User, 'id' | 'name' | 'email' | 'role'>;
-export type LoginData = z.infer<typeof loginSchema>;
-export type RegisterData = z.infer<typeof registerSchema>;
-export type VerifyData = z.infer<typeof verifySchema>;
+export type Login = z.infer<typeof loginSchema>;
+export type Register = z.infer<typeof registerSchema>;
+export type Verify = z.infer<typeof verifySchema>;

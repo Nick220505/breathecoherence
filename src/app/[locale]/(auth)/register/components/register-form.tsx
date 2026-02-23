@@ -19,7 +19,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
 import { EMAIL_SEND_FAILED, USER_EXISTS } from '@/features/auth/errors';
-import { registerSchema, type RegisterData } from '@/features/auth/schemas';
+import { registerSchema, type Register } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
 export default function RegisterForm() {
@@ -45,7 +45,7 @@ export default function RegisterForm() {
     },
   });
 
-  const form = useForm<RegisterData>({
+  const form = useForm<Register>({
     resolver: zodResolver(registerSchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';

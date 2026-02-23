@@ -1,5 +1,3 @@
-import type { Product } from '@/generated/prisma/client';
-
 import { categoryService } from '@/features/category/service';
 import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
@@ -8,9 +6,10 @@ import type { Locale } from '@/i18n/routing';
 import { PRODUCT_HAS_ORDERS, PRODUCT_NOT_FOUND } from './errors';
 import { productRepository } from './repository';
 import type {
-  CreateProductData,
+  CreateProduct,
+  Product,
   ProductWithCategory,
-  UpdateProductData,
+  UpdateProduct,
 } from './schemas';
 
 export const productService = {
@@ -101,7 +100,7 @@ export const productService = {
     return productRepository.count();
   },
 
-  async create(data: CreateProductData, locale: Locale): Promise<Product> {
+  async create(data: CreateProduct, locale: Locale): Promise<Product> {
     const { categoryId, ...restData } = data;
 
     const defaultLocaleData = await translationService.getDefaultLocaleData(
@@ -135,7 +134,7 @@ export const productService = {
 
   async update(
     id: string,
-    data: Omit<UpdateProductData, 'id'>,
+    data: Omit<UpdateProduct, 'id'>,
     locale: Locale,
   ): Promise<Product> {
     await this.getById(id, locale);

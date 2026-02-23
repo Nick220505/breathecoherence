@@ -2,7 +2,7 @@ import { hash } from 'bcryptjs';
 
 import { USER_HAS_ORDERS } from './errors';
 import { userRepository } from './repository';
-import type { CreateUserData, UpdateUserData, UserSummary } from './schemas';
+import type { CreateUser, UpdateUser, UserSummary } from './schemas';
 
 export const userService = {
   getAll(limit?: number): Promise<UserSummary[]> {
@@ -21,14 +21,14 @@ export const userService = {
     return userRepository.findByEmailAndVerifyToken(email, verifyToken);
   },
 
-  async create(data: CreateUserData): Promise<UserSummary> {
+  async create(data: CreateUser): Promise<UserSummary> {
     return userRepository.create({
       ...data,
       password: await hash(data.password, 12),
     });
   },
 
-  update(id: string, data: Omit<UpdateUserData, 'id'>): Promise<UserSummary> {
+  update(id: string, data: Omit<UpdateUser, 'id'>): Promise<UserSummary> {
     return userRepository.update(id, data);
   },
 

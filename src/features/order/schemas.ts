@@ -43,3 +43,8 @@ export const checkoutSchema = z.object({
   postalCode: z.string().regex(/^\d{5}(-\d{4})?$/),
   orderNotes: z.string().optional(),
 });
+
+export type Order = z.infer<typeof orderSchema>;
+export type CreateOrder = z.infer<typeof createOrderSchema>;
+export type UpdateOrder = z.infer<typeof updateOrderSchema>;
+export type Checkout = z.infer<typeof checkoutSchema>;

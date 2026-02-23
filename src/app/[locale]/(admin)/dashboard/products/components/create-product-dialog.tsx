@@ -52,7 +52,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { getAllCategories } from '@/features/category/actions';
 import { createProduct } from '@/features/product/actions';
 import { createProductSchema } from '@/features/product/schemas';
-import type { CreateProductData } from '@/features/product/schemas';
+import type { CreateProduct } from '@/features/product/schemas';
 
 export function CreateProductDialog({
   onOpenChange,
@@ -78,7 +78,7 @@ export function CreateProductDialog({
     },
   });
 
-  const form = useForm<CreateProductData>({
+  const form = useForm<CreateProduct>({
     resolver: zodResolver(createProductSchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';
@@ -99,7 +99,7 @@ export function CreateProductDialog({
           return t('validation.stock_min');
         }
       },
-    }) as unknown as Resolver<CreateProductData>,
+    }) as unknown as Resolver<CreateProduct>,
     defaultValues: {
       name: '',
       description: '',

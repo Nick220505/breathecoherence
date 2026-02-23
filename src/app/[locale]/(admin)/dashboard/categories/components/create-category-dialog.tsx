@@ -31,7 +31,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { createCategory } from '@/features/category/actions';
 import {
   createCategorySchema,
-  type CreateCategoryData,
+  type CreateCategory,
 } from '@/features/category/schemas';
 
 export function CreateCategoryDialog({
@@ -56,7 +56,7 @@ export function CreateCategoryDialog({
     },
   });
 
-  const form = useForm<CreateCategoryData>({
+  const form = useForm<CreateCategory>({
     resolver: zodResolver(createCategorySchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';

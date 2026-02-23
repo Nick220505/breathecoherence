@@ -54,7 +54,7 @@ import { updateProduct } from '@/features/product/actions';
 import { updateProductSchema } from '@/features/product/schemas';
 import type {
   ProductWithCategory,
-  UpdateProductData,
+  UpdateProduct,
 } from '@/features/product/schemas';
 
 interface EditProductDialogProps extends React.ComponentProps<typeof Dialog> {
@@ -85,7 +85,7 @@ export function EditProductDialog({
     },
   });
 
-  const form = useForm<UpdateProductData>({
+  const form = useForm<UpdateProduct>({
     resolver: zodResolver(updateProductSchema, {
       error: (issue) => {
         const path = issue.path?.join('.') ?? '';
@@ -106,7 +106,7 @@ export function EditProductDialog({
           return t('validation.stock_min');
         }
       },
-    }) as unknown as Resolver<UpdateProductData>,
+    }) as unknown as Resolver<UpdateProduct>,
     defaultValues: {
       id: product.id,
       name: product.name,

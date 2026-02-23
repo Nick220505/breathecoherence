@@ -3,11 +3,11 @@
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useTranslations } from 'next-intl';
 
-import type { CheckoutFormData } from '@/features/order/types';
+import type { Checkout } from '@/features/order/types';
 
 interface PayPalPaymentButtonProps {
   finalTotal: number;
-  watch: () => CheckoutFormData;
+  watch: () => Checkout;
   isFormValid: boolean;
 }
 
