@@ -38,9 +38,7 @@ jobs:
         run: npm run postinstall --if-present
 
       - name: Apply database migrations (prisma migrate deploy)
-        run: |
-          export $(grep -v '^#' .env.local | grep -v '^$' | xargs)
-          npx prisma migrate deploy
+        run: npx prisma migrate deploy
 
       - name: Build Vercel project (prebuilt output)
         run: |
