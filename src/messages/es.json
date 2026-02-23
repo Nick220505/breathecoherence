@@ -31,7 +31,8 @@
     },
     "error": {
       "generic": "El registro falló. Por favor, inténtalo de nuevo.",
-      "userExists": "El usuario ya existe"
+      "userExists": "El usuario ya existe",
+      "emailSendFailed": "Error al enviar el correo de verificación"
     },
     "validation": {
       "nameRequired": "El nombre es obligatorio",

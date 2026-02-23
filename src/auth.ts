@@ -2,6 +2,7 @@ import { compare } from 'bcryptjs';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import { INVALID_CREDENTIALS } from '@/features/auth/errors';
 import prisma from '@/lib/prisma';
 
 type UserRole = 'ADMIN' | 'USER';
@@ -57,7 +58,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         };
 
         if (!email || !password) {
-          throw new Error('Missing credentials');
+          throw new Error(INVALID_CREDENTIALS);
         }
 
         const user = await prisma.user.findUnique({
@@ -65,13 +66,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         if (!user?.password) {
-          throw new Error('Invalid credentials');
+          throw new Error(INVALID_CREDENTIALS);
         }
 
         const isPasswordValid = await compare(password, user.password);
 
         if (!isPasswordValid) {
-          throw new Error('Invalid credentials');
+          throw new Error(INVALID_CREDENTIALS);
         }
 
         return {

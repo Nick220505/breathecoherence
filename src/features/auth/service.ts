@@ -7,6 +7,7 @@ import { userService } from '@/features/user/service';
 import type { UserSummary } from '@/features/user/schemas';
 
 import {
+  EMAIL_SEND_FAILED,
   INVALID_CREDENTIALS,
   INVALID_VERIFICATION,
   USER_EXISTS,
@@ -42,7 +43,7 @@ export const authService = {
     });
 
     if (error) {
-      throw new Error('Failed to send verification email');
+      throw new Error(EMAIL_SEND_FAILED);
     }
 
     return user;

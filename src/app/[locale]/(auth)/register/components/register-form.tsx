@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { register } from '@/features/auth/actions';
-import { USER_EXISTS } from '@/features/auth/errors';
+import { EMAIL_SEND_FAILED, USER_EXISTS } from '@/features/auth/errors';
 import { registerSchema, type RegisterData } from '@/features/auth/schemas';
 import { Link, useRouter } from '@/i18n/routing';
 
@@ -35,10 +35,17 @@ export default function RegisterForm() {
       });
     },
     onError: ({ error: { serverError } }) => {
-      let errorMessage = t('error.generic');
+      let errorMessage: string;
 
-      if (serverError === USER_EXISTS) {
-        errorMessage = t('error.userExists');
+      switch (serverError) {
+        case USER_EXISTS:
+          errorMessage = t('error.userExists');
+          break;
+        case EMAIL_SEND_FAILED:
+          errorMessage = t('error.emailSendFailed');
+          break;
+        default:
+          errorMessage = t('error.generic');
       }
 
       form.setError('root.serverError', {

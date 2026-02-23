@@ -31,7 +31,8 @@
     },
     "error": {
       "generic": "Registration failed. Please try again.",
-      "userExists": "User already exists"
+      "userExists": "User already exists",
+      "emailSendFailed": "Failed to send verification email"
     },
     "validation": {
       "nameRequired": "Name is required",

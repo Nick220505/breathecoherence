@@ -3,6 +3,7 @@ import type { OrderStatus } from '@/generated/prisma/client';
 import { OrderConfirmationEmail } from '@/components/email-templates/order-confirmation-email';
 import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
 
+import { EMAIL_SEND_FAILED } from './errors';
 import { orderRepository } from './repository';
 import type {
   OrderConfirmationEmailData,
@@ -69,7 +70,7 @@ export const orderService = {
     });
 
     if (error) {
-      throw new Error('Failed to send order confirmation email');
+      throw new Error(EMAIL_SEND_FAILED);
     }
   },
 };
