@@ -1,12 +1,13 @@
-import { Role } from '@/generated/prisma/browser';
 import { z } from 'zod';
+
+export const roleEnum = z.enum(['USER', 'ADMIN']);
 
 export const userSchema = z.object({
   id: z.string(),
   name: z.string().min(1),
   email: z.email(),
   password: z.string().min(6),
-  role: z.enum(Role),
+  role: roleEnum,
   emailVerified: z.boolean(),
   verifyToken: z.string().nullable(),
   verifyTokenExpiry: z.date().nullable(),
@@ -59,6 +60,7 @@ export const userSummarySchema = userSchema.pick({
   updatedAt: true,
 });
 
+export type Role = z.infer<typeof roleEnum>;
 export type User = z.infer<typeof userSchema>;
 export type CreateUser = z.infer<typeof createUserSchema>;
 export type UpdateUser = z.infer<typeof updateUserSchema>;

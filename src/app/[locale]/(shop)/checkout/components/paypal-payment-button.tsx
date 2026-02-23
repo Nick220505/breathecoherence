@@ -3,7 +3,7 @@
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useTranslations } from 'next-intl';
 
-import type { Checkout } from '@/features/order/types';
+import type { Checkout } from '@/features/order/schemas';
 
 interface PayPalPaymentButtonProps {
   finalTotal: number;

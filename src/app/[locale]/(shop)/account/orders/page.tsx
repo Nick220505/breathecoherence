@@ -1,4 +1,4 @@
-import type { OrderStatus } from '@/generated/prisma/browser';
+import type { OrderStatus } from '@/features/order/schemas';
 import { Package2 } from 'lucide-react';
 import NextLink from 'next/link';
 import { getTranslations } from 'next-intl/server';

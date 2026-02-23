@@ -1,5 +1,3 @@
-import type { OrderStatus } from '@/generated/prisma/client';
-
 import { OrderConfirmationEmail } from '@/components/email-templates/order-confirmation-email';
 import resend, { COMPANY_NAME, FROM_EMAIL } from '@/lib/email';
 
@@ -8,8 +6,9 @@ import { orderRepository } from './repository';
 import type {
   OrderConfirmationEmailData,
   OrderDetail,
+  OrderStatus,
   OrderSummary,
-} from './types';
+} from './schemas';
 
 export const orderService = {
   getAll(): Promise<OrderSummary[]> {

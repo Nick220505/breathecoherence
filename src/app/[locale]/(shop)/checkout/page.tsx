@@ -16,8 +16,7 @@ import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
-import { checkoutSchema } from '@/features/order/schemas';
-import type { Checkout } from '@/features/order/types';
+import { checkoutSchema, type Checkout } from '@/features/order/schemas';
 import { Link } from '@/i18n/routing';
 import { useCart } from '@/providers/cart-provider';
 

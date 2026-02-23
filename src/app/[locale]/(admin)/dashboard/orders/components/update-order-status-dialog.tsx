@@ -34,8 +34,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { updateOrderStatus } from '@/features/order/actions';
-import { orderStatusUpdateSchema } from '@/features/order/schemas';
-import type { OrderStatusUpdate, OrderSummary } from '@/features/order/types';
+import {
+  orderStatusUpdateSchema,
+  type OrderStatusUpdate,
+} from '@/features/order/schemas';
+import type { OrderSummary } from '@/features/order/schemas';
 
 interface UpdateOrderStatusDialogProps extends React.ComponentProps<
   typeof Dialog

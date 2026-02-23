@@ -19,7 +19,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import type { OrderSummary } from '@/features/order/types';
+import type { OrderSummary } from '@/features/order/schemas';
 
 import { UpdateOrderStatusDialog } from './update-order-status-dialog';
 

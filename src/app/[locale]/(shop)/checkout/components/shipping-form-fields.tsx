@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import type { Checkout } from '@/features/order/types';
+import type { Checkout } from '@/features/order/schemas';
 
 interface ShippingFormFieldsProps {
   form: UseFormReturn<Checkout>;

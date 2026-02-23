@@ -7,9 +7,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { Product } from '@/generated/prisma/browser';
-
-import type { CartItem } from '@/features/product/schemas';
+import type { Product, CartItem } from '@/features/product/schemas';
 
 interface CartContextType {
   cart: CartItem[];

@@ -1,6 +1,6 @@
 'use client';
 
-import type { Category } from '@/generated/prisma/browser';
+import type { Category } from '@/features/category/schemas';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 

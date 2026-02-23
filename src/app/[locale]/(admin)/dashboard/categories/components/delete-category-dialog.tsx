@@ -1,6 +1,6 @@
 'use client';
 
-import type { Category } from '@/generated/prisma/browser';
+import type { Category } from '@/features/category/schemas';
 import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';

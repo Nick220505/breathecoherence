@@ -1,6 +1,6 @@
 'use client';
 
-import type { Category } from '@/generated/prisma/browser';
+import type { Category } from '@/features/category/schemas';
 import { Edit, Trash2 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
