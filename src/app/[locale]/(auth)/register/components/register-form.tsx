@@ -35,21 +35,12 @@ export default function RegisterForm() {
       });
     },
     onError: ({ error: { serverError } }) => {
-      let errorMessage: string;
-
-      switch (serverError) {
-        case USER_EXISTS:
-          errorMessage = t('error.userExists');
-          break;
-        case EMAIL_SEND_FAILED:
-          errorMessage = t('error.emailSendFailed');
-          break;
-        default:
-          errorMessage = t('error.generic');
-      }
-
       form.setError('root.serverError', {
-        message: errorMessage,
+        message:
+          {
+            [USER_EXISTS]: t('error.userExists'),
+            [EMAIL_SEND_FAILED]: t('error.emailSendFailed'),
+          }[serverError ?? ''] ?? t('error.generic'),
       });
     },
   });

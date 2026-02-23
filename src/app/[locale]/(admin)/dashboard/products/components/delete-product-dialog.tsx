@@ -38,13 +38,11 @@ export function DeleteProductDialog({
       onOpenChange?.(false);
     },
     onError: ({ error: { serverError } }) => {
-      let errorMessage = t('error_delete');
-
-      if (serverError === PRODUCT_HAS_ORDERS) {
-        errorMessage = t('error_has_orders');
-      }
-
-      toast.error(errorMessage);
+      toast.error(
+        {
+          [PRODUCT_HAS_ORDERS]: t('error_has_orders'),
+        }[serverError ?? ''] ?? t('error_delete'),
+      );
     },
   });
 

@@ -44,14 +44,11 @@ export default function LoginForm() {
       });
     },
     onError: ({ error: { serverError } }) => {
-      let errorMessage = t('error.generic');
-
-      if (serverError === INVALID_CREDENTIALS) {
-        errorMessage = t('error.invalidCredentials');
-      }
-
       form.setError('root.serverError', {
-        message: errorMessage,
+        message:
+          {
+            [INVALID_CREDENTIALS]: t('error.invalidCredentials'),
+          }[serverError ?? ''] ?? t('error.generic'),
       });
     },
   });

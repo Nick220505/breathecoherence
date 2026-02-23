@@ -46,14 +46,11 @@ export function VerificationForm({ email }: Readonly<VerificationFormProps>) {
       router.push('/login');
     },
     onError: ({ error: { serverError } }) => {
-      let errorMessage = t('error.generic');
-
-      if (serverError === INVALID_VERIFICATION) {
-        errorMessage = t('error.invalidVerification');
-      }
-
       form.setError('root.serverError', {
-        message: errorMessage,
+        message:
+          {
+            [INVALID_VERIFICATION]: t('error.invalidVerification'),
+          }[serverError ?? ''] ?? t('error.generic'),
       });
     },
   });

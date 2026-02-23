@@ -38,13 +38,11 @@ export function DeleteUserDialog({
       onOpenChange?.(false);
     },
     onError: ({ error: { serverError } }) => {
-      let errorMessage = t('error_delete');
-
-      if (serverError === USER_HAS_ORDERS) {
-        errorMessage = t('error_has_orders');
-      }
-
-      toast.error(errorMessage);
+      toast.error(
+        {
+          [USER_HAS_ORDERS]: t('error_has_orders'),
+        }[serverError ?? ''] ?? t('error_delete'),
+      );
     },
   });
 

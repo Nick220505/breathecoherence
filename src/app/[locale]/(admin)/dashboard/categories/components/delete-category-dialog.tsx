@@ -40,13 +40,11 @@ export function DeleteCategoryDialog({
       onOpenChange?.(false);
     },
     onError: ({ error: { serverError } }) => {
-      let errorMessage = t('error_delete');
-
-      if (serverError === CATEGORY_HAS_PRODUCTS) {
-        errorMessage = t('error_has_products');
-      }
-
-      toast.error(errorMessage);
+      toast.error(
+        {
+          [CATEGORY_HAS_PRODUCTS]: t('error_has_products'),
+        }[serverError ?? ''] ?? t('error_delete'),
+      );
     },
   });
 
