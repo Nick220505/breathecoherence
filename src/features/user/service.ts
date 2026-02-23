@@ -22,10 +22,9 @@ export const userService = {
   },
 
   async create(data: CreateUserData): Promise<UserSummary> {
-    const hashedPassword = await hash(data.password, 12);
     return userRepository.create({
       ...data,
-      password: hashedPassword,
+      password: await hash(data.password, 12),
     });
   },
 
