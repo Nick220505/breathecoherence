@@ -1,8 +1,6 @@
-import type { Prisma, User } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 
 import prisma from '@/lib/prisma';
-
-import type { UserSummary } from './schemas';
 
 export const userRepository = {
   userSummarySelect: {
@@ -14,7 +12,7 @@ export const userRepository = {
     updatedAt: true,
   } as const satisfies Prisma.UserSelect,
 
-  findMany(limit?: number): Promise<UserSummary[]> {
+  findMany(limit?: number) {
     return prisma.user.findMany({
       ...(limit && { take: limit }),
       orderBy: { createdAt: 'desc' },
@@ -22,25 +20,22 @@ export const userRepository = {
     });
   },
 
-  count(): Promise<number> {
+  count() {
     return prisma.user.count();
   },
 
-  async hasOrders(userId: string): Promise<boolean> {
+  async hasOrders(userId: string) {
     const orderCount = await prisma.order.count({
       where: { userId },
     });
     return orderCount > 0;
   },
 
-  findByEmail(email: string): Promise<User | null> {
+  findByEmail(email: string) {
     return prisma.user.findUnique({ where: { email } });
   },
 
-  findByEmailAndVerifyToken(
-    email: string,
-    verifyToken: string,
-  ): Promise<User | null> {
+  findByEmailAndVerifyToken(email: string, verifyToken: string) {
     return prisma.user.findUnique({
       where: {
         email,
@@ -50,14 +45,14 @@ export const userRepository = {
     });
   },
 
-  create(data: Prisma.UserCreateInput): Promise<UserSummary> {
+  create(data: Prisma.UserCreateInput) {
     return prisma.user.create({
       data,
       select: this.userSummarySelect,
     });
   },
 
-  update(id: string, data: Prisma.UserUpdateInput): Promise<UserSummary> {
+  update(id: string, data: Prisma.UserUpdateInput) {
     return prisma.user.update({
       where: { id },
       data,
@@ -65,7 +60,7 @@ export const userRepository = {
     });
   },
 
-  delete(id: string): Promise<UserSummary> {
+  delete(id: string) {
     return prisma.user.delete({
       where: { id },
       select: this.userSummarySelect,

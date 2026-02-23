@@ -1,36 +1,36 @@
-import type { Category, Prisma } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 
 import prisma from '@/lib/prisma';
 
 export const categoryRepository = {
-  findMany(): Promise<Category[]> {
+  findMany() {
     return prisma.category.findMany({ orderBy: { createdAt: 'desc' } });
   },
 
-  findById(id: string): Promise<Category | null> {
+  findById(id: string) {
     return prisma.category.findUnique({ where: { id } });
   },
 
-  count(): Promise<number> {
+  count() {
     return prisma.category.count();
   },
 
-  async hasProducts(categoryId: string): Promise<boolean> {
+  async hasProducts(categoryId: string) {
     const productCount = await prisma.product.count({
       where: { categoryId },
     });
     return productCount > 0;
   },
 
-  create(data: Prisma.CategoryCreateInput): Promise<Category> {
+  create(data: Prisma.CategoryCreateInput) {
     return prisma.category.create({ data });
   },
 
-  update(id: string, data: Prisma.CategoryUpdateInput): Promise<Category> {
+  update(id: string, data: Prisma.CategoryUpdateInput) {
     return prisma.category.update({ where: { id }, data });
   },
 
-  delete(id: string): Promise<Category> {
+  delete(id: string) {
     return prisma.category.delete({ where: { id } });
   },
 };

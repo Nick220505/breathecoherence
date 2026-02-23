@@ -1,4 +1,4 @@
-import type { OrderStatus, Prisma } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 import type { z } from 'zod';
 
 import type {
@@ -15,25 +15,17 @@ export type UpdateOrder = z.infer<typeof updateOrderSchema>;
 export type OrderStatusUpdate = z.infer<typeof orderStatusUpdateSchema>;
 export type Checkout = z.infer<typeof checkoutSchema>;
 
-export interface OrderSummary {
-  id: string;
-  total: number;
-  status: OrderStatus;
-  createdAt: Date;
-  user: {
-    email: string;
-  };
-}
-
-export type OrderDetail = Prisma.OrderGetPayload<{
-  include: {
-    items: {
-      include: { product: true };
-    };
+export type OrderSummary = Prisma.OrderGetPayload<{
+  select: {
+    id: true;
+    total: true;
+    status: true;
+    createdAt: true;
+    user: { select: { email: true } };
   };
 }>;
 
-export type OrderWithItems = Prisma.OrderGetPayload<{
+export type OrderDetail = Prisma.OrderGetPayload<{
   include: {
     items: {
       include: {

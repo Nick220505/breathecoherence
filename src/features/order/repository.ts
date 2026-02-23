@@ -1,8 +1,6 @@
-import type { OrderStatus, Prisma } from '@/generated/prisma/client';
+import { Prisma, type OrderStatus } from '@/generated/prisma/client';
 
 import prisma from '@/lib/prisma';
-
-import type { OrderDetail, OrderSummary, OrderWithItems } from './types';
 
 export const orderRepository = {
   orderSummarySelect: {
@@ -25,7 +23,7 @@ export const orderRepository = {
     },
   } as const satisfies Prisma.OrderInclude,
 
-  async findMany(limit?: number): Promise<OrderSummary[]> {
+  async findMany(limit?: number) {
     return prisma.order.findMany({
       ...(limit && { take: limit }),
       orderBy: { createdAt: 'desc' },
@@ -33,21 +31,21 @@ export const orderRepository = {
     });
   },
 
-  findById(id: string): Promise<OrderDetail | null> {
+  findById(id: string) {
     return prisma.order.findUnique({
       where: { id },
       include: this.orderDetailInclude,
     });
   },
 
-  findByIdAndUser(id: string, userId: string): Promise<OrderDetail | null> {
+  findByIdAndUser(id: string, userId: string) {
     return prisma.order.findFirst({
       where: { id, userId },
       include: this.orderDetailInclude,
     });
   },
 
-  findManyByUser(userId: string): Promise<OrderWithItems[]> {
+  findManyByUser(userId: string) {
     return prisma.order.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
@@ -55,14 +53,11 @@ export const orderRepository = {
     });
   },
 
-  count(): Promise<number> {
+  count() {
     return prisma.order.count();
   },
 
-  async findManyInDateRange(
-    startDate: Date,
-    endDate: Date,
-  ): Promise<OrderSummary[]> {
+  async findManyInDateRange(startDate: Date, endDate: Date) {
     return prisma.order.findMany({
       where: {
         createdAt: {
@@ -75,7 +70,7 @@ export const orderRepository = {
     });
   },
 
-  async updateStatus(id: string, status: OrderStatus): Promise<OrderDetail> {
+  async updateStatus(id: string, status: OrderStatus) {
     return prisma.order.update({
       where: { id },
       data: { status },

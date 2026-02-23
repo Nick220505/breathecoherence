@@ -1,22 +1,20 @@
-import type { Prisma, Product } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 
 import prisma from '@/lib/prisma';
-
-import type { ProductWithCategory } from './schemas';
 
 export const productRepository = {
   productWithCategoryInclude: {
     category: true,
   } as const satisfies Prisma.ProductInclude,
 
-  findMany(): Promise<ProductWithCategory[]> {
+  findMany() {
     return prisma.product.findMany({
       include: this.productWithCategoryInclude,
       orderBy: { createdAt: 'desc' },
     });
   },
 
-  findByCategory(categoryName: string): Promise<ProductWithCategory[]> {
+  findByCategory(categoryName: string) {
     return prisma.product.findMany({
       where: { category: { name: categoryName } },
       include: this.productWithCategoryInclude,
@@ -24,33 +22,33 @@ export const productRepository = {
     });
   },
 
-  findById(id: string): Promise<ProductWithCategory | null> {
+  findById(id: string) {
     return prisma.product.findUnique({
       where: { id },
       include: this.productWithCategoryInclude,
     });
   },
 
-  count(): Promise<number> {
+  count() {
     return prisma.product.count();
   },
 
-  async hasOrders(productId: string): Promise<boolean> {
+  async hasOrders(productId: string) {
     const orderItemCount = await prisma.orderItem.count({
       where: { productId },
     });
     return orderItemCount > 0;
   },
 
-  create(data: Prisma.ProductCreateInput): Promise<Product> {
+  create(data: Prisma.ProductCreateInput) {
     return prisma.product.create({ data });
   },
 
-  update(id: string, data: Prisma.ProductUpdateInput): Promise<Product> {
+  update(id: string, data: Prisma.ProductUpdateInput) {
     return prisma.product.update({ where: { id }, data });
   },
 
-  delete(id: string): Promise<Product> {
+  delete(id: string) {
     return prisma.product.delete({ where: { id } });
   },
 };

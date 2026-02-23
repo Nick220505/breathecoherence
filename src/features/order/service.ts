@@ -9,7 +9,6 @@ import type {
   OrderConfirmationEmailData,
   OrderDetail,
   OrderSummary,
-  OrderWithItems,
 } from './types';
 
 export const orderService = {
@@ -36,7 +35,7 @@ export const orderService = {
     return orderRepository.findByIdAndUser(id, userId);
   },
 
-  getOrdersByUser(userId: string): Promise<OrderWithItems[]> {
+  getOrdersByUser(userId: string): Promise<OrderDetail[]> {
     return orderRepository.findManyByUser(userId);
   },
 
