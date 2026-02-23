@@ -8,7 +8,7 @@ import {
   createUserSchema,
   updateUserSchema,
   deleteUserSchema,
-  userSchema,
+  userSummarySchema,
   userCountSchema,
   userSummaryArraySchema,
 } from './schemas';
@@ -24,30 +24,27 @@ export const getUserCount = actionClient
 
 export const createUser = actionClient
   .inputSchema(createUserSchema)
-  .outputSchema(userSchema)
+  .outputSchema(userSummarySchema)
   .action(async ({ parsedInput: data }) => {
     const createdUser = await userService.create(data);
     revalidateTag('users', 'max');
-
     return createdUser;
   });
 
 export const updateUser = actionClient
   .inputSchema(updateUserSchema)
-  .outputSchema(userSchema)
-  .action(async ({ parsedInput: data }) => {
-    const updatedUser = await userService.update(data.id, data);
+  .outputSchema(userSummarySchema)
+  .action(async ({ parsedInput: { id, ...data } }) => {
+    const updatedUser = await userService.update(id, data);
     revalidateTag('users', 'max');
-
     return updatedUser;
   });
 
 export const deleteUser = actionClient
   .inputSchema(deleteUserSchema)
-  .outputSchema(userSchema)
+  .outputSchema(userSummarySchema)
   .action(async ({ parsedInput: id }) => {
     const deletedUser = await userService.delete(id);
     revalidateTag('users', 'max');
-
     return deletedUser;
   });

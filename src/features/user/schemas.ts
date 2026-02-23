@@ -14,19 +14,39 @@ export const userSchema = z.object({
   updatedAt: z.date(),
 });
 
-export const updateUserSchema = userSchema.pick({
-  id: true,
-  name: true,
-  email: true,
-  role: true,
-});
+export const updateUserSchema = userSchema
+  .pick({
+    id: true,
+    name: true,
+    email: true,
+    role: true,
+    emailVerified: true,
+    verifyToken: true,
+    verifyTokenExpiry: true,
+  })
+  .partial({
+    name: true,
+    email: true,
+    role: true,
+    emailVerified: true,
+    verifyToken: true,
+    verifyTokenExpiry: true,
+  });
 
-export const createUserSchema = userSchema.pick({
-  name: true,
-  email: true,
-  password: true,
-  role: true,
-});
+export const createUserSchema = userSchema
+  .pick({
+    name: true,
+    email: true,
+    password: true,
+    role: true,
+    verifyToken: true,
+    verifyTokenExpiry: true,
+  })
+  .partial({
+    role: true,
+    verifyToken: true,
+    verifyTokenExpiry: true,
+  });
 
 export const deleteUserSchema = z.string();
 

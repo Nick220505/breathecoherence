@@ -79,7 +79,7 @@ export const dashboardService = {
   async getRecentActivityData(): Promise<RecentActivityData[]> {
     const [recentOrders, recentUsers] = await Promise.all([
       orderService.getRecentOrders(5),
-      userService.getRecentUsers(5),
+      userService.getAll(5),
     ]);
 
     const activities: RecentActivityData[] = [];
@@ -140,7 +140,7 @@ export const dashboardService = {
     const [orders, products, users] = await Promise.all([
       orderService.getAllOrders(),
       productService.getAllProducts(),
-      userService.getAllUsers(),
+      userService.getAll(),
     ]);
 
     const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);

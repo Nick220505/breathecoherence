@@ -5,32 +5,20 @@ import prisma from '@/lib/prisma';
 import type { UserSummary } from './schemas';
 
 export const userRepository = {
-  findMany(): Promise<UserSummary[]> {
-    return prisma.user.findMany({
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+  userSummarySelect: {
+    id: true,
+    name: true,
+    email: true,
+    role: true,
+    createdAt: true,
+    updatedAt: true,
   },
 
-  findManyRecent(limit: number): Promise<UserSummary[]> {
+  findMany(limit?: number): Promise<UserSummary[]> {
     return prisma.user.findMany({
-      take: limit,
+      ...(limit && { take: limit }),
       orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+      select: this.userSummarySelect,
     });
   },
 
@@ -45,15 +33,42 @@ export const userRepository = {
     return orderCount > 0;
   },
 
-  create(data: Prisma.UserCreateInput): Promise<User> {
-    return prisma.user.create({ data });
+  findByEmail(email: string): Promise<User | null> {
+    return prisma.user.findUnique({ where: { email } });
   },
 
-  update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
-    return prisma.user.update({ where: { id }, data });
+  findByEmailAndVerifyToken(
+    email: string,
+    verifyToken: string,
+  ): Promise<User | null> {
+    return prisma.user.findUnique({
+      where: {
+        email,
+        verifyToken,
+        verifyTokenExpiry: { gt: new Date() },
+      },
+    });
   },
 
-  delete(id: string): Promise<User> {
-    return prisma.user.delete({ where: { id } });
+  create(data: Prisma.UserCreateInput): Promise<UserSummary> {
+    return prisma.user.create({
+      data,
+      select: this.userSummarySelect,
+    });
+  },
+
+  update(id: string, data: Prisma.UserUpdateInput): Promise<UserSummary> {
+    return prisma.user.update({
+      where: { id },
+      data,
+      select: this.userSummarySelect,
+    });
+  },
+
+  delete(id: string): Promise<UserSummary> {
+    return prisma.user.delete({
+      where: { id },
+      select: this.userSummarySelect,
+    });
   },
 };
