@@ -16,10 +16,6 @@ export const orderService = {
     return orderRepository.findMany();
   },
 
-  getAllOrders(): Promise<OrderSummary[]> {
-    return orderRepository.findMany();
-  },
-
   getOrdersInDateRange(
     startDate: Date,
     endDate: Date,
@@ -28,7 +24,7 @@ export const orderService = {
   },
 
   getRecentOrders(limit: number): Promise<OrderSummary[]> {
-    return orderRepository.findManyRecent(limit);
+    return orderRepository.findMany(limit);
   },
 
   async getDetail(id: string, userId?: string): Promise<OrderDetail | null> {

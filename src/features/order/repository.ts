@@ -5,8 +5,9 @@ import prisma from '@/lib/prisma';
 import type { OrderDetail, OrderSummary, OrderWithItems } from './types';
 
 export const orderRepository = {
-  async findMany(): Promise<OrderSummary[]> {
+  async findMany(limit?: number): Promise<OrderSummary[]> {
     const orders = await prisma.order.findMany({
+      ...(limit && { take: limit }),
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -112,28 +113,6 @@ export const orderRepository = {
           lte: endDate,
         },
       },
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        total: true,
-        status: true,
-        createdAt: true,
-        user: { select: { email: true } },
-      },
-    });
-
-    return orders.map(({ id, total, status, createdAt, user }) => ({
-      id,
-      total,
-      status,
-      createdAt,
-      userEmail: user.email,
-    }));
-  },
-
-  async findManyRecent(limit: number): Promise<OrderSummary[]> {
-    const orders = await prisma.order.findMany({
-      take: limit,
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,

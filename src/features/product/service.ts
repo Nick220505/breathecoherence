@@ -43,10 +43,6 @@ export const productService = {
     );
   },
 
-  async getAllProducts(): Promise<ProductWithCategory[]> {
-    return productRepository.findMany();
-  },
-
   async getByCategory(
     categoryName: string,
     locale: Locale,
