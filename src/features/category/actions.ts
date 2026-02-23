@@ -28,7 +28,6 @@ export const createCategory = actionClientWithLocale
   .action(async ({ parsedInput: data, ctx: { locale } }) => {
     const createdCategory = await categoryService.create(data, locale);
     revalidateTag('categories', 'max');
-
     return createdCategory;
   });
 
@@ -39,7 +38,6 @@ export const updateCategory = actionClientWithLocale
     const updatedCategory = await categoryService.update(id, data, locale);
     revalidateTag('categories', 'max');
     revalidateTag('category', 'max');
-
     return updatedCategory;
   });
 
@@ -49,6 +47,5 @@ export const deleteCategory = actionClientWithLocale
   .action(async ({ parsedInput: id, ctx: { locale } }) => {
     const deletedCategory = await categoryService.delete(id, locale);
     revalidateTag('categories', 'max');
-
     return deletedCategory;
   });

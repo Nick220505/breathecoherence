@@ -29,6 +29,5 @@ export const updateOrderStatus = actionClientWithAuth
   .action(async ({ parsedInput: { id, status } }) => {
     const updatedOrder = await orderService.updateStatus(id, status);
     revalidateTag('orders', 'max');
-
     return updatedOrder;
   });

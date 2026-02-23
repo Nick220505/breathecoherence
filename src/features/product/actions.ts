@@ -37,7 +37,6 @@ export const createProduct = actionClientWithLocale
   .action(async ({ parsedInput: data, ctx: { locale } }) => {
     const createdProduct = await productService.create(data, locale);
     revalidateTag('products', 'max');
-
     return createdProduct;
   });
 
@@ -48,7 +47,6 @@ export const updateProduct = actionClientWithLocale
     const updatedProduct = await productService.update(id, data, locale);
     revalidateTag('products', 'max');
     revalidateTag('product', 'max');
-
     return updatedProduct;
   });
 
@@ -58,6 +56,5 @@ export const deleteProduct = actionClientWithLocale
   .action(async ({ parsedInput: id, ctx: { locale } }) => {
     const deletedProduct = await productService.delete(id, locale);
     revalidateTag('products', 'max');
-
     return deletedProduct;
   });
