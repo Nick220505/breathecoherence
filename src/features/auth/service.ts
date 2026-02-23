@@ -54,13 +54,7 @@ export const authService = {
   async login({ email, password }: LoginData): Promise<AuthUser> {
     const user = await userService.findByEmail(email);
 
-    if (!user) {
-      throw new Error(INVALID_CREDENTIALS);
-    }
-
-    const isValid = await compare(password, user.password);
-
-    if (!isValid) {
+    if (!user || !(await compare(password, user.password))) {
       throw new Error(INVALID_CREDENTIALS);
     }
 
