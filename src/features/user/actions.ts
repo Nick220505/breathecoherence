@@ -8,23 +8,15 @@ import {
   createUserSchema,
   updateUserSchema,
   deleteUserSchema,
-  userSummarySchema,
-  userCountSchema,
-  userSummaryArraySchema,
 } from './schemas';
 import { userService } from './service';
 
-export const getAllUsers = actionClient
-  .outputSchema(userSummaryArraySchema)
-  .action(() => userService.getAll());
+export const getAllUsers = actionClient.action(() => userService.getAll());
 
-export const getUserCount = actionClient
-  .outputSchema(userCountSchema)
-  .action(() => userService.getCount());
+export const getUserCount = actionClient.action(() => userService.getCount());
 
 export const createUser = actionClient
   .inputSchema(createUserSchema)
-  .outputSchema(userSummarySchema)
   .action(async ({ parsedInput: data }) => {
     const createdUser = await userService.create(data);
     revalidateTag('users', 'max');
@@ -33,7 +25,6 @@ export const createUser = actionClient
 
 export const updateUser = actionClient
   .inputSchema(updateUserSchema)
-  .outputSchema(userSummarySchema)
   .action(async ({ parsedInput: { id, ...data } }) => {
     const updatedUser = await userService.update(id, data);
     revalidateTag('users', 'max');
@@ -42,7 +33,6 @@ export const updateUser = actionClient
 
 export const deleteUser = actionClient
   .inputSchema(deleteUserSchema)
-  .outputSchema(userSummarySchema)
   .action(async ({ parsedInput: id }) => {
     const deletedUser = await userService.delete(id);
     revalidateTag('users', 'max');

@@ -50,12 +50,6 @@ export const createUserSchema = userSchema
 
 export const deleteUserSchema = z.string();
 
-export const getUserByIdSchema = z.string();
-
-export const userArraySchema = z.array(userSchema);
-
-export const userCountSchema = z.number();
-
 export const userSummarySchema = userSchema.pick({
   id: true,
   name: true,
@@ -64,8 +58,6 @@ export const userSummarySchema = userSchema.pick({
   createdAt: true,
   updatedAt: true,
 });
-
-export const userSummaryArraySchema = z.array(userSummarySchema);
 
 export type UserData = z.infer<typeof userSchema>;
 export type CreateUserData = z.infer<typeof createUserSchema>;

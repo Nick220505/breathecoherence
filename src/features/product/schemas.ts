@@ -27,23 +27,13 @@ export const deleteProductSchema = z.string();
 
 export const getProductByIdSchema = z.string();
 
-export const productArraySchema = z.array(productSchema);
-
-export const productCountSchema = z.number();
-
 export const productWithCategorySchema = productSchema.extend({
   category: categorySchema,
 });
 
-export const productWithCategoryArraySchema = z.array(
-  productWithCategorySchema,
-);
-
 export const cartItemSchema = productSchema.extend({
   quantity: z.number().int().min(1),
 });
-
-export const cartItemArraySchema = z.array(cartItemSchema);
 
 export const productSummarySchema = z.object({
   id: z.string(),
@@ -56,8 +46,6 @@ export const productSummarySchema = z.object({
     })
     .optional(),
 });
-
-export const productSummaryArraySchema = z.array(productSummarySchema);
 
 export type ProductData = z.infer<typeof productSchema>;
 export type CreateProductData = z.infer<typeof createProductSchema>;
