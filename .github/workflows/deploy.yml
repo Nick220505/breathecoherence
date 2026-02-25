@@ -31,16 +31,13 @@ jobs:
           npx vercel pull --yes --environment=$DEPLOY_ENV --token=$VERCEL_TOKEN
           cp .vercel/.env.$DEPLOY_ENV.local .env.local
 
-      - name: Install dependencies (npm ci)
-        run: npm ci --ignore-scripts
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Generate Prisma client
-        run: npm run postinstall --if-present
-
-      - name: Apply database migrations (prisma migrate deploy)
+      - name: Apply database migrations
         run: npx prisma migrate deploy
 
-      - name: Build Vercel project (prebuilt output)
+      - name: Build Vercel project
         run: |
           if [ "$DEPLOY_ENV" = "production" ]; then
             npx vercel build --prod --token $VERCEL_TOKEN
