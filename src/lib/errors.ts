@@ -5,5 +5,4 @@ export const FOREIGN_KEY_CONSTRAINT_VIOLATION = 'Related record not found';
 export const DATABASE_ERROR = 'Database error occurred';
 
 export const UNAUTHORIZED = 'Unauthorized';
-export const FORBIDDEN = 'Forbidden';
 export const INTERNAL_SERVER_ERROR = 'Something went wrong';

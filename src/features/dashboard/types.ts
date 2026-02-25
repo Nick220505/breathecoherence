@@ -23,21 +23,3 @@ export interface RecentActivityData {
   status?: string;
   amount?: number;
 }
-
-export interface TotalStats {
-  totalRevenue: number;
-  totalOrders: number;
-  totalProducts: number;
-  totalUsers: number;
-}
-
-export interface DashboardAnalyticsData {
-  salesOverview: SalesOverviewData[];
-  orderStatus: OrderStatusData[];
-  productStock: ProductStockData[];
-  recentActivity: RecentActivityData[];
-  totalRevenue: number;
-  totalOrders: number;
-  totalProducts: number;
-  totalUsers: number;
-}

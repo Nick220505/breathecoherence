@@ -2,34 +2,6 @@ import { z } from 'zod';
 
 export const orderStatusEnum = z.enum(['PENDING', 'PAID', 'SHIPPED']);
 
-export const orderSchema = z.object({
-  id: z.string(),
-  userId: z.string().nullable(),
-  user: z.object({
-    email: z.email(),
-  }),
-  total: z.number().positive(),
-  status: orderStatusEnum,
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
-
-export const createOrderSchema = orderSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const updateOrderSchema = orderSchema
-  .omit({
-    createdAt: true,
-    updatedAt: true,
-  })
-  .partial()
-  .required({
-    id: true,
-  });
-
 export const orderStatusUpdateSchema = z.object({
   id: z.string(),
   status: orderStatusEnum,
@@ -114,9 +86,6 @@ export const orderDetailsSchema = z.object({
 });
 
 export type OrderStatus = z.infer<typeof orderStatusEnum>;
-export type Order = z.infer<typeof orderSchema>;
-export type CreateOrder = z.infer<typeof createOrderSchema>;
-export type UpdateOrder = z.infer<typeof updateOrderSchema>;
 export type OrderStatusUpdate = z.infer<typeof orderStatusUpdateSchema>;
 export type Checkout = z.infer<typeof checkoutSchema>;
 export type OrderSummary = z.infer<typeof orderSummarySchema>;

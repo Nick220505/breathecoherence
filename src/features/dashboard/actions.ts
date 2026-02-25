@@ -19,7 +19,3 @@ export const getProductStockData = actionClientWithLocale.action(
 export const getRecentActivityData = actionClient.action(() =>
   dashboardService.getRecentActivityData(),
 );
-
-export const getDashboardAnalytics = actionClientWithLocale.action(
-  ({ ctx: { locale } }) => dashboardService.getDashboardAnalytics(locale),
-);

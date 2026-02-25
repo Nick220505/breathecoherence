@@ -3,12 +3,10 @@ import { productService } from '@/features/product/service';
 import { userService } from '@/features/user/service';
 import type { Locale } from '@/i18n/routing';
 import type {
-  DashboardAnalyticsData,
   OrderStatusData,
   ProductStockData,
   RecentActivityData,
   SalesOverviewData,
-  TotalStats,
 } from './types';
 
 export const dashboardService = {
@@ -111,47 +109,5 @@ export const dashboardService = {
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       )
       .slice(0, 10);
-  },
-
-  async getDashboardAnalytics(locale: Locale): Promise<DashboardAnalyticsData> {
-    const [
-      salesOverview,
-      orderStatus,
-      productStock,
-      recentActivity,
-      totalStats,
-    ] = await Promise.all([
-      this.getSalesOverviewData(),
-      this.getOrderStatusData(),
-      this.getProductStockData(locale),
-      this.getRecentActivityData(),
-      this.getTotalStats(),
-    ]);
-
-    return {
-      salesOverview,
-      orderStatus,
-      productStock,
-      recentActivity,
-      ...totalStats,
-    };
-  },
-
-  async getTotalStats(): Promise<TotalStats> {
-    const [orders, totalProducts, totalUsers] = await Promise.all([
-      orderService.getAll(),
-      productService.getCount(),
-      userService.getCount(),
-    ]);
-
-    const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
-    const totalOrders = orders.length;
-
-    return {
-      totalRevenue,
-      totalOrders,
-      totalProducts,
-      totalUsers,
-    };
   },
 };
