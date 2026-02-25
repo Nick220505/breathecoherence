@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -24,16 +24,19 @@ export function FeaturesSection() {
 
   const features = [
     {
+      id: 'geometry',
       icon: '🔮',
       title: t('geometry.title'),
       description: t('geometry.description'),
     },
     {
+      id: 'essences',
       icon: '🌸',
       title: t('essences.title'),
       description: t('essences.description'),
     },
     {
+      id: 'harmony',
       icon: '✨',
       title: t('harmony.title'),
       description: t('harmony.description'),
@@ -63,8 +66,8 @@ export function FeaturesSection() {
           whileInView="animate"
           viewport={{ once: true }}
         >
-          {features.map((feature, index) => (
-            <motion.div key={index} variants={fadeInUp}>
+          {features.map((feature) => (
+            <motion.div key={feature.id} variants={fadeInUp}>
               <Card className="transform border-purple-500/10 bg-white/5 shadow-lg backdrop-blur-xs transition-transform duration-300 hover:scale-105 dark:bg-white/5">
                 <CardContent className="p-8 text-center">
                   <motion.div
@@ -73,7 +76,8 @@ export function FeaturesSection() {
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{
-                      delay: index * 0.2,
+                      delay:
+                        features.findIndex((f) => f.id === feature.id) * 0.2,
                       type: 'spring',
                       stiffness: 200,
                     }}

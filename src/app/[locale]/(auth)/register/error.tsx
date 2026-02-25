@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { CreditCard, Lock, ShoppingBag, Wallet2 } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';

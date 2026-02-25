@@ -1,7 +1,7 @@
 'use client';
 
 import type { Category } from '@/features/category/schemas';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';

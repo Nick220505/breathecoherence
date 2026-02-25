@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { AlertCircle, ArrowLeft, RefreshCw } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
