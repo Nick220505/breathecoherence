@@ -24,6 +24,13 @@ export interface RecentActivityData {
   amount?: number;
 }
 
+export interface TotalStats {
+  totalRevenue: number;
+  totalOrders: number;
+  totalProducts: number;
+  totalUsers: number;
+}
+
 export interface DashboardAnalyticsData {
   salesOverview: SalesOverviewData[];
   orderStatus: OrderStatusData[];

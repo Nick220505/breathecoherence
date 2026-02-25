@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { getProductStockData } from '../actions/dashboard-analytics';
+import { getProductStockData } from '@/features/dashboard/actions';
 import { ProductStockBarChart } from './product-stock-bar-chart';
 
 export async function ProductStockChart() {

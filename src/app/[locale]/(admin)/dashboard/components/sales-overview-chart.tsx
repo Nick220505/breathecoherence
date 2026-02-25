@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { getSalesOverviewData } from '../actions/dashboard-analytics';
+import { getSalesOverviewData } from '@/features/dashboard/actions';
 import { SalesOverviewBarChart } from './sales-overview-bar-chart';
 
 export async function SalesOverviewChart() {

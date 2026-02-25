@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { getOrderStatusData } from '../actions/dashboard-analytics';
+import { getOrderStatusData } from '@/features/dashboard/actions';
 import { OrderStatusPieChart } from './order-status-pie-chart';
 
 export async function OrderStatusChart() {

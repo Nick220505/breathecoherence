@@ -8,6 +8,7 @@ import type {
   ProductStockData,
   RecentActivityData,
   SalesOverviewData,
+  TotalStats,
 } from './types';
 
 export const dashboardService = {
@@ -136,7 +137,7 @@ export const dashboardService = {
     };
   },
 
-  async getTotalStats() {
+  async getTotalStats(): Promise<TotalStats> {
     const [orders, productCount, userCount] = await Promise.all([
       orderService.getAll(),
       productService.getCount(),

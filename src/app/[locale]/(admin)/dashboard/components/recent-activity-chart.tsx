@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { getRecentActivityData } from '../actions/dashboard-analytics';
+import { getRecentActivityData } from '@/features/dashboard/actions';
 
 export async function RecentActivityChart() {
   const t = await getTranslations('RecentActivityChart');
