@@ -5,19 +5,19 @@
 
 <p align="center">
   <a href="https://nextjs.org/">
-    <img src="https://img.shields.io/badge/Next.js-15.3.5-black?logo=next.js" alt="Next.js">
+    <img src="https://img.shields.io/badge/Next.js-16.1.6-black?logo=next.js" alt="Next.js">
   </a>
   <a href="https://react.dev/">
-    <img src="https://img.shields.io/badge/React-19.1.0-blue?logo=react" alt="React">
+    <img src="https://img.shields.io/badge/React-19.2.4-blue?logo=react" alt="React">
   </a>
   <a href="https://www.typescriptlang.org/">
     <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript">
   </a>
   <a href="https://www.prisma.io/">
-    <img src="https://img.shields.io/badge/Prisma-6.11.1-darkblue?logo=prisma" alt="Prisma">
+    <img src="https://img.shields.io/badge/Prisma-7.4.1-darkblue?logo=prisma" alt="Prisma">
   </a>
   <a href="https://next-intl.dev/">
-    <img src="https://img.shields.io/badge/i18n-next--intl--4.3.4-blue.svg" alt="next-intl">
+    <img src="https://img.shields.io/badge/i18n-next--intl--4.8.3-blue.svg" alt="next-intl">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-Proprietary-blue.svg" alt="License">
@@ -52,21 +52,22 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 - 🤖 **AI-Powered Chat**: Enhanced user interaction with Google's Gemini AI.
 - 💳 **Comprehensive Payments**: Seamless checkout with Stripe and PayPal.
 - ✨ **Responsive UI**: Beautiful, accessible components built with Radix UI and Shadcn.
-- 📝 **Advanced Form Handling**: Type-safe forms with React Hook Form, Zod validation, and ZSA server actions.
+- 📝 **Advanced Form Handling**: Type-safe forms with React Hook Form, Zod validation, and next-safe-action server actions.
 - 📧 **Transactional Emails**: Reliable email delivery using Resend.
 
 ## 🛠️ Tech Stack
 
-- ⚙️ **Framework**: Next.js 15
-- 🎨 **UI**: React 19, TailwindCSS, Shadcn UI, Radix UI, Framer Motion
+- ⚙️ **Framework**: Next.js 16
+- 🎨 **UI**: React 19, TailwindCSS 4, Shadcn UI, Radix UI, Framer Motion
 - 🔌 **Backend**: Next.js API Routes
-- 🗄️ **Database**: PostgreSQL with Prisma ORM
+- 🗄️ **Database**: PostgreSQL with Prisma ORM 7
 - 🔑 **Authentication**: NextAuth.js v5
-- 🌍 **Internationalization**: `next-intl`
+- 🌍 **Internationalization**: next-intl
 - 🔄 **Translation**: DeepL API
 - 🧠 **AI**: Google Gemini
 - 💰 **Payments**: Stripe, PayPal
 - 📨 **Emails**: Resend
+- 🎨 **Notifications**: Sonner (toast notifications)
 
 ## ⚙️ Getting Started
 
@@ -74,7 +75,7 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
 
 - Node.js (v18 or higher)
 - npm or yarn
-- A CockroachDB database
+- A PostgreSQL database (CockroachDB, Supabase, or any PostgreSQL provider)
 - API keys for DeepL, Google Gemini, Stripe, PayPal, and Resend
 
 ### Installation & Setup
@@ -93,7 +94,28 @@ A modern e-commerce platform built with Next.js, featuring a sleek design system
     ```
 
 3.  **Set up environment variables:** 🔐
-    - Copy the `.env.example` file to a new file named `.env`.
+
+    **Option A: Using Vercel CLI (Recommended for team collaboration)**
+
+    If the project is already deployed on Vercel, you can pull the environment variables directly:
+
+    ```bash
+    # Login to Vercel
+    vercel login
+
+    # Link your local project to the Vercel project
+    vercel link
+
+    # Pull environment variables (defaults to development)
+    vercel env pull
+
+    # Or specify the environment:
+    vercel env pull --environment preview
+    vercel env pull --environment production
+    ```
+
+    **Option B: Manual setup**
+    - Copy the `.env.example` file to a new file named `.env.local`.
     - Fill in the required API keys and database URLs.
 
 4.  **Initialize the database:** 🛢️
@@ -119,21 +141,21 @@ The application will now be available at `http://localhost:3000`.
 
 ## 🔧 Environment Variables
 
-This project requires several environment variables to function properly. Create a `.env` file with the following variables:
+This project requires several environment variables to function properly. Create a `.env.local` file with the following variables:
 
 ```bash
 # Company Information
-COMPANY_NAME="your_company_name"
+COMPANY_NAME="Breathe Coherence"
 
 # Database Configuration
-DATABASE_URL="your_database_url"
+DATABASE_URL="postgresql://user:password@host:port/database?sslmode=verify-full"
 
 # Authentication
-NEXTAUTH_URL="your_nextauth_url"
+NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your_nextauth_secret"
 
 # Email Configuration
-EMAIL_FROM="your_email_from"
+EMAIL_FROM="your_email_from_address"
 
 # API Keys
 DEEPL_API_KEY="your_deepl_api_key"
@@ -184,24 +206,28 @@ breathecoherence/
 │   │   └── globals.css     # Global styles
 │   ├── components/         # Shared React components
 │   │   ├── ui/             # Shadcn UI components
-│   │   └── email/          # Email templates
+│   │   └── email-templates/ # Email templates (React Email)
 │   ├── features/           # Feature-sliced business logic
-│   │   ├── auth/           # Authentication (actions, schemas, types)
-│   │   ├── category/       # Category management
+│   │   ├── auth/           # Authentication (actions, schemas, service)
+│   │   ├── category/       # Category management (actions, repository, service, schemas)
+│   │   ├── chat/           # Chat types
+│   │   ├── dashboard/      # Dashboard analytics (actions, service, types)
 │   │   ├── order/          # Order processing & management
 │   │   ├── product/        # Product catalog & management
+│   │   ├── translation/    # Translation service & repository
 │   │   └── user/           # User management
-│   ├── hooks/              # Custom React hooks
-│   ├── i18n/               # Internationalization configuration
 │   ├── lib/                # Core libraries & utilities
 │   │   ├── email.ts        # Resend email client
+│   │   ├── errors.ts       # Global error constants
 │   │   ├── gemini.ts       # Google Gemini AI client
 │   │   ├── prisma.ts       # Prisma client instance
+│   │   ├── safe-action.ts  # next-safe-action configuration
 │   │   ├── translation.ts  # DeepL translation client
-│   │   ├── utils.ts        # General utility functions
-│   │   └── zsa.ts          # ZSA procedures for server actions
+│   │   └── utils.ts        # General utility functions
+│   ├── i18n/               # Internationalization configuration
 │   ├── messages/           # Translation files (en.json, es.json)
-│   └── prisma/             # Database schema, migrations, and seed
+│   ├── prisma/             # Database schema, migrations, and seed
+│   └── providers/          # React context providers (cart, theme, PayPal)
 ├── .env.example            # Example environment variables
 ├── next.config.ts          # Next.js configuration
 ├── package.json            # Project dependencies and scripts
@@ -234,7 +260,11 @@ breathecoherence/
 - 📦 `npm run build` - Creates an optimized production build.
 - 🚀 `npm run start` - Starts the production server.
 - 🔍 `npm run lint` - Lints the codebase for errors and style issues.
+- 🔧 `npm run lint:fix` - Lints and automatically fixes issues.
 - ✨ `npm run format` - Formats all files using Prettier.
+- 🌱 `npm run db:seed` - Seeds the database with initial data.
+- 🔄 `npm run db:reset` - Resets the database.
+- 🔄 `npm run db:reset:seed` - Resets and seeds the database.
 
 ## 🌐 Browser Compatibility
 
@@ -260,7 +290,7 @@ breathecoherence/
   Error: P1001: Can't reach database server
   ```
 
-  ✅ **Solution**: Check your database URL in .env file and ensure your IP is allowed in the database firewall settings.
+  ✅ **Solution**: Check your database URL in `.env.local` file and ensure your IP is allowed in the database firewall settings (if using a cloud database).
 
 - ❓ **API Keys Not Working**:
 
@@ -268,7 +298,7 @@ breathecoherence/
   Error: Authentication failed. Please check your API key
   ```
 
-  ✅ **Solution**: Verify that all API keys in your .env file are correctly formatted and valid.
+  ✅ **Solution**: Verify that all API keys in your `.env.local` file are correctly formatted and valid.
 
 - ❓ **Build Errors**:
 
