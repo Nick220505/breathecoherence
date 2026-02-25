@@ -75,39 +75,36 @@ export function SalesOverviewBarChart({
     .reverse();
 
   return (
-    <div className="space-y-3">
-      <p className="text-sm font-medium">{t('last7Days')}</p>
-      <ResponsiveContainer width="100%" height={200}>
-        <BarChart data={chartData}>
-          <XAxis
-            dataKey="date"
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-          />
-          <YAxis
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-            tickFormatter={(value) => `$${value}`}
-          />
-          <Tooltip
-            content={
-              <CustomTooltip
-                revenueLabel={t('revenue')}
-                ordersLabel={t('orders')}
-              />
-            }
-          />
-          <Bar
-            dataKey="revenue"
-            fill="hsl(var(--primary))"
-            radius={[4, 4, 0, 0]}
-          />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+    <ResponsiveContainer width="100%" height={200}>
+      <BarChart data={chartData}>
+        <XAxis
+          dataKey="date"
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `$${value}`}
+        />
+        <Tooltip
+          content={
+            <CustomTooltip
+              revenueLabel={t('revenue')}
+              ordersLabel={t('orders')}
+            />
+          }
+        />
+        <Bar
+          dataKey="revenue"
+          fill="hsl(var(--primary))"
+          radius={[4, 4, 0, 0]}
+        />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
