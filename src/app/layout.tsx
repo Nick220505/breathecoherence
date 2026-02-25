@@ -9,6 +9,26 @@ export const metadata: Metadata = {
   },
   description:
     'Discover our collection of sacred geometry objects and healing flower essences.',
+  icons: {
+    icon: [
+      {
+        url: '/images/BC-logo-transp-120.png',
+        sizes: '120x120',
+        type: 'image/png',
+      },
+      {
+        url: '/images/BC-logo-transp-120.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        url: '/images/BC-logo-transp-120.png',
+        sizes: '16x16',
+        type: 'image/png',
+      },
+    ],
+    apple: '/images/BC-logo-transp-120.png',
+  },
 };
 
 export default function RootLayout({
