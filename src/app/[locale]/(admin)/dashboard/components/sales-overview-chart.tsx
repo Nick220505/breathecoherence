@@ -15,7 +15,6 @@ export async function SalesOverviewChart() {
   }
 
   const totalRevenue = salesData.reduce((sum, item) => sum + item.revenue, 0);
-  const totalOrders = salesData.reduce((sum, item) => sum + item.orders, 0);
 
   return (
     <Card>
@@ -25,19 +24,12 @@ export async function SalesOverviewChart() {
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <p className="text-muted-foreground text-sm font-medium">
-                {t('totalRevenue')}
-              </p>
-              <p className="text-2xl font-bold">${totalRevenue.toFixed(2)}</p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-muted-foreground text-sm font-medium">
-                {t('totalOrders')}
-              </p>
-              <p className="text-2xl font-bold">{totalOrders}</p>
-            </div>
+          <div className="space-y-2">
+            <p className="text-muted-foreground text-sm font-medium">
+              {t('totalRevenue')}
+            </p>
+            <p className="text-2xl font-bold">${totalRevenue.toFixed(2)}</p>
+            <p className="text-muted-foreground text-xs">{t('last7Days')}</p>
           </div>
 
           <SalesOverviewBarChart data={salesData} />

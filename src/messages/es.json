@@ -828,7 +828,6 @@
   "SalesOverviewChart": {
     "title": "Resumen de Ventas",
     "totalRevenue": "Ingresos Totales",
-    "totalOrders": "Pedidos Totales",
     "last7Days": "Últimos 7 Días",
     "orders": "pedidos",
     "revenue": "Ingresos",
@@ -838,7 +837,6 @@
   },
   "OrderStatusChart": {
     "title": "Estado de Pedidos",
-    "totalOrders": "Pedidos Totales",
     "status": {
       "pending": "Pendiente",
       "paid": "Pagado",

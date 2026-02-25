@@ -828,7 +828,6 @@
   "SalesOverviewChart": {
     "title": "Sales Overview",
     "totalRevenue": "Total Revenue",
-    "totalOrders": "Total Orders",
     "last7Days": "Last 7 Days",
     "orders": "orders",
     "revenue": "Revenue",
@@ -838,7 +837,6 @@
   },
   "OrderStatusChart": {
     "title": "Order Status",
-    "totalOrders": "Total Orders",
     "status": {
       "pending": "Pending",
       "paid": "Paid",

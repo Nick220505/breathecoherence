@@ -25,11 +25,6 @@ export async function OrderStatusChart() {
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          <div className="text-center">
-            <p className="text-2xl font-bold">{total}</p>
-            <p className="text-muted-foreground text-sm">{t('totalOrders')}</p>
-          </div>
-
           <OrderStatusPieChart data={statusData} />
 
           <div className="space-y-3">
