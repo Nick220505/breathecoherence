@@ -19,6 +19,7 @@ import { useForm, type Resolver } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useAction } from 'next-safe-action/hooks';
 
+import { RECORD_NOT_FOUND, UNIQUE_CONSTRAINT_VIOLATION } from '@/lib/errors';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
@@ -80,7 +81,11 @@ export function EditProductDialog({
     },
     onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
-        message: serverError ?? 'An error occurred',
+        message:
+          {
+            [RECORD_NOT_FOUND]: t('error.record_not_found'),
+            [UNIQUE_CONSTRAINT_VIOLATION]: t('error.unique_constraint'),
+          }[serverError ?? ''] ?? t('error.generic'),
       });
     },
   });

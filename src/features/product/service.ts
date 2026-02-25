@@ -3,7 +3,7 @@ import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 
-import { PRODUCT_HAS_ORDERS, PRODUCT_NOT_FOUND } from './errors';
+import { PRODUCT_HAS_ORDERS } from './errors';
 import { productRepository } from './repository';
 import type {
   CreateProduct,
@@ -74,10 +74,6 @@ export const productService = {
   async getById(id: string, locale: Locale): Promise<ProductWithCategory> {
     const product = await productRepository.findById(id);
 
-    if (!product) {
-      throw new Error(PRODUCT_NOT_FOUND);
-    }
-
     const translatedProduct = await translationService.getTranslatedEntity(
       product,
       locale,
@@ -137,8 +133,6 @@ export const productService = {
     data: Omit<UpdateProduct, 'id'>,
     locale: Locale,
   ): Promise<Product> {
-    await this.getById(id, locale);
-
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,

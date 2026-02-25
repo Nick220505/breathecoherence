@@ -2,7 +2,7 @@ import { translationService } from '@/features/translation/service';
 import type { TranslationConfig } from '@/features/translation/types';
 import type { Locale } from '@/i18n/routing';
 
-import { CATEGORY_HAS_PRODUCTS, CATEGORY_NOT_FOUND } from './errors';
+import { CATEGORY_HAS_PRODUCTS } from './errors';
 import { categoryRepository } from './repository';
 import type { Category, CreateCategory, UpdateCategory } from './schemas';
 
@@ -28,10 +28,6 @@ export const categoryService = {
 
   async getById(id: string, locale: Locale): Promise<Category> {
     const category = await categoryRepository.findById(id);
-
-    if (!category) {
-      throw new Error(CATEGORY_NOT_FOUND);
-    }
 
     return translationService.getTranslatedEntity(
       category,
@@ -75,8 +71,6 @@ export const categoryService = {
     data: Omit<UpdateCategory, 'id'>,
     locale: Locale,
   ): Promise<Category> {
-    await this.getById(id, locale);
-
     const defaultLocaleData = await translationService.getDefaultLocaleData(
       data,
       locale,

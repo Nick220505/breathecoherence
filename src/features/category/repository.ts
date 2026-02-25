@@ -8,7 +8,7 @@ export const categoryRepository = {
   },
 
   findById(id: string) {
-    return prisma.category.findUnique({ where: { id } });
+    return prisma.category.findUniqueOrThrow({ where: { id } });
   },
 
   count() {

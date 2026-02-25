@@ -31,10 +31,6 @@ export default async function OrderDetailPage({
   const { data: order, serverError } = await getOrderDetail({ id: orderId });
 
   if (serverError || !order) {
-    throw new Error(t('error.loadOrder'));
-  }
-
-  if (!order) {
     return (
       <div className="container mx-auto px-4 py-24 text-center">
         <div className="mx-auto max-w-md space-y-8">

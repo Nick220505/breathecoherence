@@ -32,7 +32,7 @@ export const orderRepository = {
   },
 
   findById(id: string) {
-    return prisma.order.findUnique({
+    return prisma.order.findUniqueOrThrow({
       where: { id },
       include: this.orderDetailInclude,
     });

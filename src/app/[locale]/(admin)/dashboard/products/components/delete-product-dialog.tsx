@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { useAction } from 'next-safe-action/hooks';
 
+import { RECORD_NOT_FOUND } from '@/lib/errors';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -40,8 +41,9 @@ export function DeleteProductDialog({
     onError: ({ error: { serverError } }) => {
       toast.error(
         {
-          [PRODUCT_HAS_ORDERS]: t('error_has_orders'),
-        }[serverError ?? ''] ?? t('error_delete'),
+          [RECORD_NOT_FOUND]: t('error.record_not_found'),
+          [PRODUCT_HAS_ORDERS]: t('error.product_has_orders'),
+        }[serverError ?? ''] ?? t('error.generic'),
       );
     },
   });

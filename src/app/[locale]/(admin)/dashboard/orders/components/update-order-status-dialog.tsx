@@ -33,6 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { RECORD_NOT_FOUND } from '@/lib/errors';
 import { updateOrderStatus } from '@/features/order/actions';
 import {
   orderStatusUpdateSchema,
@@ -70,7 +71,10 @@ export function UpdateOrderStatusDialog({
     },
     onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
-        message: serverError ?? 'An error occurred',
+        message:
+          {
+            [RECORD_NOT_FOUND]: t('error.record_not_found'),
+          }[serverError ?? ''] ?? t('error.generic'),
       });
     },
   });

@@ -156,15 +156,18 @@
     "actions": "Acciones"
   },
   "DeleteProductDialog": {
-    "error_delete": "Ocurrió un error al eliminar el producto",
-    "error_has_orders": "No se puede eliminar un producto con pedidos existentes",
     "delete_confirm_title": "Eliminar Producto",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",
     "deleting": "Eliminando Producto...",
     "confirm_delete": "Eliminar",
     "deleted_title": "Producto Eliminado",
-    "deleted_description": "El producto \"{name}\" ha sido eliminado exitosamente."
+    "deleted_description": "El producto \"{name}\" ha sido eliminado exitosamente.",
+    "error": {
+      "generic": "Error al eliminar el producto. Por favor, inténtalo de nuevo.",
+      "record_not_found": "Producto no encontrado. Puede haber sido eliminado.",
+      "product_has_orders": "No se puede eliminar un producto con pedidos existentes"
+    }
   },
   "CategoriesError": {
     "title": "Algo salió mal",
@@ -172,15 +175,18 @@
     "retry": "Intentar de nuevo"
   },
   "DeleteCategoryDialog": {
-    "error_delete": "Ocurrió un error al eliminar la categoría",
-    "error_has_products": "No se puede eliminar una categoría con productos existentes",
     "delete_confirm_title": "Eliminar Categoría",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar esta categoría? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",
     "deleting": "Eliminando Categoría...",
     "confirm_delete": "Eliminar",
     "deleted_title": "Categoría Eliminada",
-    "deleted_description": "La categoría \"{name}\" ha sido eliminada exitosamente."
+    "deleted_description": "La categoría \"{name}\" ha sido eliminada exitosamente.",
+    "error": {
+      "generic": "Error al eliminar la categoría. Por favor, inténtalo de nuevo.",
+      "record_not_found": "Categoría no encontrada. Puede haber sido eliminada.",
+      "category_has_products": "No se puede eliminar una categoría con productos existentes"
+    }
   },
   "CreateProductDialog": {
     "add_product": "Agregar Producto",
@@ -217,7 +223,9 @@
     "error": {
       "load_categories": "Error al cargar categorías",
       "image_too_large": "El archivo de imagen es demasiado grande (máx 5MB)",
-      "image_upload": "Error al subir imagen"
+      "image_upload": "Error al subir imagen",
+      "generic": "Error al crear el producto. Por favor, inténtalo de nuevo.",
+      "unique_constraint": "Ya existe un producto con este nombre."
     }
   },
   "EditProductDialog": {
@@ -255,7 +263,10 @@
     "error": {
       "load_categories": "Error al cargar categorías",
       "image_too_large": "El archivo de imagen es demasiado grande (máx 5MB)",
-      "image_upload": "Error al subir imagen"
+      "image_upload": "Error al subir imagen",
+      "generic": "Error al actualizar el producto. Por favor, inténtalo de nuevo.",
+      "record_not_found": "Producto no encontrado. Puede haber sido eliminado.",
+      "unique_constraint": "Ya existe un producto con este nombre."
     }
   },
   "ProductTable": {
@@ -393,6 +404,10 @@
     "validation": {
       "name_min": "El nombre debe tener al menos 3 caracteres",
       "description_min": "La descripción debe tener al menos 10 caracteres"
+    },
+    "error": {
+      "generic": "Error al crear la categoría. Por favor, inténtalo de nuevo.",
+      "unique_constraint": "Ya existe una categoría con este nombre."
     }
   },
   "EditCategoryDialog": {
@@ -412,6 +427,12 @@
     "validation": {
       "name_min": "El nombre debe tener al menos 3 caracteres",
       "description_min": "La descripción debe tener al menos 10 caracteres"
+    },
+    "error": {
+      "generic": "Error al actualizar la categoría. Por favor, inténtalo de nuevo.",
+      "record_not_found": "Categoría no encontrada. Puede haber sido eliminada.",
+      "unique_constraint": "Ya existe una categoría con este nombre.",
+      "category_has_products": "No se puede actualizar esta categoría"
     }
   },
   "UsersPage": {
@@ -503,8 +524,6 @@
     }
   },
   "DeleteUserDialog": {
-    "error_delete": "Ocurrió un error al eliminar el usuario",
-    "error_has_orders": "No se puede eliminar un usuario con pedidos existentes",
     "delete_confirm_title": "Eliminar Usuario",
     "delete_confirm_description": "¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.",
     "cancel": "Cancelar",
@@ -541,7 +560,11 @@
     "update": "Actualizar Estado",
     "updating": "Actualizando...",
     "updated_title": "Estado del Pedido Actualizado",
-    "updated_description": "El estado del pedido #{id} ha sido actualizado exitosamente."
+    "updated_description": "El estado del pedido #{id} ha sido actualizado exitosamente.",
+    "error": {
+      "generic": "Error al actualizar el estado del pedido. Por favor, inténtalo de nuevo.",
+      "record_not_found": "Pedido no encontrado. Puede haber sido eliminado."
+    }
   },
   "OrdersPage": {
     "title": "Gestión de Pedidos",

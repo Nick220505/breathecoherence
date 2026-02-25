@@ -28,7 +28,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { RECORD_NOT_FOUND, UNIQUE_CONSTRAINT_VIOLATION } from '@/lib/errors';
 import { updateCategory } from '@/features/category/actions';
+import { CATEGORY_HAS_PRODUCTS } from '@/features/category/errors';
 import {
   updateCategorySchema,
   type Category,
@@ -56,7 +58,12 @@ export function EditCategoryDialog({
     },
     onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
-        message: serverError ?? 'An error occurred',
+        message:
+          {
+            [RECORD_NOT_FOUND]: t('error.record_not_found'),
+            [UNIQUE_CONSTRAINT_VIOLATION]: t('error.unique_constraint'),
+            [CATEGORY_HAS_PRODUCTS]: t('error.category_has_products'),
+          }[serverError ?? ''] ?? t('error.generic'),
       });
     },
   });

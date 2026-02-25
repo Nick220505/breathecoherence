@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useAction } from 'next-safe-action/hooks';
 
+import { UNIQUE_CONSTRAINT_VIOLATION } from '@/lib/errors';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
@@ -51,7 +52,10 @@ export function CreateCategoryDialog({
     },
     onError: ({ error: { serverError } }) => {
       form.setError('root.serverError', {
-        message: serverError ?? 'An error occurred',
+        message:
+          {
+            [UNIQUE_CONSTRAINT_VIOLATION]: t('error.unique_constraint'),
+          }[serverError ?? ''] ?? t('error.generic'),
       });
     },
   });

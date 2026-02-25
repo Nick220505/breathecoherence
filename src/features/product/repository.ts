@@ -23,7 +23,7 @@ export const productRepository = {
   },
 
   findById(id: string) {
-    return prisma.product.findUnique({
+    return prisma.product.findUniqueOrThrow({
       where: { id },
       include: this.productWithCategoryInclude,
     });
