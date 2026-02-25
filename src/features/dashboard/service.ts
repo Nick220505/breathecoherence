@@ -138,17 +138,20 @@ export const dashboardService = {
   },
 
   async getTotalStats(): Promise<TotalStats> {
-    const [orders, productCount, userCount] = await Promise.all([
+    const [orders, totalProducts, totalUsers] = await Promise.all([
       orderService.getAll(),
       productService.getCount(),
       userService.getCount(),
     ]);
 
+    const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+    const totalOrders = orders.length;
+
     return {
-      totalRevenue: orders.reduce((sum, order) => sum + order.total, 0),
-      totalOrders: orders.length,
-      totalProducts: productCount,
-      totalUsers: userCount,
+      totalRevenue,
+      totalOrders,
+      totalProducts,
+      totalUsers,
     };
   },
 };
