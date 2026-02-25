@@ -11,8 +11,8 @@ import type {
 } from './schemas';
 
 export const orderService = {
-  getAll(): Promise<OrderSummary[]> {
-    return orderRepository.findMany();
+  getAll(limit?: number): Promise<OrderSummary[]> {
+    return orderRepository.findMany(limit);
   },
 
   getOrdersInDateRange(
@@ -20,10 +20,6 @@ export const orderService = {
     endDate: Date,
   ): Promise<OrderSummary[]> {
     return orderRepository.findManyInDateRange(startDate, endDate);
-  },
-
-  getRecentOrders(limit: number): Promise<OrderSummary[]> {
-    return orderRepository.findMany(limit);
   },
 
   async getDetail(id: string, userId?: string): Promise<OrderDetail | null> {

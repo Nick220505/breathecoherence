@@ -77,7 +77,7 @@ export const dashboardService = {
 
   async getRecentActivityData(): Promise<RecentActivityData[]> {
     const [recentOrders, recentUsers] = await Promise.all([
-      orderService.getRecentOrders(5),
+      orderService.getAll(5),
       userService.getAll(5),
     ]);
 
