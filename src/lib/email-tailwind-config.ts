@@ -1,4 +1,4 @@
-import type { TailwindConfig } from '@react-email/tailwind';
+import type { TailwindConfig } from '@react-email/components';
 
 export const emailTailwindConfig: TailwindConfig = {
   theme: {
