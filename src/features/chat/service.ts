@@ -1,8 +1,8 @@
 import type { ProductWithCategory } from '@/features/product/schemas';
-import { genAI } from '@/lib/gemini';
+import { model } from '@/lib/gemini';
 
 import { buildSystemPrompt, PRODUCT_RECOMMENDATION_FORMAT } from './prompts';
-import type { ChatHistoryMessage } from './types';
+import type { ChatHistoryMessage } from './schemas';
 
 export const chatService = {
   async processChat(
@@ -30,8 +30,6 @@ export const chatService = {
     chatHistory: ChatHistoryMessage[],
     systemPrompt: string,
   ): Promise<string> {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-
     const enhancedPrompt = `${systemPrompt}${PRODUCT_RECOMMENDATION_FORMAT}`;
 
     const chat = model.startChat();

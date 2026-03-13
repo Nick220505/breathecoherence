@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
 import { hasLocale } from 'next-intl';
 
+import { chatRequestSchema } from '@/features/chat/schemas';
 import { chatService } from '@/features/chat/service';
-import type { ChatRequest } from '@/features/chat/types';
 import { productService } from '@/features/product/service';
 import { routing } from '@/i18n/routing';
-
-export const runtime = 'nodejs';
 
 export const maxDuration = 60;
 
@@ -19,13 +17,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid locale' }, { status: 400 });
     }
 
-    const { message, chatHistory } = (await request.json()) as ChatRequest;
+    const body = await request.json();
+    const { data, error, success } = chatRequestSchema.safeParse(body);
+
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Invalid request', details: error.issues },
+        { status: 400 },
+      );
+    }
 
     const products = await productService.getAll(locale);
 
     const response = await chatService.processChat(
-      message,
-      chatHistory,
+      data.message,
+      data.chatHistory,
       products,
     );
 

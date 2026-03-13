@@ -6,13 +6,3 @@ export interface Message {
   id: string;
   products?: ProductSummary[];
 }
-
-export interface ChatHistoryMessage {
-  role: 'user' | 'assistant';
-  content: string;
-}
-
-export interface ChatRequest {
-  message: string;
-  chatHistory: ChatHistoryMessage[];
-}
