@@ -351,7 +351,7 @@
   },
   "ChatBot": {
     "title": "Asistente de Breathe Coherence",
-    "welcome": "¡Bienvenido a nuestro Asistente de Compras! 👋\n\nPuedo ayudarte con:\n\n1. Productos de Geometría Sagrada\n• Información sobre nuestros Sólidos Platónicos\n• Sus asociaciones elementales\n• Propiedades metafísicas\n• Precios y disponibilidad\n\n2. Remedios Florales de Bach\n• Información sobre cada esencia\n• Beneficios emocionales\n• Recomendaciones personalizadas\n\n¿En qué puedo ayudarte hoy?",
+    "welcome": "¡Bienvenido a nuestro Asistente de Compras! 👋\n\nPuedo ayudarte con:\n\n**Productos de Geometría Sagrada**\n- Información sobre nuestros Sólidos Platónicos\n- Sus asociaciones elementales\n- Propiedades metafísicas\n- Precios y disponibilidad\n\n**Remedios Florales de Bach**\n- Información sobre cada esencia\n- Beneficios emocionales\n- Recomendaciones personalizadas\n\n¿En qué puedo ayudarte hoy?",
     "error": "Lo siento, tengo problemas para conectarme ahora. Por favor intenta más tarde.",
     "typing": "Escribiendo...",
     "input_placeholder": "Escribe tu mensaje...",
