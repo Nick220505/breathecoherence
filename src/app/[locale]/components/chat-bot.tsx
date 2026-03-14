@@ -10,8 +10,8 @@ import ReactMarkdown from 'react-markdown';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import type { ChatResponse } from '@/features/chat/schemas';
 import type { Message } from '@/features/chat/types';
-import type { ProductSummary } from '@/features/product/schemas';
 import { Link } from '@/i18n/routing';
 
 const chatBotVariants: Variants = {
@@ -89,31 +89,7 @@ export function ChatBot() {
     scrollToBottom();
   }, [messages]);
 
-  const extractProductRecs = (message: string) => {
-    const productRecs: ProductSummary[] = [];
-    const seenProductIds = new Set<string>();
-    const regex = /\[PRODUCT_REC\](.*?)\[\/PRODUCT_REC\]/g;
-    let match;
-
-    while ((match = regex.exec(message)) !== null) {
-      try {
-        const product = JSON.parse(match[1]) as ProductSummary;
-        if (product.id && !seenProductIds.has(product.id)) {
-          productRecs.push(product);
-          seenProductIds.add(product.id);
-        }
-      } catch {
-        continue;
-      }
-    }
-
-    const cleanMessage = message
-      .replace(/\[PRODUCT_REC\].*?\[\/PRODUCT_REC\]/g, '')
-      .trim();
-    return { cleanMessage, productRecs };
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
 
@@ -126,27 +102,25 @@ export function ChatBot() {
     setIsTyping(true);
 
     try {
-      const processedMessage = userMessage;
       const chatResponse = await fetch(`/api/chat?locale=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          message: processedMessage,
+          message: userMessage,
           chatHistory: messages.map(({ role, content }) => ({ role, content })),
         }),
       });
 
-      const data = (await chatResponse.json()) as { response: string };
-      const finalResponse = data.response;
-      const { cleanMessage, productRecs } = extractProductRecs(finalResponse);
+      const { response, recommendedProducts } =
+        (await chatResponse.json()) as ChatResponse;
 
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: cleanMessage,
+          content: response,
           id: Date.now().toString(),
-          products: productRecs,
+          products: recommendedProducts,
         },
       ]);
     } catch {

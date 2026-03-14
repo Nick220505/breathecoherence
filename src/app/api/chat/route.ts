@@ -3,7 +3,6 @@ import { hasLocale } from 'next-intl';
 
 import { chatRequestSchema } from '@/features/chat/schemas';
 import { chatService } from '@/features/chat/service';
-import { productService } from '@/features/product/service';
 import { routing } from '@/i18n/routing';
 
 export const maxDuration = 60;
@@ -27,15 +26,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const products = await productService.getAll(locale);
-
-    const response = await chatService.processChat(
+    const chatResponse = await chatService.processChat(
       data.message,
       data.chatHistory,
-      products,
+      locale,
     );
 
-    return NextResponse.json({ response });
+    return NextResponse.json(chatResponse);
   } catch {
     return NextResponse.json(
       { error: 'Failed to process chat request' },

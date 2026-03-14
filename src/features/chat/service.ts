@@ -1,62 +1,48 @@
-import type { ProductWithCategory } from '@/features/product/schemas';
-import { model } from '@/lib/gemini';
+import { generateText, Output } from 'ai';
 
-import { buildSystemPrompt, PRODUCT_RECOMMENDATION_FORMAT } from './prompts';
-import type { ChatHistoryMessage } from './schemas';
+import { model } from '@/lib/gemini';
+import type { Locale } from '@/i18n/routing';
+import { productService } from '@/features/product/service';
+
+import { createSystemPrompt } from './prompts';
+import {
+  chatResponseSchema,
+  type ChatHistoryMessage,
+  type ChatResponse,
+} from './schemas';
 
 export const chatService = {
   async processChat(
     message: string,
     chatHistory: ChatHistoryMessage[],
-    products: ProductWithCategory[],
-  ): Promise<string> {
+    locale: Locale,
+  ): Promise<ChatResponse> {
     try {
-      const systemPrompt = buildSystemPrompt(products);
-      const response = await this.getChatResponse(
-        message,
-        chatHistory,
-        systemPrompt,
-      );
+      const products = await productService.getAll(locale);
 
-      return this.processProductRecommendations(response, products);
+      const { output } = await generateText({
+        model,
+        system: createSystemPrompt(products),
+        messages: [
+          ...chatHistory,
+          {
+            role: 'user',
+            content: message,
+          },
+        ],
+        output: Output.object({
+          schema: chatResponseSchema,
+        }),
+      });
+
+      return output;
     } catch (error) {
       console.error('Error processing chat:', error);
-      return "I apologize, but I'm having trouble processing your request at the moment. Please try again later.";
+      return {
+        response:
+          "I apologize, but I'm having trouble processing your request at the moment. Please try again later.",
+        recommendedProducts: [],
+      };
     }
-  },
-
-  async getChatResponse(
-    userMessage: string,
-    chatHistory: ChatHistoryMessage[],
-    systemPrompt: string,
-  ): Promise<string> {
-    const enhancedPrompt = `${systemPrompt}${PRODUCT_RECOMMENDATION_FORMAT}`;
-
-    const chat = model.startChat();
-
-    await chat.sendMessage(enhancedPrompt);
-
-    for (const msg of chatHistory) {
-      await chat.sendMessage(msg.content);
-    }
-
-    const { response } = await chat.sendMessage(userMessage);
-
-    return response.text();
-  },
-
-  processProductRecommendations(
-    response: string,
-    products: ProductWithCategory[],
-  ): string {
-    const recRegex = /\[PRODUCT_REC:([\w-]+)\]/g;
-
-    return response.replace(recRegex, (_match, productId) => {
-      const product = products.find((p) => p.id === productId);
-      if (product) {
-        return `[PRODUCT_REC]${JSON.stringify(product)}[/PRODUCT_REC]`;
-      }
-      return '';
-    });
   },
 };
