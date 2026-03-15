@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion, type Variants } from 'motion/react';
-import { Bot, MessageCircle, Minimize2, Send, X } from 'lucide-react';
+import { Bot, MessageCircle, Send, X } from 'lucide-react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
@@ -60,7 +60,13 @@ export function ChatBot() {
   const t = useTranslations('ChatBot');
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: Date.now().toString(),
+      role: 'assistant',
+      content: t('welcome'),
+    },
+  ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -71,19 +77,13 @@ export function ChatBot() {
   };
 
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      setMessages([
-        {
-          role: 'assistant',
-          content: t('welcome'),
-          id: Date.now().toString(),
-        },
-      ]);
-    }
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 300);
+      setTimeout(() => {
+        inputRef.current?.focus();
+        scrollToBottom();
+      }, 600);
     }
-  }, [isOpen, messages.length, t]);
+  }, [isOpen]);
 
   useEffect(() => {
     scrollToBottom();
@@ -97,7 +97,7 @@ export function ChatBot() {
     setInput('');
     setMessages((prev) => [
       ...prev,
-      { role: 'user', content: userMessage, id: Date.now().toString() },
+      { id: Date.now().toString(), role: 'user', content: userMessage },
     ]);
     setIsTyping(true);
 
@@ -117,9 +117,9 @@ export function ChatBot() {
       setMessages((prev) => [
         ...prev,
         {
+          id: Date.now().toString(),
           role: 'assistant',
           content: response,
-          id: Date.now().toString(),
           products: recommendedProducts,
         },
       ]);
@@ -130,6 +130,7 @@ export function ChatBot() {
       ]);
     } finally {
       setIsTyping(false);
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   };
 
@@ -173,29 +174,15 @@ export function ChatBot() {
                 <Bot className="h-5 w-5" />
                 <h2 className="font-semibold">{t('title')}</h2>
               </div>
-              <div className="flex gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsOpen(false)}
-                  title={t('minimize')}
-                >
-                  <Minimize2 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => {
-                    setIsOpen(false);
-                    setMessages([]);
-                  }}
-                  title={t('close')}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 transition-colors duration-200 hover:bg-white/20"
+                onClick={() => setIsOpen(false)}
+                title={t('close')}
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </motion.div>
 
             <div className="custom-scrollbar flex-1 space-y-4 overflow-y-auto p-4">
@@ -226,9 +213,9 @@ export function ChatBot() {
                           return (
                             <div
                               key={product.id}
-                              className="flex items-center justify-between rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                              className="bg-background/50 hover:bg-background/80 flex items-center justify-between gap-3 rounded-lg border border-purple-500/20 p-3 transition-colors"
                             >
-                              <div className="flex items-center space-x-2">
+                              <div className="flex min-w-0 flex-1 items-center gap-3">
                                 <Image
                                   src={
                                     product.imageBase64 ??
@@ -238,13 +225,15 @@ export function ChatBot() {
                                       : '/products/flower-essence.svg')
                                   }
                                   alt={product.name ?? 'Product image'}
-                                  width={80}
-                                  height={80}
-                                  className="rounded-md"
+                                  width={50}
+                                  height={50}
+                                  className="flex-shrink-0 rounded-md"
                                 />
-                                <div>
-                                  <p className="font-medium">{product.name}</p>
-                                  <p className="text-muted-foreground text-sm">
+                                <div className="flex-1">
+                                  <p className="text-sm font-medium">
+                                    {product.name}
+                                  </p>
+                                  <p className="text-muted-foreground text-xs">
                                     $
                                     {typeof product.price === 'number'
                                       ? product.price.toFixed(2)
@@ -257,9 +246,18 @@ export function ChatBot() {
                                   pathname: '/store/product/[id]',
                                   params: { id: product.id ?? '' },
                                 }}
-                                className="text-primary text-sm hover:underline"
                               >
-                                {t('view_details')}
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="h-auto flex-shrink-0 border-purple-500/30 px-3 py-2 text-xs leading-tight hover:bg-purple-500/10"
+                                >
+                                  <span className="text-center">
+                                    {t('view_details').split(' ')[0]}
+                                    <br />
+                                    {t('view_details').split(' ')[1]}
+                                  </span>
+                                </Button>
                               </Link>
                             </div>
                           );
