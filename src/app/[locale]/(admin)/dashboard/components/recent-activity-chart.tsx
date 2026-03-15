@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 import { getRecentActivityData } from '@/features/dashboard/actions';
 
@@ -51,14 +52,15 @@ export async function RecentActivityChart() {
                   className="bg-muted/50 flex items-start space-x-3 rounded-lg p-3"
                 >
                   <div
-                    className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                    className={cn(
+                      'flex h-8 w-8 items-center justify-center rounded-full',
                       {
                         order:
                           'bg-orange-100 text-orange-600 dark:bg-orange-900/20',
                         user: 'bg-purple-100 text-purple-600 dark:bg-purple-900/20',
                       }[activity.type] ??
-                      'bg-gray-100 text-gray-600 dark:bg-gray-900/20'
-                    }`}
+                        'bg-gray-100 text-gray-600 dark:bg-gray-900/20',
+                    )}
                   >
                     {{
                       order: <ShoppingCart className="h-4 w-4" />,

@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/card';
 import { StockStatusBadge } from '@/components/ui/stock-status-badge';
 import { Link } from '@/i18n/routing';
+import { cn } from '@/lib/utils';
 
 interface ProductCardProps {
   product: Product;
@@ -78,9 +79,10 @@ export function ProductCard({
               alt={product.name}
               width={400}
               height={400}
-              className={`aspect-square w-full transform rounded-lg object-cover transition-transform duration-300 group-hover:scale-105 ${
-                isOutOfStock ? 'opacity-60 grayscale' : ''
-              }`}
+              className={cn(
+                'aspect-square w-full transform rounded-lg object-cover transition-transform duration-300 group-hover:scale-105',
+                isOutOfStock && 'opacity-60 grayscale',
+              )}
               priority
               sizes="(max-width: 768px) 100vw, 400px"
             />
@@ -99,11 +101,12 @@ export function ProductCard({
           <Button
             size="lg"
             disabled={isOutOfStock}
-            className={`shadow-lg transition-all duration-300 ${
+            className={cn(
+              'shadow-lg transition-all duration-300',
               isOutOfStock
                 ? 'cursor-not-allowed bg-gray-300 text-gray-500 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400'
-                : 'bg-linear-to-r from-purple-600 to-blue-600 text-white group-hover:shadow-xl hover:from-purple-700 hover:to-blue-700'
-            }`}
+                : 'bg-linear-to-r from-purple-600 to-blue-600 text-white group-hover:shadow-xl hover:from-purple-700 hover:to-blue-700',
+            )}
           >
             {t('view_details')}
           </Button>

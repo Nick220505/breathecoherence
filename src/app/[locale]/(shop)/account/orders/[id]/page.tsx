@@ -7,6 +7,7 @@ import { getTranslations } from 'next-intl/server';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { getOrderDetail } from '@/features/order/actions';
+import { cn } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,9 +79,10 @@ export default async function OrderDetailPage({
         <Card className="bg-card/50 overflow-hidden p-6 shadow-lg backdrop-blur-lg">
           <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <span
-              className={`self-start rounded-full px-3 py-1 text-sm font-medium ${
-                statusColorMap[order.status]
-              }`}
+              className={cn(
+                'self-start rounded-full px-3 py-1 text-sm font-medium',
+                statusColorMap[order.status],
+              )}
             >
               {t(`status_${order.status.toLowerCase()}`)}
             </span>

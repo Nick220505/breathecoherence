@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import type { ProductWithCategory } from '@/features/product/schemas';
+import { cn } from '@/lib/utils';
 
 import { CustomBlendCard } from './product/custom-blend-card';
 import { ProductCard } from './product/product-card';
@@ -55,14 +56,15 @@ export function StoreContent({
       {products.map((product, index) => (
         <div
           key={product.id}
-          className={`animate-in fade-in slide-in-from-bottom-4 duration-500 ${
+          className={cn(
+            'animate-in fade-in slide-in-from-bottom-4 duration-500',
             {
               1: 'delay-100',
               2: 'delay-200',
               3: 'delay-300',
               4: 'delay-400',
-            }[index] ?? (index >= 5 ? 'delay-500' : '')
-          }`}
+            }[index] ?? (index >= 5 ? 'delay-500' : ''),
+          )}
         >
           <ProductCard
             product={product}

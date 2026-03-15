@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/table';
 import { getOrdersByUser } from '@/features/order/actions';
 import { Link } from '@/i18n/routing';
+import { cn } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -95,9 +96,10 @@ export default async function OrderHistoryPage({
                   </TableCell>
                   <TableCell>
                     <span
-                      className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
-                        statusColorMap[order.status]
-                      }`}
+                      className={cn(
+                        'inline-block rounded-full px-2 py-1 text-xs font-medium',
+                        statusColorMap[order.status],
+                      )}
                     >
                       {t(order.status.toLowerCase())}
                     </span>

@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import type { ProductStockData } from '@/features/dashboard/types';
+import { cn } from '@/lib/utils';
 
 interface TooltipProps {
   active?: boolean;
@@ -25,15 +26,16 @@ export function ProductStockTooltip({ active, payload }: TooltipProps) {
             {t('stock')}: {data.stock} {t('units')}
           </span>
           <span
-            className={`text-xs font-medium ${
+            className={cn(
+              'text-xs font-medium',
               data.stock === 0
                 ? 'text-red-600'
                 : data.stock <= 5
                   ? 'text-yellow-600'
                   : data.stock <= 20
                     ? 'text-blue-600'
-                    : 'text-green-600'
-            }`}
+                    : 'text-green-600',
+            )}
           >
             {data.stock === 0
               ? t('outOfStock')

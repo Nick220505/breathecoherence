@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
+import { cn } from '@/lib/utils';
 
 interface NavigationCategoryButtonProps {
   categoryName: string;
@@ -28,7 +29,10 @@ export function NavigationCategoryButton({
     >
       <Button
         variant="ghost"
-        className={`hover:bg-primary/10 flex w-full items-center justify-start gap-2 transition-colors duration-300 md:w-auto ${active ? 'bg-primary/10 font-semibold' : ''}`}
+        className={cn(
+          'hover:bg-primary/10 flex w-full items-center justify-start gap-2 transition-colors duration-300 md:w-auto',
+          active && 'bg-primary/10 font-semibold',
+        )}
       >
         {categoryName}
       </Button>
