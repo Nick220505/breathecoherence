@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import type { Checkout } from '@/features/order/schemas';
+import { cn } from '@/lib/utils';
 
 interface ShippingFormFieldsProps {
   form: UseFormReturn<Checkout>;
@@ -59,7 +60,7 @@ export function ShippingFormFields({
           <Input
             id="name"
             {...register('name')}
-            className={errors.name ? 'border-red-500' : ''}
+            className={cn(errors.name && 'border-red-500')}
             placeholder={t('placeholder.name')}
           />
           {errors.name && (
@@ -86,7 +87,7 @@ export function ShippingFormFields({
             id="email"
             type="email"
             {...register('email')}
-            className={errors.email ? 'border-red-500' : ''}
+            className={cn(errors.email && 'border-red-500')}
             placeholder={t('placeholder.email')}
           />
           {errors.email && (
@@ -112,7 +113,7 @@ export function ShippingFormFields({
           <Input
             id="address"
             {...register('address')}
-            className={errors.address ? 'border-red-500' : ''}
+            className={cn(errors.address && 'border-red-500')}
             placeholder={t('placeholder.address')}
           />
           {errors.address && (
@@ -139,7 +140,7 @@ export function ShippingFormFields({
             <Input
               id="city"
               {...register('city')}
-              className={errors.city ? 'border-red-500' : ''}
+              className={cn(errors.city && 'border-red-500')}
               placeholder={t('placeholder.city')}
             />
             {errors.city && (
@@ -168,7 +169,7 @@ export function ShippingFormFields({
                 void trigger('state');
               }}
             >
-              <SelectTrigger className={errors.state ? 'border-red-500' : ''}>
+              <SelectTrigger className={cn(errors.state && 'border-red-500')}>
                 <SelectValue placeholder={t('placeholder.state')} />
               </SelectTrigger>
               <SelectContent>
@@ -247,7 +248,7 @@ export function ShippingFormFields({
             <Input
               id="postalCode"
               {...register('postalCode')}
-              className={errors.postalCode ? 'border-red-500' : ''}
+              className={cn(errors.postalCode && 'border-red-500')}
               placeholder={t('placeholder.zip_code')}
             />
             {errors.postalCode && (
