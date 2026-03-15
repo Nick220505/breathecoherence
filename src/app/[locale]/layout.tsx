@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 
 import { Toaster } from '@/components/ui/sonner';
-import { routing } from '@/i18n/routing';
+import { Locale, routing } from '@/i18n/routing';
 import { Providers } from '@/providers';
 
 import { ChatBot } from './components/chat-bot';
@@ -21,11 +21,11 @@ export default async function LocaleLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }>) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as 'en' | 'es')) notFound();
+  if (!routing.locales.includes(locale)) notFound();
 
   setRequestLocale(locale);
 

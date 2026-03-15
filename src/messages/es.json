@@ -87,7 +87,19 @@
     }
   },
   "LanguageToggle": {
-    "toggle_language": "Cambiar idioma"
+    "toggle_language": "Cambiar idioma",
+    "languages": {
+      "en": {
+        "name": "English",
+        "flag": "🇺🇸",
+        "label": "Cambiar a Inglés"
+      },
+      "es": {
+        "name": "Español",
+        "flag": "🇪🇸",
+        "label": "Cambiar a Español"
+      }
+    }
   },
   "StoreHeader": {
     "title": "Nuestros Productos",

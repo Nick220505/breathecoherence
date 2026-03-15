@@ -12,38 +12,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { usePathname, useRouter } from '@/i18n/routing';
-
-type SupportedLanguage = 'en' | 'es';
-
-const languages = {
-  en: {
-    name: 'English',
-    flag: '🇺🇸',
-    label: 'Switch to English',
-  },
-  es: {
-    name: 'Español',
-    flag: '🇪🇸',
-    label: 'Cambiar a Español',
-  },
-} as const satisfies Record<
-  SupportedLanguage,
-  {
-    name: string;
-    flag: string;
-    label: string;
-  }
->;
+import { Locale, routing, usePathname, useRouter } from '@/i18n/routing';
 
 export function LanguageToggle() {
   const t = useTranslations('LanguageToggle');
   const router = useRouter();
   const pathname = usePathname();
-  const currentLocale = useLocale() as SupportedLanguage;
+  const currentLocale = useLocale();
   const params = useParams();
 
-  const handleLanguageChange = (newLanguage: SupportedLanguage) => {
+  const handleLanguageChange = (newLanguage: Locale) => {
     if (pathname === '/store/product/[id]') {
       const productId = params?.id as string;
       if (productId) {
@@ -93,26 +71,21 @@ export function LanguageToggle() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-40">
-          {(
-            Object.entries(languages) as [
-              SupportedLanguage,
-              (typeof languages)[SupportedLanguage],
-            ][]
-          ).map(([code, { name, flag, label }]) => (
+          {routing.locales.map((locale) => (
             <DropdownMenuItem
-              key={code}
-              onClick={() => handleLanguageChange(code)}
+              key={locale}
+              onClick={() => handleLanguageChange(locale)}
               className="hover:bg-accent/50 focus:bg-accent flex cursor-pointer items-center justify-between"
-              aria-label={label}
-              aria-current={currentLocale === code ? 'true' : undefined}
+              aria-label={t(`languages.${locale}.label`)}
+              aria-current={currentLocale === locale ? 'true' : undefined}
             >
               <div className="flex items-center gap-2">
                 <span className="text-base" aria-hidden="true">
-                  {flag}
+                  {t(`languages.${locale}.flag`)}
                 </span>
-                <span>{name}</span>
+                <span>{t(`languages.${locale}.name`)}</span>
               </div>
-              {currentLocale === code && (
+              {currentLocale === locale && (
                 <Check className="h-4 w-4" aria-hidden="true" />
               )}
             </DropdownMenuItem>

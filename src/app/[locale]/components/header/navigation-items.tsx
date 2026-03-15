@@ -8,7 +8,7 @@ import { AdminDashboardLink } from './admin-dashboard-link';
 import { NavigationCategoryButton } from './navigation-category-button';
 
 export async function NavigationItems() {
-  const locale = (await getLocale()) ?? 'en';
+  const locale = await getLocale();
   const t = await getTranslations('NavigationItems');
 
   const { data: categories, serverError } = await getAllCategories();
