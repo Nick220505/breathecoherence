@@ -1,10 +1,9 @@
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 
-interface TypingIndicatorProps {
-  typingText: string;
-}
+export function TypingIndicator() {
+  const t = useTranslations('TypingIndicator');
 
-export function TypingIndicator({ typingText }: TypingIndicatorProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -21,24 +20,16 @@ export function TypingIndicator({ typingText }: TypingIndicatorProps) {
             />
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                delay: 0.2,
-              }}
+              transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
               className="h-2 w-2 rounded-full bg-purple-500"
             />
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                delay: 0.4,
-              }}
+              transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
               className="h-2 w-2 rounded-full bg-purple-500"
             />
           </div>
-          <span className="text-muted-foreground text-sm">{typingText}</span>
+          <span className="text-muted-foreground text-sm">{t('typing')}</span>
         </div>
       </div>
     </motion.div>

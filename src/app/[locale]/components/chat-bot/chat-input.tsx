@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Send } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,9 +8,8 @@ import { Input } from '@/components/ui/input';
 interface ChatInputProps {
   value: string;
   onChange: (value: string) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;
   disabled: boolean;
-  placeholder: string;
   inputRef: React.RefObject<HTMLInputElement | null>;
 }
 
@@ -18,9 +18,10 @@ export function ChatInput({
   onChange,
   onSubmit,
   disabled,
-  placeholder,
   inputRef,
 }: ChatInputProps) {
+  const t = useTranslations('ChatInput');
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,7 +34,7 @@ export function ChatInput({
           ref={inputRef}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
+          placeholder={t('placeholder')}
           disabled={disabled}
           className="bg-background/50 rounded-xl border-purple-500/20 text-sm focus:border-purple-500"
         />

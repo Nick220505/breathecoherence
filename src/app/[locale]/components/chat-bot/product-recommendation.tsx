@@ -1,27 +1,17 @@
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
+import type { ProductSummary } from '@/features/product/schemas';
 import { Link } from '@/i18n/routing';
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  imageBase64?: string | null;
-  category?: {
-    name: string;
-  } | null;
-}
-
 interface ProductRecommendationProps {
-  product: Product;
-  viewDetailsText: string;
+  product: ProductSummary;
 }
 
-export function ProductRecommendation({
-  product,
-  viewDetailsText,
-}: ProductRecommendationProps) {
+export function ProductRecommendation({ product }: ProductRecommendationProps) {
+  const t = useTranslations('ProductRecommendation');
+
   return (
     <div
       key={product.id}
@@ -35,7 +25,7 @@ export function ProductRecommendation({
               ? '/products/sacred-geometry.svg'
               : '/products/flower-essence.svg')
           }
-          alt={product.name ?? 'Product image'}
+          alt={product.name}
           width={50}
           height={50}
           className="flex-shrink-0 rounded-md"
@@ -43,18 +33,12 @@ export function ProductRecommendation({
         <div className="flex-1">
           <p className="text-sm font-medium">{product.name}</p>
           <p className="text-muted-foreground text-xs">
-            $
-            {typeof product.price === 'number'
-              ? product.price.toFixed(2)
-              : '0.00'}
+            ${product.price.toFixed(2)}
           </p>
         </div>
       </div>
       <Link
-        href={{
-          pathname: '/store/product/[id]',
-          params: { id: product.id ?? '' },
-        }}
+        href={{ pathname: '/store/product/[id]', params: { id: product.id } }}
       >
         <Button
           size="sm"
@@ -62,9 +46,9 @@ export function ProductRecommendation({
           className="h-auto flex-shrink-0 border-purple-500/30 px-3 py-2 text-xs leading-tight hover:bg-purple-500/10"
         >
           <span className="text-center">
-            {viewDetailsText.split(' ')[0]}
+            {t('view_details').split(' ')[0]}
             <br />
-            {viewDetailsText.split(' ')[1]}
+            {t('view_details').split(' ')[1]}
           </span>
         </Button>
       </Link>

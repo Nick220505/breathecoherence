@@ -16,13 +16,7 @@ interface ChatWindowProps {
   inputRef: React.RefObject<HTMLInputElement | null>;
   onClose: () => void;
   onInputChange: (value: string) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  title: string;
-  closeLabel: string;
-  inputPlaceholder: string;
-  recommendedProductsLabel: string;
-  viewDetailsText: string;
-  typingText: string;
+  onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;
 }
 
 export function ChatWindow({
@@ -34,12 +28,6 @@ export function ChatWindow({
   onClose,
   onInputChange,
   onSubmit,
-  title,
-  closeLabel,
-  inputPlaceholder,
-  recommendedProductsLabel,
-  viewDetailsText,
-  typingText,
 }: ChatWindowProps) {
   return (
     <motion.div
@@ -50,21 +38,17 @@ export function ChatWindow({
       className="fixed right-4 bottom-4 z-50"
     >
       <Card className="bg-background/95 flex h-[600px] w-[calc(100vw-2rem)] flex-col gap-0 overflow-hidden rounded-2xl border border-purple-500/20 py-0 shadow-2xl backdrop-blur-lg sm:w-[400px]">
-        <ChatHeader title={title} closeLabel={closeLabel} onClose={onClose} />
+        <ChatHeader onClose={onClose} />
         <ChatMessages
           messages={messages}
           isTyping={isTyping}
           messagesEndRef={messagesEndRef}
-          recommendedProductsLabel={recommendedProductsLabel}
-          viewDetailsText={viewDetailsText}
-          typingText={typingText}
         />
         <ChatInput
           value={input}
           onChange={onInputChange}
           onSubmit={onSubmit}
           disabled={isTyping}
-          placeholder={inputPlaceholder}
           inputRef={inputRef}
         />
       </Card>

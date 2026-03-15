@@ -43,7 +43,7 @@ export function ChatBot() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
 
@@ -80,14 +80,13 @@ export function ChatBot() {
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: t('error'), id: Date.now().toString() },
+        { id: Date.now().toString(), role: 'assistant', content: t('error') },
       ]);
     } finally {
       setIsTyping(false);
       setTimeout(() => inputRef.current?.focus(), 100);
     }
   };
-
   return (
     <AnimatePresence mode="wait">
       {!isOpen ? (
@@ -102,13 +101,7 @@ export function ChatBot() {
           inputRef={inputRef}
           onClose={() => setIsOpen(false)}
           onInputChange={setInput}
-          onSubmit={(e) => void handleSubmit(e)}
-          title={t('title')}
-          closeLabel={t('close')}
-          inputPlaceholder={t('input_placeholder')}
-          recommendedProductsLabel={t('recommended_products')}
-          viewDetailsText={t('view_details')}
-          typingText={t('typing')}
+          onSubmit={handleSubmit}
         />
       )}
     </AnimatePresence>
